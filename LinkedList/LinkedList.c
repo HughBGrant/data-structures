@@ -41,12 +41,10 @@ void SLL_AppendNode(Node** Head, ElementType NewData)
 Node* SLL_GetNodeAt(Node* Head, int Location)
 {
     Node* Current = Head;
-    printf("%p\n", Current);
 
     while (Current != NULL && (--Location) >= 0)
     {
         Current = Current->NextNode;
-        printf("%p\n", Current);
     }
     return Current;
 
@@ -58,6 +56,11 @@ void SLL_RemoveNode(Node** Head, int Location)
         return;
     }
     Node* Remove = SLL_GetNodeAt(*Head, Location);
+
+    if (Remove == NULL)
+    {
+        return;
+    }
     printf("Destroying Node : %d\n", Remove->Data);
 
     if (*Head == Remove)
@@ -78,8 +81,13 @@ void SLL_RemoveNode(Node** Head, int Location)
     }
     SLL_DestroyNode(Remove);
 }
-void SLL_InsertAfter(Node* Current, ElementType NewData)
+void SLL_InsertAfter(Node* Head, int Location, ElementType NewData)
 {
+    Node* Current = SLL_GetNodeAt(Head, Location);
+    if (Current == NULL)
+    {
+        return;
+    }
     Node* NewNode = SLL_CreateNode(NewData);
     NewNode->NextNode = Current->NextNode;
     Current->NextNode = NewNode;
@@ -87,6 +95,10 @@ void SLL_InsertAfter(Node* Current, ElementType NewData)
 void SLL_InsertBefore(Node** Head, int Location, ElementType NewData)
 {
     Node* Current = SLL_GetNodeAt(*Head, Location);
+    if (Current == NULL)
+    {
+        return;
+    }
     Node* NewNode = SLL_CreateNode(NewData);
 
     if (*Head == Current)
@@ -135,11 +147,9 @@ void SLL_DestroyAllNodes(Node** Head)
 int main(void)
 {
     int i = 0;
-    int Count = 0;
 
     Node* List = NULL;
-    Node* Current = NULL;
-    Node* NewNode = NULL;
+
     for (i = 0; i < 5; i++)
     {
         SLL_AppendNode(&List, i);
@@ -147,30 +157,35 @@ int main(void)
 
     SLL_AppendNode(&List, -1);
     SLL_AppendNode(&List, -2);
-    Count = SLL_GetNodeCount(List);
 
-    for (i = 0; i < Count; i++)
+    for (i = 0; i < SLL_GetNodeCount(List); i++)
     {
         printf("List[%d] : %d\n", i, SLL_GetNodeAt(List, i)->Data);
     }
-    printf("\nInserting 3000 After [2]...\n\n");
+    printf("\nInserting 3000 Before [2]...\n\n");
 
     SLL_InsertBefore(&List, 2, 3000);
 
-    Count = SLL_GetNodeCount(List);
 
-    for (i = 0; i < Count; i++)
+    for (i = 0; i < SLL_GetNodeCount(List); i++)
+    {
+        printf("List[%d] : %d\n", i, SLL_GetNodeAt(List, i)->Data);
+    }
+    printf("\nInserting 2000 After [2]...\n\n");
+    SLL_InsertAfter(List, 2, 2000);
+
+
+    for (i = 0; i < SLL_GetNodeCount(List); i++)
     {
         printf("List[%d] : %d\n", i, SLL_GetNodeAt(List, i)->Data);
     }
 
     printf("\nDestroying List...\n");
+    int Count = SLL_GetNodeCount(List);
 
-    for (i = 0; i < Count; i++)
+    while (List != NULL)
     {
-
         SLL_RemoveNode(&List, 0);
-        
     }
     return 0;
 }
