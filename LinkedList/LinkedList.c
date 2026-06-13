@@ -16,9 +16,11 @@ Node* SLL_CreateNode(ElementType NewData)
     NewNode->NextNode = NULL;
     return NewNode;
 }
-void SLL_DestroyNode(Node* Node)
+void SLL_InsertNewHead(Node** Head, ElementType NewData)
 {
-    free(Node);
+    Node* NewHead = SLL_CreateNode(NewData);
+    NewHead->NextNode = *Head;
+    *Head = NewHead;
 }
 void SLL_AppendNode(Node** Head, ElementType NewData)
 {
@@ -47,7 +49,49 @@ Node* SLL_GetNodeAt(Node* Head, int Location)
         Current = Current->NextNode;
     }
     return Current;
+}
+void SLL_InsertBefore(Node** Head, int Location, ElementType NewData)
+{
+    Node* Current = SLL_GetNodeAt(*Head, Location);
+    if (Current == NULL)
+    {
+        return;
+    }
+    Node* NewNode = SLL_CreateNode(NewData);
 
+    if (*Head == Current)
+    {
+        NewNode->NextNode = Current;
+        *Head = NewNode;
+    }
+    else
+    {
+        Node* Before = *Head;
+        while (Before != NULL && Before->NextNode != Current)
+        {
+            Before = Before->NextNode;
+        }
+        if (Before != NULL)
+        {
+            NewNode->NextNode = Current;
+            Before->NextNode = NewNode;
+        }
+    }
+}
+void SLL_InsertAfter(Node* Head, int Location, ElementType NewData)
+{
+    Node* Current = SLL_GetNodeAt(Head, Location);
+    if (Current == NULL)
+    {
+        return;
+    }
+    Node* NewNode = SLL_CreateNode(NewData);
+    NewNode->NextNode = Current->NextNode;
+    Current->NextNode = NewNode;
+}
+void SLL_DestroyNode(Node* Node)
+{
+    free(Node);
 }
 void SLL_RemoveNode(Node** Head, int Location)
 {
@@ -81,44 +125,17 @@ void SLL_RemoveNode(Node** Head, int Location)
     }
     SLL_DestroyNode(Remove);
 }
-void SLL_InsertAfter(Node* Head, int Location, ElementType NewData)
+void SLL_DestroyAllNodes(Node** Head)
 {
-    Node* Current = SLL_GetNodeAt(Head, Location);
-    if (Current == NULL)
-    {
-        return;
-    }
-    Node* NewNode = SLL_CreateNode(NewData);
-    NewNode->NextNode = Current->NextNode;
-    Current->NextNode = NewNode;
-}
-void SLL_InsertBefore(Node** Head, int Location, ElementType NewData)
-{
-    Node* Current = SLL_GetNodeAt(*Head, Location);
-    if (Current == NULL)
-    {
-        return;
-    }
-    Node* NewNode = SLL_CreateNode(NewData);
+    Node* Current = *Head;
 
-    if (*Head == Current)
+    while (Current != NULL)
     {
-        NewNode->NextNode = Current;
-        *Head = NewNode;
+        Node* Next = Current->NextNode;
+        SLL_DestroyNode(Current);
+        Current = Next;
     }
-    else
-    {
-        Node* Before = *Head;
-        while (Before != NULL && Before->NextNode != Current)
-        {
-            Before = Before->NextNode;
-        }
-        if (Before != NULL)
-        {
-            NewNode->NextNode = Current;
-            Before->NextNode = NewNode;
-        }
-    }
+    *Head = NULL;
 }
 int SLL_GetNodeCount(Node* Head)
 {
@@ -131,18 +148,6 @@ int SLL_GetNodeCount(Node* Head)
         Count++;
     }
     return Count;
-}
-void SLL_DestroyAllNodes(Node** Head)
-{
-    Node* Current = *Head;
-
-    while (Current != NULL)
-    {
-        Node* Next = Current->NextNode;
-        SLL_DestroyNode(Current);
-        Current = Next;
-    }
-    *Head = NULL;
 }
 int main(void)
 {
