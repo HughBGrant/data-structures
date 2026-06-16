@@ -32,21 +32,20 @@ void DLL_AppendNode(Node** Head, ElementType NewData)
     if (*Head == NULL)
     {
         *Head = NewNode;
+        return;
     }
-    else
+    Node* Tail = *Head;
+    while (Tail->NextNode != NULL)
     {
-        Node* Tail = *Head;
-        while (Tail->NextNode != NULL)
-        {
-            Tail = Tail->NextNode;
-        }
-        Tail->NextNode = NewNode;
-        NewNode->PrevNode = Tail;
+        Tail = Tail->NextNode;
     }
+    Tail->NextNode = NewNode;
+    NewNode->PrevNode = Tail;
+    
 }
 Node* DLL_GetNodeAt(Node* Head, int Location)
 {
-    int Count = CDLL_GetNodeCount(Head);
+    int Count = DLL_GetNodeCount(Head);
 
     if (Location < 0 || Location >= Count)
     {
@@ -76,28 +75,18 @@ void DLL_RemoveNode(Node** Head, int Location)
     }
     printf("Destroying Node : %d\n", Remove->Data);
 
-    if (*Head == Remove)
+    if (Remove->PrevNode != NULL)
     {
-        *Head = Remove->NextNode;
-
-        if (*Head != NULL)
-        {
-            (*Head)->PrevNode = NULL;
-        }
+        Remove->PrevNode->NextNode = Remove->NextNode;
     }
     else
     {
-        if (Remove->PrevNode != NULL)
-        {
-            Remove->PrevNode->NextNode = Remove->NextNode;
-        }
-        if (Remove->NextNode != NULL)
-        {
-            Remove->NextNode->PrevNode = Remove->PrevNode;
-        }
+        *Head = Remove->NextNode;
     }
-    Remove->PrevNode = NULL;
-    Remove->NextNode = NULL;
+    if (Remove->NextNode != NULL)
+    {
+        Remove->NextNode->PrevNode = Remove->PrevNode;
+    }
     DLL_DestroyNode(Remove);
 }
 int DLL_GetNodeCount(Node* Head)

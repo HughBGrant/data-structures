@@ -30,20 +30,19 @@ void SLL_AppendNode(Node** Head, ElementType NewData)
     if (*Head == NULL)
     {
         *Head = NewNode;
+        return;
     }
-    else
+    Node* Tail = *Head;
+    while (Tail->NextNode != NULL)
     {
-        Node* Tail = *Head;
-        while (Tail->NextNode != NULL)
-        {
-            Tail = Tail->NextNode;
-        }
-        Tail->NextNode = NewNode;
+        Tail = Tail->NextNode;
     }
+    Tail->NextNode = NewNode;
+    
 }
 Node* SLL_GetNodeAt(Node* Head, int Location)
 {
-    int Count = CDLL_GetNodeCount(Head);
+    int Count = SLL_GetNodeCount(Head);
 
     if (Location < 0 || Location >= Count)
     {
@@ -59,7 +58,7 @@ Node* SLL_GetNodeAt(Node* Head, int Location)
     }
     return Current;
 }
-void SLL_RemoveNode(Node** Head, int Location)
+void SLL_RemoveNode(Node** Head, int Location)///
 {
     if (*Head == NULL)
     {
@@ -76,23 +75,21 @@ void SLL_RemoveNode(Node** Head, int Location)
     if (*Head == Remove)
     {
         *Head = Remove->NextNode;
+        SLL_DestroyNode(Remove);
+        return;
     }
-    else
+    Node* Current = *Head;
+    while (Current != NULL && Current->NextNode != Remove)
     {
-        Node* Current = *Head;
-        while (Current != NULL && Current->NextNode != Remove)
-        {
-            Current = Current->NextNode;
-        }
-        if (Current != NULL)
-        {
-            Current->NextNode = Remove->NextNode;
-        }
+        Current = Current->NextNode;
     }
-    Remove->NextNode = NULL;
+    if (Current != NULL)
+    {
+        Current->NextNode = Remove->NextNode;
+    }
     SLL_DestroyNode(Remove);
 }
-void SLL_InsertBefore(Node** Head, int Location, ElementType NewData)
+void SLL_InsertBefore(Node** Head, int Location, ElementType NewData)///
 {
     Node* Current = SLL_GetNodeAt(*Head, Location);
     if (Current == NULL)
@@ -105,19 +102,17 @@ void SLL_InsertBefore(Node** Head, int Location, ElementType NewData)
     {
         NewNode->NextNode = Current;
         *Head = NewNode;
+        return;
     }
-    else
+    Node* Before = *Head;
+    while (Before != NULL && Before->NextNode != Current)
     {
-        Node* Before = *Head;
-        while (Before != NULL && Before->NextNode != Current)
-        {
-            Before = Before->NextNode;
-        }
-        if (Before != NULL)
-        {
-            NewNode->NextNode = Current;
-            Before->NextNode = NewNode;
-        }
+        Before = Before->NextNode;
+    }
+    if (Before != NULL)
+    {
+        NewNode->NextNode = Current;
+        Before->NextNode = NewNode;
     }
 }
 void SLL_InsertAfter(Node* Head, int Location, ElementType NewData)
