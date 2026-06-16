@@ -12,8 +12,11 @@ typedef struct tagNode
 Node* SLL_CreateNode(ElementType NewData)
 {
     Node* NewNode = (Node*)malloc(sizeof(Node));
-    NewNode->Data = NewData;
-    NewNode->NextNode = NULL;
+    if (NewNode != NULL)
+    {
+        NewNode->Data = NewData;
+        NewNode->NextNode = NULL;
+    }
     return NewNode;
 }
 void SLL_DestroyNode(Node* Node)
@@ -22,29 +25,37 @@ void SLL_DestroyNode(Node* Node)
 }
 void SLL_AppendNode(Node** Head, ElementType NewData)
 {
-    Node* Tail = SLL_CreateNode(NewData);
+    Node* NewNode = SLL_CreateNode(NewData);
 
     if (*Head == NULL)
     {
-        *Head = Tail;
+        *Head = NewNode;
     }
     else
     {
-        Node* Current = *Head;
-        while (Current->NextNode != NULL)
+        Node* Tail = *Head;
+        while (Tail->NextNode != NULL)
         {
-            Current = Current->NextNode;
+            Tail = Tail->NextNode;
         }
-        Current->NextNode = Tail;
+        Tail->NextNode = NewNode;
     }
 }
 Node* SLL_GetNodeAt(Node* Head, int Location)
 {
+    int Count = CDLL_GetNodeCount(Head);
+
+    if (Location < 0 || Location >= Count)
+    {
+        return;
+    }
+
     Node* Current = Head;
 
-    while (Current != NULL && (--Location) >= 0)
+    while (Current != NULL && Location > 0)
     {
         Current = Current->NextNode;
+        Location--;
     }
     return Current;
 }
