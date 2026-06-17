@@ -76,7 +76,7 @@ void CDLL_InsertAfter(Node* Head, int Location, ElementType NewData)
     NewNode->PrevNode = Current;
     if (Current->NextNode != NULL)
     {
-        NewNode->NextNode->PrevNode = NewNode;
+        Current->NextNode->PrevNode = NewNode;
     }
 
     Current->NextNode = NewNode;
@@ -95,20 +95,19 @@ void CDLL_RemoveNode(Node** Head, int Location)
     }
     printf("Destroying Node : %d\n", Remove->Data);
 
+    if (Remove->NextNode == Remove)
+    {
+        *Head = NULL;
+        CDLL_DestroyNode(Remove);
+        return;
+    }
+    Remove->PrevNode->NextNode = Remove->NextNode;
+    Remove->NextNode->PrevNode = Remove->PrevNode;
+
     if (*Head == Remove)
     {
-        (*Head)->NextNode->PrevNode = (*Head)->PrevNode;
-        (*Head)->PrevNode->NextNode = (*Head)->NextNode;
-        
         *Head = Remove->NextNode;
     }
-    else
-    {
-        Remove->PrevNode->NextNode = Remove->NextNode;
-        Remove->NextNode->PrevNode = Remove->PrevNode;
-    }
-    Remove->PrevNode = NULL;
-    Remove->NextNode = NULL;
     CDLL_DestroyNode(Remove);
 }
 int CDLL_GetNodeCount(Node* Head)

@@ -114,7 +114,7 @@ void DLL_InsertAfter(Node* Head, int Location, ElementType NewData)
     NewNode->PrevNode = Current;
     if (Current->NextNode != NULL)
     {
-        NewNode->NextNode->PrevNode = NewNode;
+        Current->NextNode->PrevNode = NewNode;
     }
 
     Current->NextNode = NewNode;
