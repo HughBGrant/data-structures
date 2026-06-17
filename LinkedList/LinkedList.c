@@ -1,14 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-typedef int ElementType;
-
-typedef struct tagNode
-{
-    ElementType Data;
-    struct tagNode* NextNode;
-} Node;
-
+#include "LinkedList.h"
 Node* SLL_CreateNode(ElementType NewData)
 {
     Node* NewNode = (Node*)malloc(sizeof(Node));

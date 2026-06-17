@@ -1,15 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-typedef int ElementType;
-
-typedef struct tagNode
-{
-    ElementType Data;
-    struct tagNode* PrevNode;
-    struct tagNode* NextNode;
-} Node;
-
+#include "DoublyLinkedList.h"
 Node* DLL_CreateNode(ElementType NewData)
 {
     Node* NewNode = (Node*)malloc(sizeof(Node));
@@ -43,13 +34,25 @@ void DLL_AppendNode(Node** Head, ElementType NewData)
     NewNode->PrevNode = Tail;
     
 }
+unsigned int DLL_GetNodeCount(Node* Head)
+{
+    unsigned int Count = 0;
+    Node* Current = Head;
+
+    while (Current != NULL)
+    {
+        Current = Current->NextNode;
+        Count++;
+    }
+    return Count;
+}
 Node* DLL_GetNodeAt(Node* Head, int Location)
 {
     int Count = DLL_GetNodeCount(Head);
 
     if (Location < 0 || Location >= Count)
     {
-        return;
+        return NULL;
     }
 
     Node* Current = Head;
@@ -88,18 +91,6 @@ void DLL_RemoveNode(Node** Head, int Location)
         Remove->NextNode->PrevNode = Remove->PrevNode;
     }
     DLL_DestroyNode(Remove);
-}
-int DLL_GetNodeCount(Node* Head)
-{
-    unsigned int Count = 0;
-    Node* Current = Head;
-
-    while (Current != NULL)
-    {
-        Current = Current->NextNode;
-        Count++;
-    }
-    return Count;
 }
 void DLL_InsertAfter(Node* Head, int Location, ElementType NewData)
 {

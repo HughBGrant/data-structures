@@ -1,14 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-typedef int ElementType;
-
-typedef struct tagNode
-{
-    ElementType Data;
-    struct tagNode* PrevNode;
-    struct tagNode* NextNode;
-} Node;
+#include "CircularDoublyLinkedList.h"
 
 Node* CDLL_CreateNode(ElementType NewData)
 {
@@ -45,18 +37,35 @@ void CDLL_AppendNode(Node** Head, ElementType NewData)
         Tail->NextNode = NewNode;
     }
 }
+unsigned int CDLL_GetNodeCount(Node* Head)
+{
+    unsigned int Count = 0;
+    Node* Current = Head;
+
+    while (Current != NULL)
+    {
+        Current = Current->NextNode;
+        Count++;
+
+        if (Current == Head)
+        {
+            break;
+        }
+    }
+    return Count;
+}
 Node* CDLL_GetNodeAt(Node* Head, int Location)
 {
     int Count = CDLL_GetNodeCount(Head);
 
     if (Location < 0 || Location >= Count)
     {
-        return;
+        return NULL;
     }
 
     Node* Current = Head;
 
-    while (Current != NULL && Location > 0)
+    while (Location > 0)
     {
         Current = Current->NextNode;
         Location--;
@@ -74,11 +83,8 @@ void CDLL_InsertAfter(Node* Head, int Location, ElementType NewData)
 
     NewNode->NextNode = Current->NextNode;
     NewNode->PrevNode = Current;
-    if (Current->NextNode != NULL)
-    {
-        Current->NextNode->PrevNode = NewNode;
-    }
-
+    Current->NextNode->PrevNode = NewNode;
+    
     Current->NextNode = NewNode;
 }
 void CDLL_RemoveNode(Node** Head, int Location)
@@ -109,23 +115,6 @@ void CDLL_RemoveNode(Node** Head, int Location)
         *Head = Remove->NextNode;
     }
     CDLL_DestroyNode(Remove);
-}
-int CDLL_GetNodeCount(Node* Head)
-{
-    unsigned int Count = 0;
-    Node* Current = Head;
-
-    while (Current != NULL)
-    {
-        Current = Current->NextNode;
-        Count++;
-
-        if (Current == Head)
-        {
-            break;
-        }
-    }
-    return Count;
 }
 //void PrintReverse(Node* Head)
 //{
@@ -223,7 +212,7 @@ int main(void)
         {
             Current = Current->NextNode;
         }
-        printf("List[%d] : %d\n", i, CDLL_GetNodeAt(List, i)->Data);
+        printf("List[%d] : %d\n", i, Current->Data);
     }
 
     printf("\nDestroying List...\n");
