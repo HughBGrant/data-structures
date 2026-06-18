@@ -1,6 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "DoublyLinkedList.h"
+
 Node* DLL_CreateNode(ElementType NewData)
 {
     Node* NewNode = (Node*)malloc(sizeof(Node));

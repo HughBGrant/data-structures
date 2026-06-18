@@ -1,6 +1,8 @@
 #ifndef LINKED_LIST_H
 #define LINKED_LIST_H
 
+#include <stdio.h>
+#include <stdlib.h>
 typedef int ElementType;
 
 typedef struct tagNode

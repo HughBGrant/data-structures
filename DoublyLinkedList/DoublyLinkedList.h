@@ -1,6 +1,9 @@
 #ifndef DOUBLY_LINKED_LIST_H
 #define DOUBLY_LINKED_LIST_H
 
+#include <stdio.h>
+#include <stdlib.h>
+
 typedef int ElementType;
 
 typedef struct tagNode

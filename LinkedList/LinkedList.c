@@ -1,5 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "LinkedList.h"
 Node* SLL_CreateNode(ElementType NewData)
 {

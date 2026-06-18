@@ -1,5 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "CircularDoublyLinkedList.h"
 
 Node* CDLL_CreateNode(ElementType NewData)
