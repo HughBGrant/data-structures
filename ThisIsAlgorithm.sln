@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CircularDoublyLinkedList", 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ArrayStack", "ArrayStack\ArrayStack.vcxproj", "{E0C4C34D-B8A3-4204-BBA2-516183DCFEE8}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LinkedListStack", "LinkedListStack\LinkedListStack.vcxproj", "{04E460DE-BB81-438C-A81D-7F89877CE0F8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -51,6 +53,14 @@ Global
 		{E0C4C34D-B8A3-4204-BBA2-516183DCFEE8}.Release|x64.Build.0 = Release|x64
 		{E0C4C34D-B8A3-4204-BBA2-516183DCFEE8}.Release|x86.ActiveCfg = Release|Win32
 		{E0C4C34D-B8A3-4204-BBA2-516183DCFEE8}.Release|x86.Build.0 = Release|Win32
+		{04E460DE-BB81-438C-A81D-7F89877CE0F8}.Debug|x64.ActiveCfg = Debug|x64
+		{04E460DE-BB81-438C-A81D-7F89877CE0F8}.Debug|x64.Build.0 = Debug|x64
+		{04E460DE-BB81-438C-A81D-7F89877CE0F8}.Debug|x86.ActiveCfg = Debug|Win32
+		{04E460DE-BB81-438C-A81D-7F89877CE0F8}.Debug|x86.Build.0 = Debug|Win32
+		{04E460DE-BB81-438C-A81D-7F89877CE0F8}.Release|x64.ActiveCfg = Release|x64
+		{04E460DE-BB81-438C-A81D-7F89877CE0F8}.Release|x64.Build.0 = Release|x64
+		{04E460DE-BB81-438C-A81D-7F89877CE0F8}.Release|x86.ActiveCfg = Release|Win32
+		{04E460DE-BB81-438C-A81D-7F89877CE0F8}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
