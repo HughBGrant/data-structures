@@ -6,16 +6,11 @@
 
 typedef int ElementType;
 
-typedef struct tagNode
-{
-	ElementType Data;
-} Node;
-
 typedef struct tagArrayStack
 {
 	int Capacity;
 	int Top;
-	Node* Array;
+	ElementType* Array;
 } ArrayStack;
 
 void AS_CreateStack(ArrayStack** Stack, int Capacity);

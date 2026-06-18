@@ -6,22 +6,28 @@ void AS_CreateStack(ArrayStack** Stack, int Capacity)
 
 	if (*Stack != NULL)
 	{
-		(*Stack)->Array = (Node*)malloc(sizeof(Node) * Capacity);
-		(*Stack)->Capacity = Capacity;
-		(*Stack)->Top = -1;
+		(*Stack)->Array = malloc(sizeof(int) * Capacity);
+		if ((*Stack)->Array != NULL)
+		{
+			(*Stack)->Capacity = Capacity;
+			(*Stack)->Top = -1;
+		}
 	}
 }
-
 void AS_DestroyStack(ArrayStack* Stack)
 {
+	if (Stack == NULL)
+	{
+		return;
+	}
 	free(Stack->Array);
-
 	free(Stack);
+	return;
 }
 void AS_Push(ArrayStack* Stack, ElementType Data)
 {
 	Stack->Top++;
-	Stack->Array[Stack->Top].Data = Data;
+	Stack->Array[Stack->Top] = Data;
 }
 ElementType AS_Pop(ArrayStack* Stack)
 {
@@ -29,14 +35,18 @@ ElementType AS_Pop(ArrayStack* Stack)
 	{
 		return;
 	}
-	ElementType Data = Stack->Array[Stack->Top].Data;
+	ElementType Data = Stack->Array[Stack->Top];
 	Stack->Top--;
 
 	return Data;
 }
 ElementType AS_Top(ArrayStack* Stack)
 {
-	return Stack->Array[Stack->Top].Data;
+	if (Stack->Top == -1)
+	{
+		return;
+	}
+	return Stack->Array[Stack->Top];
 }
 int AS_GetSize(ArrayStack* Stack)
 {
@@ -78,6 +88,7 @@ int main(void)
 		else
 			printf("Stack Is Empty.\n");
 	}
+	AS_DestroyStack(Stack);
 
 	return 0;
 }
