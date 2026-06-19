@@ -63,7 +63,6 @@ int AS_IsFull(ArrayStack* Stack)
 
 int main(void)
 {
-	int i = 0;
 	ArrayStack* Stack = NULL;
 
 	AS_CreateStack(&Stack, 10);
@@ -76,11 +75,8 @@ int main(void)
 	printf("Capacity: %d, Size: %d, Top: %d\n",
 		Stack->Capacity, AS_GetSize(Stack), AS_Top(Stack));
 
-	while (AS_GetSize(Stack) >= 1)
+	while (!AS_IsEmpty(Stack))
 	{
-		if (AS_IsEmpty(Stack))
-			break;
-
 		printf("Popped: %d, ", AS_Pop(Stack));
 
 		if (!AS_IsEmpty(Stack))

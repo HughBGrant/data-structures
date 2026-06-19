@@ -155,7 +155,7 @@ void DLL_InsertAfter(Node* Head, int Location, ElementType NewData)
 //    }
 //    *Head = NULL;
 //}
-void PrintReverse(Node* Head)
+void DLL_PrintReverse(Node* Head)
 {
     int i = 0;
 
