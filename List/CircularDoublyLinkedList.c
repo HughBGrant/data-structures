@@ -1,8 +1,8 @@
 #include "CircularDoublyLinkedList.h"
 
-Node* CDLL_CreateNode(ElementType NewData)
+CDLLNode* CDLL_CreateNode(ElementType NewData)
 {
-    Node* NewNode = (Node*)malloc(sizeof(Node));
+    CDLLNode* NewNode = (CDLLNode*)malloc(sizeof(CDLLNode));
     if (NewNode != NULL)
     {
         NewNode->Data = NewData;
@@ -11,13 +11,13 @@ Node* CDLL_CreateNode(ElementType NewData)
     }
     return NewNode;
 }
-void CDLL_DestroyNode(Node* Node)
+void CDLL_DestroyNode(CDLLNode* Node)
 {
     free(Node);
 }
-void CDLL_AppendNode(Node** Head, ElementType NewData)
+void CDLL_AppendNode(CDLLNode** Head, ElementType NewData)
 {
-    Node* NewNode = CDLL_CreateNode(NewData);
+    CDLLNode* NewNode = CDLL_CreateNode(NewData);
 
     if (*Head == NULL)
     {
@@ -27,7 +27,7 @@ void CDLL_AppendNode(Node** Head, ElementType NewData)
     }
     else
     {
-        Node* Tail = (*Head)->PrevNode;
+        CDLLNode* Tail = (*Head)->PrevNode;
 
         NewNode->NextNode = *Head;
         NewNode->PrevNode = Tail;
@@ -35,10 +35,10 @@ void CDLL_AppendNode(Node** Head, ElementType NewData)
         Tail->NextNode = NewNode;
     }
 }
-unsigned int CDLL_GetNodeCount(Node* Head)
+unsigned int CDLL_GetNodeCount(CDLLNode* Head)
 {
     unsigned int Count = 0;
-    Node* Current = Head;
+    CDLLNode* Current = Head;
 
     while (Current != NULL)
     {
@@ -52,7 +52,7 @@ unsigned int CDLL_GetNodeCount(Node* Head)
     }
     return Count;
 }
-Node* CDLL_GetNodeAt(Node* Head, int Location)
+CDLLNode* CDLL_GetNodeAt(CDLLNode* Head, int Location)
 {
     int Count = CDLL_GetNodeCount(Head);
 
@@ -61,7 +61,7 @@ Node* CDLL_GetNodeAt(Node* Head, int Location)
         return NULL;
     }
 
-    Node* Current = Head;
+    CDLLNode* Current = Head;
 
     while (Location > 0)
     {
@@ -70,14 +70,14 @@ Node* CDLL_GetNodeAt(Node* Head, int Location)
     }
     return Current;
 }
-void CDLL_InsertAfter(Node* Head, int Location, ElementType NewData)
+void CDLL_InsertAfter(CDLLNode* Head, int Location, ElementType NewData)
 {
-    Node* Current = CDLL_GetNodeAt(Head, Location);
+    CDLLNode* Current = CDLL_GetNodeAt(Head, Location);
     if (Current == NULL)
     {
         return;
     }
-    Node* NewNode = CDLL_CreateNode(NewData);
+    CDLLNode* NewNode = CDLL_CreateNode(NewData);
 
     NewNode->NextNode = Current->NextNode;
     NewNode->PrevNode = Current;
@@ -85,13 +85,13 @@ void CDLL_InsertAfter(Node* Head, int Location, ElementType NewData)
     
     Current->NextNode = NewNode;
 }
-void CDLL_RemoveNode(Node** Head, int Location)
+void CDLL_RemoveNode(CDLLNode** Head, int Location)
 {
     if (*Head == NULL)
     {
         return;
     }
-    Node* Remove = CDLL_GetNodeAt(*Head, Location);
+    CDLLNode* Remove = CDLL_GetNodeAt(*Head, Location);
 
     if (Remove == NULL)
     {
@@ -178,46 +178,3 @@ void CDLL_RemoveNode(Node** Head, int Location)
 //    }
 //    *Head = NULL;
 //}
-int main(void)
-{
-    int i = 0;
-
-    Node* List = NULL;
-    Node* Current = NULL;
-
-    for (i = 0; i < 5; i++)
-    {
-        CDLL_AppendNode(&List, i);
-    }
-    for (i = 0; i < CDLL_GetNodeCount(List); i++)
-    {
-        printf("List[%d] : %d\n", i, CDLL_GetNodeAt(List, i)->Data);
-    }
-
-    printf("\nInserting 3000 After [2]...\n\n");
-    CDLL_InsertAfter(List, 2, 3000);
-
-    printf("\nRemoving Node at [2]...\n\n");
-    CDLL_RemoveNode(&List, 2);
-
-    for (i = 0; i < CDLL_GetNodeCount(List) * 2; i++)
-    {
-        if (i == 0)
-        {
-            Current = List;
-        }
-        else
-        {
-            Current = Current->NextNode;
-        }
-        printf("List[%d] : %d\n", i, Current->Data);
-    }
-
-    printf("\nDestroying List...\n");
-
-    while (List != NULL)
-    {
-        CDLL_RemoveNode(&List, 0);
-    }
-    return 0;
-}
