@@ -9,7 +9,7 @@ typedef int ElementType;
 typedef struct tagArrayStack
 {
 	int Capacity;
-	int Top;
+	int Size;
 	ElementType* Array;
 } ArrayStack;
 

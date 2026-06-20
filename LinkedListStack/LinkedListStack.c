@@ -17,8 +17,7 @@ void LLS_DestroyStack(LinkedListStack* Stack)
 	}
 	while (!LLS_IsEmpty(Stack))
 	{
-		Node* Popped = LLS_Pop(Stack);
-		LLS_DestroyNode(Popped);
+		LLS_Pop(Stack);
 	}
 	free(Stack);
 	return;
@@ -57,40 +56,39 @@ void LLS_Push(LinkedListStack* Stack, char* NewData)
 	}
 	Stack->Top = NewNode;
 }
-char* LLS_Pop(LinkedListStack* Stack)
+void LLS_Pop(LinkedListStack* Stack)
 {
 	Node* TopNode = Stack->Top;
-
-
-	char* Data = TopNode->Data;
 
 	if (Stack->List == Stack->Top)
 	{
 		Stack->List = NULL;
 		Stack->Top = NULL;
-		return Data;
 	}
-	Node* CurrentTop = Stack->List;
-	while (CurrentTop != NULL && CurrentTop->NextNode != Stack->Top)
+	else
 	{
-		CurrentTop = CurrentTop->NextNode;
-	}
-	Stack->Top = CurrentTop;
-	if (Stack->Top != NULL)
-	{
-		Stack->Top->NextNode = NULL;
+		Node* CurrentTop = Stack->List;
+		while (CurrentTop != NULL && CurrentTop->NextNode != Stack->Top)
+		{
+			CurrentTop = CurrentTop->NextNode;
+		}
+		Stack->Top = CurrentTop;
+
+		if (Stack->Top != NULL)
+		{
+			Stack->Top->NextNode = NULL;
+		}
 	}
 	LLS_DestroyNode(TopNode);
-
-	return Data;
+	return;
 }
-Node* LLS_Top(LinkedListStack* Stack)
+char* LLS_Top(LinkedListStack* Stack)
 {
 	if (Stack->Top == NULL)
 	{
 		return NULL;
 	}
-	return Stack->Top;
+	return Stack->Top->Data;
 }
 int LLS_GetSize(LinkedListStack* Stack)
 {
@@ -120,15 +118,17 @@ int main(void)
 	LLS_Push(Stack, "hij");
 
 	printf("Size: %d, Top: %s\n\n",
-		LLS_GetSize(Stack), LLS_Top(Stack)->Data);
+		LLS_GetSize(Stack), LLS_Top(Stack));
 
 	while (!LLS_IsEmpty(Stack))
 	{
-		printf("Popped: %s, ", LLS_Pop(Stack));
+
+		printf("Popped: %s, ", LLS_Top(Stack));
+		LLS_Pop(Stack);
 
 		if (!LLS_IsEmpty(Stack))
 		{
-			printf("Current Top: %s\n", LLS_Top(Stack)->Data);
+			printf("Current Top: %s\n", LLS_Top(Stack));
 		}
 		else
 		{

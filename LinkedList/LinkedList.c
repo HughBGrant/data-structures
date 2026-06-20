@@ -48,7 +48,7 @@ Node* SLL_GetNodeAt(Node* Head, int Location)
     }
     return Current;
 }
-void SLL_RemoveNode(Node** Head, int Location)///
+void SLL_RemoveNode(Node** Head, int Location)
 {
     if (*Head == NULL)
     {
@@ -79,7 +79,7 @@ void SLL_RemoveNode(Node** Head, int Location)///
     }
     SLL_DestroyNode(Remove);
 }
-void SLL_InsertBefore(Node** Head, int Location, ElementType NewData)///
+void SLL_InsertBefore(Node** Head, int Location, ElementType NewData)
 {
     Node* Current = SLL_GetNodeAt(*Head, Location);
     if (Current == NULL)
