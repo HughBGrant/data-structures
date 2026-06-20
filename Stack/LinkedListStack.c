@@ -106,36 +106,3 @@ int LLS_IsEmpty(LinkedListStack* Stack)
 {
 	return (Stack->List) == NULL;
 }
-int main(void)
-{
-	LinkedListStack* Stack = NULL;
-
-	LLS_CreateStack(&Stack);
-
-	LLS_Push(Stack, "abc");
-	LLS_Push(Stack, "def");
-	LLS_Push(Stack, "efg");
-	LLS_Push(Stack, "hij");
-
-	printf("Size: %d, Top: %s\n\n",
-		LLS_GetSize(Stack), LLS_Top(Stack));
-
-	while (!LLS_IsEmpty(Stack))
-	{
-
-		printf("Popped: %s, ", LLS_Top(Stack));
-		LLS_Pop(Stack);
-
-		if (!LLS_IsEmpty(Stack))
-		{
-			printf("Current Top: %s\n", LLS_Top(Stack));
-		}
-		else
-		{
-			printf("Stack Is Empty.\n");
-		}
-	}
-	LLS_DestroyStack(Stack);
-
-	return 0;
-}
