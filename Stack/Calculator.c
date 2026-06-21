@@ -83,7 +83,7 @@ void GetPostfix(char* InfixExpression, char* PostfixExpression)
     char Token[32];
     int  Type = -1;
     unsigned int Position = 0;
-    unsigned int Length = strlen(InfixExpression);
+    size_t Length = strlen(InfixExpression);
 
     LLS_CreateStack(&Stack);
 
@@ -119,26 +119,25 @@ void GetPostfix(char* InfixExpression, char* PostfixExpression)
             while (!LLS_IsEmpty(Stack) &&
                 !IsPrior(LLS_Top(Stack)[0], Token[0]))
             {
-                Node* Popped = LLS_Pop(Stack);
+                char* Top = LLS_Top(Stack);
 
-                if (Popped->Data[0] != LEFT_PARENTHESIS)
-                    strcat(PostfixExpression, Popped->Data);
-
-                LLS_DestroyNode(Popped);
+                if (Top[0] != LEFT_PARENTHESIS)
+                    strcat(PostfixExpression, Top);
+                LLS_Pop(Stack);
             }
 
-            LLS_Push(Stack, LLS_CreateNode(Token));
+            LLS_Push(Stack, Token);
         }
     }
 
     while (!LLS_IsEmpty(Stack))
     {
-        Node* Popped = LLS_Pop(Stack);
+        char* Top = LLS_Top(Stack);
 
-        if (Popped->Data[0] != LEFT_PARENTHESIS)
-            strcat(PostfixExpression, Popped->Data);
+        if (Top[0] != LEFT_PARENTHESIS)
+            strcat(PostfixExpression, Top);
 
-        LLS_DestroyNode(Popped);
+        LLS_Pop(Stack);
     }
 
     LLS_DestroyStack(Stack);
@@ -147,7 +146,7 @@ void GetPostfix(char* InfixExpression, char* PostfixExpression)
 double Calculate(char* PostfixExpression)
 {
     LinkedListStack* Stack;
-    Node* ResultNode;
+    char* ResultData;
 
     double Result;
     char Token[32];
@@ -173,15 +172,15 @@ double Calculate(char* PostfixExpression)
         {
             char   ResultString[32];
             double Operator1, Operator2, TempResult;
-            Node* OperatorNode;
+            char* OperatorData;
 
-            OperatorNode = LLS_Pop(Stack);
-            Operator2 = atof(OperatorNode->Data);
-            LLS_DestroyNode(OperatorNode);
+            OperatorData = LLS_Top(Stack);
+            Operator2 = atof(OperatorData);
+            LLS_Pop(Stack);
 
-            OperatorNode = LLS_Pop(Stack);
-            Operator1 = atof(OperatorNode->Data);
-            LLS_DestroyNode(OperatorNode);
+            OperatorData = LLS_Top(Stack);
+            Operator1 = atof(OperatorData);
+            LLS_Pop(Stack);
 
             switch (Type)
             {
@@ -196,9 +195,9 @@ double Calculate(char* PostfixExpression)
         }
     }
 
-    ResultNode = LLS_Pop(Stack);
-    Result = atof(ResultNode->Data);
-    LLS_DestroyNode(ResultNode);
+    ResultData = LLS_Top(Stack);
+    Result = atof(ResultData);
+    LLS_Pop(Stack);
 
     LLS_DestroyStack(Stack);
 

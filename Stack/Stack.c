@@ -91,7 +91,7 @@ void TestCalculator(void)
 
 int main(void)
 {
-	int StackNumber = 1;
+	int StackNumber = 2;
 
 	switch (StackNumber)
 	{
