@@ -24,12 +24,18 @@
     <ClCompile Include="Stack.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Calculator.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArrayStack.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="LinkedListStack.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Calculator.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
