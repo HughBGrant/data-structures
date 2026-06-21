@@ -1,6 +1,8 @@
 #ifndef CALCULATOR_H
 #define CALCULATOR_H
 
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <stdlib.h>
 #include "LinkedListStack.h"
 

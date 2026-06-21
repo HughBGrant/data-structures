@@ -189,7 +189,7 @@ double Calculate( char* PostfixExpression )
             case DIVIDE:   TempResult = Operator1 / Operator2; break;
             }
 
-            gcvt( TempResult, 10, ResultString );            
+            _gcvt( TempResult, 10, ResultString );            
             LLS_Push( Stack, LLS_CreateNode( ResultString ) );
         }
     }
