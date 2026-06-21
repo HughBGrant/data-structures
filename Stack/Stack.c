@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include "ArrayStack.h"
 #include "LinkedListStack.h"
 #include "Calculator.h"

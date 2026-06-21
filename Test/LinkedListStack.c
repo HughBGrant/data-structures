@@ -1,4 +1,3 @@
-#define _CRT_SECURE_NO_WARNINGS
 #include "LinkedListStack.h"
 
 void  LLS_CreateStack( LinkedListStack** Stack )

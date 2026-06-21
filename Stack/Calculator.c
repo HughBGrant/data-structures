@@ -83,7 +83,7 @@ void GetPostfix(char* InfixExpression, char* PostfixExpression)
     char Token[32];
     int  Type = -1;
     unsigned int Position = 0;
-    size_t Length = strlen(InfixExpression);
+    unsigned int Length = strlen(InfixExpression);
 
     LLS_CreateStack(&Stack);
 
@@ -190,7 +190,7 @@ double Calculate(char* PostfixExpression)
             case DIVIDE:   TempResult = Operator1 / Operator2; break;
             }
 
-            gcvt(TempResult, 10, ResultString);
+            _gcvt(TempResult, 10, ResultString);
             LLS_Push(Stack, LLS_CreateNode(ResultString));
         }
     }
