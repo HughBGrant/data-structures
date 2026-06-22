@@ -15,8 +15,8 @@ void TestAS(void)
 	AS_Push(Stack, 11);
 	AS_Push(Stack, 12);
 
-	printf("Capacity: %d, Size: %d, Top: %d\n",
-		Stack->Capacity, AS_GetSize(Stack), AS_Top(Stack));
+	printf("Capacity: %d, Count: %d, Top: %d\n",
+		Stack->Capacity, AS_GetCount(Stack), AS_Top(Stack));
 
 	while (!AS_IsEmpty(Stack))
 	{
@@ -42,7 +42,7 @@ void TestLLS(void)
 	LLS_Push(Stack, "efg");
 	LLS_Push(Stack, "hij");
 
-	printf("Size: %d, Top: %s\n\n",
+	printf("Count: %d, Top: %s\n\n",
 		LLS_GetSize(Stack), LLS_Top(Stack));
 
 	while (!LLS_IsEmpty(Stack))

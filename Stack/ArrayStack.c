@@ -10,7 +10,7 @@ void AS_CreateStack(ArrayStack** Stack, int Capacity)
 		if ((*Stack)->Array != NULL)
 		{
 			(*Stack)->Capacity = Capacity;
-			(*Stack)->Size = -1;
+			(*Stack)->Count = -1;
 		}
 	}
 }
@@ -26,37 +26,37 @@ void AS_DestroyStack(ArrayStack* Stack)
 }
 void AS_Push(ArrayStack* Stack, ElementType Data)
 {
-	Stack->Size++;
-	Stack->Array[Stack->Size] = Data;
+	Stack->Count++;
+	Stack->Array[Stack->Count] = Data;
 }
 ElementType AS_Pop(ArrayStack* Stack)
 {
-	if (Stack->Size == -1)
+	if (Stack->Count == -1)
 	{
 		return;
 	}
-	ElementType Data = Stack->Array[Stack->Size];
-	Stack->Size--;
+	ElementType Data = Stack->Array[Stack->Count];
+	Stack->Count--;
 
 	return Data;
 }
 ElementType AS_Top(ArrayStack* Stack)
 {
-	if (Stack->Size == -1)
+	if (Stack->Count == -1)
 	{
 		return;
 	}
-	return Stack->Array[Stack->Size];
+	return Stack->Array[Stack->Count];
 }
-int AS_GetSize(ArrayStack* Stack)
+int AS_GetCount(ArrayStack* Stack)
 {
-	return Stack->Size + 1;
+	return Stack->Count + 1;
 }
 int AS_IsEmpty(ArrayStack* Stack)
 {
-	return (Stack->Size == -1);
+	return (Stack->Count == -1);
 }
 int AS_IsFull(ArrayStack* Stack)
 {
-	return (Stack->Size + 1 == Stack->Capacity);
+	return (Stack->Count + 1 == Stack->Capacity);
 }

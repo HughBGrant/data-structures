@@ -31,11 +31,10 @@ void DLL_AppendNode(DLLNode** Head, ElementType NewData)
     }
     Tail->NextNode = NewNode;
     NewNode->PrevNode = Tail;
-    
 }
-unsigned int DLL_GetNodeCount(DLLNode* Head)
+size_t DLL_GetNodeCount(DLLNode* Head)
 {
-    unsigned int Count = 0;
+    size_t Count = 0;
     DLLNode* Current = Head;
 
     while (Current != NULL)
@@ -45,11 +44,11 @@ unsigned int DLL_GetNodeCount(DLLNode* Head)
     }
     return Count;
 }
-DLLNode* DLL_GetNodeAt(DLLNode* Head, int Location)
+DLLNode* DLL_GetNodeAt(DLLNode* Head, size_t Location)
 {
-    int Count = DLL_GetNodeCount(Head);
+    size_t Count = DLL_GetNodeCount(Head);
 
-    if (Location < 0 || Location >= Count)
+    if (Location >= Count)
     {
         return NULL;
     }
@@ -63,7 +62,7 @@ DLLNode* DLL_GetNodeAt(DLLNode* Head, int Location)
     }
     return Current;
 }
-void DLL_RemoveNode(DLLNode** Head, int Location)
+void DLL_RemoveNode(DLLNode** Head, size_t Location)
 {
     if (*Head == NULL)
     {
@@ -91,7 +90,7 @@ void DLL_RemoveNode(DLLNode** Head, int Location)
     }
     DLL_DestroyNode(Remove);
 }
-void DLL_InsertAfter(DLLNode* Head, int Location, ElementType NewData)
+void DLL_InsertAfter(DLLNode* Head, size_t Location, ElementType NewData)
 {
     DLLNode* Current = DLL_GetNodeAt(Head, Location);
     if (Current == NULL)
@@ -106,7 +105,6 @@ void DLL_InsertAfter(DLLNode* Head, int Location, ElementType NewData)
     {
         Current->NextNode->PrevNode = NewNode;
     }
-
     Current->NextNode = NewNode;
 }
 //void DLL_InsertBefore(Node** Head, int Location, ElementType NewData)
@@ -157,7 +155,7 @@ void DLL_InsertAfter(DLLNode* Head, int Location, ElementType NewData)
 //}
 void DLL_PrintReverse(DLLNode* Head)
 {
-    int i = 0;
+    size_t i = 0;
 
     DLLNode* Current = Head;
 
@@ -168,7 +166,7 @@ void DLL_PrintReverse(DLLNode* Head)
     }
     while (Current != NULL)
     {
-        printf("List[%d] : %d\n", i, Current->Data);
+        printf("List[%zu] : %d\n", i, Current->Data);
         Current = Current->PrevNode;
         i--;
     }
