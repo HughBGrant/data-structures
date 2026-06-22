@@ -21,7 +21,7 @@ void LLS_DestroyStack(LinkedListStack* Stack)
 	}
 	free(Stack);
 }
-Node* LLS_CreateNode(char* NewData)
+Node* LLS_CreateNode(LLSDataType NewData)
 {
 	Node* NewNode = malloc(sizeof(Node));
 
@@ -38,7 +38,7 @@ Node* LLS_CreateNode(char* NewData)
 	}
 	strcpy(NewNode->Data, NewData);
 	NewNode->NextNode = NULL;
-	
+
 	return NewNode;
 }
 void LLS_DestroyNode(Node* Node)
@@ -47,11 +47,10 @@ void LLS_DestroyNode(Node* Node)
 	{
 		return;
 	}
-
 	free(Node->Data);
 	free(Node);
 }
-void LLS_Push(LinkedListStack* Stack, char* NewData)
+void LLS_Push(LinkedListStack* Stack, LLSDataType NewData)
 {
 	Node* NewNode = LLS_CreateNode(NewData);
 
@@ -78,10 +77,10 @@ void LLS_Pop(LinkedListStack* Stack)
 	Node* TopNode = Stack->Top;
 
 	Stack->Top = TopNode->NextNode;
-	
+
 	LLS_DestroyNode(TopNode);
 }
-char* LLS_Top(LinkedListStack* Stack)
+LLSDataType LLS_Top(LinkedListStack* Stack)
 {
 	if (Stack->Top == NULL)
 	{

@@ -5,20 +5,20 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-typedef int ElementType;
+typedef int ASDataType;
 
 typedef struct tagArrayStack
 {
 	size_t Capacity;
 	int Count;
-	ElementType* Array;
+	ASDataType* Array;
 } ArrayStack;
 
 void AS_CreateStack(ArrayStack** Stack, size_t Capacity);
 void AS_DestroyStack(ArrayStack* Stack);
-void AS_Push(ArrayStack* Stack, ElementType Data);
+void AS_Push(ArrayStack* Stack, ASDataType Data);
 void AS_Pop(ArrayStack* Stack);
-ElementType AS_Top(ArrayStack* Stack);
+ASDataType AS_Top(ArrayStack* Stack);
 size_t AS_GetCount(ArrayStack* Stack);
 bool AS_IsEmpty(ArrayStack* Stack);
 bool AS_IsFull(ArrayStack* Stack);

@@ -3,34 +3,32 @@
 
 char NUMBER[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.' };
 
-int IsNumber(char Cipher)
+bool IsNumber(char Cipher)
 {
-	int i = 0;
 	int ArrayLength = sizeof(NUMBER);
 
-	for (i = 0; i < ArrayLength; i++)
+	for (int i = 0; i < ArrayLength; i++)
 	{
 		if (Cipher == NUMBER[i])
 		{
-			return 1;
+			return true;
 		}
 	}
-	return 0;
+	return false;
 }
-
-unsigned int GetNextToken(char* Expression, char* Token, int* TYPE)
+size_t GetNextToken(char* Expression, char* Token, int* TYPE)
 {
-    unsigned int i = 0;
+    size_t i = 0;
 
     for (i = 0; 0 != Expression[i]; i++)
     {
         Token[i] = Expression[i];
 
-        if (IsNumber(Expression[i]) == 1)
+        if (IsNumber(Expression[i]) == true)
         {
             *TYPE = OPERAND;
 
-            if (IsNumber(Expression[i + 1]) != 1)
+            if (IsNumber(Expression[i + 1]) != true)
                 break;
         }
         else
@@ -39,11 +37,10 @@ unsigned int GetNextToken(char* Expression, char* Token, int* TYPE)
             break;
         }
     }
-
-    Token[++i] = '\0';
+    i++;
+    Token[i] = '\0';
     return i;
 }
-
 int GetPriority(char Operator, int InStack)
 {
     int Priority = -1;
@@ -67,15 +64,8 @@ int GetPriority(char Operator, int InStack)
         Priority = 2;
         break;
     }
-
     return Priority;
 }
-
-int IsPrior(char OperatorInStack, char OperatorInToken)
-{
-    return (GetPriority(OperatorInStack, 1) > GetPriority(OperatorInToken, 0));
-}
-
 void GetPostfix(char* InfixExpression, char* PostfixExpression)
 {
     LinkedListStack* Stack;
@@ -117,7 +107,7 @@ void GetPostfix(char* InfixExpression, char* PostfixExpression)
         else
         {
             while (!LLS_IsEmpty(Stack) &&
-                !IsPrior(LLS_Top(Stack)[0], Token[0]))
+                (GetPriority(LLS_Top(Stack)[0], 1) <= GetPriority(Token[0], 0)))
             {
                 char* Top = LLS_Top(Stack);
 
@@ -125,11 +115,9 @@ void GetPostfix(char* InfixExpression, char* PostfixExpression)
                     strcat(PostfixExpression, Top);
                 LLS_Pop(Stack);
             }
-
             LLS_Push(Stack, Token);
         }
     }
-
     while (!LLS_IsEmpty(Stack))
     {
         char* Top = LLS_Top(Stack);
@@ -139,10 +127,8 @@ void GetPostfix(char* InfixExpression, char* PostfixExpression)
 
         LLS_Pop(Stack);
     }
-
     LLS_DestroyStack(Stack);
 }
-
 double Calculate(char* PostfixExpression)
 {
     LinkedListStack* Stack;
@@ -188,12 +174,10 @@ double Calculate(char* PostfixExpression)
             case MULTIPLY: TempResult = Operator1 * Operator2; break;
             case DIVIDE:   TempResult = Operator1 / Operator2; break;
             }
-
             _gcvt(TempResult, 10, ResultString);
             LLS_Push(Stack, ResultString);
         }
     }
-
     ResultData = LLS_Top(Stack);
     Result = atof(ResultData);
     LLS_Pop(Stack);

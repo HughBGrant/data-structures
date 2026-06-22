@@ -23,7 +23,7 @@ void AS_DestroyStack(ArrayStack* Stack)
 	free(Stack->Array);
 	free(Stack);
 }
-void AS_Push(ArrayStack* Stack, ElementType Data)
+void AS_Push(ArrayStack* Stack, ASDataType Data)
 {
 	Stack->Count++;
 	Stack->Array[Stack->Count - 1] = Data;
@@ -36,7 +36,7 @@ void AS_Pop(ArrayStack* Stack)
 	}
 	Stack->Count--;
 }
-ElementType AS_Top(ArrayStack* Stack)
+ASDataType AS_Top(ArrayStack* Stack)
 {
 	return Stack->Array[Stack->Count - 1];
 }

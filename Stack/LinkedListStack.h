@@ -7,9 +7,10 @@
 #include <stdbool.h>
 #include <string.h>
 
+typedef char* LLSDataType;
 typedef struct tagNode
 {
-	char* Data;
+	LLSDataType Data;
 	struct tagNode* NextNode;
 } Node;
 
@@ -20,11 +21,11 @@ typedef struct tagLinkedListStack
 
 void LLS_CreateStack(LinkedListStack** Stack);
 void LLS_DestroyStack(LinkedListStack* Stack);
-Node* LLS_CreateNode(char* NewData);
+Node* LLS_CreateNode(LLSDataType NewData);
 void LLS_DestroyNode(Node* _Node);
-void LLS_Push(LinkedListStack* Stack, char* NewData);
+void LLS_Push(LinkedListStack* Stack, LLSDataType NewData);
 void LLS_Pop(LinkedListStack* Stack);
-char* LLS_Top(LinkedListStack* Stack);
+LLSDataType LLS_Top(LinkedListStack* Stack);
 size_t LLS_GetCount(LinkedListStack* Stack);
 bool LLS_IsEmpty(LinkedListStack* Stack);
 

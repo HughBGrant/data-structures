@@ -46,7 +46,7 @@ void TestDLL(void)
 
     DLLNode* List = NULL;
 
-    for (i = 0; i < 5; i++)
+    for (int i = 0; i < 5; i++)
     {
         DLL_AppendNode(&List, i);
     }
@@ -75,7 +75,7 @@ void TestCDLL(void)
     CDLLNode* List = NULL;
     CDLLNode* Current = NULL;
 
-    for (i = 0; i < 5; i++)
+    for (int i = 0; i < 5; i++)
     {
         CDLL_AppendNode(&List, i);
     }

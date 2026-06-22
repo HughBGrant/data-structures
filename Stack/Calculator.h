@@ -3,6 +3,7 @@
 #define CALCULATOR_H
 
 #include <stdlib.h>
+#include <stdbool.h>
 
 typedef enum
 {
@@ -16,9 +17,9 @@ typedef enum
 	OPERAND
 } SYMBOL;
 
-int IsNumber(char Cipher);
-unsigned int GetNextToken(char* Expression, char* Token, int* TYPE);
-int IsPrior(char Operator1, char Operator2);
+bool IsNumber(char Cipher);
+size_t GetNextToken(char* Expression, char* Token, int* TYPE);
+bool IsPrior(char Operator1, char Operator2);
 void GetPostfix(char* InfixExpression, char* PostfixExpression);
 double Calculate(char* PostfixExpression);
 
