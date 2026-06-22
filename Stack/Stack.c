@@ -1,4 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS
+
 #include "ArrayStack.h"
 #include "LinkedListStack.h"
 #include "Calculator.h"
@@ -92,7 +93,7 @@ void TestCalculator(void)
 
 int main(void)
 {
-	int StackNumber = 2;
+	int StackNumber = 1;
 
 	switch (StackNumber)
 	{
