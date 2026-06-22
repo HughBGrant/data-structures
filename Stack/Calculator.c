@@ -165,8 +165,7 @@ double Calculate(char* PostfixExpression)
 
         if (Type == OPERAND)
         {
-            Node* NewNode = LLS_CreateNode(Token);
-            LLS_Push(Stack, NewNode);
+            LLS_Push(Stack, Token);
         }
         else
         {
@@ -191,7 +190,7 @@ double Calculate(char* PostfixExpression)
             }
 
             _gcvt(TempResult, 10, ResultString);
-            LLS_Push(Stack, LLS_CreateNode(ResultString));
+            LLS_Push(Stack, ResultString);
         }
     }
 
