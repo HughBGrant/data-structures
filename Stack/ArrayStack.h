@@ -3,22 +3,23 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 typedef int ElementType;
 
 typedef struct tagArrayStack
 {
-	int Capacity;
+	size_t Capacity;
 	int Count;
 	ElementType* Array;
 } ArrayStack;
 
-void AS_CreateStack(ArrayStack** Stack, int Capacity);
+void AS_CreateStack(ArrayStack** Stack, size_t Capacity);
 void AS_DestroyStack(ArrayStack* Stack);
 void AS_Push(ArrayStack* Stack, ElementType Data);
-ElementType AS_Pop(ArrayStack* Stack);
+void AS_Pop(ArrayStack* Stack);
 ElementType AS_Top(ArrayStack* Stack);
-int AS_GetCount(ArrayStack* Stack);
-int AS_IsEmpty(ArrayStack* Stack);
-int AS_IsFull(ArrayStack* Stack);
+size_t AS_GetCount(ArrayStack* Stack);
+bool AS_IsEmpty(ArrayStack* Stack);
+bool AS_IsFull(ArrayStack* Stack);
 #endif // !ARRAY_STACK_H

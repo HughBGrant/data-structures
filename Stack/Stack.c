@@ -15,12 +15,13 @@ void TestAS(void)
 	AS_Push(Stack, 11);
 	AS_Push(Stack, 12);
 
-	printf("Capacity: %d, Count: %d, Top: %d\n",
+	printf("Capacity: %zu, Count: %zu, Top: %d\n",
 		Stack->Capacity, AS_GetCount(Stack), AS_Top(Stack));
 
 	while (!AS_IsEmpty(Stack))
 	{
-		printf("Popped: %d, ", AS_Pop(Stack));
+		printf("Popped: %d, ", AS_Top(Stack));
+		AS_Pop(Stack);
 
 		if (!AS_IsEmpty(Stack))
 			printf("Current Top: %d\n", AS_Top(Stack));
@@ -28,8 +29,6 @@ void TestAS(void)
 			printf("Stack Is Empty.\n");
 	}
 	AS_DestroyStack(Stack);
-
-	return 0;
 }
 void TestLLS(void)
 {
@@ -42,8 +41,8 @@ void TestLLS(void)
 	LLS_Push(Stack, "efg");
 	LLS_Push(Stack, "hij");
 
-	printf("Count: %d, Top: %s\n\n",
-		LLS_GetSize(Stack), LLS_Top(Stack));
+	printf("Count: %zu, Top: %s\n\n",
+		LLS_GetCount(Stack), LLS_Top(Stack));
 
 	while (!LLS_IsEmpty(Stack))
 	{
@@ -61,8 +60,6 @@ void TestLLS(void)
 		}
 	}
 	LLS_DestroyStack(Stack);
-
-	return 0;
 }
 void TestCalculator(void)
 {
@@ -86,14 +83,11 @@ void TestCalculator(void)
 	Result = Calculate(PostfixExpression);
 
 	printf("Calculation Result : %f\n", Result);
-
-	return 0;
-
 }
 
 int main(void)
 {
-	int StackNumber = 1;
+	int StackNumber = 2;
 
 	switch (StackNumber)
 	{
@@ -113,4 +107,5 @@ int main(void)
 			break;
 		}
 	}
+	return 0;
 }

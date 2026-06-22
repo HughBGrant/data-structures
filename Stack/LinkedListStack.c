@@ -3,6 +3,7 @@
 void LLS_CreateStack(LinkedListStack** Stack)
 {
 	*Stack = malloc(sizeof(LinkedListStack));
+
 	if (*Stack != NULL)
 	{
 		(*Stack)->Top = NULL;
@@ -19,7 +20,6 @@ void LLS_DestroyStack(LinkedListStack* Stack)
 		LLS_Pop(Stack);
 	}
 	free(Stack);
-	return;
 }
 Node* LLS_CreateNode(char* NewData)
 {
@@ -59,7 +59,6 @@ void LLS_Push(LinkedListStack* Stack, char* NewData)
 	{
 		return;
 	}
-
 	if (Stack->Top == NULL)
 	{
 		Stack->Top = NewNode;
@@ -81,7 +80,6 @@ void LLS_Pop(LinkedListStack* Stack)
 	Stack->Top = TopNode->NextNode;
 	
 	LLS_DestroyNode(TopNode);
-	return;
 }
 char* LLS_Top(LinkedListStack* Stack)
 {
@@ -91,9 +89,9 @@ char* LLS_Top(LinkedListStack* Stack)
 	}
 	return Stack->Top->Data;
 }
-int LLS_GetSize(LinkedListStack* Stack)
+size_t LLS_GetCount(LinkedListStack* Stack)
 {
-	int Count = 0;
+	size_t Count = 0;
 	Node* Current = Stack->Top;
 
 	while (Current != NULL)
@@ -103,7 +101,7 @@ int LLS_GetSize(LinkedListStack* Stack)
 	}
 	return Count;
 }
-int LLS_IsEmpty(LinkedListStack* Stack)
+bool LLS_IsEmpty(LinkedListStack* Stack)
 {
 	return (Stack->Top) == NULL;
 }

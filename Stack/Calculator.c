@@ -82,8 +82,8 @@ void GetPostfix(char* InfixExpression, char* PostfixExpression)
 
     char Token[32];
     int  Type = -1;
-    unsigned int Position = 0;
-    unsigned int Length = strlen(InfixExpression);
+    size_t Position = 0;
+    size_t Length = strlen(InfixExpression);
 
     LLS_CreateStack(&Stack);
 
@@ -151,8 +151,8 @@ double Calculate(char* PostfixExpression)
     double Result;
     char Token[32];
     int  Type = -1;
-    unsigned int Read = 0;
-    unsigned int Length = strlen(PostfixExpression);
+    size_t Read = 0;
+    size_t Length = strlen(PostfixExpression);
 
     LLS_CreateStack(&Stack);
 

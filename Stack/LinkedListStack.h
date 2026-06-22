@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <string.h>
 
 typedef struct tagNode
@@ -24,7 +25,7 @@ void LLS_DestroyNode(Node* _Node);
 void LLS_Push(LinkedListStack* Stack, char* NewData);
 void LLS_Pop(LinkedListStack* Stack);
 char* LLS_Top(LinkedListStack* Stack);
-int LLS_GetSize(LinkedListStack* Stack);
-int LLS_IsEmpty(LinkedListStack* Stack);
+size_t LLS_GetCount(LinkedListStack* Stack);
+bool LLS_IsEmpty(LinkedListStack* Stack);
 
 #endif
