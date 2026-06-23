@@ -18,9 +18,8 @@ typedef enum
 } SYMBOL;
 
 bool IsNumber(char Cipher);
-size_t GetNextToken(char* Expression, char* Token, int* TYPE);
-bool IsPrior(char Operator1, char Operator2);
-void GetPostfix(char* InfixExpression, char* PostfixExpression);
-double Calculate(char* PostfixExpression);
+size_t GetTokenSize(char* Expression, char* Token, int* TYPE);
+void GetPostfix(char* Infix, char* Postfix);
+double Calculate(char* Postfix);
 
 #endif

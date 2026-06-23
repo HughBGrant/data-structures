@@ -2,7 +2,7 @@
 
 DLLNode* DLL_CreateNode(ElementType NewData)
 {
-    DLLNode* NewNode = (DLLNode*)malloc(sizeof(DLLNode));
+    DLLNode* NewNode = malloc(sizeof(DLLNode));
     if (NewNode != NULL)
     {
         NewNode->Data = NewData;

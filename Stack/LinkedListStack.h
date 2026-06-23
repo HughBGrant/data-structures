@@ -14,7 +14,7 @@ typedef struct tagNode
 	struct tagNode* NextNode;
 } Node;
 
-typedef struct tagLinkedListStack
+typedef struct
 {
 	Node* Top;
 } LinkedListStack;

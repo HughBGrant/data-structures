@@ -2,7 +2,7 @@
 
 void AS_CreateStack(ArrayStack** Stack, size_t Capacity)
 {
-	*Stack = (ArrayStack*)malloc(sizeof(ArrayStack));
+	*Stack = malloc(sizeof(ArrayStack));
 
 	if (*Stack != NULL)
 	{
@@ -25,6 +25,10 @@ void AS_DestroyStack(ArrayStack* Stack)
 }
 void AS_Push(ArrayStack* Stack, ASDataType Data)
 {
+	if (AS_IsFull(Stack))
+	{
+		return;
+	}
 	Stack->Count++;
 	Stack->Array[Stack->Count - 1] = Data;
 }

@@ -2,7 +2,7 @@
 
 CDLLNode* CDLL_CreateNode(ElementType NewData)
 {
-    CDLLNode* NewNode = (CDLLNode*)malloc(sizeof(CDLLNode));
+    CDLLNode* NewNode = malloc(sizeof(CDLLNode));
     if (NewNode != NULL)
     {
         NewNode->Data = NewData;

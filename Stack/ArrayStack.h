@@ -7,10 +7,10 @@
 
 typedef int ASDataType;
 
-typedef struct tagArrayStack
+typedef struct
 {
 	size_t Capacity;
-	int Count;
+	size_t Count;
 	ASDataType* Array;
 } ArrayStack;
 

@@ -1,7 +1,7 @@
 #include "LinkedList.h"
 SLLNode* SLL_CreateNode(ElementType NewData)
 {
-    SLLNode* NewNode = (SLLNode*)malloc(sizeof(SLLNode));
+    SLLNode* NewNode = malloc(sizeof(SLLNode));
     if (NewNode != NULL)
     {
         NewNode->Data = NewData;

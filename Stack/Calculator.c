@@ -5,7 +5,7 @@ char NUMBER[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.' };
 
 bool IsNumber(char Cipher)
 {
-	int ArrayLength = sizeof(NUMBER);
+	int ArrayLength = sizeof(NUMBER) / sizeof(char);
 
 	for (int i = 0; i < ArrayLength; i++)
 	{
@@ -16,75 +16,83 @@ bool IsNumber(char Cipher)
 	}
 	return false;
 }
-size_t GetNextToken(char* Expression, char* Token, int* TYPE)
+size_t GetTokenSize(char* Expression, char* Token, int* TYPE)
 {
-    size_t i = 0;
+    size_t size = 0;
 
-    for (i = 0; 0 != Expression[i]; i++)
+    for (size = 0; 0 != Expression[size]; size++)
     {
-        Token[i] = Expression[i];
+        Token[size] = Expression[size];
 
-        if (IsNumber(Expression[i]) == true)
+        /*if (IsNumber(Expression[size]) == false)
+        {
+            *TYPE = Expression[size];
+            break;
+        }
+        *TYPE = OPERAND;
+
+        if (IsNumber(Expression[size + 1]) == false)
+        {
+            break;
+        }*/
+        if (IsNumber(Expression[size]))
         {
             *TYPE = OPERAND;
 
-            if (IsNumber(Expression[i + 1]) != true)
+            if (IsNumber(Expression[size + 1]) == false)
+            {
                 break;
+            }
         }
         else
         {
-            *TYPE = Expression[i];
+            *TYPE = Expression[size];
             break;
         }
     }
-    i++;
-    Token[i] = '\0';
-    return i;
-}
-int GetPriority(char Operator, int InStack)
-{
-    int Priority = -1;
+    size++;
+    Token[size] = '\0';
 
+    return size;
+}
+int GetPriority(char Operator, bool InStack)
+{
     switch (Operator)
     {
     case LEFT_PARENTHESIS:
         if (InStack)
-            Priority = 0;
+            return 0;
         else
-            Priority = 3;
-        break;
-
-    case MULTIPLY:
-    case DIVIDE:
-        Priority = 2;
-        break;
+            return 3;
 
     case PLUS:
     case MINUS:
-        Priority = 1;
-        break;
+        return 1;
+
+    case MULTIPLY:
+    case DIVIDE:
+        return 2;
     }
-    return Priority;
+    return -1;
 }
-void GetPostfix(char* InfixExpression, char* PostfixExpression)
+void GetPostfix(char* Infix, char* Postfix)
 {
-    LinkedListStack* Stack;
-
-    char Token[32];
-    int  Type = -1;
-    size_t Position = 0;
-    size_t Length = strlen(InfixExpression);
-
+    LinkedListStack* Stack = NULL;
     LLS_CreateStack(&Stack);
+
+    char Token[100];
+    int Type;
+    size_t Position = 0;
+    size_t Length = strlen(Infix);
 
     while (Position < Length)
     {
-        Position += GetNextToken(&InfixExpression[Position], Token, &Type);
+        Position += GetTokenSize(&Infix[Position], Token, &Type);
 
         if (Type == OPERAND)
         {
-            strcat(PostfixExpression, Token);
-            strcat(PostfixExpression, " ");
+            strcat(Postfix, Token);
+            strcat(Postfix, " ");
         }
         else if (Type == RIGHT_PARENTHESIS)
         {
@@ -92,16 +100,12 @@ void GetPostfix(char* InfixExpression, char* PostfixExpression)
             {
                 char* Top = LLS_Top(Stack);
 
-                if (Top[0] == LEFT_PARENTHESIS)
+                if (Top[0] != LEFT_PARENTHESIS)
                 {
-                    LLS_Pop(Stack);
-                    break;
+                    strcat(Postfix, Top);
+                    strcat(Postfix, " ");//
                 }
-                else
-                {
-                    strcat(PostfixExpression, Top);
-                    LLS_Pop(Stack);
-                }
+                LLS_Pop(Stack);
             }
         }
         else
@@ -112,7 +116,10 @@ void GetPostfix(char* InfixExpression, char* PostfixExpression)
                 char* Top = LLS_Top(Stack);
 
                 if (Top[0] != LEFT_PARENTHESIS)
-                    strcat(PostfixExpression, Top);
+                {
+                    strcat(Postfix, Top);
+                    strcat(Postfix, " ");//
+                }
                 LLS_Pop(Stack);
             }
             LLS_Push(Stack, Token);
@@ -123,13 +130,15 @@ void GetPostfix(char* InfixExpression, char* PostfixExpression)
         char* Top = LLS_Top(Stack);
 
         if (Top[0] != LEFT_PARENTHESIS)
-            strcat(PostfixExpression, Top);
-
+        {
+            strcat(Postfix, Top);
+            strcat(Postfix, " ");//
+        }
         LLS_Pop(Stack);
     }
     LLS_DestroyStack(Stack);
 }
-double Calculate(char* PostfixExpression)
+double Calculate(char* Postfix)
 {
     LinkedListStack* Stack;
     char* ResultData;
@@ -138,13 +147,13 @@ double Calculate(char* PostfixExpression)
     char Token[32];
     int  Type = -1;
     size_t Read = 0;
-    size_t Length = strlen(PostfixExpression);
+    size_t Length = strlen(Postfix);
 
     LLS_CreateStack(&Stack);
 
     while (Read < Length)
     {
-        Read += GetNextToken(&PostfixExpression[Read], Token, &Type);
+        Read += GetTokenSize(&Postfix[Read], Token, &Type);
 
         if (Type == SPACE)
             continue;
