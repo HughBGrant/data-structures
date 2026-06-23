@@ -49,19 +49,19 @@ int GetPriority(char Operator, int InStack)
     {
     case LEFT_PARENTHESIS:
         if (InStack)
-            Priority = 3;
-        else
             Priority = 0;
+        else
+            Priority = 3;
         break;
 
     case MULTIPLY:
     case DIVIDE:
-        Priority = 1;
+        Priority = 2;
         break;
 
     case PLUS:
     case MINUS:
-        Priority = 2;
+        Priority = 1;
         break;
     }
     return Priority;
@@ -107,7 +107,7 @@ void GetPostfix(char* InfixExpression, char* PostfixExpression)
         else
         {
             while (!LLS_IsEmpty(Stack) &&
-                (GetPriority(LLS_Top(Stack)[0], 1) <= GetPriority(Token[0], 0)))
+                (GetPriority(LLS_Top(Stack)[0], 1) >= GetPriority(Token[0], 0)))
             {
                 char* Top = LLS_Top(Stack);
 

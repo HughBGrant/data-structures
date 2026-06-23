@@ -63,7 +63,8 @@ void TestLLS(void)
 }
 void TestCalculator(void)
 {
-	char InfixExpression[100];
+	//1
+	/*char InfixExpression[100];
 	char PostfixExpression[100];
 
 	double Result = 0.0;
@@ -72,7 +73,16 @@ void TestCalculator(void)
 	memset(PostfixExpression, 0, sizeof(PostfixExpression));
 
 	printf("Enter Infix Expression: ");
-	scanf("%s", InfixExpression);
+	scanf("%s", InfixExpression);*/
+	//2	
+	char InfixExpression[100] = "1+3.334/(4.28*(110-7729))";
+	char PostfixExpression[100];
+
+	double Result = 0.0;
+
+	memset(PostfixExpression, 0, sizeof(PostfixExpression));
+
+	printf("Enter Infix Expression: %s\n", InfixExpression);
 
 	GetPostfix(InfixExpression, PostfixExpression);
 
