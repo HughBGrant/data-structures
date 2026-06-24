@@ -1,6 +1,6 @@
 #include "LinkedListStack.h"
 
-void LLS_CreateStack(LinkedListStack** Stack)
+void LLS_CreateStack(LinkedListStack **Stack)
 {
 	*Stack = malloc(sizeof(LinkedListStack));
 
@@ -9,7 +9,7 @@ void LLS_CreateStack(LinkedListStack** Stack)
 		(*Stack)->Top = NULL;
 	}
 }
-void LLS_DestroyStack(LinkedListStack* Stack)
+void LLS_DestroyStack(LinkedListStack *Stack)
 {
 	if (Stack == NULL)
 	{
@@ -21,9 +21,9 @@ void LLS_DestroyStack(LinkedListStack* Stack)
 	}
 	free(Stack);
 }
-Node* LLS_CreateNode(LLSDataType NewData)
+Node *LLS_CreateNode(LLSDataType NewData)
 {
-	Node* NewNode = malloc(sizeof(Node));
+	Node *NewNode = malloc(sizeof(Node));
 
 	if (NewNode == NULL)
 	{
@@ -52,7 +52,7 @@ void LLS_DestroyNode(Node* Node)
 }
 void LLS_Push(LinkedListStack* Stack, LLSDataType NewData)
 {
-	Node* NewNode = LLS_CreateNode(NewData);
+	Node *NewNode = LLS_CreateNode(NewData);
 
 	if (NewNode == NULL)
 	{
@@ -74,7 +74,7 @@ void LLS_Pop(LinkedListStack* Stack)
 	{
 		return;
 	}
-	Node* TopNode = Stack->Top;
+	Node *TopNode = Stack->Top;
 
 	Stack->Top = TopNode->NextNode;
 
@@ -91,7 +91,7 @@ LLSDataType LLS_Top(LinkedListStack* Stack)
 size_t LLS_GetCount(LinkedListStack* Stack)
 {
 	size_t Count = 0;
-	Node* Current = Stack->Top;
+	Node *Current = Stack->Top;
 
 	while (Current != NULL)
 	{

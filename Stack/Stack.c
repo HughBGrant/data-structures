@@ -6,7 +6,7 @@
 
 void TestAS(void)
 {
-	ArrayStack* Stack = NULL;
+	ArrayStack *Stack = NULL;
 
 	AS_CreateStack(&Stack, 10);
 
@@ -32,7 +32,7 @@ void TestAS(void)
 }
 void TestLLS(void)
 {
-	LinkedListStack* Stack = NULL;
+	LinkedListStack *Stack = NULL;
 
 	LLS_CreateStack(&Stack);
 
@@ -64,16 +64,16 @@ void TestLLS(void)
 void TestCalculator(void)
 {
 	//1
-	/*char InfixExpression[100];
-	char PostfixExpression[100];
+	/*char Infix[100];
+	char Postfix[100];
 
 	double Result = 0.0;
 
-	memset(InfixExpression, 0, sizeof(InfixExpression));
-	memset(PostfixExpression, 0, sizeof(PostfixExpression));
+	memset(Infix, 0, sizeof(Infix));
+	memset(Postfix, 0, sizeof(Postfix));
 
-	printf("Enter Infix Expression: ");
-	scanf("%s", InfixExpression);*/
+	printf("Enter Infix : ");
+	scanf("%s", Infix);*/
 	//2	
 	char Infix[100] = "1+3.334/(4.28*(110-7729))";
 	char Postfix[100];
@@ -97,7 +97,7 @@ void TestCalculator(void)
 
 int main(void)
 {
-	int StackNumber = 2;
+	int StackNumber = 0;
 
 	switch (StackNumber)
 	{
