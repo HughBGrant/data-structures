@@ -16,26 +16,23 @@ bool IsNumber(char Cipher)
 	}
 	return false;
 }
-size_t GetTokenSize(char* Expression, char* Token, int* TYPE)
+size_t GetTokenLength(char* Expression, char* Token)
 {
     size_t i = 0;
 
-    for (i = 0; 0 != Expression[i]; i++)
+    for (i = 0; Expression[i] != '\0'; i++)
     {
         Token[i] = Expression[i];
 
         if (IsNumber(Expression[i]) == false)
         {
-            *TYPE = Expression[i];
             break;
         }
         if (IsNumber(Expression[i + 1]) == false)
         {
-            *TYPE = OPERAND;
             break;
         }
     }
-
     i++;
     Token[i] = '\0';
 
@@ -45,18 +42,18 @@ int GetPriority(char Operator, bool InStack)
 {
     switch (Operator)
     {
-    case LEFT_PARENTHESIS:
+    case '(':
         if (InStack)
             return 0;
         else
             return 3;
 
-    case PLUS:
-    case MINUS:
+    case '+':
+    case '-':
         return 1;
 
-    case MULTIPLY:
-    case DIVIDE:
+    case '*':
+    case '/':
         return 2;
     }
     return -1;
@@ -67,26 +64,26 @@ void GetPostfix(char* Infix, char* Postfix)
     LLS_CreateStack(&Stack);
 
     size_t i = 0;
+    size_t size = 0;
     char* Top = NULL;
     char Token[32];
-    int Type;
 
     while (i < strlen(Infix))
     {
-        i += GetTokenSize(&Infix[i], Token, &Type);
+        size = GetTokenLength(&Infix[i], Token);
 
-        if (Type == OPERAND)
+        if (isdigit(Infix[i]))
         {
             strcat(Postfix, Token);
             strcat(Postfix, " ");
         }
-        else if (Type == RIGHT_PARENTHESIS)
+        else if (Infix[i] == ')')
         {
             while (!LLS_IsEmpty(Stack))
             {
                 Top = LLS_Top(Stack);
 
-                if (Top[0] == LEFT_PARENTHESIS)
+                if (Top[0] == '(')
                 {
                     LLS_Pop(Stack);
                     break;
@@ -103,7 +100,7 @@ void GetPostfix(char* Infix, char* Postfix)
             {
                 Top = LLS_Top(Stack);
 
-                if (Top[0] != LEFT_PARENTHESIS)
+                if (Top[0] != '(')
                 {
                     strcat(Postfix, Top);
                     strcat(Postfix, " ");//
@@ -112,12 +109,13 @@ void GetPostfix(char* Infix, char* Postfix)
             }
             LLS_Push(Stack, Token);
         }
+        i += size;
     }
     while (!LLS_IsEmpty(Stack))
     {
         Top = LLS_Top(Stack);
 
-        if (Top[0] != LEFT_PARENTHESIS)
+        if (Top[0] != '(')
         {
             strcat(Postfix, Top);
             strcat(Postfix, " ");//
@@ -132,7 +130,7 @@ double Calculate(char* Postfix)
     double Result;
 
     char Token[32];
-    int  Type = -1;
+    size_t size = 0;
     size_t Position = 0;
     size_t Length = strlen(Postfix);
 
@@ -140,12 +138,15 @@ double Calculate(char* Postfix)
 
     while (Position < Length)
     {
-        Position += GetTokenSize(&Postfix[Position], Token, &Type);
+        size = GetTokenLength(&Postfix[Position], Token);
 
-        if (Type == SPACE)
+        if (Postfix[Position] == ' ')
+        {
+            Position += size;
             continue;
+        }
 
-        if (Type == OPERAND)
+        if (isdigit(Postfix[Position]))
         {
             LLS_Push(Stack, Token);
         }
@@ -160,24 +161,25 @@ double Calculate(char* Postfix)
             Operand1 = atof(LLS_Top(Stack));
             LLS_Pop(Stack);
 
-            switch (Type)
+            switch (Postfix[Position])
             {
-            case PLUS:
+            case '+':
                 TempResult = Operand1 + Operand2;
                 break;
-            case MINUS:
+            case '-':
                 TempResult = Operand1 - Operand2;
                 break;
-            case MULTIPLY:
+            case '*':
                 TempResult = Operand1 * Operand2;
                 break;
-            case DIVIDE:
+            case '/':
                 TempResult = Operand1 / Operand2;
                 break;
             }
             _gcvt(TempResult, 10, TempResultStr);
             LLS_Push(Stack, TempResultStr);
         }
+        Position += size;
     }
     Result = atof(LLS_Top(Stack));
     LLS_Pop(Stack);

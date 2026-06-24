@@ -5,20 +5,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-typedef enum
-{
-	LEFT_PARENTHESIS = '(',
-	RIGHT_PARENTHESIS = ')',
-	PLUS = '+',
-	MINUS = '-',
-	MULTIPLY = '*',
-	DIVIDE = '/',
-	SPACE = ' ',
-	OPERAND
-} SYMBOL;
-
 bool IsNumber(char Cipher);
-size_t GetTokenSize(char* Expression, char* Token, int* TYPE);
+size_t GetTokenLength(char* Expression, char* Token);
 void GetPostfix(char* Infix, char* Postfix);
 double Calculate(char* Postfix);
 
