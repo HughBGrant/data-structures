@@ -77,6 +77,10 @@ void GetPostfix(char* Infix, char* Postfix)
             strcat(Postfix, Token);
             strcat(Postfix, " ");
         }
+        else if (Infix[i] == '(')
+        {
+            LLS_Push(Stack, Token);
+        }
         else if (Infix[i] == ')')
         {
             while (!LLS_IsEmpty(Stack))
