@@ -68,20 +68,20 @@ void GetPostfix(char* Infix, char* Postfix)
     char* Top = NULL;
     char Token[32];
 
-    while (i < strlen(Infix))
+    while (i < strlen(Infix)) // 중위 표기식을 다 읽을 때까지 반복
     {
         size = GetTokenLength(&Infix[i], Token);
 
-        if (isdigit(Infix[i]))
+        if (isdigit(Infix[i])) // 토큰이 피연산자라면
         {
             strcat(Postfix, Token);
             strcat(Postfix, " ");
         }
-        else if (Infix[i] == '(')
+        else if (Infix[i] == '(') // 토큰이 왼쪽 괄호라면
         {
             LLS_Push(Stack, Token);
         }
-        else if (Infix[i] == ')')
+        else if (Infix[i] == ')') // 토큰이 오른쪽 괄호라면
         {
             while (!LLS_IsEmpty(Stack))
             {
@@ -97,7 +97,7 @@ void GetPostfix(char* Infix, char* Postfix)
                 LLS_Pop(Stack);
             }
         }
-        else
+        else // 토큰이 연산자라면
         {
             while (!LLS_IsEmpty(Stack) &&
                 (GetPriority(LLS_Top(Stack)[0], true) >= GetPriority(Token[0], false)))
@@ -115,7 +115,7 @@ void GetPostfix(char* Infix, char* Postfix)
         }
         i += size;
     }
-    while (!LLS_IsEmpty(Stack))
+    while (!LLS_IsEmpty(Stack)) // 스택에 남아있는 연산자를 츨력
     {
         Top = LLS_Top(Stack);
 
@@ -136,11 +136,10 @@ double Calculate(char* Postfix)
     char Token[32];
     size_t size = 0;
     size_t Position = 0;
-    size_t Length = strlen(Postfix);
 
     LLS_CreateStack(&Stack);
 
-    while (Position < Length)
+    while (Position < strlen(Postfix))
     {
         size = GetTokenLength(&Postfix[Position], Token);
 
