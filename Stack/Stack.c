@@ -75,22 +75,22 @@ void TestCalculator(void)
 	printf("Enter Infix Expression: ");
 	scanf("%s", InfixExpression);*/
 	//2	
-	char InfixExpression[100] = "1+3.334/(4.28*(110-7729))";
-	char PostfixExpression[100];
+	char Infix[100] = "1+3.334/(4.28*(110-7729))";
+	char Postfix[100];
 
 	double Result = 0.0;
 
-	memset(PostfixExpression, 0, sizeof(PostfixExpression));
+	memset(Postfix, 0, sizeof(Postfix));
 
-	printf("Enter Infix Expression: %s\n", InfixExpression);
+	printf("Enter Infix Expression: %s\n", Infix);
 
-	GetPostfix(InfixExpression, PostfixExpression);
+	GetPostfix(Infix, Postfix);
 
 	printf("Infix: %s\nPostfix: %s\n",
-		InfixExpression,
-		PostfixExpression);
+		Infix,
+		Postfix);
 
-	Result = Calculate(PostfixExpression);
+	Result = Calculate(Postfix);
 
 	printf("Calculation Result : %f\n", Result);
 }
