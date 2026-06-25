@@ -4,15 +4,20 @@ void AS_CreateStack(ArrayStack **Stack, size_t Capacity)
 {
 	*Stack = malloc(sizeof(ArrayStack));
 
-	if (*Stack != NULL)
+	if (*Stack == NULL)
 	{
-		(*Stack)->Array = malloc(sizeof(int) * Capacity);
-		if ((*Stack)->Array != NULL)
-		{
-			(*Stack)->Capacity = Capacity;
-			(*Stack)->Count = 0;
-		}
+		return;
 	}
+	(*Stack)->Array = malloc(sizeof(int) * Capacity);
+
+	if ((*Stack)->Array == NULL)
+	{
+		free(*Stack);
+		*Stack = NULL;
+		return;
+	}
+	(*Stack)->Capacity = Capacity;
+	(*Stack)->Count = 0;
 }
 void AS_DestroyStack(ArrayStack *Stack)
 {
@@ -23,7 +28,7 @@ void AS_DestroyStack(ArrayStack *Stack)
 	free(Stack->Array);
 	free(Stack);
 }
-void AS_Push(ArrayStack *Stack, ASDataType Data)
+void AS_Push(ArrayStack *Stack, AS_DataType Data)
 {
 	if (AS_IsFull(Stack))
 	{
@@ -40,11 +45,11 @@ void AS_Pop(ArrayStack *Stack)
 	}
 	Stack->Count--;
 }
-ASDataType AS_Top(ArrayStack *Stack)
+AS_DataType AS_Top(ArrayStack *Stack)
 {
 	return Stack->Array[Stack->Count - 1];
 }
-size_t AS_GetCount(ArrayStack *Stack)
+size_t AS_GetSize(ArrayStack *Stack)
 {
 	return Stack->Count;
 }

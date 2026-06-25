@@ -4,10 +4,11 @@ void LLS_CreateStack(LinkedListStack **Stack)
 {
 	*Stack = malloc(sizeof(LinkedListStack));
 
-	if (*Stack != NULL)
+	if (*Stack == NULL)
 	{
-		(*Stack)->Top = NULL;
+		return;
 	}
+	(*Stack)->Top = NULL;
 }
 void LLS_DestroyStack(LinkedListStack *Stack)
 {
@@ -21,9 +22,9 @@ void LLS_DestroyStack(LinkedListStack *Stack)
 	}
 	free(Stack);
 }
-Node *LLS_CreateNode(LLSDataType NewData)
+LLS_Node *LLS_CreateNode(LLS_DataType NewData)
 {
-	Node *NewNode = malloc(sizeof(Node));
+	LLS_Node *NewNode = malloc(sizeof(LLS_Node));
 
 	if (NewNode == NULL)
 	{
@@ -33,7 +34,7 @@ Node *LLS_CreateNode(LLSDataType NewData)
 
 	if (NewNode->Data == NULL)
 	{
-		free(NewNode);
+		free(NewNode); // 데이터가 아닌 노드 해제
 		return NULL;
 	}
 	strcpy(NewNode->Data, NewData);
@@ -41,7 +42,7 @@ Node *LLS_CreateNode(LLSDataType NewData)
 
 	return NewNode;
 }
-void LLS_DestroyNode(Node* Node)
+void LLS_DestroyNode(LLS_Node* Node)
 {
 	if (Node == NULL)
 	{
@@ -50,9 +51,9 @@ void LLS_DestroyNode(Node* Node)
 	free(Node->Data);
 	free(Node);
 }
-void LLS_Push(LinkedListStack* Stack, LLSDataType NewData)
+void LLS_Push(LinkedListStack* Stack, LLS_DataType NewData)
 {
-	Node *NewNode = LLS_CreateNode(NewData);
+	LLS_Node *NewNode = LLS_CreateNode(NewData);
 
 	if (NewNode == NULL)
 	{
@@ -74,13 +75,13 @@ void LLS_Pop(LinkedListStack* Stack)
 	{
 		return;
 	}
-	Node *TopNode = Stack->Top;
+	LLS_Node *TopNode = Stack->Top;
 
 	Stack->Top = TopNode->NextNode;
 
 	LLS_DestroyNode(TopNode);
 }
-LLSDataType LLS_Top(LinkedListStack* Stack)
+LLS_DataType LLS_Top(LinkedListStack* Stack)
 {
 	if (Stack->Top == NULL)
 	{
@@ -88,10 +89,10 @@ LLSDataType LLS_Top(LinkedListStack* Stack)
 	}
 	return Stack->Top->Data;
 }
-size_t LLS_GetCount(LinkedListStack* Stack)
+size_t LLS_GetSize(LinkedListStack* Stack)
 {
 	size_t Count = 0;
-	Node *Current = Stack->Top;
+	LLS_Node *Current = Stack->Top;
 
 	while (Current != NULL)
 	{

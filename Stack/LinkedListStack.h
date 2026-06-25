@@ -6,27 +6,27 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-
-typedef char *LLSDataType;
-typedef struct tagNode
+#include <ctype.h>
+typedef char *LLS_DataType;
+typedef struct tagLLS_Node
 {
-	LLSDataType Data;
-	struct tagNode *NextNode;
-} Node;
+	LLS_DataType Data;
+	struct tagLLS_Node *NextNode;
+} LLS_Node;
 
 typedef struct
 {
-	Node *Top;
+	LLS_Node *Top;
 } LinkedListStack;
 
 void LLS_CreateStack(LinkedListStack **Stack);
 void LLS_DestroyStack(LinkedListStack *Stack);
-Node* LLS_CreateNode(LLSDataType NewData);
-void LLS_DestroyNode(Node* _Node);
-void LLS_Push(LinkedListStack *Stack, LLSDataType NewData);
+LLS_Node* LLS_CreateNode(LLS_DataType NewData);
+void LLS_DestroyNode(LLS_Node* _Node);
+void LLS_Push(LinkedListStack *Stack, LLS_DataType NewData);
 void LLS_Pop(LinkedListStack *Stack);
-LLSDataType LLS_Top(LinkedListStack *Stack);
-size_t LLS_GetCount(LinkedListStack *Stack);
+LLS_DataType LLS_Top(LinkedListStack *Stack);
+size_t LLS_GetSize(LinkedListStack *Stack);
 bool LLS_IsEmpty(LinkedListStack *Stack);
 
 #endif

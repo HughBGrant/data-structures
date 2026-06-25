@@ -1,8 +1,8 @@
 #include "DoublyLinkedList.h"
 
-DLLNode *DLL_CreateNode(ElementType NewData)
+DLL_Node *DLL_CreateNode(DLL_DataType NewData)
 {
-    DLLNode *NewNode = malloc(sizeof(DLLNode));
+    DLL_Node *NewNode = malloc(sizeof(DLL_Node));
     if (NewNode != NULL)
     {
         NewNode->Data = NewData;
@@ -11,20 +11,20 @@ DLLNode *DLL_CreateNode(ElementType NewData)
     }
     return NewNode;
 }
-void DLL_DestroyNode(DLLNode *Node)
+void DLL_DestroyNode(DLL_Node *Node)
 {
     free(Node);
 }
-void DLL_AppendNode(DLLNode **Head, ElementType NewData)
+void DLL_AppendNode(DLL_Node **Head, DLL_DataType NewData)
 {
-    DLLNode *NewNode = DLL_CreateNode(NewData);
+    DLL_Node *NewNode = DLL_CreateNode(NewData);
 
     if (*Head == NULL)
     {
         *Head = NewNode;
         return;
     }
-    DLLNode *Tail = *Head;
+    DLL_Node *Tail = *Head;
     while (Tail->NextNode != NULL)
     {
         Tail = Tail->NextNode;
@@ -32,10 +32,10 @@ void DLL_AppendNode(DLLNode **Head, ElementType NewData)
     Tail->NextNode = NewNode;
     NewNode->PrevNode = Tail;
 }
-size_t DLL_GetNodeCount(DLLNode *Head)
+size_t DLL_GetNodeSize(DLL_Node *Head)
 {
     size_t Count = 0;
-    DLLNode *Current = Head;
+    DLL_Node *Current = Head;
 
     while (Current != NULL)
     {
@@ -44,16 +44,16 @@ size_t DLL_GetNodeCount(DLLNode *Head)
     }
     return Count;
 }
-DLLNode *DLL_GetNodeAt(DLLNode *Head, size_t Location)
+DLL_Node *DLL_GetNodeAt(DLL_Node *Head, size_t Location)
 {
-    size_t Count = DLL_GetNodeCount(Head);
+    size_t Count = DLL_GetNodeSize(Head);
 
     if (Location >= Count)
     {
         return NULL;
     }
 
-    DLLNode *Current = Head;
+    DLL_Node *Current = Head;
 
     while (Current != NULL && Location > 0)
     {
@@ -62,13 +62,13 @@ DLLNode *DLL_GetNodeAt(DLLNode *Head, size_t Location)
     }
     return Current;
 }
-void DLL_RemoveNode(DLLNode **Head, size_t Location)
+void DLL_RemoveNode(DLL_Node **Head, size_t Location)
 {
     if (*Head == NULL)
     {
         return;
     }
-    DLLNode *Remove = DLL_GetNodeAt(*Head, Location);
+    DLL_Node *Remove = DLL_GetNodeAt(*Head, Location);
 
     if (Remove == NULL)
     {
@@ -90,14 +90,14 @@ void DLL_RemoveNode(DLLNode **Head, size_t Location)
     }
     DLL_DestroyNode(Remove);
 }
-void DLL_InsertAfter(DLLNode *Head, size_t Location, ElementType NewData)
+void DLL_InsertAfter(DLL_Node *Head, size_t Location, DLL_DataType NewData)
 {
-    DLLNode *Current = DLL_GetNodeAt(Head, Location);
+    DLL_Node *Current = DLL_GetNodeAt(Head, Location);
     if (Current == NULL)
     {
         return;
     }
-    DLLNode *NewNode = DLL_CreateNode(NewData);
+    DLL_Node *NewNode = DLL_CreateNode(NewData);
 
     NewNode->NextNode = Current->NextNode;
     NewNode->PrevNode = Current;
@@ -153,11 +153,11 @@ void DLL_InsertAfter(DLLNode *Head, size_t Location, ElementType NewData)
 //    }
 //    *Head = NULL;
 //}
-void DLL_PrintReverse(DLLNode *Head)
+void DLL_PrintReverse(DLL_Node *Head)
 {
     size_t i = 0;
 
-    DLLNode *Current = Head;
+    DLL_Node *Current = Head;
 
     while (Current != NULL && Current->NextNode != NULL)
     {

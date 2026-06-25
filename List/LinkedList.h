@@ -3,22 +3,22 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-typedef int ElementType;
+typedef int SLL_DataType;
 
-typedef struct tagSLLNode
+typedef struct tagSLL_Node
 {
-    ElementType Data;
-    struct tagSLLNode *NextNode;
-} SLLNode;
-SLLNode *SLL_CreateNode(ElementType NewData);
-void SLL_DestroyNode(SLLNode *Node);
-void SLL_AppendNode(SLLNode **Head, ElementType NewData);
-SLLNode *SLL_GetNodeAt(SLLNode *Head, size_t Location);
-void SLL_RemoveNode(SLLNode **Head, size_t Location);
-void SLL_InsertBefore(SLLNode **Head, size_t Location, ElementType NewData);
-void SLL_InsertAfter(SLLNode *Head, size_t Location, ElementType NewData);
-void SLL_InsertNewHead(SLLNode **Head, ElementType NewData);
-void SLL_DestroyAllNodes(SLLNode **Head);
-size_t SLL_GetNodeCount(SLLNode *Head);
+    SLL_DataType Data;
+    struct tagSLL_Node *NextNode;
+} SLL_Node;
+SLL_Node *SLL_CreateNode(SLL_DataType NewData);
+void SLL_DestroyNode(SLL_Node *Node);
+void SLL_AppendNode(SLL_Node **Head, SLL_DataType NewData);
+SLL_Node *SLL_GetNodeAt(SLL_Node *Head, size_t Location);
+void SLL_RemoveNode(SLL_Node **Head, size_t Location);
+void SLL_InsertBefore(SLL_Node **Head, size_t Location, SLL_DataType NewData);
+void SLL_InsertAfter(SLL_Node *Head, size_t Location, SLL_DataType NewData);
+void SLL_InsertNewHead(SLL_Node **Head, SLL_DataType NewData);
+void SLL_DestroyAllNodes(SLL_Node **Head);
+size_t SLL_GetNodeSize(SLL_Node *Head);
 
 #endif
