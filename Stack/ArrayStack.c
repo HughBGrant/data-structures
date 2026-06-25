@@ -8,7 +8,7 @@ void AS_CreateStack(ArrayStack **Stack, size_t Capacity)
 	{
 		return;
 	}
-	(*Stack)->Array = malloc(sizeof(int) * Capacity);
+	(*Stack)->Array = malloc(sizeof(AS_DataType) * Capacity);
 
 	if ((*Stack)->Array == NULL)
 	{

@@ -8,7 +8,7 @@ void CQ_CreateQueue(CircularQueue **Queue, size_t Capacity)
 	{
 		return;
 	}
-	(*Queue)->Array = malloc(sizeof(CQ_Node) * (Capacity + 1));
+	(*Queue)->Array = malloc(sizeof(CQ_DataType) * (Capacity + 1));
 
 	if ((*Queue)->Array == NULL)
 	{
@@ -28,12 +28,12 @@ void CQ_DestroyQueue(CircularQueue* Queue)
 
 void CQ_Enqueue(CircularQueue* Queue, CQ_DataType Data)
 {
-	Queue->Array[Queue->Rear].Data = Data;
+	Queue->Array[Queue->Rear] = Data;
 	Queue->Rear = (Queue->Rear + 1) % (Queue->Size);
 }
 CQ_DataType CQ_Dequeue(CircularQueue* Queue)
 {
-	CQ_DataType Data = Queue->Array[Queue->Front].Data;
+	CQ_DataType Data = Queue->Array[Queue->Front];
 	Queue->Front = (Queue->Front + 1) % (Queue->Size);
 
 	return Data;

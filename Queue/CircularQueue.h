@@ -7,17 +7,13 @@
 #include <stdlib.h>
 
 typedef int CQ_DataType;
-typedef struct
-{
-	CQ_DataType Data;
-} CQ_Node;
 
 typedef struct
 {
 	size_t Size;
 	size_t Front;
 	size_t Rear;
-	CQ_Node *Array;
+	CQ_DataType *Array;
 } CircularQueue;
 
 void CQ_CreateQueue(CircularQueue** Queue, size_t Capacity);
