@@ -10,7 +10,7 @@ typedef int CQ_DataType;
 
 typedef struct
 {
-	size_t Size;
+	size_t Capacity;
 	size_t Front;
 	size_t Rear;
 	CQ_DataType *Array;

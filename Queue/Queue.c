@@ -24,7 +24,7 @@ int main(void)
         Data++;
     }
     printf("Capacity: %zu, Size: %zu\n",
-        Queue->Size - 1, CQ_GetSize(Queue));
+        Queue->Capacity - 1, CQ_GetSize(Queue));
 
     while (CQ_IsEmpty(Queue) == false)
     {
