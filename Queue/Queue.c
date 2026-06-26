@@ -1,11 +1,11 @@
 #include "CircularQueue.h"
 
-int main(void)
+void TestCQ(void)
 {
-    CircularQueue *Queue;
+    CircularQueue *Queue = CQ_CreateQueue(10);
+    
 	int Data = 0;
 
-	CQ_CreateQueue(&Queue, 10);
 	CQ_Enqueue(Queue, 10);
     CQ_Enqueue(Queue, 20);
     CQ_Enqueue(Queue, 30);
@@ -33,5 +33,18 @@ int main(void)
     }
     CQ_DestroyQueue(Queue);
 
+}
+int main(void)
+{
+    int QueueNumber = 0;
+
+    switch (QueueNumber)
+    {
+    case 0:
+    {
+        TestCQ();
+        break;
+    }
+    }
     return 0;
 }

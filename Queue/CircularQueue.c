@@ -1,24 +1,25 @@
 #include "CircularQueue.h"
 
-void CQ_CreateQueue(CircularQueue **Queue, size_t Capacity)
+CircularQueue *CQ_CreateQueue(size_t Size)
 {
-	*Queue = malloc(sizeof(CircularQueue));
+	CircularQueue *Queue = malloc(sizeof(CircularQueue));
 
-	if (*Queue == NULL)
+	if (Queue == NULL)
 	{
-		return;
+		return NULL;
 	}
-	(*Queue)->Array = malloc(sizeof(CQ_DataType) * (Capacity + 1));
+	Queue->Capacity = Size + 1;
+	Queue->Array = malloc(sizeof(CQ_DataType) * Queue->Capacity);
 
-	if ((*Queue)->Array == NULL)
+	if (Queue->Array == NULL)
 	{
-		free(*Queue);
-		*Queue = NULL;
-		return;
+		free(Queue);
+		return NULL;
 	}
-	(*Queue)->Capacity = Capacity + 1;
-	(*Queue)->Front = 0;
-	(*Queue)->Rear = 0;
+	Queue->Front = 0;
+	Queue->Rear = 0;
+
+	return Queue;
 }
 void CQ_DestroyQueue(CircularQueue* Queue)
 {

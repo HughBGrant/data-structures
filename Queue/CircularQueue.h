@@ -16,7 +16,7 @@ typedef struct
 	CQ_DataType *Array;
 } CircularQueue;
 
-void CQ_CreateQueue(CircularQueue** Queue, size_t Capacity);
+CircularQueue* CQ_CreateQueue(size_t Capacity);
 void CQ_DestroyQueue(CircularQueue* Queue);
 void CQ_Enqueue(CircularQueue* Queue, CQ_DataType Data);
 CQ_DataType CQ_Dequeue(CircularQueue* Queue);

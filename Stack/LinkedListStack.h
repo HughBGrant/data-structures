@@ -8,6 +8,7 @@
 #include <string.h>
 #include <ctype.h>
 typedef char *LLS_DataType;
+
 typedef struct tagLLS_Node
 {
 	LLS_DataType Data;
