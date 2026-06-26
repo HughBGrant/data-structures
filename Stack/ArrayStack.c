@@ -6,19 +6,20 @@ ArrayStack *AS_CreateStack(size_t Capacity)
 
 	if (Stack == NULL)
 	{
-		return;
+		return NULL;
 	}
 	Stack->Array = malloc(sizeof(AS_DataType) * Capacity);
 
 	if (Stack->Array == NULL)
 	{
 		free(Stack);
-		return;
+		return NULL;
 	}
 	Stack->Capacity = Capacity;
 	Stack->Count = 0;
 
 	return Stack;
+
 }
 void AS_DestroyStack(ArrayStack *Stack)
 {

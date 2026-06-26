@@ -1,7 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "ArrayStack.h"
-#include "LinkedListStack.h"
+#include "LinkedStack.h"
 #include "Calculator.h"
 
 void TestAS(void)
@@ -28,34 +28,34 @@ void TestAS(void)
 	}
 	AS_DestroyStack(Stack);
 }
-void TestLLS(void)
+void TestLS(void)
 {
-	LinkedListStack *Stack = LLS_CreateStack();
+	LinkedStack *Stack = LS_CreateStack();
 
-	LLS_Push(Stack, "abc");
-	LLS_Push(Stack, "def");
-	LLS_Push(Stack, "efg");
-	LLS_Push(Stack, "hij");
+	LS_Push(Stack, "abc");
+	LS_Push(Stack, "def");
+	LS_Push(Stack, "efg");
+	LS_Push(Stack, "hij");
 
 	printf("Count: %zu, Top: %s\n\n",
-		LLS_GetSize(Stack), LLS_Top(Stack));
+		LS_GetSize(Stack), LS_Top(Stack));
 
-	while (!LLS_IsEmpty(Stack))
+	while (!LS_IsEmpty(Stack))
 	{
 
-		printf("Popped: %s, ", LLS_Top(Stack));
-		LLS_Pop(Stack);
+		printf("Popped: %s, ", LS_Top(Stack));
+		LS_Pop(Stack);
 
-		if (!LLS_IsEmpty(Stack))
+		if (!LS_IsEmpty(Stack))
 		{
-			printf("Current Top: %s\n", LLS_Top(Stack));
+			printf("Current Top: %s\n", LS_Top(Stack));
 		}
 		else
 		{
 			printf("Stack Is Empty.\n");
 		}
 	}
-	LLS_DestroyStack(Stack);
+	LS_DestroyStack(Stack);
 }
 void TestCalculator(void)
 {
@@ -103,7 +103,7 @@ int main(void)
 		}
 		case 1:
 		{
-			TestLLS();
+			TestLS();
 			break;
 		}
 		case 2:

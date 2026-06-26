@@ -1,8 +1,8 @@
-#include "LinkedListStack.h"
+#include "LinkedStack.h"
 
-LinkedListStack *LLS_CreateStack(void)
+LinkedStack *LS_CreateStack(void)
 {
-	LinkedListStack *Stack = malloc(sizeof(LinkedListStack));
+	LinkedStack *Stack = malloc(sizeof(LinkedStack));
 
 	if (Stack == NULL)
 	{
@@ -12,21 +12,21 @@ LinkedListStack *LLS_CreateStack(void)
 
 	return Stack;
 }
-void LLS_DestroyStack(LinkedListStack *Stack)
+void LS_DestroyStack(LinkedStack *Stack)
 {
 	if (Stack == NULL)
 	{
 		return;
 	}
-	while (!LLS_IsEmpty(Stack))
+	while (!LS_IsEmpty(Stack))
 	{
-		LLS_Pop(Stack);
+		LS_Pop(Stack);
 	}
 	free(Stack);
 }
-LLS_Node *LLS_CreateNode(LLS_DataType NewData)
+LS_Node *LS_CreateNode(LS_DataType NewData)
 {
-	LLS_Node *NewNode = malloc(sizeof(LLS_Node));
+	LS_Node *NewNode = malloc(sizeof(LS_Node));
 
 	if (NewNode == NULL)
 	{
@@ -44,7 +44,7 @@ LLS_Node *LLS_CreateNode(LLS_DataType NewData)
 
 	return NewNode;
 }
-void LLS_DestroyNode(LLS_Node* Node)
+void LS_DestroyNode(LS_Node* Node)
 {
 	if (Node == NULL)
 	{
@@ -53,9 +53,9 @@ void LLS_DestroyNode(LLS_Node* Node)
 	free(Node->Data);
 	free(Node);
 }
-void LLS_Push(LinkedListStack* Stack, LLS_DataType NewData)
+void LS_Push(LinkedStack* Stack, LS_DataType NewData)
 {
-	LLS_Node *NewNode = LLS_CreateNode(NewData);
+	LS_Node *NewNode = LS_CreateNode(NewData);
 
 	if (NewNode == NULL)
 	{
@@ -71,19 +71,19 @@ void LLS_Push(LinkedListStack* Stack, LLS_DataType NewData)
 	}
 	Stack->Top = NewNode;
 }
-void LLS_Pop(LinkedListStack* Stack)
+void LS_Pop(LinkedStack* Stack)
 {
 	if (Stack == NULL || Stack->Top == NULL)
 	{
 		return;
 	}
-	LLS_Node *TopNode = Stack->Top;
+	LS_Node *TopNode = Stack->Top;
 
 	Stack->Top = TopNode->NextNode;
 
-	LLS_DestroyNode(TopNode);
+	LS_DestroyNode(TopNode);
 }
-LLS_DataType LLS_Top(LinkedListStack* Stack)
+LS_DataType LS_Top(LinkedStack* Stack)
 {
 	if (Stack->Top == NULL)
 	{
@@ -91,10 +91,10 @@ LLS_DataType LLS_Top(LinkedListStack* Stack)
 	}
 	return Stack->Top->Data;
 }
-size_t LLS_GetSize(LinkedListStack* Stack)
+size_t LS_GetSize(LinkedStack* Stack)
 {
 	size_t Count = 0;
-	LLS_Node *Current = Stack->Top;
+	LS_Node *Current = Stack->Top;
 
 	while (Current != NULL)
 	{
@@ -103,7 +103,7 @@ size_t LLS_GetSize(LinkedListStack* Stack)
 	}
 	return Count;
 }
-bool LLS_IsEmpty(LinkedListStack* Stack)
+bool LS_IsEmpty(LinkedStack* Stack)
 {
 	return (Stack->Top) == NULL;
 }
