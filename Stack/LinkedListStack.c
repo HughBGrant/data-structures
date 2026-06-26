@@ -34,7 +34,7 @@ LLS_Node *LLS_CreateNode(LLS_DataType NewData)
 
 	if (NewNode->Data == NULL)
 	{
-		free(NewNode); // µ¥ÀÌÅÍ°¡ ¾Æ´Ñ ³ëµå ÇØÁ¦
+		free(NewNode); // ë°ì´í„°ê°€ ì•„ë‹Œ ë…¸ë“œ í•´ì œ
 		return NULL;
 	}
 	strcpy(NewNode->Data, NewData);
