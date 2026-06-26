@@ -23,17 +23,29 @@ CircularQueue *CQ_CreateQueue(size_t Size)
 }
 void CQ_DestroyQueue(CircularQueue* Queue)
 {
+	if (Queue == NULL)
+	{
+		return;
+	}
 	free(Queue->Array);
 	free(Queue);
 }
 
 void CQ_Enqueue(CircularQueue* Queue, CQ_DataType Data)
 {
+	if (CQ_IsFull(Queue))
+	{
+		return;
+	}
 	Queue->Array[Queue->Rear] = Data;
 	Queue->Rear = (Queue->Rear + 1) % (Queue->Capacity);
 }
 CQ_DataType CQ_Dequeue(CircularQueue* Queue)
 {
+	if (CQ_IsEmpty(Queue))
+	{
+		return NULL;
+	}
 	CQ_DataType Data = Queue->Array[Queue->Front];
 	Queue->Front = (Queue->Front + 1) % (Queue->Capacity);
 
