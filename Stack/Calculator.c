@@ -60,8 +60,7 @@ int GetPriority(char Operator, bool InStack)
 }
 void GetPostfix(char* Infix, char* Postfix)
 {
-    LinkedListStack* Stack = NULL;
-    LLS_CreateStack(&Stack);
+    LinkedListStack* Stack = LLS_CreateStack();
 
     size_t i = 0;
     size_t size = 0;
@@ -130,14 +129,13 @@ void GetPostfix(char* Infix, char* Postfix)
 }
 double Calculate(char* Postfix)
 {
-    LinkedListStack* Stack;
+    LinkedListStack* Stack = LLS_CreateStack();
     double Result;
 
     char Token[32];
     size_t size = 0;
     size_t Position = 0;
 
-    LLS_CreateStack(&Stack);
 
     while (Position < strlen(Postfix))
     {

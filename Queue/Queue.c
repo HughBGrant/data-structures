@@ -2,8 +2,8 @@
 
 int main(void)
 {
-    CircularQueue* Queue;
-	int Data;
+    CircularQueue *Queue;
+	int Data = 0;
 
 	CQ_CreateQueue(&Queue, 10);
 	CQ_Enqueue(Queue, 10);

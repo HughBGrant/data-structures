@@ -14,7 +14,7 @@ typedef struct
 	AS_DataType *Array;
 } ArrayStack;
 
-void AS_CreateStack(ArrayStack **Stack, size_t Capacity);
+ArrayStack *AS_CreateStack(size_t Capacity);
 void AS_DestroyStack(ArrayStack *Stack);
 void AS_Push(ArrayStack *Stack, AS_DataType Data);
 void AS_Pop(ArrayStack *Stack);

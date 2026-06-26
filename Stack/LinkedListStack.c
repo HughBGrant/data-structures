@@ -1,14 +1,16 @@
 #include "LinkedListStack.h"
 
-void LLS_CreateStack(LinkedListStack **Stack)
+LinkedListStack *LLS_CreateStack(void)
 {
-	*Stack = malloc(sizeof(LinkedListStack));
+	LinkedListStack *Stack = malloc(sizeof(LinkedListStack));
 
-	if (*Stack == NULL)
+	if (Stack == NULL)
 	{
-		return;
+		return NULL;
 	}
-	(*Stack)->Top = NULL;
+	Stack->Top = NULL;
+
+	return Stack;
 }
 void LLS_DestroyStack(LinkedListStack *Stack)
 {

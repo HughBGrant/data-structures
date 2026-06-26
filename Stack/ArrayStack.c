@@ -1,23 +1,24 @@
 #include "ArrayStack.h"
 
-void AS_CreateStack(ArrayStack **Stack, size_t Capacity)
+ArrayStack *AS_CreateStack(size_t Capacity)
 {
-	*Stack = malloc(sizeof(ArrayStack));
+	ArrayStack *Stack = malloc(sizeof(ArrayStack));
 
-	if (*Stack == NULL)
+	if (Stack == NULL)
 	{
 		return;
 	}
-	(*Stack)->Array = malloc(sizeof(AS_DataType) * Capacity);
+	Stack->Array = malloc(sizeof(AS_DataType) * Capacity);
 
-	if ((*Stack)->Array == NULL)
+	if (Stack->Array == NULL)
 	{
-		free(*Stack);
-		*Stack = NULL;
+		free(Stack);
 		return;
 	}
-	(*Stack)->Capacity = Capacity;
-	(*Stack)->Count = 0;
+	Stack->Capacity = Capacity;
+	Stack->Count = 0;
+
+	return Stack;
 }
 void AS_DestroyStack(ArrayStack *Stack)
 {

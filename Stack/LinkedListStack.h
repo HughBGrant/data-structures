@@ -19,7 +19,7 @@ typedef struct
 	LLS_Node *Top;
 } LinkedListStack;
 
-void LLS_CreateStack(LinkedListStack **Stack);
+LinkedListStack *LLS_CreateStack(void);
 void LLS_DestroyStack(LinkedListStack *Stack);
 LLS_Node* LLS_CreateNode(LLS_DataType NewData);
 void LLS_DestroyNode(LLS_Node* _Node);
