@@ -6,39 +6,36 @@ void TestSLL(void)
 {
     size_t i = 0;
 
-    SLL_Node* Head = NULL;
+    LinkedList *List = SLL_CreateList();
 
     for (int i = 0; i < 5; i++)
     {
-        SLL_AppendNode(&Head, i);
+        SLL_AppendTail(List, i);
     }
-    SLL_AppendNode(&Head, -1);
-    SLL_AppendNode(&Head, -2);
+    SLL_AppendTail(List, -1);
+    SLL_AppendTail(List, -2);
 
-    for (i = 0; i < SLL_GetNodeSize(Head); i++)
+    for (i = 0; i < SLL_GetSize(List); i++)
     {
-        printf("Head[%zu] : %d\n", i, SLL_GetNodeAt(Head, i)->Data);
+        printf("List[%zu] : %d\n", i, SLL_GetNodeAt(List, i)->Data);
     }
     printf("\nInserting 3000 Before [2]...\n\n");
-    SLL_InsertBefore(&Head, 2, 3000);
+    SLL_InsertBefore(List, 2, 3000);
 
-    for (i = 0; i < SLL_GetNodeSize(Head); i++)
+    for (i = 0; i < SLL_GetSize(List); i++)
     {
-        printf("Head[%zu] : %d\n", i, SLL_GetNodeAt(Head, i)->Data);
+        printf("List[%zu] : %d\n", i, SLL_GetNodeAt(List, i)->Data);
     }
     printf("\nInserting 2000 After [2]...\n\n");
-    SLL_InsertAfter(Head, 2, 2000);
+    SLL_InsertAfter(List, 2, 2000);
 
-    for (i = 0; i < SLL_GetNodeSize(Head); i++)
+    for (i = 0; i < SLL_GetSize(List); i++)
     {
-        printf("Head[%zu] : %d\n", i, SLL_GetNodeAt(Head, i)->Data);
+        printf("List[%zu] : %d\n", i, SLL_GetNodeAt(List, i)->Data);
     }
-    printf("\nDestroying Head...\n");
+    printf("\nDestroying List...\n");
 
-    while (Head != NULL)
-    {
-        SLL_RemoveNode(&Head, 0);
-    }
+    SLL_DestroyList(List);
 }
 void TestDLL(void)
 {
@@ -110,7 +107,7 @@ void TestCDLL(void)
 }
 int main(void)
 {
-    int ListNumber = 2;
+    int ListNumber = 0;
 
     switch (ListNumber)
     {

@@ -10,15 +10,24 @@ typedef struct tagSLL_Node
     SLL_DataType Data;
     struct tagSLL_Node *NextNode;
 } SLL_Node;
+
+typedef struct
+{
+    SLL_Node *Head;
+    SLL_Node *Tail;
+    size_t Count;
+} LinkedList;
+
+LinkedList *SLL_CreateList(void);
+void SLL_DestroyList(LinkedList *List);
 SLL_Node *SLL_CreateNode(SLL_DataType NewData);
 void SLL_DestroyNode(SLL_Node *Node);
-void SLL_AppendNode(SLL_Node **Head, SLL_DataType NewData);
-SLL_Node *SLL_GetNodeAt(SLL_Node *Head, size_t Location);
-void SLL_RemoveNode(SLL_Node **Head, size_t Location);
-void SLL_InsertBefore(SLL_Node **Head, size_t Location, SLL_DataType NewData);
-void SLL_InsertAfter(SLL_Node *Head, size_t Location, SLL_DataType NewData);
-void SLL_InsertNewHead(SLL_Node **Head, SLL_DataType NewData);
-void SLL_DestroyAllNodes(SLL_Node **Head);
-size_t SLL_GetNodeSize(SLL_Node *Head);
+void SLL_AppendTail(LinkedList *List, SLL_DataType NewData);
+void SLL_AppendHead(LinkedList *List, SLL_DataType NewData);
+SLL_Node *SLL_GetNodeAt(LinkedList *List, size_t Location);
+void SLL_RemoveNode(LinkedList *List, size_t Location);
+void SLL_InsertBefore(LinkedList *List, size_t Location, SLL_DataType NewData);
+void SLL_InsertAfter(LinkedList *List, size_t Location, SLL_DataType NewData);
+size_t SLL_GetSize(LinkedList *List);
 
 #endif
