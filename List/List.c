@@ -6,7 +6,6 @@ void TestLL(void)
 {
     size_t i = 0;
 
-
     LinkedList *List = LL_CreateList();
 
     for (int i = 0; i < 5; i++)

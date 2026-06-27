@@ -30,7 +30,6 @@ void CQ_DestroyQueue(CircularQueue* Queue)
 	free(Queue->Array);
 	free(Queue);
 }
-
 void CQ_Enqueue(CircularQueue* Queue, CQ_DataType Data)
 {
 	if (CQ_IsFull(Queue))
@@ -42,10 +41,6 @@ void CQ_Enqueue(CircularQueue* Queue, CQ_DataType Data)
 }
 CQ_DataType CQ_Dequeue(CircularQueue* Queue)
 {
-	if (CQ_IsEmpty(Queue))
-	{
-		return NULL;
-	}
 	CQ_DataType Data = Queue->Array[Queue->Front];
 	Queue->Front = (Queue->Front + 1) % (Queue->Capacity);
 

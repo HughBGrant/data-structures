@@ -42,7 +42,6 @@ void TestLS(void)
 
 	while (!LS_IsEmpty(Stack))
 	{
-
 		printf("Popped: %s, ", LS_Top(Stack));
 		LS_Pop(Stack);
 

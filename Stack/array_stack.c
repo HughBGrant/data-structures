@@ -57,6 +57,10 @@ size_t AS_GetSize(ArrayStack *Stack)
 }
 bool AS_IsEmpty(ArrayStack *Stack)
 {
+	if (Stack == NULL)
+	{
+		return true;
+	}
 	return Stack->Count == 0;
 }
 bool AS_IsFull(ArrayStack *Stack)

@@ -7,6 +7,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <ctype.h>
+
 typedef char *LS_DataType;
 
 typedef struct tagLS_Node

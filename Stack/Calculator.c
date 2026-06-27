@@ -43,19 +43,19 @@ int GetPriority(char Operator, bool InStack)
 {
     switch (Operator)
     {
-    case '(':
-        if (InStack)
-            return 0;
-        else
-            return 3;
+        case '(':
+            if (InStack)
+                return 0;
+            else
+                return 3;
 
-    case '+':
-    case '-':
-        return 1;
+        case '+':
+        case '-':
+            return 1;
 
-    case '*':
-    case '/':
-        return 2;
+        case '*':
+        case '/':
+            return 2;
     }
     return -1;
 }
@@ -165,18 +165,18 @@ double Calculate(char* Postfix)
 
             switch (Postfix[Position])
             {
-            case '+':
-                TempResult = Operand1 + Operand2;
-                break;
-            case '-':
-                TempResult = Operand1 - Operand2;
-                break;
-            case '*':
-                TempResult = Operand1 * Operand2;
-                break;
-            case '/':
-                TempResult = Operand1 / Operand2;
-                break;
+                case '+':
+                    TempResult = Operand1 + Operand2;
+                    break;
+                case '-':
+                    TempResult = Operand1 - Operand2;
+                    break;
+                case '*':
+                    TempResult = Operand1 * Operand2;
+                    break;
+                case '/':
+                    TempResult = Operand1 / Operand2;
+                    break;
             }
             _gcvt(TempResult, 10, TempResultStr);
             LS_Push(Stack, TempResultStr);
