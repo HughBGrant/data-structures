@@ -19,6 +19,7 @@ typedef struct tagLS_Node
 typedef struct
 {
 	LS_Node *Top;
+	/////count
 } LinkedStack;
 
 LinkedStack *LS_CreateStack(void);
