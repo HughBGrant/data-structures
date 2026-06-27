@@ -1,4 +1,4 @@
-#include "LinkedStack.h"
+#include "linked_stack.h"
 
 LinkedStack *LS_CreateStack(void)
 {

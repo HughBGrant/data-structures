@@ -124,12 +124,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CircularQueue.c" />
-    <ClCompile Include="Queue.c" />
+    <ClCompile Include="circular_queue.c" />
+    <ClCompile Include="linked_queue.c" />
+    <ClCompile Include="queue.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CircularQueue.h" />
-    <ClInclude Include="LinkedQueue.h" />
+    <ClInclude Include="circular_queue.h" />
+    <ClInclude Include="linked_queue.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

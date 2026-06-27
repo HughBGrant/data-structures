@@ -1,8 +1,8 @@
 #define _CRT_SECURE_NO_WARNINGS
 
-#include "ArrayStack.h"
-#include "LinkedStack.h"
-#include "Calculator.h"
+#include "array_stack.h"
+#include "linked_stack.h"
+#include "calculator.h"
 
 void TestAS(void)
 {

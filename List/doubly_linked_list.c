@@ -1,4 +1,4 @@
-#include "DoublyLinkedList.h"
+#include "doubly_linked_list.h"
 
 DLL_Node *DLL_CreateNode(DLL_DataType NewData)
 {

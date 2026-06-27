@@ -1,4 +1,4 @@
-#include "ArrayStack.h"
+#include "array_stack.h"
 
 ArrayStack *AS_CreateStack(size_t Capacity)
 {

@@ -124,15 +124,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ArrayStack.c" />
-    <ClCompile Include="Calculator.c" />
-    <ClCompile Include="LinkedStack.c" />
-    <ClCompile Include="Stack.c" />
+    <ClCompile Include="array_stack.c" />
+    <ClCompile Include="calculator.c" />
+    <ClCompile Include="linked_stack.c" />
+    <ClCompile Include="stack.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ArrayStack.h" />
-    <ClInclude Include="Calculator.h" />
-    <ClInclude Include="LinkedStack.h" />
+    <ClInclude Include="array_stack.h" />
+    <ClInclude Include="calculator.h" />
+    <ClInclude Include="linked_stack.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

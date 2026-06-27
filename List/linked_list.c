@@ -1,6 +1,6 @@
-#include "LinkedList.h"
+#include "linked_list.h"
 
-LinkedList *SLL_CreateList(void)
+LinkedList *LL_CreateList(void)
 {
     LinkedList *List = malloc(sizeof(LinkedList));
 
@@ -14,23 +14,23 @@ LinkedList *SLL_CreateList(void)
 
     return List;
 }
-void SLL_DestroyList(LinkedList *List)
+void LL_DestroyList(LinkedList *List)
 {
     if (List == NULL)
     {
         return;
     }
-    SLL_Node *Current = List->Head;
+    LL_Node *Current = List->Head;
 
     while (List->Count > 0)
     {
-        SLL_RemoveNode(List, 0);
+        LL_RemoveNode(List, 0);
     }
     free(List);
 }
-SLL_Node *SLL_CreateNode(SLL_DataType NewData)
+LL_Node *LL_CreateNode(LL_DataType NewData)
 {
-    SLL_Node *NewNode = malloc(sizeof(SLL_Node));
+    LL_Node *NewNode = malloc(sizeof(LL_Node));
 
     if (NewNode != NULL)
     {
@@ -39,20 +39,20 @@ SLL_Node *SLL_CreateNode(SLL_DataType NewData)
     }
     return NewNode;
 }
-void SLL_DestroyNode(SLL_Node *Node)
+void LL_DestroyNode(LL_Node *Node)
 {
     free(Node);
 }
-void SLL_AppendTail(LinkedList *List, SLL_DataType NewData)
+void LL_AppendTail(LinkedList *List, LL_DataType NewData)
 {
-    SLL_Node *NewTail = SLL_CreateNode(NewData);
+    LL_Node *NewTail = LL_CreateNode(NewData);
 
     if (NewTail == NULL)
     {
         return;
     }
 
-    if (SLL_GetSize(List) == 0)
+    if (LL_GetSize(List) == 0)
     {
         List->Head = NewTail;
         List->Tail = NewTail;
@@ -64,9 +64,9 @@ void SLL_AppendTail(LinkedList *List, SLL_DataType NewData)
     }
     List->Count++;
 }
-void SLL_AppendHead(LinkedList *List, SLL_DataType NewData)
+void LL_AppendHead(LinkedList *List, LL_DataType NewData)
 {
-    SLL_Node *NewHead = SLL_CreateNode(NewData);
+    LL_Node *NewHead = LL_CreateNode(NewData);
 
     if (NewHead == NULL)
     {
@@ -81,7 +81,7 @@ void SLL_AppendHead(LinkedList *List, SLL_DataType NewData)
     }
     List->Count++;
 }
-size_t SLL_GetSize(LinkedList *List)
+size_t LL_GetSize(LinkedList *List)
 {
     if (List == NULL)
     {
@@ -89,17 +89,17 @@ size_t SLL_GetSize(LinkedList *List)
     }
     return List->Count;
 }
-SLL_Node *SLL_GetNodeAt(LinkedList *List, size_t Location)
+LL_Node *LL_GetNodeAt(LinkedList *List, size_t Location)
 {
-    if (Location >= SLL_GetSize(List))
+    if (Location >= LL_GetSize(List))
     {
         return NULL;
     }
-    if (Location == SLL_GetSize(List) - 1)
+    if (Location == LL_GetSize(List) - 1)
     {
         return List->Tail;
     }
-    SLL_Node *Current = List->Head;
+    LL_Node *Current = List->Head;
 
     while (Current != NULL && Location > 0)
     {
@@ -108,13 +108,13 @@ SLL_Node *SLL_GetNodeAt(LinkedList *List, size_t Location)
     }
     return Current;
 }
-void SLL_RemoveNode(LinkedList *List, size_t Location)
+void LL_RemoveNode(LinkedList *List, size_t Location)
 {
-    if (SLL_GetSize(List) == 0)
+    if (LL_GetSize(List) == 0)
     {
         return;
     }
-    SLL_Node *Remove = SLL_GetNodeAt(List, Location);
+    LL_Node *Remove = LL_GetNodeAt(List, Location);
 
     if (Remove == NULL)
     {
@@ -130,12 +130,12 @@ void SLL_RemoveNode(LinkedList *List, size_t Location)
         {
             List->Tail = NULL;
         }
-        SLL_DestroyNode(Remove);
+        LL_DestroyNode(Remove);
         List->Count--;
         
         return;
     }
-    SLL_Node *Current = List->Head;
+    LL_Node *Current = List->Head;
 
     while (Current != NULL && Current->NextNode != Remove)
     {
@@ -150,18 +150,18 @@ void SLL_RemoveNode(LinkedList *List, size_t Location)
             List->Tail = Current;
         }
     }
-    SLL_DestroyNode(Remove);
+    LL_DestroyNode(Remove);
     List->Count--;
 }
-void SLL_InsertAfter(LinkedList *List, size_t Location, SLL_DataType NewData)
+void LL_InsertAfter(LinkedList *List, size_t Location, LL_DataType NewData)
 {
-    SLL_Node *Current = SLL_GetNodeAt(List, Location);
+    LL_Node *Current = LL_GetNodeAt(List, Location);
 
     if (Current == NULL)
     {
         return;
     }
-    SLL_Node *NewNode = SLL_CreateNode(NewData);
+    LL_Node *NewNode = LL_CreateNode(NewData);
 
     if (NewNode == NULL)
     {
@@ -175,15 +175,15 @@ void SLL_InsertAfter(LinkedList *List, size_t Location, SLL_DataType NewData)
     }
     List->Count++;
 }
-void SLL_InsertBefore(LinkedList *List, size_t Location, SLL_DataType NewData)
+void LL_InsertBefore(LinkedList *List, size_t Location, LL_DataType NewData)
 {
-    SLL_Node *Current = SLL_GetNodeAt(List, Location);
+    LL_Node *Current = LL_GetNodeAt(List, Location);
 
     if (Current == NULL)
     {
         return;
     }
-    SLL_Node *NewNode = SLL_CreateNode(NewData);
+    LL_Node *NewNode = LL_CreateNode(NewData);
 
     if (NewNode == NULL)
     {
@@ -196,7 +196,7 @@ void SLL_InsertBefore(LinkedList *List, size_t Location, SLL_DataType NewData)
         List->Count++;
         return;
     }
-    SLL_Node *Before = List->Head;
+    LL_Node *Before = List->Head;
     while (Before != NULL && Before->NextNode != Current)
     {
         Before = Before->NextNode;

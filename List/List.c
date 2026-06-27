@@ -1,41 +1,42 @@
-#include "LinkedList.h"
-#include "DoublyLinkedList.h"
-#include "CircularDoublyLinkedList.h"
+#include "linked_list.h"
+#include "doubly_linked_list.h"
+#include "circular_doubly_linked_list.h"
 
-void TestSLL(void)
+void TestLL(void)
 {
     size_t i = 0;
 
-    LinkedList *List = SLL_CreateList();
+
+    LinkedList *List = LL_CreateList();
 
     for (int i = 0; i < 5; i++)
     {
-        SLL_AppendTail(List, i);
+        LL_AppendTail(List, i);
     }
-    SLL_AppendTail(List, -1);
-    SLL_AppendTail(List, -2);
+    LL_AppendTail(List, -1);
+    LL_AppendTail(List, -2);
 
-    for (i = 0; i < SLL_GetSize(List); i++)
+    for (i = 0; i < LL_GetSize(List); i++)
     {
-        printf("List[%zu] : %d\n", i, SLL_GetNodeAt(List, i)->Data);
+        printf("List[%zu] : %d\n", i, LL_GetNodeAt(List, i)->Data);
     }
     printf("\nInserting 3000 Before [2]...\n\n");
-    SLL_InsertBefore(List, 2, 3000);
+    LL_InsertBefore(List, 2, 3000);
 
-    for (i = 0; i < SLL_GetSize(List); i++)
+    for (i = 0; i < LL_GetSize(List); i++)
     {
-        printf("List[%zu] : %d\n", i, SLL_GetNodeAt(List, i)->Data);
+        printf("List[%zu] : %d\n", i, LL_GetNodeAt(List, i)->Data);
     }
     printf("\nInserting 2000 After [2]...\n\n");
-    SLL_InsertAfter(List, 2, 2000);
+    LL_InsertAfter(List, 2, 2000);
 
-    for (i = 0; i < SLL_GetSize(List); i++)
+    for (i = 0; i < LL_GetSize(List); i++)
     {
-        printf("List[%zu] : %d\n", i, SLL_GetNodeAt(List, i)->Data);
+        printf("List[%zu] : %d\n", i, LL_GetNodeAt(List, i)->Data);
     }
     printf("\nDestroying List...\n");
 
-    SLL_DestroyList(List);
+    LL_DestroyList(List);
 }
 void TestDLL(void)
 {
@@ -113,7 +114,7 @@ int main(void)
     {
         case 0:
         {
-            TestSLL();
+            TestLL();
             break;
         }
         case 1:

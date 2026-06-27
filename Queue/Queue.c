@@ -1,4 +1,4 @@
-#include "CircularQueue.h"
+#include "circular_queue.h"
 
 void TestCQ(void)
 {

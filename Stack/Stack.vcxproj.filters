@@ -15,27 +15,27 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ArrayStack.c">
+    <ClCompile Include="array_stack.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="LinkedStack.c">
+    <ClCompile Include="linked_stack.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Stack.c">
+    <ClCompile Include="stack.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Calculator.c">
+    <ClCompile Include="calculator.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ArrayStack.h">
+    <ClInclude Include="array_stack.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="LinkedStack.h">
+    <ClInclude Include="linked_stack.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Calculator.h">
+    <ClInclude Include="calculator.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
