@@ -3,6 +3,7 @@
 CDLL_Node* CDLL_CreateNode(CDLL_DataType NewData)
 {
     CDLL_Node *NewNode = malloc(sizeof(CDLL_Node));
+
     if (NewNode != NULL)
     {
         NewNode->Data = NewData;
@@ -15,53 +16,53 @@ void CDLL_DestroyNode(CDLL_Node *Node)
 {
     free(Node);
 }
-void CDLL_AppendNode(CDLL_Node **Head, CDLL_DataType NewData)
+void CDLL_AppendTail(CircularDoublyLinkedList *List, CDLL_DataType NewData)
 {
     CDLL_Node *NewNode = CDLL_CreateNode(NewData);
 
-    if (*Head == NULL)
+    if (List->Head == NULL)
     {
-        *Head = NewNode;
-        (*Head)->NextNode = *Head;
-        (*Head)->PrevNode = *Head;
+        List->Head = NewNode;
+        List->Head->NextNode = List->Head;
+        List->Head->PrevNode = List->Head;
     }
     else
     {
-        CDLL_Node* Tail = (*Head)->PrevNode;
+        CDLL_Node *Tail = List->Head->PrevNode;
 
-        NewNode->NextNode = *Head;
+        NewNode->NextNode = List->Head;
         NewNode->PrevNode = Tail;
-        (*Head)->PrevNode = NewNode;
+        List->Head->PrevNode = NewNode;
         Tail->NextNode = NewNode;
     }
 }
-size_t CDLL_GetNodeSize(CDLL_Node *Head)
+size_t CDLL_GetSize(CircularDoublyLinkedList *List)
 {
     size_t Count = 0;
-    CDLL_Node *Current = Head;
+    CDLL_Node *Current = List->Head;
 
     while (Current != NULL)
     {
         Current = Current->NextNode;
         Count++;
 
-        if (Current == Head)
+        if (Current == List->Head)
         {
             break;
         }
     }
     return Count;
 }
-CDLL_Node *CDLL_GetNodeAt(CDLL_Node *Head, size_t Location)
+CDLL_Node *CDLL_GetNodeAt(CircularDoublyLinkedList *List, size_t Location)
 {
-    size_t Count = CDLL_GetNodeSize(Head);
+    size_t Count = CDLL_GetSize(List);
 
     if (Location >= Count)
     {
         return NULL;
     }
 
-    CDLL_Node *Current = Head;
+    CDLL_Node *Current = List->Head;
 
     while (Location > 0)
     {
@@ -70,9 +71,9 @@ CDLL_Node *CDLL_GetNodeAt(CDLL_Node *Head, size_t Location)
     }
     return Current;
 }
-void CDLL_InsertAfter(CDLL_Node *Head, size_t Location, CDLL_DataType NewData)
+void CDLL_InsertAfter(CircularDoublyLinkedList *List, size_t Location, CDLL_DataType NewData)
 {
-    CDLL_Node *Current = CDLL_GetNodeAt(Head, Location);
+    CDLL_Node *Current = CDLL_GetNodeAt(List, Location);
     if (Current == NULL)
     {
         return;
@@ -82,16 +83,16 @@ void CDLL_InsertAfter(CDLL_Node *Head, size_t Location, CDLL_DataType NewData)
     NewNode->NextNode = Current->NextNode;
     NewNode->PrevNode = Current;
     Current->NextNode->PrevNode = NewNode;
-    
+
     Current->NextNode = NewNode;
 }
-void CDLL_RemoveNode(CDLL_Node **Head, size_t Location)
+void CDLL_RemoveNode(CircularDoublyLinkedList *List, size_t Location)
 {
-    if (*Head == NULL)
+    if (List->Head == NULL)
     {
         return;
     }
-    CDLL_Node *Remove = CDLL_GetNodeAt(*Head, Location);
+    CDLL_Node *Remove = CDLL_GetNodeAt(List, Location);
 
     if (Remove == NULL)
     {
@@ -101,16 +102,16 @@ void CDLL_RemoveNode(CDLL_Node **Head, size_t Location)
 
     if (Remove->NextNode == Remove)
     {
-        *Head = NULL;
+        List->Head = NULL;
         CDLL_DestroyNode(Remove);
         return;
     }
     Remove->PrevNode->NextNode = Remove->NextNode;
     Remove->NextNode->PrevNode = Remove->PrevNode;
 
-    if (*Head == Remove)
+    if (List->Head == Remove)
     {
-        *Head = Remove->NextNode;
+        List->Head = Remove->NextNode;
     }
     CDLL_DestroyNode(Remove);
 }

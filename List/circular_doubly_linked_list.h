@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
 typedef int CDLL_DataType;
 
 typedef struct tagCDLL_Node
@@ -12,12 +13,19 @@ typedef struct tagCDLL_Node
     struct tagCDLL_Node *NextNode;
 } CDLL_Node;
 
+typedef struct
+{
+    CDLL_Node *Head;
+    CDLL_Node *Tail;
+    size_t Count;
+} CircularDoublyLinkedList;
+
 CDLL_Node *CDLL_CreateNode(CDLL_DataType NewData);
 void CDLL_DestroyNode(CDLL_Node *Node);
-void CDLL_AppendNode(CDLL_Node **Head, CDLL_DataType NewData);
-size_t CDLL_GetNodeSize(CDLL_Node *Head);
-CDLL_Node *CDLL_GetNodeAt(CDLL_Node *Head, size_t Location);
-void CDLL_InsertAfter(CDLL_Node *Head, size_t Location, CDLL_DataType NewData);
-void CDLL_RemoveNode(CDLL_Node **Head, size_t Location);
+void CDLL_AppendTail(CircularDoublyLinkedList *List, CDLL_DataType NewData);
+size_t CDLL_GetSize(CircularDoublyLinkedList *List);
+CDLL_Node *CDLL_GetNodeAt(CircularDoublyLinkedList *List, size_t Location);
+void CDLL_InsertAfter(CircularDoublyLinkedList *List, size_t Location, CDLL_DataType NewData);
+void CDLL_RemoveNode(CircularDoublyLinkedList *List, size_t Location);
 
 #endif
