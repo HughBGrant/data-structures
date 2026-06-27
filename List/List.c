@@ -41,28 +41,28 @@ void TestDLL(void)
 {
     size_t i = 0;
 
-    DLL_Node* List = NULL;
+    DoublyLinkedList *List = DLL_CreateList();
 
     for (int i = 0; i < 5; i++)
     {
-        DLL_AppendNode(&List, i);
+        DLL_AppendTail(List, i);
     }
-    for (i = 0; i < DLL_GetNodeSize(List); i++)
+    for (i = 0; i < DLL_GetSize(List); i++)
     {
         printf("List[%zu] : %d\n", i, DLL_GetNodeAt(List, i)->Data);
     }
     printf("\nInserting 3000 After [2]...\n\n");
     DLL_InsertAfter(List, 2, 3000);
 
-    for (i = 0; i < DLL_GetNodeSize(List); i++)
+    for (i = 0; i < DLL_GetSize(List); i++)
     {
         printf("List[%zu] : %d\n", i, DLL_GetNodeAt(List, i)->Data);
     }
     printf("\nDestroying List...\n");
 
-    while (List != NULL)
+    while (List->Count > 0)
     {
-        DLL_RemoveNode(&List, 0);
+        DLL_RemoveNode(List, 0);
     }
 }
 void TestCDLL(void)
@@ -107,7 +107,7 @@ void TestCDLL(void)
 }
 int main(void)
 {
-    int ListNumber = 0;
+    int ListNumber = 1;
 
     switch (ListNumber)
     {

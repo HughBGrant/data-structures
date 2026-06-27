@@ -1,8 +1,39 @@
 #include "doubly_linked_list.h"
 
+DoublyLinkedList *DLL_CreateList(void)
+{
+    DoublyLinkedList *List = malloc(sizeof(DoublyLinkedList));
+
+    if (List == NULL)
+    {
+        return NULL;
+    }
+    List->Count = 0;
+    List->Head = NULL;
+    List->Tail = NULL;
+
+    return List;
+}
+void DLL_DestroyList(DoublyLinkedList *List)
+{
+    if (List == NULL)
+    {
+        return;
+    }
+    DLL_Node *Current = List->Head;
+
+    while (Current != NULL)
+    {
+        DLL_Node *Next = Current->NextNode;
+        free(Current);
+        Current = Next;
+    }
+    free(List);
+}
 DLL_Node *DLL_CreateNode(DLL_DataType NewData)
 {
     DLL_Node *NewNode = malloc(sizeof(DLL_Node));
+
     if (NewNode != NULL)
     {
         NewNode->Data = NewData;
@@ -15,97 +46,144 @@ void DLL_DestroyNode(DLL_Node *Node)
 {
     free(Node);
 }
-void DLL_AppendNode(DLL_Node **Head, DLL_DataType NewData)
+void DLL_AppendTail(DoublyLinkedList *List, DLL_DataType NewData)
 {
-    DLL_Node *NewNode = DLL_CreateNode(NewData);
+    DLL_Node *NewTail = DLL_CreateNode(NewData);
 
-    if (*Head == NULL)
+    if (NewTail == NULL)
     {
-        *Head = NewNode;
         return;
     }
-    DLL_Node *Tail = *Head;
-    while (Tail->NextNode != NULL)
+    if (DLL_GetSize(List) == 0)
     {
-        Tail = Tail->NextNode;
+        List->Head = NewTail;
+        List->Tail = NewTail;
     }
-    Tail->NextNode = NewNode;
-    NewNode->PrevNode = Tail;
-}
-size_t DLL_GetNodeSize(DLL_Node *Head)
-{
-    size_t Count = 0;
-    DLL_Node *Current = Head;
-
-    while (Current != NULL)
+    else
     {
-        Current = Current->NextNode;
-        Count++;
+        List->Tail->NextNode = NewTail;
+        NewTail->PrevNode = List->Tail;
+        List->Tail = NewTail;
     }
-    return Count;
+    List->Count++;
 }
-DLL_Node *DLL_GetNodeAt(DLL_Node *Head, size_t Location)
+size_t DLL_GetSize(DoublyLinkedList *List)
 {
-    size_t Count = DLL_GetNodeSize(Head);
+    if (List == NULL)
+    {
+        return 0;
+    }
+    return List->Count;
+}
+DLL_Node *DLL_GetNodeAt(DoublyLinkedList *List, size_t Location)
+{
+    if (List == NULL)
+    {
+        return NULL;
+    }
+    size_t Count = DLL_GetSize(List);
 
     if (Location >= Count)
     {
         return NULL;
     }
+    DLL_Node *Current = NULL;
 
-    DLL_Node *Current = Head;
-
-    while (Current != NULL && Location > 0)
+    if (Location < Count / 2)
     {
-        Current = Current->NextNode;
-        Location--;
+        Current = List->Head;
+
+        while (Current != NULL && Location > 0)
+        {
+            Current = Current->NextNode;
+            Location--;
+        }
+    }
+    else
+    {
+        Current = List->Tail;
+
+        while (Current != NULL && Location < Count - 1)
+        {
+            Current = Current->PrevNode;
+            Location++;
+        }
     }
     return Current;
 }
-void DLL_RemoveNode(DLL_Node **Head, size_t Location)
+void DLL_RemoveNode(DoublyLinkedList *List, size_t Location)
 {
-    if (*Head == NULL)
+    if (List == NULL || Location >= List->Count)
     {
         return;
     }
-    DLL_Node *Remove = DLL_GetNodeAt(*Head, Location);
+    DLL_Node *Remove = DLL_GetNodeAt(List, Location);
 
     if (Remove == NULL)
     {
         return;
     }
-    printf("Destroying Node : %d\n", Remove->Data);
-
-    if (Remove->PrevNode != NULL)
+    if (Remove == List->Head)
     {
-        Remove->PrevNode->NextNode = Remove->NextNode;
+        List->Head = Remove->NextNode;
     }
     else
     {
-        *Head = Remove->NextNode;
+        Remove->PrevNode->NextNode = Remove->NextNode;
     }
-    if (Remove->NextNode != NULL)
+    if (Remove == List->Tail)
+    {
+        List->Tail = Remove->PrevNode;
+    }
+    else
     {
         Remove->NextNode->PrevNode = Remove->PrevNode;
     }
+    printf("Destroying Node : %d\n", Remove->Data);
     DLL_DestroyNode(Remove);
+
+    List->Count--;
 }
-void DLL_InsertAfter(DLL_Node *Head, size_t Location, DLL_DataType NewData)
+void DLL_InsertAfter(DoublyLinkedList *List, size_t Location, DLL_DataType NewData)
 {
-    DLL_Node *Current = DLL_GetNodeAt(Head, Location);
-    if (Current == NULL)
+    DLL_Node *Previous = DLL_GetNodeAt(List, Location);
+
+    if (Previous == NULL)
     {
         return;
     }
     DLL_Node *NewNode = DLL_CreateNode(NewData);
 
-    NewNode->NextNode = Current->NextNode;
-    NewNode->PrevNode = Current;
-    if (Current->NextNode != NULL)
+    if (NewNode == NULL)
     {
-        Current->NextNode->PrevNode = NewNode;
+        return;
     }
-    Current->NextNode = NewNode;
+    NewNode->PrevNode = Previous;
+    NewNode->NextNode = Previous->NextNode;
+
+    if (Previous == List->Tail)
+    {
+        List->Tail = NewNode;
+    }
+    else
+    {
+        NewNode->NextNode->PrevNode = NewNode;
+    }
+    Previous->NextNode = NewNode;
+    List->Count++;
+}
+void DLL_PrintReverse(DoublyLinkedList *List)
+{
+    size_t i = List->Count - 1;
+
+    DLL_Node *Current = List->Tail;
+
+    while (Current != NULL)
+    {
+        printf("List[%zu] : %d\n", i, Current->Data);
+        Current = Current->PrevNode;
+        i--;
+    }
 }
 //void DLL_InsertBefore(Node **Head, int Location, ElementType NewData)
 //{
@@ -153,21 +231,3 @@ void DLL_InsertAfter(DLL_Node *Head, size_t Location, DLL_DataType NewData)
 //    }
 //    *Head = NULL;
 //}
-void DLL_PrintReverse(DLL_Node *Head)
-{
-    size_t i = 0;
-
-    DLL_Node *Current = Head;
-
-    while (Current != NULL && Current->NextNode != NULL)
-    {
-        Current = Current->NextNode;
-        i++;
-    }
-    while (Current != NULL)
-    {
-        printf("List[%zu] : %d\n", i, Current->Data);
-        Current = Current->PrevNode;
-        i--;
-    }
-}
