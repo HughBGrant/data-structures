@@ -20,6 +20,8 @@ typedef struct
     size_t Count;
 } CircularDoublyLinkedList;
 
+CircularDoublyLinkedList *CDLL_CreateList(void);
+void CDLL_DestroyList(CircularDoublyLinkedList *List);
 CDLL_Node *CDLL_CreateNode(CDLL_DataType NewData);
 void CDLL_DestroyNode(CDLL_Node *Node);
 void CDLL_AppendTail(CircularDoublyLinkedList *List, CDLL_DataType NewData);

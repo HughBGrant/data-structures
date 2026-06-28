@@ -140,9 +140,9 @@ void LL_RemoveNode(LinkedList *List, size_t Location)
 }
 void LL_InsertAfter(LinkedList *List, size_t Location, LL_DataType NewData)
 {
-    LL_Node *Current = LL_GetNodeAt(List, Location);
+    LL_Node *Previous = LL_GetNodeAt(List, Location);
 
-    if (Current == NULL)
+    if (Previous == NULL)
     {
         return;
     }
@@ -152,13 +152,16 @@ void LL_InsertAfter(LinkedList *List, size_t Location, LL_DataType NewData)
     {
         return;
     }
-    NewNode->NextNode = Current->NextNode;
-    Current->NextNode = NewNode;
-
-    if (Current == List->Tail)
+    if (Previous == List->Tail)
     {
         List->Tail = NewNode;
     }
+    else
+    {
+        NewNode->NextNode = Previous->NextNode;
+    }
+    Previous->NextNode = NewNode;
+
     List->Count++;
 }
 void LL_InsertBefore(LinkedList *List, size_t Location, LL_DataType NewData)

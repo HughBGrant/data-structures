@@ -157,18 +157,18 @@ void DLL_InsertAfter(DoublyLinkedList *List, size_t Location, DLL_DataType NewDa
     {
         return;
     }
-    NewNode->PrevNode = Previous;
-    NewNode->NextNode = Previous->NextNode;
-
     if (Previous == List->Tail)
     {
         List->Tail = NewNode;
     }
     else
     {
+        NewNode->NextNode = Previous->NextNode;
         NewNode->NextNode->PrevNode = NewNode;
     }
+    NewNode->PrevNode = Previous;
     Previous->NextNode = NewNode;
+
     List->Count++;
 }
 void DLL_PrintReverse(DoublyLinkedList *List)

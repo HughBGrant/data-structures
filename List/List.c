@@ -64,37 +64,34 @@ void TestDLL(void)
     {
         DLL_RemoveNode(List, 0);
     }
+    DLL_DestroyList(List);
 }
 void TestCDLL(void)
 {
     size_t i = 0;
+    CDLL_Node *Current = NULL;
 
-    CircularDoublyLinkedList List;
-    List.Head = NULL;
-    List.Tail = NULL;
-    List.Count = 0;
-
-    CDLL_Node* Current = NULL;
+    CircularDoublyLinkedList *List = CDLL_CreateList();
 
     for (int i = 0; i < 5; i++)
     {
-        CDLL_AppendTail(&List, i);
+        CDLL_AppendTail(List, i);
     }
-    for (i = 0; i < CDLL_GetSize(&List); i++)
+    for (i = 0; i < CDLL_GetSize(List); i++)
     {
-        printf("List[%zu] : %d\n", i, CDLL_GetNodeAt(&List, i)->Data);
+        printf("List[%zu] : %d\n", i, CDLL_GetNodeAt(List, i)->Data);
     }
     printf("\nInserting 3000 After [2]...\n\n");
-    CDLL_InsertAfter(&List, 2, 3000);
+    CDLL_InsertAfter(List, 2, 3000);
 
     printf("\nRemoving Node at [2]...\n\n");
-    CDLL_RemoveNode(&List, 2);
+    CDLL_RemoveNode(List, 2);
 
-    for (i = 0; i < CDLL_GetSize(&List) * 2; i++)
+    for (i = 0; i < CDLL_GetSize(List) * 2; i++)
     {
         if (i == 0)
         {
-            Current = List.Head;
+            Current = List->Head;
         }
         else
         {
@@ -104,10 +101,7 @@ void TestCDLL(void)
     }
     printf("\nDestroying List...\n");
 
-    while (List.Head != NULL)
-    {
-        CDLL_RemoveNode(&List, 0);
-    }
+    CDLL_DestroyList(List);
 }
 int main(void)
 {
