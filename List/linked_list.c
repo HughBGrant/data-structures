@@ -53,16 +53,15 @@ void LL_AppendTail(LinkedList *List, LL_DataType NewData)
     {
         return;
     }
-    if (LL_GetSize(List) == 0)
+    if (List->Head == NULL)
     {
         List->Head = NewTail;
-        List->Tail = NewTail;
     }
     else
     {
         List->Tail->NextNode = NewTail;
-        List->Tail = NewTail;
     }
+    List->Tail = NewTail;
     List->Count++;
 }
 void LL_AppendHead(LinkedList *List, LL_DataType NewData)
@@ -155,6 +154,7 @@ void LL_InsertAfter(LinkedList *List, size_t Location, LL_DataType NewData)
     }
     NewNode->NextNode = Current->NextNode;
     Current->NextNode = NewNode;
+
     if (Current == List->Tail)
     {
         List->Tail = NewNode;

@@ -54,17 +54,16 @@ void DLL_AppendTail(DoublyLinkedList *List, DLL_DataType NewData)
     {
         return;
     }
-    if (DLL_GetSize(List) == 0)
+    if (List->Head == NULL)
     {
         List->Head = NewTail;
-        List->Tail = NewTail;
     }
     else
     {
         List->Tail->NextNode = NewTail;
         NewTail->PrevNode = List->Tail;
-        List->Tail = NewTail;
     }
+    List->Tail = NewTail;
     List->Count++;
 }
 size_t DLL_GetSize(DoublyLinkedList *List)
