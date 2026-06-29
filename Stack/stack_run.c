@@ -2,7 +2,7 @@
 
 #include "array_stack.h"
 #include "linked_stack.h"
-#include "calculator.h"
+#include "calculate.h"
 
 void TestAS(void)
 {
