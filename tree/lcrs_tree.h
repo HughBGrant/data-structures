@@ -13,10 +13,18 @@ typedef struct tagLCRST_Node
 	LCRST_DataType Data;
 } LCRST_Node;
 
-void LCRST_DestroyTree(LCRST_Node *Root);
+typedef struct
+{
+	LCRST_Node *Root;
+	size_t Count;
+} LCRSTree;
+
+LCRSTree *LCRST_CreateTree(LCRST_Node *Root);
+void LCRST_DestroyTreeStruct(LCRSTree *Tree);
+void LCRST_RemoveNode(LCRST_Node *Root);
 LCRST_Node *LCRST_CreateNode(LCRST_DataType NewData);
 void LCRST_DestroyNode(LCRST_Node *Node);
 void LCRST_AddChildNode(LCRST_Node *Parent, LCRST_Node *Child);
-void LCRST_PrintTree(LCRST_Node *Node, int Depth);
+void LCRST_PrintTree(LCRST_Node *Node, size_t Depth);
 
 #endif

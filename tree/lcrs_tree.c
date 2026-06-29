@@ -1,16 +1,29 @@
 #include "lcrs_tree.h"
 
-void LCRST_DestroyTree(LCRST_Node *Root)
+LCRSTree *LCRST_CreateTree(LCRST_Node *Root)
 {
-	if (Root->RightSibling != NULL)
+	LCRSTree *Tree = malloc(sizeof(LCRSTree));
+
+	if (Tree == NULL)
 	{
-		LCRST_DestroyTree(Root->RightSibling);
+		return NULL;
 	}
-	if (Root->LeftChild != NULL)
+	Tree->Root = Root;
+	Tree->Count =(Root != NULL) ? 1 : 0;
+
+	return Tree;
+}
+void LCRST_DestroyTreeStruct(LCRSTree *Tree)
+{
+	if (Tree == NULL)
 	{
-		LCRST_DestroyTree(Root->LeftChild);
+		return;
 	}
-	LCRST_DestroyNode(Root);
+	if (Tree->Root != NULL)
+	{
+		LCRST_RemoveNode(Tree->Root);
+	}
+	free(Tree);
 }
 LCRST_Node *LCRST_CreateNode(LCRST_DataType NewData)
 {
@@ -25,6 +38,17 @@ LCRST_Node *LCRST_CreateNode(LCRST_DataType NewData)
 	NewNode->RightSibling = NULL;
 
 	return NewNode;
+}
+void LCRST_RemoveNode(LCRST_Node *Root)
+{
+	if (Root == NULL)
+	{
+		return;
+	}
+	LCRST_RemoveNode(Root->RightSibling);
+	LCRST_RemoveNode(Root->LeftChild);
+	
+	LCRST_DestroyNode(Root);
 }
 void LCRST_DestroyNode(LCRST_Node *Node)
 {
@@ -46,10 +70,10 @@ void LCRST_AddChildNode(LCRST_Node *Parent, LCRST_Node *Child)
 		Previous->RightSibling = Child;
 	}
 }
-void LCRST_PrintTree(LCRST_Node *Node, int Depth)
+//void LCRST_DestroyNode(LCRST_Node * )
+void LCRST_PrintTree(LCRST_Node *Node, size_t Depth)
 {
-	int i = 0;
-	for (i = 0; i < Depth - 1; i++)
+	for (size_t i = 1; i < Depth; i++)
 	{
 		printf("   ");
 	}
