@@ -2,8 +2,7 @@
 
 void TestLCRST(void)
 {
-	LCRST_Node *A = LCRST_CreateNode('A');
-    LCRSTree *Tree = LCRST_CreateTree(A);
+    LCRSTree *Tree = LCRST_CreateTree('A');
     LCRST_Node *B = LCRST_CreateNode('B');
     LCRST_Node *C = LCRST_CreateNode('C');
     LCRST_Node *D = LCRST_CreateNode('D');
@@ -16,21 +15,27 @@ void TestLCRST(void)
     LCRST_Node *K = LCRST_CreateNode('K');
 
     // 트리에 노드 추가
-    LCRST_AddChildNode(A, B);
-    LCRST_AddChildNode(B, C);
-    LCRST_AddChildNode(B, D);
-    LCRST_AddChildNode(D, E);
-    LCRST_AddChildNode(D, F);
+    LCRST_AddChild(Tree, Tree->Root, B);
+    LCRST_AddChild(Tree, B, C);
+    LCRST_AddChild(Tree, B, D);
+    LCRST_AddChild(Tree, D, E);
+    LCRST_AddChild(Tree, D, F);
 
-    LCRST_AddChildNode(A, G);
-    LCRST_AddChildNode(G, H);
+    printf("Count : %zu\n", Tree->Count);
 
-    LCRST_AddChildNode(A, I);
-    LCRST_AddChildNode(I, J);
-    LCRST_AddChildNode(J, K);
+    LCRST_AddChild(Tree, Tree->Root, G);
+    LCRST_AddChild(Tree, G, H);
+
+    LCRST_AddChild(Tree, Tree->Root, I);
+    LCRST_AddChild(Tree, I, J);
+    LCRST_AddChild(Tree, J, K);
 
     // 트리 출력
-    LCRST_PrintTree(A, 0);
+    LCRST_PrintSubTree(Tree->Root, 0);
+
+    LCRST_RemoveSubTree(Tree, B, C);
+
+    LCRST_PrintSubTree(Tree->Root, 0);
 
     // 트리 소멸
     LCRST_DestroyTree(Tree);

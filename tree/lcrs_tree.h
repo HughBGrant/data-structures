@@ -8,8 +8,8 @@ typedef char LCRST_DataType;
 
 typedef struct tagLCRST_Node
 {
-	struct tagLCRST_Node *LeftChild;
-	struct tagLCRST_Node *RightSibling;
+	struct tagLCRST_Node *Child;
+	struct tagLCRST_Node *Sibling;
 	LCRST_DataType Data;
 } LCRST_Node;
 
@@ -19,11 +19,13 @@ typedef struct
 	size_t Count;
 } LCRSTree;
 
-LCRSTree *LCRST_CreateTree(LCRST_Node *Root);
+LCRSTree *LCRST_CreateTree(LCRST_DataType NewData);
 void LCRST_DestroyTree(LCRSTree *Tree);
-void LCRST_RemoveNode(LCRST_Node *Root);
 LCRST_Node *LCRST_CreateNode(LCRST_DataType NewData);
-void LCRST_AddChildNode(LCRST_Node *Parent, LCRST_Node *Child);
-void LCRST_PrintTree(LCRST_Node *Node, size_t Depth);
+void LCRST_DestroySubTree(LCRST_Node *Root);
+void LCRST_AddChild(LCRSTree *Tree, LCRST_Node *Parent, LCRST_Node *Child);
+void LCRST_RemoveSubTree(LCRSTree *Tree, LCRST_Node *Parent, LCRST_Node *Target);
+size_t LCRST_GetSubTreeSize(LCRST_Node *Node);
+void LCRST_PrintSubTree(LCRST_Node *Node, size_t Depth);
 
 #endif
