@@ -25,7 +25,6 @@ typedef struct
 LinkedStack *LS_CreateStack(void);
 void LS_DestroyStack(LinkedStack *Stack);
 LS_Node* LS_CreateNode(LS_DataType NewData);
-void LS_DestroyNode(LS_Node* _Node);
 void LS_Push(LinkedStack *Stack, LS_DataType NewData);
 void LS_Pop(LinkedStack *Stack);
 LS_DataType LS_Top(LinkedStack *Stack);

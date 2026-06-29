@@ -21,7 +21,6 @@ typedef struct
 LinkedList *LL_CreateList(void);
 void LL_DestroyList(LinkedList *List);
 LL_Node *LL_CreateNode(LL_DataType NewData);
-void LL_DestroyNode(LL_Node *Node);
 void LL_AppendTail(LinkedList *List, LL_DataType NewData);
 void LL_AppendHead(LinkedList *List, LL_DataType NewData);
 LL_Node *LL_GetNodeAt(LinkedList *List, size_t Location);

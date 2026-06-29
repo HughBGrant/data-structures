@@ -44,15 +44,6 @@ LS_Node *LS_CreateNode(LS_DataType NewData)
 
 	return NewNode;
 }
-void LS_DestroyNode(LS_Node* Node)
-{
-	if (Node == NULL)
-	{
-		return;
-	}
-	free(Node->Data);
-	free(Node);
-}
 void LS_Push(LinkedStack* Stack, LS_DataType NewData)
 {
 	LS_Node *NewNode = LS_CreateNode(NewData);
@@ -81,7 +72,8 @@ void LS_Pop(LinkedStack* Stack)
 
 	Stack->Top = TopNode->NextNode;
 
-	LS_DestroyNode(TopNode);
+	free(TopNode->Data);
+	free(TopNode);
 }
 LS_DataType LS_Top(LinkedStack* Stack)
 {

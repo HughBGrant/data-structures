@@ -42,10 +42,6 @@ DLL_Node *DLL_CreateNode(DLL_DataType NewData)
     }
     return NewNode;
 }
-void DLL_DestroyNode(DLL_Node *Node)
-{
-    free(Node);
-}
 void DLL_AppendTail(DoublyLinkedList *List, DLL_DataType NewData)
 {
     DLL_Node *NewTail = DLL_CreateNode(NewData);
@@ -139,7 +135,7 @@ void DLL_RemoveNode(DoublyLinkedList *List, size_t Location)
         Remove->NextNode->PrevNode = Remove->PrevNode;
     }
     printf("Destroying Node : %d\n", Remove->Data);
-    DLL_DestroyNode(Remove);
+    free(Remove);
 
     List->Count--;
 }

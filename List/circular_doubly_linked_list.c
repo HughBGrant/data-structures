@@ -40,10 +40,6 @@ CDLL_Node* CDLL_CreateNode(CDLL_DataType NewData)
     
     return NewNode;
 }
-void CDLL_DestroyNode(CDLL_Node *Node)
-{
-    free(Node);
-}
 void CDLL_AppendTail(CircularDoublyLinkedList *List, CDLL_DataType NewData)
 {
     CDLL_Node *NewNode = CDLL_CreateNode(NewData);
@@ -143,7 +139,7 @@ void CDLL_RemoveNode(CircularDoublyLinkedList *List, size_t Location)
         }
     }
     printf("Destroying Node : %d\n", Remove->Data);
-    CDLL_DestroyNode(Remove);
+    free(Remove);
     List->Count--;
 }
 void CDLL_InsertAfter(CircularDoublyLinkedList *List, size_t Location, CDLL_DataType NewData)

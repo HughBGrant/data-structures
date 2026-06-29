@@ -42,15 +42,6 @@ LQ_Node *LQ_CreateNode(char *NewData)
 
 	return NewNode;
 }
-void LQ_DestroyNode(LQ_Node *Node)
-{
-	if (Node == NULL)
-	{
-		return;
-	}
-	free(Node->Data);
-	free(Node);
-}
 void LQ_Enqueue(LinkedQueue *Queue, char *NewData)
 {
 	if (Queue == NULL)
@@ -88,7 +79,9 @@ void LQ_Dequeue(LinkedQueue *Queue)
 	{
 		Queue->Rear = NULL;
 	}
-	LQ_DestroyNode(Front);
+
+	free(Front->Data);
+	free(Front);
 	Queue->Count--;
 }
 char *LQ_Peek(LinkedQueue *Queue)

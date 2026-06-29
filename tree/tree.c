@@ -33,7 +33,7 @@ void TestLCRST(void)
     LCRST_PrintTree(A, 0);
 
     // 트리 소멸
-    LCRST_DestroyTreeStruct(Tree);
+    LCRST_DestroyTree(Tree);
 
 }
 int main(void)

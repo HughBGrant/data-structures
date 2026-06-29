@@ -41,10 +41,6 @@ LL_Node *LL_CreateNode(LL_DataType NewData)
     
     return NewNode;
 }
-void LL_DestroyNode(LL_Node *Node)
-{
-    free(Node);
-}
 void LL_AppendTail(LinkedList *List, LL_DataType NewData)
 {
     LL_Node *NewTail = LL_CreateNode(NewData);
@@ -135,7 +131,7 @@ void LL_RemoveNode(LinkedList *List, size_t Location)
         List->Tail = NULL;
     }
     printf("Destroying Node : %d\n", Current->Data);
-    LL_DestroyNode(Current);
+    free(Current);
     List->Count--;
 }
 void LL_InsertAfter(LinkedList *List, size_t Location, LL_DataType NewData)
