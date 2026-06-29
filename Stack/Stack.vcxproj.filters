@@ -21,7 +21,7 @@
     <ClCompile Include="linked_stack.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="stack.c">
+    <ClCompile Include="stack_run.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="calculator.c">

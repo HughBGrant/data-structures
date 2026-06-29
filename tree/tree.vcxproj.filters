@@ -23,7 +23,7 @@
     <ClCompile Include="lcrs_tree.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="tree.c">
+    <ClCompile Include="tree_run.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
