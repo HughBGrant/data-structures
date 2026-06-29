@@ -24,7 +24,7 @@
     <ClCompile Include="stack_run.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="calculate.c">
+    <ClCompile Include="calculator.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -35,7 +35,7 @@
     <ClInclude Include="linked_stack.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="calculate.h">
+    <ClInclude Include="calculator.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
