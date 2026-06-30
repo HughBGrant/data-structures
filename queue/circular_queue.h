@@ -14,7 +14,7 @@ typedef struct
 	size_t Front;
 	size_t Rear;
 	CQ_DataType *Array;
-	/////count
+	// size_t Count;
 } CircularQueue;
 
 CircularQueue* CQ_CreateQueue(size_t Capacity);
