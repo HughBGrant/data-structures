@@ -139,32 +139,29 @@ void DLL_RemoveNode(DoublyLinkedList *List, size_t Location)
 
     List->Count--;
 }
-void DLL_InsertAfter(DoublyLinkedList *List, size_t Location, DLL_DataType NewData)
+void DLL_Insert(DoublyLinkedList *List, size_t Location, DLL_DataType NewData)
 {
-    DLL_Node *Previous = DLL_GetNodeAt(List, Location);
-
-    if (Previous == NULL)
+    DLL_Node *Current = DLL_GetNodeAt(List, Location);
+    if (Current == NULL)
     {
         return;
     }
     DLL_Node *NewNode = DLL_CreateNode(NewData);
-
     if (NewNode == NULL)
     {
         return;
     }
-    if (Previous == List->Tail)
+    if (Current == List->Head)
     {
-        List->Tail = NewNode;
+        List->Head = NewNode;
     }
     else
     {
-        NewNode->NextNode = Previous->NextNode;
-        NewNode->NextNode->PrevNode = NewNode;
+        NewNode->PrevNode = Current->PrevNode;
+        Current->PrevNode->NextNode = NewNode;
     }
-    NewNode->PrevNode = Previous;
-    Previous->NextNode = NewNode;
-
+    NewNode->NextNode = Current;
+    Current->PrevNode = NewNode;
     List->Count++;
 }
 void DLL_PrintReverse(DoublyLinkedList *List)
@@ -180,49 +177,9 @@ void DLL_PrintReverse(DoublyLinkedList *List)
         i--;
     }
 }
-//void DLL_InsertBefore(Node **Head, int Location, ElementType NewData)
-//{
-//    Node* Current = DLL_GetNodeAt(*Head, Location);
-//    if (Current == NULL)
-//    {
-//        return;
-//    }
-//    Node* NewNode = DLL_CreateNode(NewData);
-//
-//    if (*Head == Current)
-//    {
-//        NewNode->NextNode = Current;
-//        *Head = NewNode;
-//    }
-//    else
-//    {
-//        Node* Before = *Head;
-//        while (Before != NULL && Before->NextNode != Current)
-//        {
-//            Before = Before->NextNode;
-//        }
-//        if (Before != NULL)
-//        {
-//            NewNode->NextNode = Current;
-//            Before->NextNode = NewNode;
-//        }
-//    }
-//}
 //void DLL_InsertNewHead(Node **Head, ElementType NewData)
 //{
 //    Node* NewNode = DLL_CreateNode(NewData);
 //    NewNode->NextNode = *Head;
 //    *Head = NewNode;
-//}
-//void DLL_DestroyAllNodes(Node **Head)
-//{
-//    Node* Current = *Head;
-//
-//    while (Current != NULL)
-//    {
-//        Node* Next = Current->NextNode;
-//        DLL_DestroyNode(Current);
-//        Current = Next;
-//    }
-//    *Head = NULL;
 //}

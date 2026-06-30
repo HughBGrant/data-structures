@@ -20,7 +20,7 @@ void TestLL(void)
         printf("List[%zu] : %d\n", i, LL_GetNodeAt(List, i)->Data);
     }
 
-    printf("\nInserting 3000 Before [2]...\n\n");
+    printf("\nInserting 3000 At [2]...\n\n");
     LL_InsertAt(List, 2, 3000);
 
     for (i = 0; i < LL_GetSize(List); i++)
@@ -46,15 +46,15 @@ void TestDLL(void)
     {
         printf("List[%zu] : %d\n", i, DLL_GetNodeAt(List, i)->Data);
     }
-    printf("\nInserting 3000 After [2]...\n\n");
-    DLL_InsertAfter(List, 2, 3000);
 
+    printf("\nInserting 3000 At [3]...\n\n");
+    DLL_Insert(List, 3, 3000);
     for (i = 0; i < DLL_GetSize(List); i++)
     {
         printf("List[%zu] : %d\n", i, DLL_GetNodeAt(List, i)->Data);
     }
-    printf("\nDestroying List...\n");
 
+    printf("\nDestroying List...\n");
     while (List->Count > 0)
     {
         DLL_RemoveNode(List, 0);

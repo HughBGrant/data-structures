@@ -38,7 +38,7 @@ LL_Node *LL_CreateNode(LL_DataType NewData)
     }
     NewNode->Data = NewData;
     NewNode->NextNode = NULL;
-    
+
     return NewNode;
 }
 void LL_AppendTail(LinkedList *List, LL_DataType NewData)
@@ -110,9 +110,9 @@ void LL_RemoveNode(LinkedList *List, size_t Location)
     {
         return;
     }
+
     LL_Node *Previous = NULL;
     LL_Node *Current = List->Head;
-
     for (size_t i = 0; i < Location; i++)
     {
         Previous = Current;
@@ -134,37 +134,29 @@ void LL_RemoveNode(LinkedList *List, size_t Location)
     free(Current);
     List->Count--;
 }
-
-void LL_InsertAt(LinkedList *List, size_t Location, LL_DataType NewData)
+void LL_Insert(LinkedList *List, size_t Location, LL_DataType NewData)
 {
-    LL_Node *Current = LL_GetNodeAt(List, Location);
-
-    if (Current == NULL)
-    {
-        return;
-    }
     LL_Node *NewNode = LL_CreateNode(NewData);
-
     if (NewNode == NULL)
     {
         return;
     }
+
+    LL_Node *Previous = NULL;
+    LL_Node *Current = List->Head;
+    for (size_t i = 0; i < Location; i++)
+    {
+        Previous = Current;
+        Current = Current->NextNode;
+    }
     if (Current == List->Head)
     {
-        NewNode->NextNode = Current;
         List->Head = NewNode;
-        List->Count++;
-        return;
     }
-    LL_Node *Previous = List->Head;
-    while (Previous != NULL && Previous->NextNode != Current)
+    else
     {
-        Previous = Previous->NextNode;
-    }
-    if (Previous != NULL)
-    {
-        NewNode->NextNode = Current;
         Previous->NextNode = NewNode;
-        List->Count++;
     }
+    NewNode->NextNode = Current;
+    List->Count++;
 }

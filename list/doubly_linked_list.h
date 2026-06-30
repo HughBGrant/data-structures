@@ -23,7 +23,7 @@ typedef struct
 DoublyLinkedList *DLL_CreateList(void);
 DLL_Node *DLL_CreateNode(DLL_DataType NewData);
 void DLL_AppendTail(DoublyLinkedList *List, DLL_DataType NewData);
-void DLL_InsertAfter(DoublyLinkedList *List, size_t Location, DLL_DataType NewData);
+void DLL_Insert(DoublyLinkedList *List, size_t Location, DLL_DataType NewData);
 void DLL_RemoveNode(DoublyLinkedList *List, size_t Location);
 DLL_Node *DLL_GetNodeAt(DoublyLinkedList *List, size_t Location);
 

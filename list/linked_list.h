@@ -22,7 +22,7 @@ LinkedList *LL_CreateList(void);
 LL_Node *LL_CreateNode(LL_DataType NewData);
 void LL_AppendTail(LinkedList *List, LL_DataType NewData);
 void LL_AppendHead(LinkedList *List, LL_DataType NewData);
-void LL_InsertAt(LinkedList *List, size_t Location, LL_DataType NewData);
+void LL_Insert(LinkedList *List, size_t Location, LL_DataType NewData);
 void LL_RemoveNode(LinkedList *List, size_t Location);
 LL_Node *LL_GetNodeAt(LinkedList *List, size_t Location);
 void LL_DestroyList(LinkedList *List);
