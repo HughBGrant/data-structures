@@ -13,19 +13,15 @@ typedef struct tagBT_Node
 	BT_DataType Data;
 } BT_Node;
 
-typedef struct
-{
-	BT_Node *Root;
-	size_t Count;
-} BinaryTree;
-
-//BinaryTree *BT_CreateTree(BT_DataType NewData);
-//void BT_DestroyTree(BinaryTree *Tree);
-void BT_DestroyTree(BT_Node *Node);
 BT_Node *BT_CreateNode(BT_DataType NewData);
+void BT_InsertLeft(BT_Node *Parent, BT_Node *Child);
+void BT_InsertRight(BT_Node *Parent, BT_Node *Child);
+void BT_DestroySubTree(BT_Node *Node);
+void BT_RemoveLeftSubTree(BT_Node *Parent);
+void BT_RemoveRightSubTree(BT_Node *Parent);
+
 void BT_PreorderPrintTree(BT_Node *Node);
 void BT_InorderPrintTree(BT_Node *Node);
 void BT_PostorderPrintTree(BT_Node *Node);
-
 
 #endif

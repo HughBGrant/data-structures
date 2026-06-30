@@ -16,12 +16,15 @@ typedef struct tagET_Node
 
 } ET_Node;
 
+// ET_CreateTree
 ET_Node *ET_CreateNode(ET_DataType NewData);
-void free(ET_Node *Node);
-void ET_DestroyTree(ET_Node *Root);
+
+
+
 void ET_PreorderPrintTree(ET_Node *Node);
 void ET_InorderPrintTree(ET_Node *Node);
 void ET_PostorderPrintTree(ET_Node *Node);
+void ET_DestroyTree(ET_Node *Root);
 void ET_BuildExpressionTree(char *PostfixExpression, ET_Node **Node);
 double ET_Evaluate(ET_Node *Tree);
 

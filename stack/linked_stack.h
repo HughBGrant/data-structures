@@ -23,11 +23,12 @@ typedef struct
 } LinkedStack;
 
 LinkedStack *LS_CreateStack(void);
-void LS_DestroyStack(LinkedStack *Stack);
 LS_Node* LS_CreateNode(LS_DataType NewData);
 void LS_Push(LinkedStack *Stack, LS_DataType NewData);
 void LS_Pop(LinkedStack *Stack);
 LS_DataType LS_Top(LinkedStack *Stack);
+void LS_DestroyStack(LinkedStack *Stack);
+
 size_t LS_GetSize(LinkedStack *Stack);
 bool LS_IsEmpty(LinkedStack *Stack);
 

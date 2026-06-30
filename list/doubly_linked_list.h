@@ -21,11 +21,14 @@ typedef struct
 } DoublyLinkedList;
 
 DoublyLinkedList *DLL_CreateList(void);
-void DLL_DestroyList(DoublyLinkedList *List);
 DLL_Node *DLL_CreateNode(DLL_DataType NewData);
 void DLL_AppendTail(DoublyLinkedList *List, DLL_DataType NewData);
-size_t DLL_GetSize(DoublyLinkedList *List);
-DLL_Node *DLL_GetNodeAt(DoublyLinkedList *List, size_t Location);
-void DLL_RemoveNode(DoublyLinkedList *List, size_t Location);
 void DLL_InsertAfter(DoublyLinkedList *List, size_t Location, DLL_DataType NewData);
+void DLL_RemoveNode(DoublyLinkedList *List, size_t Location);
+DLL_Node *DLL_GetNodeAt(DoublyLinkedList *List, size_t Location);
+
+void DLL_DestroyList(DoublyLinkedList *List);
+
+size_t DLL_GetSize(DoublyLinkedList *List);
+
 #endif

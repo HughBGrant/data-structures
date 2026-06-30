@@ -18,9 +18,11 @@ typedef struct
 } CircularQueue;
 
 CircularQueue* CQ_CreateQueue(size_t Capacity);
-void CQ_DestroyQueue(CircularQueue* Queue);
 void CQ_Enqueue(CircularQueue* Queue, CQ_DataType Data);
 CQ_DataType CQ_Dequeue(CircularQueue* Queue);
+
+void CQ_DestroyQueue(CircularQueue *Queue);
+
 bool CQ_IsEmpty(CircularQueue* Queue);
 bool CQ_IsFull(CircularQueue* Queue);
 size_t CQ_GetSize(CircularQueue* Queue);

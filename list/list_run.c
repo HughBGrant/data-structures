@@ -19,20 +19,15 @@ void TestLL(void)
     {
         printf("List[%zu] : %d\n", i, LL_GetNodeAt(List, i)->Data);
     }
+
     printf("\nInserting 3000 Before [2]...\n\n");
-    LL_InsertBefore(List, 2, 3000);
+    LL_InsertAt(List, 2, 3000);
 
     for (i = 0; i < LL_GetSize(List); i++)
     {
         printf("List[%zu] : %d\n", i, LL_GetNodeAt(List, i)->Data);
     }
-    printf("\nInserting 2000 After [2]...\n\n");
-    LL_InsertAfter(List, 2, 2000);
 
-    for (i = 0; i < LL_GetSize(List); i++)
-    {
-        printf("List[%zu] : %d\n", i, LL_GetNodeAt(List, i)->Data);
-    }
     printf("\nDestroying List...\n");
 
     LL_DestroyList(List);

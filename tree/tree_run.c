@@ -54,13 +54,13 @@ void TestBT(void)
     BT_Node *G = BT_CreateNode('G');
 
     // 트리에 노드 추가
-    A->Left = B;
-    B->Left = C;
-    B->Right = D;
+    BT_InsertLeft(A, B);
+    BT_InsertLeft(B, C);
+    BT_InsertRight(B, D);
 
-    A->Right = E;
-    E->Left = F;
-    E->Right = G;
+    BT_InsertRight(A, E);
+    BT_InsertLeft(E, F);
+    BT_InsertRight(E, G);
 
     // 트리 출력
     printf("Preorder ...\n");
@@ -76,7 +76,7 @@ void TestBT(void)
     printf("\n");
 
     // 트리 소멸
-    BT_DestroyTree(A);
+    BT_DestroySubTree(A);
 }
 void TestET(void)
 {
@@ -105,7 +105,7 @@ void TestET(void)
 }
 int main(void)
 {
-    int TreeNumber = 2;
+    int TreeNumber = 1;
 
     switch (TreeNumber)
     {

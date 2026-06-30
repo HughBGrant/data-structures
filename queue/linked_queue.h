@@ -21,11 +21,12 @@ typedef struct
 } LinkedQueue;
 
 LinkedQueue *LQ_CreateQueue(void);
-void LQ_DestroyQueue(LinkedQueue *Queue);
 LQ_Node *LQ_CreateNode(char *NewData);
 void LQ_Enqueue(LinkedQueue *Queue, char *NewData);
 void LQ_Dequeue(LinkedQueue *Queue);
 char *LQ_Peek(LinkedQueue *Queue);
+void LQ_DestroyQueue(LinkedQueue *Queue);
+
 bool LQ_IsEmpty(LinkedQueue *Queue);
 
 #endif

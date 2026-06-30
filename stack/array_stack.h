@@ -15,11 +15,13 @@ typedef struct
 } ArrayStack;
 
 ArrayStack *AS_CreateStack(size_t Capacity);
-void AS_DestroyStack(ArrayStack *Stack);
 void AS_Push(ArrayStack *Stack, AS_DataType Data);
 void AS_Pop(ArrayStack *Stack);
 AS_DataType AS_Top(ArrayStack *Stack);
-size_t AS_GetSize(ArrayStack *Stack);
+void AS_DestroyStack(ArrayStack *Stack);
+
 bool AS_IsEmpty(ArrayStack *Stack);
 bool AS_IsFull(ArrayStack *Stack);
+size_t AS_GetSize(ArrayStack *Stack);
+
 #endif // !ARRAY_STACK_H
