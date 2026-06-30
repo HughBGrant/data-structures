@@ -38,7 +38,7 @@ LCRST_Node *LCRST_CreateNode(LCRST_DataType NewData)
 
 	return NewNode;
 }
-void LCRST_DestroySubTree(LCRST_Node *SubTree)
+void LCRST_DestroySubTree(LCRST_Node *SubTree) ////////
 {
 	if (SubTree == NULL)
 	{
@@ -74,7 +74,7 @@ void LCRST_AddChild(LCRSTree *Tree, LCRST_Node *Parent, LCRST_Node *Child)
 	}
 	Tree->Count++;
 }
-void LCRST_RemoveSubTree(LCRSTree *SubTree, LCRST_Node *Parent, LCRST_Node *Target)
+void LCRST_RemoveSubTree(LCRSTree *SubTree, LCRST_Node *Parent, LCRST_Node *Target) //////
 {
 	if (SubTree == NULL || Target == NULL)
 	{
@@ -120,7 +120,7 @@ void LCRST_RemoveSubTree(LCRSTree *SubTree, LCRST_Node *Parent, LCRST_Node *Targ
 
 	LCRST_DestroySubTree(Target);
 }
-size_t LCRST_GetSubTreeSize(LCRST_Node *SubTree)
+size_t LCRST_GetSubTreeSize(LCRST_Node *SubTree) ////////
 {
 	if (SubTree == NULL)
 		return 0;

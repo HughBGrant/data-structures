@@ -1,4 +1,6 @@
 #include "lcrs_tree.h"
+#include "binary_tree.h"
+#include "expression_tree.h"
 
 void TestLCRST(void)
 {
@@ -41,15 +43,85 @@ void TestLCRST(void)
     LCRST_DestroyTree(Tree);
 
 }
+void TestBT(void)
+{
+    BT_Node *A = BT_CreateNode('A');
+    BT_Node *B = BT_CreateNode('B');
+    BT_Node *C = BT_CreateNode('C');
+    BT_Node *D = BT_CreateNode('D');
+    BT_Node *E = BT_CreateNode('E');
+    BT_Node *F = BT_CreateNode('F');
+    BT_Node *G = BT_CreateNode('G');
+
+    // 트리에 노드 추가
+    A->Left = B;
+    B->Left = C;
+    B->Right = D;
+
+    A->Right = E;
+    E->Left = F;
+    E->Right = G;
+
+    // 트리 출력
+    printf("Preorder ...\n");
+    BT_PreorderPrintTree(A);
+    printf("\n\n");
+
+    printf("Inorder ... \n");
+    BT_InorderPrintTree(A);
+    printf("\n\n");
+
+    printf("Postorder ... \n");
+    BT_PostorderPrintTree(A);
+    printf("\n");
+
+    // 트리 소멸
+    BT_DestroyTree(A);
+}
+void TestET(void)
+{
+    ET_Node *Root = NULL;
+
+    char PostfixExpression[20] = "71*52-/";
+    ET_BuildExpressionTree(PostfixExpression, &Root);
+
+    // 트리 출력
+    printf("Preorder ... \n");
+    ET_PreorderPrintTree(Root);
+    printf("\n\n");
+
+    printf("Inorder ... \n");
+    ET_InorderPrintTree(Root);
+    printf("\n\n");
+
+    printf("Postorder ... \n");
+    ET_PostorderPrintTree(Root);
+    printf("\n");
+
+    printf("Evaluation Result : %f \n", ET_Evaluate(Root));
+
+    // 트리 소멸
+    ET_DestroyTree(Root);
+}
 int main(void)
 {
-    int TreeNumber = 0;
+    int TreeNumber = 2;
 
     switch (TreeNumber)
     {
         case 0:
         {
             TestLCRST();
+            break;
+        }
+        case 1:
+        {
+            TestBT();
+            break;
+        }
+        case 2:
+        {
+            TestET();
             break;
         }
     }
