@@ -24,4 +24,4 @@ bool AS_IsEmpty(ArrayStack *Stack);
 bool AS_IsFull(ArrayStack *Stack);
 size_t AS_GetSize(ArrayStack *Stack);
 
-#endif // !ARRAY_STACK_H
+#endif

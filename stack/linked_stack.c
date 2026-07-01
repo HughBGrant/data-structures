@@ -9,6 +9,7 @@ LinkedStack *LS_CreateStack(void)
 		return NULL;
 	}
 	Stack->Top = NULL;
+	Stack->Count = 0;
 
 	return Stack;
 }
@@ -47,20 +48,17 @@ LS_Node *LS_CreateNode(LS_DataType NewData)
 void LS_Push(LinkedStack* Stack, LS_DataType NewData)
 {
 	LS_Node *NewNode = LS_CreateNode(NewData);
-
 	if (NewNode == NULL)
 	{
 		return;
 	}
-	if (Stack->Top == NULL)
-	{
-		Stack->Top = NewNode;
-	}
-	else
+
+	if (Stack->Top != NULL)
 	{
 		NewNode->NextNode = Stack->Top;
 	}
 	Stack->Top = NewNode;
+	Stack->Count++;
 }
 void LS_Pop(LinkedStack* Stack)
 {
@@ -74,6 +72,7 @@ void LS_Pop(LinkedStack* Stack)
 
 	free(TopNode->Data);
 	free(TopNode);
+	Stack->Count--;
 }
 LS_DataType LS_Top(LinkedStack* Stack)
 {
@@ -85,15 +84,11 @@ LS_DataType LS_Top(LinkedStack* Stack)
 }
 size_t LS_GetSize(LinkedStack* Stack)
 {
-	size_t Count = 0;
-	LS_Node *Current = Stack->Top;
-
-	while (Current != NULL)
+	if (Stack == NULL)
 	{
-		Current = Current->NextNode;
-		Count++;
+		return 0;
 	}
-	return Count;
+	return Stack->Count;
 }
 bool LS_IsEmpty(LinkedStack* Stack)
 {
