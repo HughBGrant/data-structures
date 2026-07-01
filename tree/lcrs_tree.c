@@ -7,8 +7,15 @@ LCRSTree *LCRST_CreateTree(LCRST_DataType NewData)
 	{
 		return NULL;
 	}
-	Tree->Root = LCRST_CreateNode(NewData);
-	Tree->Count = 1;
+
+	LCRST_Node *NewNode = LCRST_CreateNode(NewData);
+	if (NewNode == NULL)
+	{
+		free(Tree);
+		return NULL;
+	}
+
+	Tree->Root = NewNode;
 
 	return Tree;
 }
@@ -53,9 +60,9 @@ void LCRST_DestroySubTree(LCRST_Node *SubTree) ////////
 	}
 	free(SubTree);
 }
-void LCRST_AddChild(LCRSTree *Tree, LCRST_Node *Parent, LCRST_Node *Child)
+void LCRST_AddChild(LCRST_Node *Parent, LCRST_Node *Child)
 {
-	if (Tree == NULL || Parent == NULL || Child == NULL)
+	if (Parent == NULL || Child == NULL)
 	{
 		return;
 	}
@@ -72,21 +79,18 @@ void LCRST_AddChild(LCRSTree *Tree, LCRST_Node *Parent, LCRST_Node *Child)
 		}
 		Previous->Sibling = Child;
 	}
-	Tree->Count++;
 }
-void LCRST_RemoveSubTree(LCRSTree *SubTree, LCRST_Node *Parent, LCRST_Node *Target) //////
+void LCRST_RemoveSubTree(LCRSTree *Tree, LCRST_Node *Parent, LCRST_Node *SubTree) //////
 {
-	if (SubTree == NULL || Target == NULL)
+	if (Tree == NULL || SubTree == NULL)
 	{
 		return;
 	}
-	if (SubTree->Root == Target)
+	if (Tree->Root == SubTree)
 	{
-		SubTree->Count -= LCRST_GetSubTreeSize(Target);
+		LCRST_DestroySubTree(SubTree);
 
-		LCRST_DestroySubTree(Target);
-
-		SubTree->Root = NULL;
+		Tree->Root = NULL;
 
 		return;
 	}
@@ -94,16 +98,16 @@ void LCRST_RemoveSubTree(LCRSTree *SubTree, LCRST_Node *Parent, LCRST_Node *Targ
 	if (Parent == NULL)
 		return;
 
-	if (Parent->Child == Target)
+	if (Parent->Child == SubTree)
 	{
-		Parent->Child = Target->Sibling;
+		Parent->Child = SubTree->Sibling;
 	}
 	else
 	{
 		LCRST_Node *Prev = Parent->Child;
 
 		while (Prev != NULL &&
-			Prev->Sibling != Target)
+			Prev->Sibling != SubTree)
 		{
 			Prev = Prev->Sibling;
 		}
@@ -111,14 +115,12 @@ void LCRST_RemoveSubTree(LCRSTree *SubTree, LCRST_Node *Parent, LCRST_Node *Targ
 		if (Prev == NULL)
 			return;
 
-		Prev->Sibling = Target->Sibling;
+		Prev->Sibling = SubTree->Sibling;
 	}
 
-	Target->Sibling = NULL;
+	SubTree->Sibling = NULL;
 
-	SubTree->Count -= LCRST_GetSubTreeSize(Target);
-
-	LCRST_DestroySubTree(Target);
+	LCRST_DestroySubTree(SubTree);
 }
 size_t LCRST_GetSubTreeSize(LCRST_Node *SubTree) ////////
 {

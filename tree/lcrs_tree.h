@@ -16,12 +16,11 @@ typedef struct tagLCRST_Node
 typedef struct
 {
 	LCRST_Node *Root;
-	size_t Count;
 } LCRSTree;
 
 LCRSTree *LCRST_CreateTree(LCRST_DataType NewData);
 LCRST_Node *LCRST_CreateNode(LCRST_DataType NewData);
-void LCRST_AddChild(LCRSTree *Tree, LCRST_Node *Parent, LCRST_Node *Child);
+void LCRST_AddChild(LCRST_Node *Parent, LCRST_Node *Child);
 void LCRST_RemoveSubTree(LCRSTree *Tree, LCRST_Node *Parent, LCRST_Node *SubTree);
 
 void LCRST_PrintSubTree(LCRST_Node *SubTree, size_t Depth);

@@ -18,7 +18,7 @@ typedef struct
 	BT_Node *Root;
 } BinaryTree;
 
-//BinaryTree *BT_CreateTree(BT_DataType NewData);
+BinaryTree *BT_CreateTree(BT_DataType NewData);
 BT_Node *BT_CreateNode(BT_DataType NewData);
 void BT_InsertLeft(BT_Node *Parent, BT_Node *Child);
 void BT_InsertRight(BT_Node *Parent, BT_Node *Child);
@@ -26,9 +26,9 @@ void BT_DestroySubTree(BT_Node *Node);
 void BT_RemoveLeftSubTree(BT_Node *Parent);
 void BT_RemoveRightSubTree(BT_Node *Parent);
 
-void BT_PreorderPrintTree(BT_Node *Node);
-void BT_InorderPrintTree(BT_Node *Node);
-void BT_PostorderPrintTree(BT_Node *Node);
-// void 
+void BT_PreorderPrintSubTree(BT_Node *Node);
+void BT_InorderPrintSubTree(BT_Node *Node);
+void BT_PostorderPrintSubTree(BT_Node *Node);
+ void BT_DestroyTree(BinaryTree *Tree);
 
 #endif

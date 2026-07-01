@@ -1,5 +1,22 @@
 #include "binary_tree.h"
 
+BinaryTree *BT_CreateTree(BT_DataType NewData)
+{
+	BinaryTree *Tree = malloc(sizeof(BinaryTree));
+	if (Tree == NULL)
+	{
+		return NULL;
+	}
+
+	Tree->Root = BT_CreateNode(NewData);
+	if (Tree->Root == NULL)
+	{
+		free(Tree);
+		return NULL;
+	}
+	
+	return Tree;
+}
 BT_Node *BT_CreateNode(BT_DataType NewData)
 {
 	BT_Node *NewNode = malloc(sizeof(BT_Node));
@@ -56,33 +73,42 @@ void BT_RemoveRightSubTree(BT_Node *Parent)
 	}
 	BT_DestroySubTree(Parent->Right);
 }
-void BT_PreorderPrintTree(BT_Node *Node)
+void BT_PreorderPrintSubTree(BT_Node *Node)
 {
 	if (Node == NULL)
 	{
 		return;
 	}
 	printf(" %c", Node->Data);
-	BT_PreorderPrintTree(Node->Left);
-	BT_PreorderPrintTree(Node->Right);
+	BT_PreorderPrintSubTree(Node->Left);
+	BT_PreorderPrintSubTree(Node->Right);
 }
-void BT_InorderPrintTree(BT_Node *Node)
+void BT_InorderPrintSubTree(BT_Node *Node)
 {
 	if (Node == NULL)
 	{
 		return;
 	}
-	BT_InorderPrintTree(Node->Left);
+	BT_InorderPrintSubTree(Node->Left);
 	printf(" %c", Node->Data);
-	BT_InorderPrintTree(Node->Right);
+	BT_InorderPrintSubTree(Node->Right);
 }
-void BT_PostorderPrintTree(BT_Node *Node)
+void BT_PostorderPrintSubTree(BT_Node *Node)
 {
 	if (Node == NULL)
 	{
 		return;
 	}
-	BT_PostorderPrintTree(Node->Left);
-	BT_PostorderPrintTree(Node->Right);
+	BT_PostorderPrintSubTree(Node->Left);
+	BT_PostorderPrintSubTree(Node->Right);
 	printf(" %c", Node->Data);
+}
+void BT_DestroyTree(BinaryTree *Tree)
+{
+	if (Tree == NULL)
+	{
+		return;
+	}
+	BT_DestroySubTree(Tree->Root);
+	free(Tree);
 }

@@ -5,6 +5,7 @@
 void TestLCRST(void)
 {
     LCRSTree *Tree = LCRST_CreateTree('A');
+    LCRST_Node *A = Tree->Root;
     LCRST_Node *B = LCRST_CreateNode('B');
     LCRST_Node *C = LCRST_CreateNode('C');
     LCRST_Node *D = LCRST_CreateNode('D');
@@ -17,27 +18,25 @@ void TestLCRST(void)
     LCRST_Node *K = LCRST_CreateNode('K');
 
     // 트리에 노드 추가
-    LCRST_AddChild(Tree, Tree->Root, B);
-    LCRST_AddChild(Tree, B, C);
-    LCRST_AddChild(Tree, B, D);
-    LCRST_AddChild(Tree, D, E);
-    LCRST_AddChild(Tree, D, F);
+    LCRST_AddChild(A, B);
+    LCRST_AddChild(B, C);
+    LCRST_AddChild(B, D);
+    LCRST_AddChild(D, E);
+    LCRST_AddChild(D, F);
 
-    printf("Count : %zu\n", Tree->Count);
+    LCRST_AddChild(A, G);
+    LCRST_AddChild(G, H);
 
-    LCRST_AddChild(Tree, Tree->Root, G);
-    LCRST_AddChild(Tree, G, H);
-
-    LCRST_AddChild(Tree, Tree->Root, I);
-    LCRST_AddChild(Tree, I, J);
-    LCRST_AddChild(Tree, J, K);
+    LCRST_AddChild(A, I);
+    LCRST_AddChild(I, J);
+    LCRST_AddChild(J, K);
 
     // 트리 출력
-    LCRST_PrintSubTree(Tree->Root, 0);
+    LCRST_PrintSubTree(A, 0);
 
     LCRST_RemoveSubTree(Tree, B, C);
 
-    LCRST_PrintSubTree(Tree->Root, 0);
+    LCRST_PrintSubTree(A, 0);
 
     // 트리 소멸
     LCRST_DestroyTree(Tree);
@@ -45,7 +44,8 @@ void TestLCRST(void)
 }
 void TestBT(void)
 {
-    BT_Node *A = BT_CreateNode('A');
+    BinaryTree *Tree = BT_CreateTree('A');
+    BT_Node *A = Tree->Root;
     BT_Node *B = BT_CreateNode('B');
     BT_Node *C = BT_CreateNode('C');
     BT_Node *D = BT_CreateNode('D');
@@ -64,19 +64,19 @@ void TestBT(void)
 
     // 트리 출력
     printf("Preorder ...\n");
-    BT_PreorderPrintTree(A);
+    BT_PreorderPrintSubTree(Tree->Root);
     printf("\n\n");
 
     printf("Inorder ... \n");
-    BT_InorderPrintTree(A);
+    BT_InorderPrintSubTree(Tree->Root);
     printf("\n\n");
 
     printf("Postorder ... \n");
-    BT_PostorderPrintTree(A);
+    BT_PostorderPrintSubTree(Tree->Root);
     printf("\n");
 
     // 트리 소멸
-    BT_DestroySubTree(A);
+    BT_DestroyTree(Tree);
 }
 void TestET(void)
 {
