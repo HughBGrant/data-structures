@@ -6,8 +6,9 @@
 #include <stdbool.h>
 
 bool IsNumber(char Cipher);
-size_t GetTokenLength(char *Expression, char *Token);
-void GetPostfix(char *Infix, char *Postfix);
-double Calculate(char *Postfix);
+size_t GetTokenLength(char* Expression, char* Token);
+void GetPostfix(char* Infix, char* Postfix);
+double Calculate(char* Postfix);
 
 #endif
+

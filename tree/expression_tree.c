@@ -1,19 +1,16 @@
 #include "expression_tree.h"
 
-ET_Node *ET_CreateTree(char *Postfix)
-{
+ET_Node* ET_CreateTree(char* Postfix) {
 	size_t len = strlen(Postfix);
-	if (len == 0)
-	{
+	if (len == 0) {
 		return NULL;
 	}
 
 	ET_DataType Token = Postfix[len - 1];
-	ET_Node *NewNode = ET_CreateNode(Token);
+	ET_Node* NewNode = ET_CreateNode(Token);
 	Postfix[len - 1] = '\0';
 
-	switch (Token)
-	{
+	switch (Token) {
 	case '+': // 연산자인 경우
 	case '-':
 	case '*':
@@ -24,11 +21,9 @@ ET_Node *ET_CreateTree(char *Postfix)
 	}
 	return NewNode;
 }
-ET_Node *ET_CreateNode(ET_DataType NewData)
-{
-	ET_Node *NewNode = malloc(sizeof(ET_Node));
-	if (NewNode == NULL)
-	{
+ET_Node* ET_CreateNode(ET_DataType NewData) {
+	ET_Node* NewNode = malloc(sizeof(ET_Node));
+	if (NewNode == NULL) {
 		return NULL;
 	}
 	NewNode->Left = NULL;
@@ -37,8 +32,7 @@ ET_Node *ET_CreateNode(ET_DataType NewData)
 
 	return NewNode;
 }
-void ET_PreorderPrintSubTree(ET_Node *Tree)
-{
+void ET_PreorderPrintSubTree(ET_Node* Tree) {
 	if (Tree == NULL)
 		return;
 
@@ -47,8 +41,7 @@ void ET_PreorderPrintSubTree(ET_Node *Tree)
 	ET_PreorderPrintSubTree(Tree->Left);
 	ET_PreorderPrintSubTree(Tree->Right);
 }
-void ET_InorderPrintSubTree(ET_Node *Tree)
-{
+void ET_InorderPrintSubTree(ET_Node* Tree) {
 	if (Tree == NULL)
 		return;
 
@@ -60,8 +53,7 @@ void ET_InorderPrintSubTree(ET_Node *Tree)
 	ET_InorderPrintSubTree(Tree->Right);
 	printf(")");
 }
-void ET_PostorderPrintSubTree(ET_Node *Tree)
-{
+void ET_PostorderPrintSubTree(ET_Node* Tree) {
 	if (Tree == NULL)
 		return;
 
@@ -69,8 +61,7 @@ void ET_PostorderPrintSubTree(ET_Node *Tree)
 	ET_PostorderPrintSubTree(Tree->Right);
 	printf(" %c", Tree->Data);
 }
-void ET_DestroyTree(ET_Node *Tree)
-{
+void ET_DestroyTree(ET_Node* Tree) {
 	if (Tree == NULL)
 		return;
 
@@ -78,8 +69,7 @@ void ET_DestroyTree(ET_Node *Tree)
 	ET_DestroyTree(Tree->Right);
 	free(Tree);
 }
-double ET_Evaluate(ET_Node *Tree)
-{
+double ET_Evaluate(ET_Node* Tree) {
 	char Temp[2];
 
 	double Left = 0;
@@ -89,8 +79,7 @@ double ET_Evaluate(ET_Node *Tree)
 	if (Tree == NULL)
 		return 0;
 
-	switch (Tree->Data)
-	{
+	switch (Tree->Data) {
 		// 연산자인 경우
 	case '+': case '-': case '*': case '/':
 		Left = ET_Evaluate(Tree->Left);
@@ -111,3 +100,4 @@ double ET_Evaluate(ET_Node *Tree)
 	}
 	return Result;
 }
+

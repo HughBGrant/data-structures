@@ -4,9 +4,8 @@
 #include "linked_stack.h"
 #include "calculator.h"
 
-void TestAS(void)
-{
-	ArrayStack *Stack = AS_CreateStack(10);
+void TestAS(void) {
+	ArrayStack* Stack = AS_CreateStack(10);
 
 	AS_Push(Stack, 3);
 	AS_Push(Stack, 37);
@@ -16,8 +15,7 @@ void TestAS(void)
 	printf("Capacity: %zu, Count: %zu, Top: %d\n",
 		Stack->Capacity, AS_GetSize(Stack), AS_Top(Stack));
 
-	while (!AS_IsEmpty(Stack))
-	{
+	while (!AS_IsEmpty(Stack)) {
 		printf("Popped: %d, ", AS_Top(Stack));
 		AS_Pop(Stack);
 
@@ -28,9 +26,8 @@ void TestAS(void)
 	}
 	AS_DestroyStack(Stack);
 }
-void TestLS(void)
-{
-	LinkedStack *Stack = LS_CreateStack();
+void TestLS(void) {
+	LinkedStack* Stack = LS_CreateStack();
 
 	LS_Push(Stack, "abc");
 	LS_Push(Stack, "def");
@@ -40,24 +37,20 @@ void TestLS(void)
 	printf("Count: %zu, Top: %s\n\n",
 		LS_GetSize(Stack), LS_Top(Stack));
 
-	while (!LS_IsEmpty(Stack))
-	{
+	while (!LS_IsEmpty(Stack)) {
 		printf("Popped: %s, ", LS_Top(Stack));
 		LS_Pop(Stack);
 
-		if (!LS_IsEmpty(Stack))
-		{
+		if (!LS_IsEmpty(Stack)) {
 			printf("Current Top: %s\n", LS_Top(Stack));
 		}
-		else
-		{
+		else {
 			printf("Stack Is Empty.\n");
 		}
 	}
 	LS_DestroyStack(Stack);
 }
-void TestCalculator(void)
-{
+void TestCalculator(void) {
 	//1
 	/*char Infix[100];
 	char Postfix[100];
@@ -89,21 +82,19 @@ void TestCalculator(void)
 	printf("Calculation Result : %f\n", Result);
 }
 
-int main(void)
-{
+int main(void) {
 	int StackNumber = 2;
 
-	switch (StackNumber)
-	{
-		case 0:
-			TestAS();
-			break;
-		case 1:
-			TestLS();
-			break;
-		case 2:
-			TestCalculator();
-			break;
+	switch (StackNumber) {
+	case 0:
+		TestAS();
+		break;
+	case 1:
+		TestLS();
+		break;
+	case 2:
+		TestCalculator();
+		break;
 	}
 	return 0;
 }
