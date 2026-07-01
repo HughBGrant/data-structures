@@ -76,8 +76,9 @@ void TestCDLL(void)
     {
         printf("List[%zu] : %d\n", i, CDLL_GetNodeAt(List, i)->Data);
     }
-    printf("\nInserting 3000 After [2]...\n\n");
-    CDLL_InsertAfter(List, 2, 3000);
+
+    printf("\nInserting 3000 At [3]...\n\n");
+    CDLL_Insert(List, 3, 3000);
 
     printf("\nRemoving Node at [2]...\n\n");
     CDLL_RemoveNode(List, 2);
