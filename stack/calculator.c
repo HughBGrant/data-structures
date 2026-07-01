@@ -48,11 +48,9 @@ int GetPriority(char Operator, bool InStack)
                 return 0;
             else
                 return 3;
-
         case '+':
         case '-':
             return 1;
-
         case '*':
         case '/':
             return 2;

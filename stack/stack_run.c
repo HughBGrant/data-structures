@@ -96,20 +96,14 @@ int main(void)
 	switch (StackNumber)
 	{
 		case 0:
-		{
 			TestAS();
 			break;
-		}
 		case 1:
-		{
 			TestLS();
 			break;
-		}
 		case 2:
-		{
 			TestCalculator();
 			break;
-		}
 	}
 	return 0;
 }

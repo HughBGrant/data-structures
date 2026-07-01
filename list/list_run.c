@@ -106,20 +106,14 @@ int main(void)
     switch (ListNumber)
     {
         case 0:
-        {
             TestLL();
             break;
-        }
         case 1:
-        {
             TestDLL();
             break;
-        }
         case 2:
-        {
             TestCDLL();
             break;
-        }
     }
     return 0;
 }

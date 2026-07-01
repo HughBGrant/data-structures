@@ -29,6 +29,6 @@ void BT_RemoveRightSubTree(BT_Node *Parent);
 void BT_PreorderPrintSubTree(BT_Node *Node);
 void BT_InorderPrintSubTree(BT_Node *Node);
 void BT_PostorderPrintSubTree(BT_Node *Node);
- void BT_DestroyTree(BinaryTree *Tree);
+void BT_DestroyTree(BinaryTree *Tree);
 
 #endif

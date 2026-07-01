@@ -80,22 +80,20 @@ void TestBT(void)
 }
 void TestET(void)
 {
-    ET_Node *Root = NULL;
-
-    char PostfixExpression[20] = "71*52-/";
-    ET_BuildExpressionTree(PostfixExpression, &Root);
+    char Postfix[20] = "71*52-/";
+    ET_Node *Root = ET_CreateTree(Postfix);
 
     // 트리 출력
     printf("Preorder ... \n");
-    ET_PreorderPrintTree(Root);
+    ET_PreorderPrintSubTree(Root);
     printf("\n\n");
 
     printf("Inorder ... \n");
-    ET_InorderPrintTree(Root);
+    ET_InorderPrintSubTree(Root);
     printf("\n\n");
 
     printf("Postorder ... \n");
-    ET_PostorderPrintTree(Root);
+    ET_PostorderPrintSubTree(Root);
     printf("\n");
 
     printf("Evaluation Result : %f \n", ET_Evaluate(Root));
@@ -105,25 +103,19 @@ void TestET(void)
 }
 int main(void)
 {
-    int TreeNumber = 1;
+    int TreeNumber = 2;
 
     switch (TreeNumber)
     {
         case 0:
-        {
             TestLCRST();
             break;
-        }
         case 1:
-        {
             TestBT();
             break;
-        }
         case 2:
-        {
             TestET();
             break;
-        }
     }
     return 0;
 }
