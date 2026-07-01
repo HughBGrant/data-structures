@@ -15,7 +15,8 @@ void TestCQ(void)
     for (int i = 0; i < 3; i++)
     {
         printf("Dequeue: %d. ", CQ_Dequeue(Queue));
-        printf("Front: %zu, Rear: %zu\n", Queue->Front, Queue->Rear);
+        printf("Front: %zu, Rear: %zu, Count: %zu\n",
+            Queue->Front, Queue->Rear, Queue->Count);
     }
     Data = 100;
 
@@ -25,7 +26,7 @@ void TestCQ(void)
         Data++;
     }
     printf("Capacity: %zu, Size: %zu\n",
-        Queue->Capacity - 1, CQ_GetSize(Queue));
+        Queue->Capacity, CQ_GetSize(Queue));
 
     while (CQ_IsEmpty(Queue) == false)
     {
