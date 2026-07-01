@@ -92,5 +92,5 @@ size_t LS_GetSize(LinkedStack* Stack)
 }
 bool LS_IsEmpty(LinkedStack* Stack)
 {
-	return (Stack->Top) == NULL;
+	return Stack->Count == 0;
 }

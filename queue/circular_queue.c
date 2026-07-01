@@ -3,21 +3,22 @@
 CircularQueue *CQ_CreateQueue(size_t Size)
 {
 	CircularQueue *Queue = malloc(sizeof(CircularQueue));
-
 	if (Queue == NULL)
 	{
 		return NULL;
 	}
-	Queue->Capacity = Size + 1;
-	Queue->Array = malloc(sizeof(CQ_DataType) * Queue->Capacity);
 
+	Queue->Array = malloc(sizeof(CQ_DataType) * Size);
 	if (Queue->Array == NULL)
 	{
 		free(Queue);
 		return NULL;
 	}
+
+	Queue->Capacity = Size;
 	Queue->Front = 0;
 	Queue->Rear = 0;
+	Queue->Count = 0;
 
 	return Queue;
 }
@@ -38,23 +39,29 @@ void CQ_Enqueue(CircularQueue* Queue, CQ_DataType Data)
 	}
 	Queue->Array[Queue->Rear] = Data;
 	Queue->Rear = (Queue->Rear + 1) % (Queue->Capacity);
+	Queue->Count++;
 }
 CQ_DataType CQ_Dequeue(CircularQueue* Queue)
 {
 	CQ_DataType Data = Queue->Array[Queue->Front];
 	Queue->Front = (Queue->Front + 1) % (Queue->Capacity);
+	Queue->Count--;
 
 	return Data;
 }
 bool CQ_IsEmpty(CircularQueue* Queue)
 {
-	return Queue->Front == Queue->Rear;
+	return Queue->Count == 0;
 }
 bool CQ_IsFull(CircularQueue* Queue)
 {
-	return (Queue->Rear + 1) % (Queue->Capacity) == Queue->Front;
+	return Queue->Count == Queue->Capacity;
 }
 size_t CQ_GetSize(CircularQueue* Queue)
 {
-	return (Queue->Capacity + Queue->Rear - Queue->Front) % (Queue->Capacity);
+	if (Queue == NULL)
+	{
+		return 0;
+	}
+	return Queue->Count;
 }
