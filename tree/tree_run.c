@@ -80,7 +80,8 @@ void TestBT(void)
 void TestET(void)
 {
     char Postfix[20] = "71*52-/";
-    ET_Node *Root = ET_CreateTree(Postfix);
+    ExpressionTree *Tree = ET_CreateTree(Postfix);
+    ET_Node *Root = Tree->Root;
 
     // 트리 출력
     printf("Preorder ... \n");
@@ -95,10 +96,10 @@ void TestET(void)
     ET_PostorderPrintSubTree(Root);
     printf("\n");
 
-    printf("Evaluation Result : %f \n", ET_Evaluate(Root));
+    printf("Evaluation Result : %f \n", ET_Calculate(Root));
 
     // 트리 소멸
-    ET_DestroyTree(Root);
+    ET_DestroyTree(Tree);
 }
 int main(void)
 {

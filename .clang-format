@@ -6,3 +6,4 @@ BraceWrapping:
 IndentWidth: 4
 UseTab: Never
 PointerAlignment: Right
+ColumnLimit: 0

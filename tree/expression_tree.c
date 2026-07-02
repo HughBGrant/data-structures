@@ -1,6 +1,21 @@
 #include "expression_tree.h"
 
-ET_Node *ET_CreateTree(char *Postfix)
+ExpressionTree *ET_CreateTree(char *Postfix)
+{
+    ExpressionTree *Tree = malloc(sizeof(ExpressionTree));
+    if (Tree == NULL) {
+        return NULL;
+    }
+
+    Tree->Root = ET_CreateSubTree(Postfix);
+    if (Tree->Root == NULL) {
+        free(Tree);
+        return NULL;
+    }
+
+    return Tree;
+}
+ET_Node *ET_CreateSubTree(char *Postfix)
 {
     size_t len = strlen(Postfix);
     if (len == 0) {
@@ -9,6 +24,10 @@ ET_Node *ET_CreateTree(char *Postfix)
 
     ET_DataType Token = Postfix[len - 1];
     ET_Node *NewNode = ET_CreateNode(Token);
+    if (NewNode == NULL) {
+        return NULL;
+    }
+
     Postfix[len - 1] = '\0';
 
     switch (Token) {
@@ -16,8 +35,13 @@ ET_Node *ET_CreateTree(char *Postfix)
     case '-':
     case '*':
     case '/':
-        NewNode->Right = ET_CreateTree(Postfix);
-        NewNode->Left = ET_CreateTree(Postfix);
+        NewNode->Right = ET_CreateSubTree(Postfix);
+        NewNode->Left = ET_CreateSubTree(Postfix);
+
+        if (NewNode->Right == NULL || NewNode->Left == NULL) {
+            ET_DestroySubTree(NewNode);
+            return NULL;
+        }
         break;
     }
     return NewNode;
@@ -36,46 +60,51 @@ ET_Node *ET_CreateNode(ET_DataType NewData)
 }
 void ET_PreorderPrintSubTree(ET_Node *Tree)
 {
-    if (Tree == NULL)
+    if (Tree == NULL) {
         return;
-
+    }
     printf(" %c", Tree->Data);
-
     ET_PreorderPrintSubTree(Tree->Left);
     ET_PreorderPrintSubTree(Tree->Right);
 }
 void ET_InorderPrintSubTree(ET_Node *Tree)
 {
-    if (Tree == NULL)
+    if (Tree == NULL) {
         return;
-
+    }
     printf("(");
     ET_InorderPrintSubTree(Tree->Left);
-
     printf("%c", Tree->Data);
-
     ET_InorderPrintSubTree(Tree->Right);
     printf(")");
 }
 void ET_PostorderPrintSubTree(ET_Node *Tree)
 {
-    if (Tree == NULL)
+    if (Tree == NULL) {
         return;
-
+    }
     ET_PostorderPrintSubTree(Tree->Left);
     ET_PostorderPrintSubTree(Tree->Right);
     printf(" %c", Tree->Data);
 }
-void ET_DestroyTree(ET_Node *Tree)
+void ET_DestroySubTree(ET_Node *SubTree)
 {
-    if (Tree == NULL)
+    if (SubTree == NULL) {
         return;
-
-    ET_DestroyTree(Tree->Left);
-    ET_DestroyTree(Tree->Right);
+    }
+    ET_DestroySubTree(SubTree->Left);
+    ET_DestroySubTree(SubTree->Right);
+    free(SubTree);
+}
+void ET_DestroyTree(ExpressionTree *Tree)
+{
+    if (Tree == NULL) {
+        return;
+    }
+    ET_DestroySubTree(Tree->Root);
     free(Tree);
 }
-double ET_Evaluate(ET_Node *Tree)
+double ET_Calculate(ET_Node *SubTree)
 {
     char Temp[2];
 
@@ -83,32 +112,29 @@ double ET_Evaluate(ET_Node *Tree)
     double Right = 0;
     double Result = 0;
 
-    if (Tree == NULL)
+    if (SubTree == NULL) {
         return 0;
-
-    switch (Tree->Data) {
-        // 연산자인 경우
-    case '+':
+    }
+    switch (SubTree->Data) {
+    case '+': // 연산자인 경우
     case '-':
     case '*':
     case '/':
-        Left = ET_Evaluate(Tree->Left);
-        Right = ET_Evaluate(Tree->Right);
+        Left = ET_Calculate(SubTree->Left);
+        Right = ET_Calculate(SubTree->Right);
 
-        if (Tree->Data == '+')
+        if (SubTree->Data == '+')
             Result = Left + Right;
-        else if (Tree->Data == '-')
+        else if (SubTree->Data == '-')
             Result = Left - Right;
-        else if (Tree->Data == '*')
+        else if (SubTree->Data == '*')
             Result = Left * Right;
-        else if (Tree->Data == '/')
+        else if (SubTree->Data == '/')
             Result = Left / Right;
-
         break;
-        // 피연산자인 경우
-    default:
+    default: // 피연산자인 경우
         memset(Temp, 0, sizeof(Temp));
-        Temp[0] = Tree->Data;
+        Temp[0] = SubTree->Data;
         Result = atof(Temp);
         break;
     }
