@@ -1,4 +1,5 @@
 #include "binary_tree.h"
+#include "disjoint_set.h"
 #include "expression_tree.h"
 #include "lcrs_tree.h"
 
@@ -101,9 +102,27 @@ void TestET(void)
     // 트리 소멸
     ET_DestroyTree(Tree);
 }
+void TestDS(void)
+{
+    int a = 1, b = 2, c = 3, d = 4;
+
+    DS_Node *Set1 = DS_MakeSet(&a);
+    DS_Node *Set2 = DS_MakeSet(&b);
+    DS_Node *Set3 = DS_MakeSet(&c);
+    DS_Node *Set4 = DS_MakeSet(&d);
+
+    printf("Set1 == Set2 : %d \n", DS_FindSet(Set1) == DS_FindSet(Set2));
+
+    DS_UnionSet(Set1, Set3);
+    printf("Set1 == Set3 : %d \n", DS_FindSet(Set1) == DS_FindSet(Set3));
+
+    DS_UnionSet(Set3, Set4);
+    printf("Set3 == Set4 : %d \n", DS_FindSet(Set3) == DS_FindSet(Set4));
+}
 int main(void)
 {
-    int TreeNumber = 2;
+
+    int TreeNumber = 3;
 
     switch (TreeNumber) {
     case 0:
@@ -114,6 +133,9 @@ int main(void)
         break;
     case 2:
         TestET();
+        break;
+    case 3:
+        TestDS();
         break;
     }
     return 0;
