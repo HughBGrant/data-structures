@@ -1,6 +1,6 @@
 #include "disjoint_set.h"
 
-DS_Node *DS_MakeSet(void *NewData)
+DS_Node *DS_MakeSet(char NewData)
 {
     DS_Node *NewNode = malloc(sizeof(DS_Node));
     if (NewNode == NULL) {

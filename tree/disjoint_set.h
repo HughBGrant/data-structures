@@ -6,11 +6,16 @@
 
 typedef struct tagDS_Node {
     struct tagDS_Node *Parent;
-    void *Data;
+    char Data;
 } DS_Node;
+
+// typedef struct {
+//     char *Data;
+//     int *Parents;
+// } DisjointSet;
 
 void DS_UnionSet(DS_Node *Set1, DS_Node *Set2);
 DS_Node *DS_FindSet(DS_Node *Node);
-DS_Node *DS_MakeSet(void *NewData);
+DS_Node *DS_MakeSet(char NewData);
 
 #endif

@@ -19,7 +19,7 @@ void TestLL(void)
     }
 
     printf("\nInserting 3000 At [2]...\n\n");
-    LL_InsertAt(List, 2, 3000);
+    LL_Insert(List, 2, 3000);
 
     for (i = 0; i < LL_GetSize(List); i++) {
         printf("List[%zu] : %d\n", i, LL_GetNodeAt(List, i)->Data);

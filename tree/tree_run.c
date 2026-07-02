@@ -104,12 +104,12 @@ void TestET(void)
 }
 void TestDS(void)
 {
-    int a = 1, b = 2, c = 3, d = 4;
+    char a = 'A', b = 'B', c = 'C', d = 'D';
 
-    DS_Node *Set1 = DS_MakeSet(&a);
-    DS_Node *Set2 = DS_MakeSet(&b);
-    DS_Node *Set3 = DS_MakeSet(&c);
-    DS_Node *Set4 = DS_MakeSet(&d);
+    DS_Node *Set1 = DS_MakeSet(a);
+    DS_Node *Set2 = DS_MakeSet(b);
+    DS_Node *Set3 = DS_MakeSet(c);
+    DS_Node *Set4 = DS_MakeSet(d);
 
     printf("Set1 == Set2 : %d \n", DS_FindSet(Set1) == DS_FindSet(Set2));
 
