@@ -4,18 +4,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct tagDS_Node {
-    struct tagDS_Node *Parent;
-    char Data;
-} DS_Node;
-
 // typedef struct {
 //     char *Data;
 //     int *Parents;
 // } DisjointSet;
 
-void DS_UnionSet(DS_Node *Set1, DS_Node *Set2);
-DS_Node *DS_FindSet(DS_Node *Node);
-DS_Node *DS_MakeSet(char NewData);
+void DS_MakeSet(char *Array, int *Parent, int index, char NewData);
+int DS_FindSet(int *Parent, int Index);
+void DS_UnionSet(int *Parent, int Set1, int Set2);
 
 #endif

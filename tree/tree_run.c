@@ -104,20 +104,27 @@ void TestET(void)
 }
 void TestDS(void)
 {
-    char a = 'A', b = 'B', c = 'C', d = 'D';
+    int Size = 100;
+    char *Array = malloc(sizeof(char) * Size);
+    int *Parent = malloc(sizeof(int) * Size);
+    if (Array == NULL || Parent == NULL) {
+        return;
+    }
+    DS_MakeSet(Array, Parent, 0, 'A');
+    DS_MakeSet(Array, Parent, 1, 'B');
+    DS_MakeSet(Array, Parent, 2, 'C');
+    DS_MakeSet(Array, Parent, 3, 'D');
 
-    DS_Node *Set1 = DS_MakeSet(a);
-    DS_Node *Set2 = DS_MakeSet(b);
-    DS_Node *Set3 = DS_MakeSet(c);
-    DS_Node *Set4 = DS_MakeSet(d);
+    printf("Set0 == Set1 : %d \n", DS_FindSet(Parent, 0) == DS_FindSet(Parent, 1));
 
-    printf("Set1 == Set2 : %d \n", DS_FindSet(Set1) == DS_FindSet(Set2));
+    DS_UnionSet(Parent, 0, 2);
+    printf("Set0 == Set2 : %d \n", DS_FindSet(Parent, 0) == DS_FindSet(Parent, 2));
 
-    DS_UnionSet(Set1, Set3);
-    printf("Set1 == Set3 : %d \n", DS_FindSet(Set1) == DS_FindSet(Set3));
+    DS_UnionSet(Parent, 2, 3);
+    printf("Set2 == Set3 : %d \n", DS_FindSet(Parent, 2) == DS_FindSet(Parent, 3));
 
-    DS_UnionSet(Set3, Set4);
-    printf("Set3 == Set4 : %d \n", DS_FindSet(Set3) == DS_FindSet(Set4));
+    free(Array);
+    free(Parent);
 }
 int main(void)
 {
