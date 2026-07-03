@@ -5,38 +5,33 @@
 
 void TestAL(void)
 {
-    /*size_t i = 0;
+    size_t i = 0;
 
     ArrayList *List = AL_CreateList(10);
 
     for (int i = 0; i < 5; i++) {
         AL_AppendTail(List, i);
     }
-
     AL_AppendTail(List, -1);
     AL_AppendTail(List, -2);
-
     for (i = 0; i < AL_GetSize(List); i++) {
-        printf("List[%zu] : %d\n", i, *AL_GetNodeAt(List, i));
+        printf("List[%zu] : %d\n", i, List->Array[i]);
     }
 
     printf("\nInserting 3000 At [2]...\n\n");
     AL_Insert(List, 2, 3000);
-
     for (i = 0; i < AL_GetSize(List); i++) {
-        printf("List[%zu] : %d\n", i, *AL_GetNodeAt(List, i));
+        printf("List[%zu] : %d\n", i, List->Array[i]);
     }
 
     printf("\nRemoving Node at [2]...\n\n");
-    AL_RemoveNode(List, 2);
-
+    AL_Remove(List, 2);
     for (i = 0; i < AL_GetSize(List); i++) {
-        printf("List[%zu] : %d\n", i, *AL_GetNodeAt(List, i));
+        printf("List[%zu] : %d\n", i, List->Array[i]);
     }
 
     printf("\nDestroying List...\n");
-
-    AL_DestroyList(List);*/
+    AL_DestroyList(List);
 }
 void TestSLL(void)
 {

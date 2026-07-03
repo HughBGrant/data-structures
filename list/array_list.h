@@ -12,11 +12,10 @@ typedef struct {
     AL_DataType *Array;
 } ArrayList;
 
-ArrayList *AL_CreateList(void);
+ArrayList *AL_CreateList(size_t Capacity);
 void AL_AppendTail(ArrayList *List, AL_DataType NewData);
-void AL_AppendHead(ArrayList *List, AL_DataType NewData);
 void AL_Insert(ArrayList *List, size_t Location, AL_DataType NewData);
-void AL_RemoveNode(ArrayList *List, size_t Location);
+void AL_Remove(ArrayList *List, size_t Location);
 void AL_DestroyList(ArrayList *List);
 
 size_t AL_GetSize(ArrayList *List);

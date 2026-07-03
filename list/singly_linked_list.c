@@ -53,28 +53,6 @@ void SLL_AppendTail(SinglyLinkedList *List, SLL_DataType NewData)
     List->Tail = NewTail;
     List->Count++;
 }
-void SLL_AppendHead(SinglyLinkedList *List, SLL_DataType NewData)
-{
-    SLL_Node *NewHead = SLL_CreateNode(NewData);
-
-    if (NewHead == NULL) {
-        return;
-    }
-    NewHead->NextNode = List->Head;
-    List->Head = NewHead;
-
-    if (List->Tail == NULL) {
-        List->Tail = NewHead;
-    }
-    List->Count++;
-}
-size_t SLL_GetSize(SinglyLinkedList *List)
-{
-    if (List == NULL) {
-        return 0;
-    }
-    return List->Count;
-}
 SLL_Node *SLL_GetNodeAt(SinglyLinkedList *List, size_t Location)
 {
     if (Location >= SLL_GetSize(List)) {
@@ -135,4 +113,11 @@ void SLL_Insert(SinglyLinkedList *List, size_t Location, SLL_DataType NewData)
     }
     NewNode->NextNode = Current;
     List->Count++;
+}
+size_t SLL_GetSize(SinglyLinkedList *List)
+{
+    if (List == NULL) {
+        return 0;
+    }
+    return List->Count;
 }

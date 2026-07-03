@@ -8,7 +8,6 @@ ArrayStack *AS_CreateStack(size_t Capacity)
         return NULL;
     }
     Stack->Array = malloc(sizeof(AS_DataType) * Capacity);
-
     if (Stack->Array == NULL) {
         free(Stack);
         return NULL;
@@ -31,8 +30,8 @@ void AS_Push(ArrayStack *Stack, AS_DataType Data)
     if (AS_IsFull(Stack)) {
         return;
     }
+    Stack->Array[Stack->Count] = Data;
     Stack->Count++;
-    Stack->Array[Stack->Count - 1] = Data;
 }
 void AS_Pop(ArrayStack *Stack)
 {

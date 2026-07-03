@@ -20,14 +20,6 @@ CircularQueue *CQ_CreateQueue(size_t Size)
 
     return Queue;
 }
-void CQ_DestroyQueue(CircularQueue *Queue)
-{
-    if (Queue == NULL) {
-        return;
-    }
-    free(Queue->Array);
-    free(Queue);
-}
 void CQ_Enqueue(CircularQueue *Queue, CQ_DataType Data)
 {
     if (CQ_IsFull(Queue)) {
@@ -44,6 +36,14 @@ CQ_DataType CQ_Dequeue(CircularQueue *Queue)
     Queue->Count--;
 
     return Data;
+}
+void CQ_DestroyQueue(CircularQueue *Queue)
+{
+    if (Queue == NULL) {
+        return;
+    }
+    free(Queue->Array);
+    free(Queue);
 }
 bool CQ_IsEmpty(CircularQueue *Queue) { return Queue->Count == 0; }
 bool CQ_IsFull(CircularQueue *Queue) { return Queue->Count == Queue->Capacity; }

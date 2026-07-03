@@ -20,7 +20,6 @@ typedef struct {
 SinglyLinkedList *SLL_CreateList(void);
 SLL_Node *SLL_CreateNode(SLL_DataType NewData);
 void SLL_AppendTail(SinglyLinkedList *List, SLL_DataType NewData);
-void SLL_AppendHead(SinglyLinkedList *List, SLL_DataType NewData);
 void SLL_Insert(SinglyLinkedList *List, size_t Location, SLL_DataType NewData);
 void SLL_RemoveNode(SinglyLinkedList *List, size_t Location);
 SLL_Node *SLL_GetNodeAt(SinglyLinkedList *List, size_t Location);

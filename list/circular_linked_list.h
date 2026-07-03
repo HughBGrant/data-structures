@@ -21,8 +21,7 @@ typedef struct {
 CircularLinkedList *CLL_CreateList(void);
 CLL_Node *CLL_CreateNode(CLL_DataType NewData);
 void CLL_AppendTail(CircularLinkedList *List, CLL_DataType NewData);
-void CLL_Insert(CircularLinkedList *List, size_t Location,
-                CLL_DataType NewData);
+void CLL_Insert(CircularLinkedList *List, size_t Location, CLL_DataType NewData);
 void CLL_RemoveNode(CircularLinkedList *List, size_t Location);
 CLL_Node *CLL_GetNodeAt(CircularLinkedList *List, size_t Location);
 

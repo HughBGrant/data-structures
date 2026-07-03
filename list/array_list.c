@@ -1,138 +1,63 @@
 #include "array_list.h"
 
-// SinglyLinkedList *SLL_CreateList(void)
-//{
-//    SinglyLinkedList *List = malloc(sizeof(SinglyLinkedList));
-//
-//    if (List == NULL) {
-//        return NULL;
-//    }
-//    List->Count = 0;
-//    List->Head = NULL;
-//    List->Tail = NULL;
-//
-//    return List;
-//}
-//
-// void SLL_DestroyList(SinglyLinkedList *List)
-//{
-//    if (List == NULL) {
-//        return;
-//    }
-//    SLL_Node *Current = List->Head;
-//
-//    while (List->Count > 0) {
-//        SLL_RemoveNode(List, 0);
-//    }
-//    free(List);
-//}
-// SLL_Node *SLL_CreateNode(SLL_DataType NewData)
-//{
-//    SLL_Node *NewNode = malloc(sizeof(SLL_Node));
-//
-//    if (NewNode == NULL) {
-//        return NULL;
-//    }
-//    NewNode->Data = NewData;
-//    NewNode->NextNode = NULL;
-//
-//    return NewNode;
-//}
-// void SLL_AppendTail(SinglyLinkedList *List, SLL_DataType NewData)
-//{
-//    SLL_Node *NewTail = SLL_CreateNode(NewData);
-//
-//    if (NewTail == NULL) {
-//        return;
-//    }
-//    if (List->Head == NULL) {
-//        List->Head = NewTail;
-//    } else {
-//        List->Tail->NextNode = NewTail;
-//    }
-//    List->Tail = NewTail;
-//    List->Count++;
-//}
-// void SLL_AppendHead(SinglyLinkedList *List, SLL_DataType NewData)
-//{
-//    SLL_Node *NewHead = SLL_CreateNode(NewData);
-//
-//    if (NewHead == NULL) {
-//        return;
-//    }
-//    NewHead->NextNode = List->Head;
-//    List->Head = NewHead;
-//
-//    if (List->Tail == NULL) {
-//        List->Tail = NewHead;
-//    }
-//    List->Count++;
-//}
-// size_t SLL_GetSize(SinglyLinkedList *List)
-//{
-//    if (List == NULL) {
-//        return 0;
-//    }
-//    return List->Count;
-//}
-// SLL_Node *SLL_GetNodeAt(SinglyLinkedList *List, size_t Location)
-//{
-//    if (Location >= SLL_GetSize(List)) {
-//        return NULL;
-//    }
-//    if (Location == SLL_GetSize(List) - 1) {
-//        return List->Tail;
-//    }
-//    SLL_Node *Current = List->Head;
-//
-//    while (Current != NULL && Location > 0) {
-//        Current = Current->NextNode;
-//        Location--;
-//    }
-//    return Current;
-//}
-// void SLL_RemoveNode(SinglyLinkedList *List, size_t Location)
-//{
-//    if (List == NULL || Location >= List->Count) {
-//        return;
-//    }
-//
-//    SLL_Node *Previous = NULL;
-//    SLL_Node *Current = List->Head;
-//    for (size_t i = 0; i < Location; i++) {
-//        Previous = Current;
-//        Current = Current->NextNode;
-//    }
-//    if (Current == List->Head) {
-//        List->Head = Current->NextNode;
-//    } else {
-//        Previous->NextNode = Current->NextNode;
-//    }
-//    if (Current == List->Tail) {
-//        List->Tail = NULL;
-//    }
-//    printf("Destroying Node : %d\n", Current->Data);
-//    free(Current);
-//    List->Count--;
-//}
-// void SLL_Insert(SinglyLinkedList *List, size_t Location, SLL_DataType NewData)
-//{
-//    SLL_Node *NewNode = SLL_CreateNode(NewData);
-//    if (NewNode == NULL) {
-//        return;
-//    }
-//
-//    SLL_Node *Previous = NULL;
-//    SLL_Node *Current = List->Head;
-//    for (size_t i = 0; i < Location; i++) {
-//        Previous = Current;
-//        Current = Current->NextNode;
-//    }
-//    if (Current == List->Head) {
-//        List->Head = NewNode;
-//    } else {
-//        Previous->NextNode = NewNode;
-//    }
-//    NewNode->NextNode = Current;
-//    List->Count++;
-//}
+ArrayList *AL_CreateList(size_t Capacity)
+{
+    ArrayList *List = malloc(sizeof(ArrayList));
+    if (List == NULL) {
+        return NULL;
+    }
+    List->Array = malloc(sizeof(AL_DataType) * Capacity);
+    if (List->Array == NULL) {
+        free(List);
+        return NULL;
+    }
+    List->Capacity = Capacity;
+    List->Count = 0;
+
+    return List;
+}
+void AL_AppendTail(ArrayList *List, AL_DataType NewData)
+{
+    if (List == NULL || List->Count >= List->Capacity) {
+        return;
+    }
+    List->Array[List->Count] = NewData;
+    List->Count++;
+}
+void AL_Insert(ArrayList *List, size_t Location, AL_DataType NewData)
+{
+    if (List == NULL || Location > List->Count ||
+        List->Count >= List->Capacity) {
+        return;
+    }
+    for (size_t i = List->Count; i > Location; i--) {
+        List->Array[i] = List->Array[i - 1];
+    }
+    List->Array[Location] = NewData;
+    List->Count++;
+}
+void AL_Remove(ArrayList *List, size_t Location)
+{
+    if (List == NULL || Location >= List->Count) {
+        return;
+    }
+    for (size_t i = Location; i < List->Count - 1; i++) {
+        List->Array[i] = List->Array[i + 1];
+    }
+    List->Count--;
+}
+void AL_DestroyList(ArrayList *List)
+{
+    if (List == NULL) {
+        return;
+    }
+    free(List->Array);
+    free(List);
+}
+size_t AL_GetSize(ArrayList *List)
+{
+    if (List == NULL) {
+        return 0;
+    }
+    return List->Count;
+}
