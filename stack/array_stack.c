@@ -41,8 +41,14 @@ void AS_Pop(ArrayStack *Stack)
     }
     Stack->Count--;
 }
-AS_DataType AS_Top(ArrayStack *Stack) { return Stack->Array[Stack->Count - 1]; }
-size_t AS_GetSize(ArrayStack *Stack) { return Stack->Count; }
+AS_DataType AS_Top(ArrayStack *Stack)
+{
+    return Stack->Array[Stack->Count - 1];
+}
+size_t AS_GetSize(ArrayStack *Stack)
+{
+    return Stack->Count;
+}
 bool AS_IsEmpty(ArrayStack *Stack)
 {
     if (Stack == NULL) {
