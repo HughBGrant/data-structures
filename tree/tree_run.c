@@ -104,27 +104,21 @@ void TestET(void)
 }
 void TestDS(void)
 {
-    int Size = 100;
-    char *Array = malloc(sizeof(char) * Size);
-    int *Parent = malloc(sizeof(int) * Size);
-    if (Array == NULL || Parent == NULL) {
-        return;
-    }
-    DS_MakeSet(Array, Parent, 0, 'A');
-    DS_MakeSet(Array, Parent, 1, 'B');
-    DS_MakeSet(Array, Parent, 2, 'C');
-    DS_MakeSet(Array, Parent, 3, 'D');
+    DisjointSets *Sets = DS_CreateSets(10);
+    DS_CreateSet(Sets, 0);
+    DS_CreateSet(Sets, 1);
+    DS_CreateSet(Sets, 2);
+    DS_CreateSet(Sets, 3);
 
-    printf("Set0 == Set1 : %d \n", DS_FindSet(Parent, 0) == DS_FindSet(Parent, 1));
+    printf("Set0 == Set1 : %d \n", DS_FindSet(Sets, 0) == DS_FindSet(Sets, 1));
 
-    DS_UnionSet(Parent, 0, 2);
-    printf("Set0 == Set2 : %d \n", DS_FindSet(Parent, 0) == DS_FindSet(Parent, 2));
+    DS_UnionSet(Sets, 0, 2);
+    printf("Set0 == Set2 : %d \n", DS_FindSet(Sets, 0) == DS_FindSet(Sets, 2));
 
-    DS_UnionSet(Parent, 2, 3);
-    printf("Set2 == Set3 : %d \n", DS_FindSet(Parent, 2) == DS_FindSet(Parent, 3));
+    DS_UnionSet(Sets, 2, 3);
+    printf("Set2 == Set3 : %d \n", DS_FindSet(Sets, 2) == DS_FindSet(Sets, 3));
 
-    free(Array);
-    free(Parent);
+    DS_DestroySets(Sets);
 }
 int main(void)
 {

@@ -1,23 +1,43 @@
 #include "disjoint_set.h"
 
-void DS_MakeSet(char *Array, int *Parent, int Index, char NewData)
+DisjointSets *DS_CreateSets(int Capacity)
 {
-    Array[Index] = NewData;
-    Parent[Index] = -1;
+    DisjointSets *Sets = malloc(sizeof(DisjointSets));
+    if (Sets == NULL) {
+        return NULL;
+    }
+
+    Sets->Parent = malloc(sizeof(int) * Capacity);
+    if (Sets->Parent == NULL) {
+        return NULL;
+    }
+    return Sets;
 }
-int DS_FindSet(int *Parent, int Index)
+void DS_CreateSet(DisjointSets *Sets, int Index)
 {
-    while (Parent[Index] != -1) {
-        Index = Parent[Index];
+    Sets->Parent[Index] = -1;
+}
+int DS_FindSet(DisjointSets *Sets, int Index)
+{
+    while (Sets->Parent[Index] != -1) {
+        Index = Sets->Parent[Index];
     }
     return Index;
 }
-void DS_UnionSet(int *Parent, int Index1, int Index2)
+void DS_UnionSet(DisjointSets *Sets, int Index1, int Index2)
 {
-    Index1 = DS_FindSet(Parent, Index1);
-    Index2 = DS_FindSet(Parent, Index2);
+    Index1 = DS_FindSet(Sets, Index1);
+    Index2 = DS_FindSet(Sets, Index2);
 
     if (Index1 != Index2) {
-        Parent[Index2] = Index1;
+        Sets->Parent[Index2] = Index1;
     }
+}
+void DS_DestroySets(DisjointSets *Sets)
+{
+    if (Sets == NULL) {
+        return;
+    }
+    free(Sets->Parent);
+    free(Sets);
 }

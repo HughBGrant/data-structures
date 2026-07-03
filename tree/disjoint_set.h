@@ -4,13 +4,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// typedef struct {
-//     char *Data;
-//     int *Parents;
-// } DisjointSet;
+typedef struct {
+    int *Parent;
+} DisjointSets;
 
-void DS_MakeSet(char *Array, int *Parent, int index, char NewData);
-int DS_FindSet(int *Parent, int Index);
-void DS_UnionSet(int *Parent, int Set1, int Set2);
+DisjointSets *DS_CreateSets(int Capacity);
+void DS_CreateSet(DisjointSets *Sets, int index);
+int DS_FindSet(DisjointSets *Sets, int Index);
+void DS_UnionSet(DisjointSets *Sets, int Set1, int Set2);
+void DS_DestroySets(DisjointSets *Sets);
 
 #endif
