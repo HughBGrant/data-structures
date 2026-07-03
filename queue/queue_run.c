@@ -3,7 +3,7 @@
 
 void TestCQ(void)
 {
-    CircularQueue *Queue = CQ_CreateQueue(10);
+    CQ *Queue = CQ_CreateQueue(10);
 
     int Data = 0;
 
@@ -33,7 +33,7 @@ void TestCQ(void)
 }
 void TestLQ(void)
 {
-    LinkedQueue *Queue = LQ_CreateQueue();
+    LQ *Queue = LQ_CreateQueue();
 
     LQ_Enqueue(Queue, "abc");
     LQ_Enqueue(Queue, "def");

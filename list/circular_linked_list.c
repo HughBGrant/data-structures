@@ -1,8 +1,8 @@
 #include "circular_linked_list.h"
 
-CircularLinkedList *CLL_CreateList(void)
+CLL *CLL_CreateList(void)
 {
-    CircularLinkedList *List = malloc(sizeof(CircularLinkedList));
+    CLL *List = malloc(sizeof(CLL));
 
     if (List == NULL) {
         return NULL;
@@ -13,7 +13,7 @@ CircularLinkedList *CLL_CreateList(void)
 
     return List;
 }
-void CLL_DestroyList(CircularLinkedList *List)
+void CLL_DestroyList(CLL *List)
 {
     if (List == NULL) {
         return;
@@ -36,7 +36,7 @@ CLL_Node *CLL_CreateNode(CLL_DataType NewData)
 
     return NewNode;
 }
-void CLL_AppendTail(CircularLinkedList *List, CLL_DataType NewData)
+void CLL_AppendTail(CLL *List, CLL_DataType NewData)
 {
     CLL_Node *NewNode = CLL_CreateNode(NewData);
     if (NewNode == NULL) {
@@ -54,14 +54,14 @@ void CLL_AppendTail(CircularLinkedList *List, CLL_DataType NewData)
 
     List->Count++;
 }
-size_t CLL_GetSize(CircularLinkedList *List)
+size_t CLL_GetSize(CLL *List)
 {
     if (List == NULL) {
         return 0;
     }
     return List->Count;
 }
-CLL_Node *CLL_GetNodeAt(CircularLinkedList *List, size_t Location)
+CLL_Node *CLL_GetNodeAt(CLL *List, size_t Location)
 {
     if (List == NULL) {
         return NULL;
@@ -90,7 +90,7 @@ CLL_Node *CLL_GetNodeAt(CircularLinkedList *List, size_t Location)
     }
     return Current;
 }
-void CLL_RemoveNode(CircularLinkedList *List, size_t Location)
+void CLL_RemoveNode(CLL *List, size_t Location)
 {
     if (List == NULL || Location >= List->Count) {
         return;
@@ -118,7 +118,7 @@ void CLL_RemoveNode(CircularLinkedList *List, size_t Location)
     free(Remove);
     List->Count--;
 }
-void CLL_Insert(CircularLinkedList *List, size_t Location,
+void CLL_Insert(CLL *List, size_t Location,
                 CLL_DataType NewData)
 {
     CLL_Node *Current = CLL_GetNodeAt(List, Location);

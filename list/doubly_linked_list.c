@@ -1,8 +1,8 @@
 #include "doubly_linked_list.h"
 
-DoublyLinkedList *DLL_CreateList(void)
+DLL *DLL_CreateList(void)
 {
-    DoublyLinkedList *List = malloc(sizeof(DoublyLinkedList));
+    DLL *List = malloc(sizeof(DLL));
 
     if (List == NULL) {
         return NULL;
@@ -13,7 +13,7 @@ DoublyLinkedList *DLL_CreateList(void)
 
     return List;
 }
-void DLL_DestroyList(DoublyLinkedList *List)
+void DLL_DestroyList(DLL *List)
 {
     if (List == NULL) {
         return;
@@ -38,7 +38,7 @@ DLL_Node *DLL_CreateNode(DLL_DataType NewData)
     }
     return NewNode;
 }
-void DLL_AppendTail(DoublyLinkedList *List, DLL_DataType NewData)
+void DLL_AppendTail(DLL *List, DLL_DataType NewData)
 {
     DLL_Node *NewTail = DLL_CreateNode(NewData);
 
@@ -54,14 +54,14 @@ void DLL_AppendTail(DoublyLinkedList *List, DLL_DataType NewData)
     List->Tail = NewTail;
     List->Count++;
 }
-size_t DLL_GetSize(DoublyLinkedList *List)
+size_t DLL_GetSize(DLL *List)
 {
     if (List == NULL) {
         return 0;
     }
     return List->Count;
 }
-DLL_Node *DLL_GetNodeAt(DoublyLinkedList *List, size_t Location)
+DLL_Node *DLL_GetNodeAt(DLL *List, size_t Location)
 {
     if (List == NULL) {
         return NULL;
@@ -90,7 +90,7 @@ DLL_Node *DLL_GetNodeAt(DoublyLinkedList *List, size_t Location)
     }
     return Current;
 }
-void DLL_RemoveNode(DoublyLinkedList *List, size_t Location)
+void DLL_RemoveNode(DLL *List, size_t Location)
 {
     if (List == NULL || Location >= List->Count) {
         return;
@@ -115,7 +115,7 @@ void DLL_RemoveNode(DoublyLinkedList *List, size_t Location)
 
     List->Count--;
 }
-void DLL_Insert(DoublyLinkedList *List, size_t Location, DLL_DataType NewData)
+void DLL_Insert(DLL *List, size_t Location, DLL_DataType NewData)
 {
     DLL_Node *Current = DLL_GetNodeAt(List, Location);
     if (Current == NULL) {
@@ -135,7 +135,7 @@ void DLL_Insert(DoublyLinkedList *List, size_t Location, DLL_DataType NewData)
     Current->PrevNode = NewNode;
     List->Count++;
 }
-void DLL_PrintReverse(DoublyLinkedList *List)
+void DLL_PrintReverse(DLL *List)
 {
     size_t i = List->Count - 1;
 

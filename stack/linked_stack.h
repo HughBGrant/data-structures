@@ -18,16 +18,16 @@ typedef struct tagLS_Node {
 typedef struct {
     LS_Node *Top;
     size_t Count;
-} LinkedStack;
+} LS;
 
-LinkedStack *LS_CreateStack(void);
+LS *LS_CreateStack(void);
 LS_Node *LS_CreateNode(LS_DataType NewData);
-void LS_Push(LinkedStack *Stack, LS_DataType NewData);
-void LS_Pop(LinkedStack *Stack);
-LS_DataType LS_Top(LinkedStack *Stack);
-void LS_DestroyStack(LinkedStack *Stack);
+void LS_Push(LS *Stack, LS_DataType NewData);
+void LS_Pop(LS *Stack);
+LS_DataType LS_Top(LS *Stack);
+void LS_DestroyStack(LS *Stack);
 
-size_t LS_GetSize(LinkedStack *Stack);
-bool LS_IsEmpty(LinkedStack *Stack);
+size_t LS_GetSize(LS *Stack);
+bool LS_IsEmpty(LS *Stack);
 
 #endif

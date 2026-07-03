@@ -1,8 +1,8 @@
 #include "singly_linked_list.h"
 
-SinglyLinkedList *SLL_CreateList(void)
+SLL *SLL_CreateList(void)
 {
-    SinglyLinkedList *List = malloc(sizeof(SinglyLinkedList));
+    SLL *List = malloc(sizeof(SLL));
 
     if (List == NULL) {
         return NULL;
@@ -14,7 +14,7 @@ SinglyLinkedList *SLL_CreateList(void)
     return List;
 }
 
-void SLL_DestroyList(SinglyLinkedList *List)
+void SLL_DestroyList(SLL *List)
 {
     if (List == NULL) {
         return;
@@ -38,7 +38,7 @@ SLL_Node *SLL_CreateNode(SLL_DataType NewData)
 
     return NewNode;
 }
-void SLL_AppendTail(SinglyLinkedList *List, SLL_DataType NewData)
+void SLL_AppendTail(SLL *List, SLL_DataType NewData)
 {
     SLL_Node *NewTail = SLL_CreateNode(NewData);
 
@@ -53,7 +53,7 @@ void SLL_AppendTail(SinglyLinkedList *List, SLL_DataType NewData)
     List->Tail = NewTail;
     List->Count++;
 }
-SLL_Node *SLL_GetNodeAt(SinglyLinkedList *List, size_t Location)
+SLL_Node *SLL_GetNodeAt(SLL *List, size_t Location)
 {
     if (Location >= SLL_GetSize(List)) {
         return NULL;
@@ -69,7 +69,7 @@ SLL_Node *SLL_GetNodeAt(SinglyLinkedList *List, size_t Location)
     }
     return Current;
 }
-void SLL_RemoveNode(SinglyLinkedList *List, size_t Location)
+void SLL_RemoveNode(SLL *List, size_t Location)
 {
     if (List == NULL || Location >= List->Count) {
         return;
@@ -93,7 +93,7 @@ void SLL_RemoveNode(SinglyLinkedList *List, size_t Location)
     free(Current);
     List->Count--;
 }
-void SLL_Insert(SinglyLinkedList *List, size_t Location, SLL_DataType NewData)
+void SLL_Insert(SLL *List, size_t Location, SLL_DataType NewData)
 {
     SLL_Node *NewNode = SLL_CreateNode(NewData);
     if (NewNode == NULL) {
@@ -114,7 +114,7 @@ void SLL_Insert(SinglyLinkedList *List, size_t Location, SLL_DataType NewData)
     NewNode->NextNode = Current;
     List->Count++;
 }
-size_t SLL_GetSize(SinglyLinkedList *List)
+size_t SLL_GetSize(SLL *List)
 {
     if (List == NULL) {
         return 0;

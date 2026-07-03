@@ -5,7 +5,7 @@
 
 void TestAS(void)
 {
-    ArrayStack *Stack = AS_CreateStack(10);
+    AS *Stack = AS_CreateStack(10);
 
     AS_Push(Stack, 3);
     AS_Push(Stack, 37);
@@ -28,7 +28,7 @@ void TestAS(void)
 }
 void TestLS(void)
 {
-    LinkedStack *Stack = LS_CreateStack();
+    LS *Stack = LS_CreateStack();
 
     LS_Push(Stack, "abc");
     LS_Push(Stack, "def");

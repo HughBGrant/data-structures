@@ -7,7 +7,7 @@ void TestAL(void)
 {
     size_t i = 0;
 
-    ArrayList *List = AL_CreateList(10);
+    AL *List = AL_CreateList(10);
 
     for (int i = 0; i < 5; i++) {
         AL_AppendTail(List, i);
@@ -37,7 +37,7 @@ void TestSLL(void)
 {
     size_t i = 0;
 
-    SinglyLinkedList *List = SLL_CreateList();
+    SLL *List = SLL_CreateList();
 
     for (int i = 0; i < 5; i++) {
         SLL_AppendTail(List, i);
@@ -64,7 +64,7 @@ void TestDLL(void)
 {
     size_t i = 0;
 
-    DoublyLinkedList *List = DLL_CreateList();
+    DLL *List = DLL_CreateList();
 
     for (int i = 0; i < 5; i++) {
         DLL_AppendTail(List, i);
@@ -90,7 +90,7 @@ void TestCLL(void)
     size_t i = 0;
     CLL_Node *Current = NULL;
 
-    CircularLinkedList *List = CLL_CreateList();
+    CLL *List = CLL_CreateList();
 
     for (int i = 0; i < 5; i++) {
         CLL_AppendTail(List, i);

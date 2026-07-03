@@ -16,17 +16,17 @@ typedef struct {
     CLL_Node *Head;
     CLL_Node *Tail;
     size_t Count;
-} CircularLinkedList;
+} CLL;
 
-CircularLinkedList *CLL_CreateList(void);
+CLL *CLL_CreateList(void);
 CLL_Node *CLL_CreateNode(CLL_DataType NewData);
-void CLL_AppendTail(CircularLinkedList *List, CLL_DataType NewData);
-void CLL_Insert(CircularLinkedList *List, size_t Location, CLL_DataType NewData);
-void CLL_RemoveNode(CircularLinkedList *List, size_t Location);
-CLL_Node *CLL_GetNodeAt(CircularLinkedList *List, size_t Location);
+void CLL_AppendTail(CLL *List, CLL_DataType NewData);
+void CLL_Insert(CLL *List, size_t Location, CLL_DataType NewData);
+void CLL_RemoveNode(CLL *List, size_t Location);
+CLL_Node *CLL_GetNodeAt(CLL *List, size_t Location);
 
-void CLL_DestroyList(CircularLinkedList *List);
+void CLL_DestroyList(CLL *List);
 
-size_t CLL_GetSize(CircularLinkedList *List);
+size_t CLL_GetSize(CLL *List);
 
 #endif

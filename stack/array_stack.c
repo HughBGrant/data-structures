@@ -1,8 +1,8 @@
 #include "array_stack.h"
 
-ArrayStack *AS_CreateStack(size_t Capacity)
+AS *AS_CreateStack(size_t Capacity)
 {
-    ArrayStack *Stack = malloc(sizeof(ArrayStack));
+    AS *Stack = malloc(sizeof(AS));
 
     if (Stack == NULL) {
         return NULL;
@@ -17,7 +17,7 @@ ArrayStack *AS_CreateStack(size_t Capacity)
 
     return Stack;
 }
-void AS_DestroyStack(ArrayStack *Stack)
+void AS_DestroyStack(AS *Stack)
 {
     if (Stack == NULL) {
         return;
@@ -25,7 +25,7 @@ void AS_DestroyStack(ArrayStack *Stack)
     free(Stack->Array);
     free(Stack);
 }
-void AS_Push(ArrayStack *Stack, AS_DataType Data)
+void AS_Push(AS *Stack, AS_DataType Data)
 {
     if (AS_IsFull(Stack)) {
         return;
@@ -33,26 +33,26 @@ void AS_Push(ArrayStack *Stack, AS_DataType Data)
     Stack->Array[Stack->Count] = Data;
     Stack->Count++;
 }
-void AS_Pop(ArrayStack *Stack)
+void AS_Pop(AS *Stack)
 {
     if (AS_IsEmpty(Stack)) {
         return;
     }
     Stack->Count--;
 }
-AS_DataType AS_Top(ArrayStack *Stack)
+AS_DataType AS_Top(AS *Stack)
 {
     return Stack->Array[Stack->Count - 1];
 }
-size_t AS_GetSize(ArrayStack *Stack)
+size_t AS_GetSize(AS *Stack)
 {
     return Stack->Count;
 }
-bool AS_IsEmpty(ArrayStack *Stack)
+bool AS_IsEmpty(AS *Stack)
 {
     if (Stack == NULL) {
         return true;
     }
     return Stack->Count == 0;
 }
-bool AS_IsFull(ArrayStack *Stack) { return Stack->Count == Stack->Capacity; }
+bool AS_IsFull(AS *Stack) { return Stack->Count == Stack->Capacity; }

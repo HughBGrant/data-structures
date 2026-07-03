@@ -16,17 +16,17 @@ typedef struct {
     DLL_Node *Head;
     DLL_Node *Tail;
     size_t Count;
-} DoublyLinkedList;
+} DLL;
 
-DoublyLinkedList *DLL_CreateList(void);
+DLL *DLL_CreateList(void);
 DLL_Node *DLL_CreateNode(DLL_DataType NewData);
-void DLL_AppendTail(DoublyLinkedList *List, DLL_DataType NewData);
-void DLL_Insert(DoublyLinkedList *List, size_t Location, DLL_DataType NewData);
-void DLL_RemoveNode(DoublyLinkedList *List, size_t Location);
-DLL_Node *DLL_GetNodeAt(DoublyLinkedList *List, size_t Location);
+void DLL_AppendTail(DLL *List, DLL_DataType NewData);
+void DLL_Insert(DLL *List, size_t Location, DLL_DataType NewData);
+void DLL_RemoveNode(DLL *List, size_t Location);
+DLL_Node *DLL_GetNodeAt(DLL *List, size_t Location);
 
-void DLL_DestroyList(DoublyLinkedList *List);
+void DLL_DestroyList(DLL *List);
 
-size_t DLL_GetSize(DoublyLinkedList *List);
+size_t DLL_GetSize(DLL *List);
 
 #endif

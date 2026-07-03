@@ -1,8 +1,8 @@
 #include "linked_stack.h"
 
-LinkedStack *LS_CreateStack(void)
+LS *LS_CreateStack(void)
 {
-    LinkedStack *Stack = malloc(sizeof(LinkedStack));
+    LS *Stack = malloc(sizeof(LS));
 
     if (Stack == NULL) {
         return NULL;
@@ -12,7 +12,7 @@ LinkedStack *LS_CreateStack(void)
 
     return Stack;
 }
-void LS_DestroyStack(LinkedStack *Stack)
+void LS_DestroyStack(LS *Stack)
 {
     if (Stack == NULL) {
         return;
@@ -40,7 +40,7 @@ LS_Node *LS_CreateNode(LS_DataType NewData)
 
     return NewNode;
 }
-void LS_Push(LinkedStack *Stack, LS_DataType NewData)
+void LS_Push(LS *Stack, LS_DataType NewData)
 {
     LS_Node *NewNode = LS_CreateNode(NewData);
     if (NewNode == NULL) {
@@ -53,7 +53,7 @@ void LS_Push(LinkedStack *Stack, LS_DataType NewData)
     Stack->Top = NewNode;
     Stack->Count++;
 }
-void LS_Pop(LinkedStack *Stack)
+void LS_Pop(LS *Stack)
 {
     if (Stack == NULL || Stack->Top == NULL) {
         return;
@@ -66,18 +66,18 @@ void LS_Pop(LinkedStack *Stack)
     free(TopNode);
     Stack->Count--;
 }
-LS_DataType LS_Top(LinkedStack *Stack)
+LS_DataType LS_Top(LS *Stack)
 {
     if (Stack->Top == NULL) {
         return NULL;
     }
     return Stack->Top->Data;
 }
-size_t LS_GetSize(LinkedStack *Stack)
+size_t LS_GetSize(LS *Stack)
 {
     if (Stack == NULL) {
         return 0;
     }
     return Stack->Count;
 }
-bool LS_IsEmpty(LinkedStack *Stack) { return Stack->Count == 0; }
+bool LS_IsEmpty(LS *Stack) { return Stack->Count == 0; }

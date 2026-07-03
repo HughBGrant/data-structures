@@ -1,8 +1,8 @@
 #include "expression_tree.h"
 
-ExpressionTree *ET_CreateTree(char *Postfix)
+ET *ET_CreateTree(char *Postfix)
 {
-    ExpressionTree *Tree = malloc(sizeof(ExpressionTree));
+    ET *Tree = malloc(sizeof(ET));
     if (Tree == NULL) {
         return NULL;
     }
@@ -96,7 +96,7 @@ void ET_DestroySubTree(ET_Node *SubTree)
     ET_DestroySubTree(SubTree->Right);
     free(SubTree);
 }
-void ET_DestroyTree(ExpressionTree *Tree)
+void ET_DestroyTree(ET *Tree)
 {
     if (Tree == NULL) {
         return;

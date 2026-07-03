@@ -1,8 +1,8 @@
 #include "array_list.h"
 
-ArrayList *AL_CreateList(size_t Capacity)
+AL *AL_CreateList(size_t Capacity)
 {
-    ArrayList *List = malloc(sizeof(ArrayList));
+    AL *List = malloc(sizeof(AL));
     if (List == NULL) {
         return NULL;
     }
@@ -16,7 +16,7 @@ ArrayList *AL_CreateList(size_t Capacity)
 
     return List;
 }
-void AL_AppendTail(ArrayList *List, AL_DataType NewData)
+void AL_AppendTail(AL *List, AL_DataType NewData)
 {
     if (List == NULL || List->Count >= List->Capacity) {
         return;
@@ -24,7 +24,7 @@ void AL_AppendTail(ArrayList *List, AL_DataType NewData)
     List->Array[List->Count] = NewData;
     List->Count++;
 }
-void AL_Insert(ArrayList *List, size_t Location, AL_DataType NewData)
+void AL_Insert(AL *List, size_t Location, AL_DataType NewData)
 {
     if (List == NULL || Location > List->Count ||
         List->Count >= List->Capacity) {
@@ -36,7 +36,7 @@ void AL_Insert(ArrayList *List, size_t Location, AL_DataType NewData)
     List->Array[Location] = NewData;
     List->Count++;
 }
-void AL_Remove(ArrayList *List, size_t Location)
+void AL_Remove(AL *List, size_t Location)
 {
     if (List == NULL || Location >= List->Count) {
         return;
@@ -46,7 +46,7 @@ void AL_Remove(ArrayList *List, size_t Location)
     }
     List->Count--;
 }
-void AL_DestroyList(ArrayList *List)
+void AL_DestroyList(AL *List)
 {
     if (List == NULL) {
         return;
@@ -54,7 +54,7 @@ void AL_DestroyList(ArrayList *List)
     free(List->Array);
     free(List);
 }
-size_t AL_GetSize(ArrayList *List)
+size_t AL_GetSize(AL *List)
 {
     if (List == NULL) {
         return 0;

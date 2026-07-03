@@ -4,7 +4,7 @@
 
 void TestLCRST(void)
 {
-    LCRSTree *Tree = LCRST_CreateTree('A');
+    LCRST *Tree = LCRST_CreateTree('A');
     LCRST_Node *A = Tree->Root;
     LCRST_Node *B = LCRST_CreateNode('B');
     LCRST_Node *C = LCRST_CreateNode('C');
@@ -43,7 +43,7 @@ void TestLCRST(void)
 }
 void TestBT(void)
 {
-    BinaryTree *Tree = BT_CreateTree('A');
+    BT *Tree = BT_CreateTree('A');
     BT_Node *A = Tree->Root;
     BT_Node *B = BT_CreateNode('B');
     BT_Node *C = BT_CreateNode('C');
@@ -80,7 +80,7 @@ void TestBT(void)
 void TestET(void)
 {
     char Postfix[20] = "71*52-/";
-    ExpressionTree *Tree = ET_CreateTree(Postfix);
+    ET *Tree = ET_CreateTree(Postfix);
     ET_Node *Root = Tree->Root;
 
     // 트리 출력

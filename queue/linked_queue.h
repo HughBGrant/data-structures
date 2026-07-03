@@ -16,15 +16,15 @@ typedef struct {
     LQ_Node *Front;
     LQ_Node *Rear;
     size_t Count;
-} LinkedQueue;
+} LQ;
 
-LinkedQueue *LQ_CreateQueue(void);
+LQ *LQ_CreateQueue(void);
 LQ_Node *LQ_CreateNode(char *NewData);
-void LQ_Enqueue(LinkedQueue *Queue, char *NewData);
-void LQ_Dequeue(LinkedQueue *Queue);
-char *LQ_Peek(LinkedQueue *Queue);
-void LQ_DestroyQueue(LinkedQueue *Queue);
+void LQ_Enqueue(LQ *Queue, char *NewData);
+void LQ_Dequeue(LQ *Queue);
+char *LQ_Peek(LQ *Queue);
+void LQ_DestroyQueue(LQ *Queue);
 
-bool LQ_IsEmpty(LinkedQueue *Queue);
+bool LQ_IsEmpty(LQ *Queue);
 
 #endif

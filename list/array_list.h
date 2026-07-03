@@ -10,13 +10,13 @@ typedef struct {
     size_t Capacity;
     size_t Count;
     AL_DataType *Array;
-} ArrayList;
+} AL;
 
-ArrayList *AL_CreateList(size_t Capacity);
-void AL_AppendTail(ArrayList *List, AL_DataType NewData);
-void AL_Insert(ArrayList *List, size_t Location, AL_DataType NewData);
-void AL_Remove(ArrayList *List, size_t Location);
-void AL_DestroyList(ArrayList *List);
+AL *AL_CreateList(size_t Capacity);
+void AL_AppendTail(AL *List, AL_DataType NewData);
+void AL_Insert(AL *List, size_t Location, AL_DataType NewData);
+void AL_Remove(AL *List, size_t Location);
+void AL_DestroyList(AL *List);
 
-size_t AL_GetSize(ArrayList *List);
+size_t AL_GetSize(AL *List);
 #endif

@@ -14,16 +14,16 @@ typedef struct {
     size_t Rear;
     CQ_DataType *Array;
     size_t Count;
-} CircularQueue;
+} CQ;
 
-CircularQueue *CQ_CreateQueue(size_t Capacity);
-void CQ_Enqueue(CircularQueue *Queue, CQ_DataType Data);
-CQ_DataType CQ_Dequeue(CircularQueue *Queue);
+CQ *CQ_CreateQueue(size_t Capacity);
+void CQ_Enqueue(CQ *Queue, CQ_DataType Data);
+CQ_DataType CQ_Dequeue(CQ *Queue);
 
-void CQ_DestroyQueue(CircularQueue *Queue);
+void CQ_DestroyQueue(CQ *Queue);
 
-bool CQ_IsEmpty(CircularQueue *Queue);
-bool CQ_IsFull(CircularQueue *Queue);
-size_t CQ_GetSize(CircularQueue *Queue);
+bool CQ_IsEmpty(CQ *Queue);
+bool CQ_IsFull(CQ *Queue);
+size_t CQ_GetSize(CQ *Queue);
 
 #endif

@@ -1,8 +1,8 @@
 #include "binary_tree.h"
 
-BinaryTree *BT_CreateTree(BT_DataType NewData)
+BT *BT_CreateTree(BT_DataType NewData)
 {
-    BinaryTree *Tree = malloc(sizeof(BinaryTree));
+    BT *Tree = malloc(sizeof(BT));
     if (Tree == NULL) {
         return NULL;
     }
@@ -92,7 +92,7 @@ void BT_PostorderPrintSubTree(BT_Node *Node)
     BT_PostorderPrintSubTree(Node->Right);
     printf(" %c", Node->Data);
 }
-void BT_DestroyTree(BinaryTree *Tree)
+void BT_DestroyTree(BT *Tree)
 {
     if (Tree == NULL) {
         return;

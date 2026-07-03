@@ -1,8 +1,8 @@
 #include "lcrs_tree.h"
 
-LCRSTree *LCRST_CreateTree(LCRST_DataType NewData)
+LCRST *LCRST_CreateTree(LCRST_DataType NewData)
 {
-    LCRSTree *Tree = malloc(sizeof(LCRSTree));
+    LCRST *Tree = malloc(sizeof(LCRST));
     if (Tree == NULL) {
         return NULL;
     }
@@ -17,7 +17,7 @@ LCRSTree *LCRST_CreateTree(LCRST_DataType NewData)
 
     return Tree;
 }
-void LCRST_DestroyTree(LCRSTree *Tree)
+void LCRST_DestroyTree(LCRST *Tree)
 {
     if (Tree == NULL) {
         return;
@@ -68,7 +68,7 @@ void LCRST_AddChild(LCRST_Node *Parent, LCRST_Node *Child)
         Previous->Sibling = Child;
     }
 }
-void LCRST_RemoveSubTree(LCRSTree *Tree, LCRST_Node *Parent,
+void LCRST_RemoveSubTree(LCRST *Tree, LCRST_Node *Parent,
                          LCRST_Node *SubTree) //////
 {
     if (Tree == NULL || SubTree == NULL) {

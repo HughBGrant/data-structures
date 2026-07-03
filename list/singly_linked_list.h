@@ -15,15 +15,15 @@ typedef struct {
     SLL_Node *Head;
     SLL_Node *Tail;
     size_t Count;
-} SinglyLinkedList;
+} SLL;
 
-SinglyLinkedList *SLL_CreateList(void);
+SLL *SLL_CreateList(void);
 SLL_Node *SLL_CreateNode(SLL_DataType NewData);
-void SLL_AppendTail(SinglyLinkedList *List, SLL_DataType NewData);
-void SLL_Insert(SinglyLinkedList *List, size_t Location, SLL_DataType NewData);
-void SLL_RemoveNode(SinglyLinkedList *List, size_t Location);
-SLL_Node *SLL_GetNodeAt(SinglyLinkedList *List, size_t Location);
-void SLL_DestroyList(SinglyLinkedList *List);
+void SLL_AppendTail(SLL *List, SLL_DataType NewData);
+void SLL_Insert(SLL *List, size_t Location, SLL_DataType NewData);
+void SLL_RemoveNode(SLL *List, size_t Location);
+SLL_Node *SLL_GetNodeAt(SLL *List, size_t Location);
+void SLL_DestroyList(SLL *List);
 
-size_t SLL_GetSize(SinglyLinkedList *List);
+size_t SLL_GetSize(SLL *List);
 #endif

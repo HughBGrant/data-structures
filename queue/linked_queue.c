@@ -1,8 +1,8 @@
 #include "linked_queue.h"
 
-LinkedQueue *LQ_CreateQueue(void)
+LQ *LQ_CreateQueue(void)
 {
-    LinkedQueue *Queue = malloc(sizeof(LinkedQueue));
+    LQ *Queue = malloc(sizeof(LQ));
 
     if (Queue == NULL) {
         return NULL;
@@ -13,7 +13,7 @@ LinkedQueue *LQ_CreateQueue(void)
 
     return Queue;
 }
-void LQ_DestroyQueue(LinkedQueue *Queue)
+void LQ_DestroyQueue(LQ *Queue)
 {
     while (LQ_IsEmpty(Queue) == false) {
         LQ_Dequeue(Queue);
@@ -38,7 +38,7 @@ LQ_Node *LQ_CreateNode(char *NewData)
 
     return NewNode;
 }
-void LQ_Enqueue(LinkedQueue *Queue, char *NewData)
+void LQ_Enqueue(LQ *Queue, char *NewData)
 {
     if (Queue == NULL) {
         return;
@@ -56,7 +56,7 @@ void LQ_Enqueue(LinkedQueue *Queue, char *NewData)
     Queue->Rear = NewNode;
     Queue->Count++;
 }
-void LQ_Dequeue(LinkedQueue *Queue)
+void LQ_Dequeue(LQ *Queue)
 {
     if (Queue == NULL || Queue->Front == NULL) {
         return;
@@ -73,14 +73,14 @@ void LQ_Dequeue(LinkedQueue *Queue)
     free(Front);
     Queue->Count--;
 }
-char *LQ_Peek(LinkedQueue *Queue)
+char *LQ_Peek(LQ *Queue)
 {
     if (Queue == NULL || Queue->Front == NULL) {
         return NULL;
     }
     return Queue->Front->Data;
 }
-bool LQ_IsEmpty(LinkedQueue *Queue)
+bool LQ_IsEmpty(LQ *Queue)
 {
     if (Queue == NULL) {
         return true;
