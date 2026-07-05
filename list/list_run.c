@@ -5,9 +5,8 @@
 
 void al_test(void)
 {
-    size_t i = 0;
-
     array_list *list = al_create(10);
+    size_t i = 0;
 
     for (int i = 0; i < 5; i++) {
         al_append(list, i);
@@ -35,9 +34,8 @@ void al_test(void)
 }
 void ll_test(void)
 {
-    size_t i = 0;
-
     linked_list *list = ll_create();
+    size_t i = 0;
 
     for (int i = 0; i < 5; i++) {
         ll_append(list, i);
@@ -62,9 +60,8 @@ void ll_test(void)
 }
 void cll_test(void)
 {
-    size_t i = 0;
-
     circular_linked_list *list = cll_create();
+    size_t i = 0;
 
     for (int i = 0; i < 5; i++) {
         cll_append(list, i);
@@ -89,10 +86,9 @@ void cll_test(void)
 }
 void dll_test(void)
 {
+    DLL *List = DLL_CreateList();
     size_t i = 0;
     DLL_Node *current = NULL;
-
-    DLL *List = DLL_CreateList();
 
     for (int i = 0; i < 5; i++) {
         DLL_AppendTail(List, i);
