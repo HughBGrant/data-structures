@@ -1,94 +1,94 @@
 #include "array_list.h"
 #include "circular_linked_list.h"
 #include "doubly_linked_list.h"
-#include "singly_linked_list.h"
+#include "linked_list.h"
 
 void TestAL(void)
 {
     size_t i = 0;
 
-    AL *List = AL_CreateList(10);
+    AL *list = AL_CreateList(10);
 
     for (int i = 0; i < 5; i++) {
-        AL_AppendTail(List, i);
+        AL_AppendTail(list, i);
     }
-    AL_AppendTail(List, -1);
-    AL_AppendTail(List, -2);
-    for (i = 0; i < AL_GetSize(List); i++) {
-        printf("List[%zu] : %d\n", i, List->Array[i]);
+    AL_AppendTail(list, -1);
+    AL_AppendTail(list, -2);
+    for (i = 0; i < AL_GetSize(list); i++) {
+        printf("List[%zu] : %d\n", i, list->Array[i]);
     }
 
     printf("\nInserting 3000 At [2]...\n\n");
-    AL_Insert(List, 2, 3000);
-    for (i = 0; i < AL_GetSize(List); i++) {
-        printf("List[%zu] : %d\n", i, List->Array[i]);
+    AL_Insert(list, 2, 3000);
+    for (i = 0; i < AL_GetSize(list); i++) {
+        printf("List[%zu] : %d\n", i, list->Array[i]);
     }
 
     printf("\nRemoving Node at [2]...\n\n");
-    AL_Remove(List, 2);
-    for (i = 0; i < AL_GetSize(List); i++) {
-        printf("List[%zu] : %d\n", i, List->Array[i]);
+    AL_Remove(list, 2);
+    for (i = 0; i < AL_GetSize(list); i++) {
+        printf("List[%zu] : %d\n", i, list->Array[i]);
     }
 
     printf("\nDestroying List...\n");
-    AL_DestroyList(List);
+    AL_DestroyList(list);
 }
-void TestSLL(void)
+void ll_test(void)
 {
     size_t i = 0;
 
-    SLL *List = SLL_CreateList();
+    linked_list *list = ll_create();
 
     for (int i = 0; i < 5; i++) {
-        SLL_AppendTail(List, i);
+        ll_append(list, i);
     }
-    SLL_AppendTail(List, -1);
-    SLL_AppendTail(List, -2);
+    ll_append(list, -1);
+    ll_append(list, -2);
 
-    for (i = 0; i < SLL_GetSize(List); i++) {
-        printf("List[%zu] : %d\n", i, SLL_GetNodeAt(List, i)->Data);
+    for (i = 0; i < ll_size(list); i++) {
+        printf("List[%zu] : %d\n", i, ll_get(list, i)->data);
     }
 
     printf("\nInserting 3000 At [2]...\n\n");
-    SLL_Insert(List, 2, 3000);
+    ll_insert(list, 2, 3000);
 
-    for (i = 0; i < SLL_GetSize(List); i++) {
-        printf("List[%zu] : %d\n", i, SLL_GetNodeAt(List, i)->Data);
+    for (i = 0; i < ll_size(list); i++) {
+        printf("List[%zu] : %d\n", i, ll_get(list, i)->data);
     }
 
     printf("\nDestroying List...\n");
 
-    SLL_DestroyList(List);
+    ll_destroy(list);
 }
 void TestDLL(void)
 {
     size_t i = 0;
 
-    DLL *List = DLL_CreateList();
+    DLL *list = DLL_CreateList();
 
     for (int i = 0; i < 5; i++) {
-        DLL_AppendTail(List, i);
+        DLL_AppendTail(list, i);
     }
-    for (i = 0; i < DLL_GetSize(List); i++) {
-        printf("List[%zu] : %d\n", i, DLL_GetNodeAt(List, i)->Data);
+    for (i = 0; i < DLL_GetSize(list); i++) {
+        printf("List[%zu] : %d\n", i, DLL_GetNodeAt(list, i)->Data);
     }
 
     printf("\nInserting 3000 At [3]...\n\n");
-    DLL_Insert(List, 3, 3000);
-    for (i = 0; i < DLL_GetSize(List); i++) {
-        printf("List[%zu] : %d\n", i, DLL_GetNodeAt(List, i)->Data);
+    DLL_Insert(list, 3, 3000);
+    for (i = 0; i < DLL_GetSize(list); i++) {
+        printf("List[%zu] : %d\n", i, DLL_GetNodeAt(list, i)->Data);
     }
 
     printf("\nDestroying List...\n");
-    while (List->Count > 0) {
-        DLL_RemoveNode(List, 0);
+    while (list->Count > 0) {
+        DLL_RemoveNode(list, 0);
     }
-    DLL_DestroyList(List);
+    DLL_DestroyList(list);
 }
 void TestCLL(void)
 {
     size_t i = 0;
-    CLL_Node *Current = NULL;
+    CLL_Node *current = NULL;
 
     CLL *List = CLL_CreateList();
 
@@ -107,11 +107,11 @@ void TestCLL(void)
 
     for (i = 0; i < CLL_GetSize(List) * 2; i++) {
         if (i == 0) {
-            Current = List->Head;
+            current = List->Head;
         } else {
-            Current = Current->NextNode;
+            current = current->NextNode;
         }
-        printf("List[%zu] : %d\n", i, Current->Data);
+        printf("List[%zu] : %d\n", i, current->Data);
     }
     printf("\nDestroying List...\n");
 
@@ -119,14 +119,14 @@ void TestCLL(void)
 }
 int main(void)
 {
-    int ListNumber = 0;
+    int ListNumber = 1;
 
     switch (ListNumber) {
     case 0:
         TestAL();
         break;
     case 1:
-        TestSLL();
+        ll_test();
         break;
     case 2:
         TestDLL();

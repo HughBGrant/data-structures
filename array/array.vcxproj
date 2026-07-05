@@ -21,10 +21,9 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{17129cf0-0197-4a63-9695-6c796db93ed7}</ProjectGuid>
-    <RootNamespace>List</RootNamespace>
+    <ProjectGuid>{2dbef934-9ca9-48b5-9ffb-bfd983055d8d}</ProjectGuid>
+    <RootNamespace>array</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>list</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -103,7 +102,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -125,17 +123,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="array_list.c" />
-    <ClCompile Include="circular_linked_list.c" />
-    <ClCompile Include="doubly_linked_list.c" />
-    <ClCompile Include="linked_list.c" />
-    <ClCompile Include="list_run.c" />
+    <ClInclude Include="heap_array.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="array_list.h" />
-    <ClInclude Include="circular_linked_list.h" />
-    <ClInclude Include="doubly_linked_list.h" />
-    <ClInclude Include="linked_list.h" />
+    <ClCompile Include="array_run.c" />
+    <ClCompile Include="heap_array.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
