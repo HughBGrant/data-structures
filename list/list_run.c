@@ -46,14 +46,14 @@ void ll_test(void)
     ll_append(list, -2);
 
     for (i = 0; i < ll_size(list); i++) {
-        printf("List[%zu] : %d\n", i, ll_get(list, i)->data);
+        printf("List[%zu] : %d\n", i, ll_get(list, i));
     }
 
     printf("\nInserting 3000 At [2]...\n\n");
     ll_insert(list, 2, 3000);
 
     for (i = 0; i < ll_size(list); i++) {
-        printf("List[%zu] : %d\n", i, ll_get(list, i)->data);
+        printf("List[%zu] : %d\n", i, ll_get(list, i));
     }
 
     printf("\nDestroying List...\n");
@@ -73,14 +73,14 @@ void cll_test(void)
     cll_append(list, -2);
 
     for (i = 0; i < cll_size(list); i++) {
-        printf("List[%zu] : %d\n", i, cll_get(list, i)->data);
+        printf("List[%zu] : %d\n", i, cll_get(list, i));
     }
 
     printf("\nInserting 3000 At [2]...\n\n");
     cll_insert(list, 2, 3000);
 
     for (i = 0; i < cll_size(list); i++) {
-        printf("List[%zu] : %d\n", i, cll_get(list, i)->data);
+        printf("List[%zu] : %d\n", i, cll_get(list, i));
     }
 
     printf("\nDestroying List...\n");
@@ -121,7 +121,7 @@ void dll_test(void)
 }
 int main(void)
 {
-    int ListNumber = 1;
+    int ListNumber = 2;
 
     switch (ListNumber) {
     case 0:

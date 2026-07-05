@@ -40,24 +40,12 @@ void ll_append(linked_list *list, ll_data data)
     list->tail = new_tail;
     list->count++;
 }
-ll_node *ll_get(linked_list *list, size_t pos) //////
-{
-    if (pos >= ll_size(list)) {
-        return NULL;
-    }
-    if (pos == ll_size(list) - 1) {
-        return list->tail;
-    }
 
-    ll_node *current = list->head;
-    while (current != NULL && pos > 0) {
-        current = current->next;
-        pos--;
-    }
-    return current;
-}
 void ll_insert(linked_list *list, size_t pos, ll_data data)
 {
+    if (pos > list->count) {
+        return;
+    }
     ll_node *new_node = ll_create_node(data);
     if (new_node == NULL) {
         return;
@@ -65,7 +53,7 @@ void ll_insert(linked_list *list, size_t pos, ll_data data)
 
     ll_node *previous = NULL;
     ll_node *current = list->head;
-    for (size_t i = 0; i < pos; i++) {
+    for (pos; pos > 0; pos--) {
         previous = current;
         current = current->next;
     }
@@ -82,10 +70,9 @@ void ll_delete(linked_list *list, size_t pos)
     if (list == NULL || pos >= list->count) {
         return;
     }
-
     ll_node *previous = NULL;
     ll_node *current = list->head;
-    for (size_t i = 0; i < pos; i++) {
+    for (pos; pos > 0; pos--) {
         previous = current;
         current = current->next;
     }
@@ -101,22 +88,34 @@ void ll_delete(linked_list *list, size_t pos)
     free(current);
     list->count--;
 }
-void ll_destroy(linked_list *list)
+ll_data ll_get(linked_list *list, size_t pos)
 {
-    if (list == NULL) {
-        return;
+    if (pos == ll_size(list) - 1) {
+        return list->tail->data;
     }
-    ll_node *current = list->head;
 
-    while (list->count > 0) {
-        ll_delete(list, 0);
+    ll_node *current = list->head;
+    for (pos; pos > 0; pos--) {
+        current = current->next;
     }
-    free(list);
+    return current->data;
 }
+
 size_t ll_size(linked_list *list)
 {
     if (list == NULL) {
         return 0;
     }
     return list->count;
+}
+void ll_destroy(linked_list *list)
+{
+    if (list == NULL) {
+        return;
+    }
+
+    while (list->count > 0) {
+        ll_delete(list, 0);
+    }
+    free(list);
 }
