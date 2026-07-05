@@ -1,52 +1,52 @@
 #include "heap_array.h"
 
-A *A_CreateArray(size_t Size)
+heap_array *ha_create(size_t capacity)
 {
-    A *Array = malloc(sizeof(A));
-    if (Array == NULL) {
+    heap_array *array = malloc(sizeof(heap_array));
+    if (array == NULL) {
         return NULL;
     }
 
-    Array->Array = malloc(sizeof(A_DataType) * Size);
-    if (Array->Array == NULL) {
-        free(Array);
+    array->array = malloc(sizeof(ha_data) * capacity);
+    if (array->array == NULL) {
+        free(array);
         return NULL;
     }
 
-    Array->Size = Size;
+    array->capacity = capacity;
 
-    return Array;
+    return array;
 }
-void A_Set(A *Array, size_t Location, A_DataType NewData)
+void ha_set(heap_array *array, size_t pos, ha_data data)
 {
-    if (Array == NULL || Location >= Array->Size) {
+    if (array == NULL || pos >= array->capacity) {
         return;
     }
 
-    Array->Array[Location] = NewData;
+    array->array[pos] = data;
 }
-A_DataType *A_Get(A *Array, size_t Location)
+ha_data *ha_get(heap_array *array, size_t pos)
 {
-    if (Array == NULL || Location >= Array->Size) {
+    if (array == NULL || pos >= array->capacity) {
         return NULL;
     }
 
-    return &Array->Array[Location];
+    return &array->array[pos];
 }
-void A_DestroyArray(A *Array)
+void ha_destroy(heap_array *array)
 {
-    if (Array == NULL) {
+    if (array == NULL) {
         return;
     }
 
-    free(Array->Array);
-    free(Array);
+    free(array->array);
+    free(array);
 }
-size_t A_GetSize(A *Array)
+size_t ha_size(heap_array *array)
 {
-    if (Array == NULL) {
+    if (array == NULL) {
         return 0;
     }
 
-    return Array->Size;
+    return array->capacity;
 }

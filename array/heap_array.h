@@ -4,17 +4,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef int A_DataType;
+typedef int ha_data;
 
 typedef struct {
-    size_t Size;
-    A_DataType *Array;
-} A;
+    size_t capacity;
+    ha_data *array;
+} heap_array;
 
-A *A_CreateArray(size_t Size);
-void A_Set(A *Array, size_t Location, A_DataType NewData);
-A_DataType *A_Get(A *Array, size_t Location);
-void A_DestroyArray(A *Array);
+heap_array *ha_create(size_t capacity);
+void ha_set(heap_array *array, size_t pos, ha_data data);
+ha_data *ha_get(heap_array *array, size_t pos);
+void ha_destroy(heap_array *array);
 
-size_t A_GetSize(A *Array);
+size_t ha_size(heap_array *array);
 #endif
