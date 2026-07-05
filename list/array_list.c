@@ -1,63 +1,63 @@
 #include "array_list.h"
 
-AL *AL_CreateList(size_t Capacity)
+array_list *al_create(size_t capacity)
 {
-    AL *List = malloc(sizeof(AL));
-    if (List == NULL) {
+    array_list *list = malloc(sizeof(array_list));
+    if (list == NULL) {
         return NULL;
     }
-    List->Array = malloc(sizeof(AL_DataType) * Capacity);
-    if (List->Array == NULL) {
-        free(List);
+    list->array = malloc(sizeof(al_data) * capacity);
+    if (list->array == NULL) {
+        free(list);
         return NULL;
     }
-    List->Capacity = Capacity;
-    List->Count = 0;
+    list->capacity = capacity;
+    list->count = 0;
 
-    return List;
+    return list;
 }
-void AL_AppendTail(AL *List, AL_DataType NewData)
+void al_append(array_list *list, al_data data)
 {
-    if (List == NULL || List->Count >= List->Capacity) {
+    if (list == NULL || list->count >= list->capacity) {
         return;
     }
-    List->Array[List->Count] = NewData;
-    List->Count++;
+    list->array[list->count] = data;
+    list->count++;
 }
-void AL_Insert(AL *List, size_t Location, AL_DataType NewData)
+void al_insert(array_list *list, size_t pos, al_data data)
 {
-    if (List == NULL || Location > List->Count ||
-        List->Count >= List->Capacity) {
+    if (list == NULL || pos > list->count ||
+        list->count >= list->capacity) {
         return;
     }
-    for (size_t i = List->Count; i > Location; i--) {
-        List->Array[i] = List->Array[i - 1];
+    for (size_t i = list->count; i > pos; i--) {
+        list->array[i] = list->array[i - 1];
     }
-    List->Array[Location] = NewData;
-    List->Count++;
+    list->array[pos] = data;
+    list->count++;
 }
-void AL_Remove(AL *List, size_t Location)
+void al_delete(array_list *list, size_t pos)
 {
-    if (List == NULL || Location >= List->Count) {
+    if (list == NULL || pos >= list->count) {
         return;
     }
-    for (size_t i = Location; i < List->Count - 1; i++) {
-        List->Array[i] = List->Array[i + 1];
+    for (size_t i = pos; i < list->count - 1; i++) {
+        list->array[i] = list->array[i + 1];
     }
-    List->Count--;
+    list->count--;
 }
-void AL_DestroyList(AL *List)
+size_t al_size(array_list *list)
 {
-    if (List == NULL) {
-        return;
-    }
-    free(List->Array);
-    free(List);
-}
-size_t AL_GetSize(AL *List)
-{
-    if (List == NULL) {
+    if (list == NULL) {
         return 0;
     }
-    return List->Count;
+    return list->count;
+}
+void al_destroy(array_list *list)
+{
+    if (list == NULL) {
+        return;
+    }
+    free(list->array);
+    free(list);
 }

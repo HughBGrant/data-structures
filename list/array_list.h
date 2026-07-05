@@ -4,19 +4,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef int AL_DataType;
+typedef int al_data;
 
 typedef struct {
-    size_t Capacity;
-    size_t Count;
-    AL_DataType *Array;
-} AL;
+    size_t capacity;
+    size_t count;
+    al_data *array;
+} array_list;
 
-AL *AL_CreateList(size_t Capacity);
-void AL_AppendTail(AL *List, AL_DataType NewData);
-void AL_Insert(AL *List, size_t Location, AL_DataType NewData);
-void AL_Remove(AL *List, size_t Location);
-void AL_DestroyList(AL *List);
+array_list *al_create(size_t capacity);
+void al_append(array_list *list, al_data data);
+void al_insert(array_list *list, size_t pos, al_data data);
+void al_delete(array_list *list, size_t pos);
+void al_destroy(array_list *list);
 
-size_t AL_GetSize(AL *List);
+size_t al_size(array_list *list);
 #endif

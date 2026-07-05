@@ -7,31 +7,31 @@ void al_test(void)
 {
     size_t i = 0;
 
-    AL *list = AL_CreateList(10);
+    array_list *list = al_create(10);
 
     for (int i = 0; i < 5; i++) {
-        AL_AppendTail(list, i);
+        al_append(list, i);
     }
-    AL_AppendTail(list, -1);
-    AL_AppendTail(list, -2);
-    for (i = 0; i < AL_GetSize(list); i++) {
-        printf("List[%zu] : %d\n", i, list->Array[i]);
+    al_append(list, -1);
+    al_append(list, -2);
+    for (i = 0; i < al_size(list); i++) {
+        printf("List[%zu] : %d\n", i, list->array[i]);
     }
 
     printf("\nInserting 3000 At [2]...\n\n");
-    AL_Insert(list, 2, 3000);
-    for (i = 0; i < AL_GetSize(list); i++) {
-        printf("List[%zu] : %d\n", i, list->Array[i]);
+    al_insert(list, 2, 3000);
+    for (i = 0; i < al_size(list); i++) {
+        printf("List[%zu] : %d\n", i, list->array[i]);
     }
 
     printf("\nRemoving Node at [2]...\n\n");
-    AL_Remove(list, 2);
-    for (i = 0; i < AL_GetSize(list); i++) {
-        printf("List[%zu] : %d\n", i, list->Array[i]);
+    al_delete(list, 2);
+    for (i = 0; i < al_size(list); i++) {
+        printf("List[%zu] : %d\n", i, list->array[i]);
     }
 
     printf("\nDestroying List...\n");
-    AL_DestroyList(list);
+    al_destroy(list);
 }
 void ll_test(void)
 {
@@ -121,7 +121,7 @@ void dll_test(void)
 }
 int main(void)
 {
-    int ListNumber = 2;
+    int ListNumber = 0;
 
     switch (ListNumber) {
     case 0:
