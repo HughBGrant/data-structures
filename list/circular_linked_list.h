@@ -4,29 +4,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef int CLL_DataType;
+typedef int cll_data;
 
-typedef struct tagCLL_Node {
-    CLL_DataType Data;
-    struct tagCLL_Node *PrevNode;
-    struct tagCLL_Node *NextNode;
-} CLL_Node;
+typedef struct _cll_node {
+    cll_data data;
+    struct _cll_node *next;
+} cll_node;
 
 typedef struct {
-    CLL_Node *Head;
-    CLL_Node *Tail;
-    size_t Count;
-} CLL;
+    cll_node *head;
+    cll_node *tail;
+    size_t count;
+} circular_linked_list;
 
-CLL *CLL_CreateList(void);
-CLL_Node *CLL_CreateNode(CLL_DataType NewData);
-void CLL_AppendTail(CLL *List, CLL_DataType NewData);
-void CLL_Insert(CLL *List, size_t Location, CLL_DataType NewData);
-void CLL_RemoveNode(CLL *List, size_t Location);
-CLL_Node *CLL_GetNodeAt(CLL *List, size_t Location);
+circular_linked_list *cll_create(void);
+cll_node *cll_create_node(cll_data data);
+void cll_append(circular_linked_list *list, cll_data data);
+void cll_insert(circular_linked_list *list, size_t pos, cll_data data);
+void cll_delete(circular_linked_list *list, size_t pos);
+cll_node *cll_get(circular_linked_list *list, size_t pos); /////////
+void cll_destroy(circular_linked_list *list);
 
-void CLL_DestroyList(CLL *List);
-
-size_t CLL_GetSize(CLL *List);
-
+size_t cll_size(circular_linked_list *list);
 #endif

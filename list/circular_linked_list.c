@@ -1,149 +1,122 @@
 #include "circular_linked_list.h"
 
-CLL *CLL_CreateList(void)
+circular_linked_list *cll_create(void)
 {
-    CLL *List = malloc(sizeof(CLL));
-
-    if (List == NULL) {
+    circular_linked_list *list = malloc(sizeof(circular_linked_list));
+    if (list == NULL) {
         return NULL;
     }
-    List->Count = 0;
-    List->Head = NULL;
-    List->Tail = NULL;
 
-    return List;
-}
-void CLL_DestroyList(CLL *List)
-{
-    if (List == NULL) {
-        return;
-    }
-    while (List->Count > 0) {
-        CLL_RemoveNode(List, 0);
-    }
-    free(List);
-}
-CLL_Node *CLL_CreateNode(CLL_DataType NewData)
-{
-    CLL_Node *NewNode = malloc(sizeof(CLL_Node));
+    list->count = 0;
+    list->head = NULL;
+    list->tail = NULL;
 
-    if (NewNode == NULL) {
+    return list;
+}
+cll_node *cll_create_node(cll_data data)
+{
+    cll_node *new_node = malloc(sizeof(cll_node));
+    if (new_node == NULL) {
         return NULL;
     }
-    NewNode->Data = NewData;
-    NewNode->PrevNode = NULL;
-    NewNode->NextNode = NULL;
 
-    return NewNode;
+    new_node->data = data;
+    new_node->next = NULL;
+
+    return new_node;
 }
-void CLL_AppendTail(CLL *List, CLL_DataType NewData)
+void cll_append(circular_linked_list *list, cll_data data)
 {
-    CLL_Node *NewNode = CLL_CreateNode(NewData);
-    if (NewNode == NULL) {
+    cll_node *new_tail = cll_create_node(data);
+    if (new_tail == NULL) {
         return;
     }
-    if (List->Head == NULL) {
-        List->Head = NewNode;
+
+    if (list->head == NULL) {
+        list->head = new_tail;
     } else {
-        NewNode->PrevNode = List->Tail;
-        List->Tail->NextNode = NewNode;
+        list->tail->next = new_tail;
     }
-    NewNode->NextNode = List->Head;
-    List->Head->PrevNode = NewNode;
-    List->Tail = NewNode;
-
-    List->Count++;
+    list->tail = new_tail;
+    list->count++;
 }
-size_t CLL_GetSize(CLL *List)
+cll_node *cll_get(circular_linked_list *list, size_t pos) //////
 {
-    if (List == NULL) {
+    if (pos >= cll_size(list)) {
+        return NULL;
+    }
+    if (pos == cll_size(list) - 1) {
+        return list->tail;
+    }
+
+    cll_node *current = list->head;
+    while (current != NULL && pos > 0) {
+        current = current->next;
+        pos--;
+    }
+    return current;
+}
+void cll_insert(circular_linked_list *list, size_t pos, cll_data data)
+{
+    cll_node *new_node = cll_create_node(data);
+    if (new_node == NULL) {
+        return;
+    }
+
+    cll_node *previous = NULL;
+    cll_node *current = list->head;
+    for (size_t i = 0; i < pos; i++) {
+        previous = current;
+        current = current->next;
+    }
+    if (current == list->head) {
+        list->head = new_node;
+    } else {
+        previous->next = new_node;
+    }
+    new_node->next = current;
+    list->count++;
+}
+void cll_delete(circular_linked_list *list, size_t pos)
+{
+    if (list == NULL || pos >= list->count) {
+        return;
+    }
+
+    cll_node *previous = NULL;
+    cll_node *current = list->head;
+    for (size_t i = 0; i < pos; i++) {
+        previous = current;
+        current = current->next;
+    }
+    if (current == list->head) {
+        list->head = current->next;
+    } else {
+        previous->next = current->next;
+    }
+    if (current == list->tail) {
+        list->tail = NULL;
+    }
+    printf("Destroying Node : %d\n", current->data);
+    free(current);
+    list->count--;
+}
+void cll_destroy(circular_linked_list *list)
+{
+    if (list == NULL) {
+        return;
+    }
+    cll_node *current = list->head;
+
+    while (list->count > 0) {
+        cll_delete(list, 0);
+    }
+    free(list);
+}
+size_t cll_size(circular_linked_list *list)
+{
+    if (list == NULL) {
         return 0;
     }
-    return List->Count;
+    return list->count;
 }
-CLL_Node *CLL_GetNodeAt(CLL *List, size_t Location)
-{
-    if (List == NULL) {
-        return NULL;
-    }
-    size_t Count = CLL_GetSize(List);
-
-    if (Location >= Count) {
-        return NULL;
-    }
-    CLL_Node *Current = NULL;
-
-    if (Location < Count / 2) {
-        Current = List->Head;
-
-        while (Location > 0) {
-            Current = Current->NextNode;
-            Location--;
-        }
-    } else {
-        Current = List->Tail;
-
-        while (Location < Count - 1) {
-            Current = Current->PrevNode;
-            Location++;
-        }
-    }
-    return Current;
-}
-void CLL_RemoveNode(CLL *List, size_t Location)
-{
-    if (List == NULL || Location >= List->Count) {
-        return;
-    }
-    CLL_Node *Remove = CLL_GetNodeAt(List, Location);
-    if (Remove == NULL) {
-        return;
-    }
-
-    if (List->Head == List->Tail) {
-        List->Head = NULL;
-        List->Tail = NULL;
-    } else {
-        Remove->PrevNode->NextNode = Remove->NextNode;
-        Remove->NextNode->PrevNode = Remove->PrevNode;
-
-        if (Remove == List->Head) {
-            List->Head = Remove->NextNode;
-        }
-        if (Remove == List->Tail) {
-            List->Tail = Remove->PrevNode;
-        }
-    }
-    printf("Destroying Node : %d\n", Remove->Data);
-    free(Remove);
-    List->Count--;
-}
-void CLL_Insert(CLL *List, size_t Location,
-                CLL_DataType NewData)
-{
-    CLL_Node *Current = CLL_GetNodeAt(List, Location);
-
-    if (Current == NULL) {
-        return;
-    }
-    CLL_Node *NewNode = CLL_CreateNode(NewData);
-
-    if (NewNode == NULL) {
-        return;
-    }
-    Current->PrevNode->NextNode = NewNode;
-    NewNode->PrevNode = Current->PrevNode;
-    NewNode->NextNode = Current;
-    Current->PrevNode = NewNode;
-
-    if (Current == List->Head) {
-        List->Head = NewNode;
-    }
-    List->Count++;
-}
-// void CLL_InsertHead(Node **Head, ElementType NewData)
-//{
-//     Node* NewHead = CLL_CreateNode(NewData);
-//     NewHead->NextNode = *Head;
-//     *Head = NewHead;
-// }
