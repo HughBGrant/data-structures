@@ -3,7 +3,7 @@
 #include "doubly_linked_list.h"
 #include "linked_list.h"
 
-void TestAL(void)
+void al_test(void)
 {
     size_t i = 0;
 
@@ -60,7 +60,7 @@ void ll_test(void)
 
     ll_destroy(list);
 }
-void TestDLL(void)
+void dll_test(void)
 {
     size_t i = 0;
 
@@ -85,7 +85,7 @@ void TestDLL(void)
     }
     DLL_DestroyList(list);
 }
-void TestCLL(void)
+void cll_test(void)
 {
     size_t i = 0;
     CLL_Node *current = NULL;
@@ -123,16 +123,16 @@ int main(void)
 
     switch (ListNumber) {
     case 0:
-        TestAL();
+        al_test();
         break;
     case 1:
         ll_test();
         break;
     case 2:
-        TestDLL();
+        dll_test();
         break;
     case 3:
-        TestCLL();
+        cll_test();
         break;
     }
     return 0;
