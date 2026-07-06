@@ -1,5 +1,5 @@
-#include "circular_queue.h"
-#include "linked_queue.h"
+#include "circular_deque.h"
+#include "linked_deque.h"
 
 void TestCQ(void)
 {

@@ -1,4 +1,4 @@
-#include "circular_queue.h"
+#include "circular_deque.h"
 
 CQ *CQ_CreateQueue(size_t Size)
 {

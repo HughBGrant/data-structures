@@ -1,6 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
-#ifndef LINKED_QUEUE_H
-#define LINKED_QUEUE_H
+#ifndef LINKED_DEQUE_H
+#define LINKED_DEQUE_H
 
 #include <stdbool.h>
 #include <stdio.h>

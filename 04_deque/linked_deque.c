@@ -1,4 +1,4 @@
-#include "linked_queue.h"
+#include "linked_deque.h"
 
 LQ *LQ_CreateQueue(void)
 {

@@ -1,6 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
-#ifndef CIRCULAR_QUEUE_H
-#define CIRCULAR_QUEUE_H
+#ifndef CIRCULAR_DEQUE_H
+#define CIRCULAR_DEQUE_H
 
 #include <stdbool.h>
 #include <stdio.h>
