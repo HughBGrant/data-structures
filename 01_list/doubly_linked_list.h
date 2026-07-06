@@ -4,29 +4,29 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef int DLL_DataType;
+typedef int dll_data;
 
 typedef struct tagDLL_Node {
-    DLL_DataType Data;
-    struct tagDLL_Node *PrevNode;
-    struct tagDLL_Node *NextNode;
-} DLL_Node;
+    dll_data data;
+    struct tagDLL_Node *prev;
+    struct tagDLL_Node *next;
+} dll_node;
 
 typedef struct {
-    DLL_Node *Head;
-    DLL_Node *Tail;
-    size_t Count;
-} DLL;
+    dll_node *head;
+    dll_node *tail;
+    size_t count;
+} doubly_linked_list;
 
-DLL *DLL_CreateList(void);
-DLL_Node *DLL_CreateNode(DLL_DataType NewData);
-void DLL_AppendTail(DLL *List, DLL_DataType NewData);
-void DLL_Insert(DLL *List, size_t Location, DLL_DataType NewData);
-void DLL_RemoveNode(DLL *List, size_t Location);
-DLL_Node *DLL_GetNodeAt(DLL *List, size_t Location);
+doubly_linked_list *dll_create(void);
+dll_node *dll_create_node(dll_data data);
+void dll_append(doubly_linked_list *list, dll_data data);
+void dll_insert(doubly_linked_list *list, size_t pos, dll_data data);
+void dll_delete(doubly_linked_list *list, size_t pos);
+dll_node *dll_get(doubly_linked_list *list, size_t pos);
 
-void DLL_DestroyList(DLL *List);
+void dll_destroy(doubly_linked_list *list);
 
-size_t DLL_GetSize(DLL *List);
+size_t dll_size(doubly_linked_list *list);
 
 #endif

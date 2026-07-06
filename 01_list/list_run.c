@@ -86,38 +86,38 @@ void cll_test(void)
 }
 void dll_test(void)
 {
-    DLL *List = DLL_CreateList();
+    doubly_linked_list *list = dll_create();
     size_t i = 0;
-    DLL_Node *current = NULL;
+    dll_node *current = NULL;
 
     for (int i = 0; i < 5; i++) {
-        DLL_AppendTail(List, i);
+        dll_append(list, i);
     }
-    for (i = 0; i < DLL_GetSize(List); i++) {
-        printf("List[%zu] : %d\n", i, DLL_GetNodeAt(List, i)->Data);
+    for (i = 0; i < dll_size(list); i++) {
+        printf("List[%zu] : %d\n", i, dll_get(list, i)->data);
     }
 
     printf("\nInserting 3000 At [3]...\n\n");
-    DLL_Insert(List, 3, 3000);
+    dll_insert(list, 3, 3000);
 
     printf("\nRemoving Node at [2]...\n\n");
-    DLL_RemoveNode(List, 2);
+    dll_delete(list, 2);
 
-    for (i = 0; i < DLL_GetSize(List) * 2; i++) {
+    for (i = 0; i < dll_size(list) * 2; i++) {
         if (i == 0) {
-            current = List->Head;
+            current = list->head;
         } else {
-            current = current->NextNode;
+            current = current->next;
         }
-        printf("List[%zu] : %d\n", i, current->Data);
+        printf("List[%zu] : %d\n", i, current->data);
     }
     printf("\nDestroying List...\n");
 
-    DLL_DestroyList(List);
+    dll_destroy(list);
 }
 int main(void)
 {
-    int ListNumber = 0;
+    int ListNumber = 3;
 
     switch (ListNumber) {
     case 0:

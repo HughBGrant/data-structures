@@ -24,7 +24,7 @@
     <ProjectGuid>{4b870fe9-29b0-42ab-a977-c268a886dd9e}</ProjectGuid>
     <RootNamespace>Stack</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>stack</ProjectName>
+    <ProjectName>02_stack</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

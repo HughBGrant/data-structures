@@ -1,140 +1,140 @@
 #include "doubly_linked_list.h"
 
-DLL *DLL_CreateList(void)
+doubly_linked_list *dll_create(void)
 {
-    DLL *List = malloc(sizeof(DLL));
-    if (List == NULL) {
+    doubly_linked_list *list = malloc(sizeof(doubly_linked_list));
+    if (list == NULL) {
         return NULL;
     }
 
-    List->Count = 0;
-    List->Head = NULL;
-    List->Tail = NULL;
+    list->count = 0;
+    list->head = NULL;
+    list->tail = NULL;
 
-    return List;
+    return list;
 }
-DLL_Node *DLL_CreateNode(DLL_DataType NewData)
+dll_node *dll_create_node(dll_data data)
 {
-    DLL_Node *NewNode = malloc(sizeof(DLL_Node));
-    if (NewNode == NULL) {
+    dll_node *new_node = malloc(sizeof(dll_node));
+    if (new_node == NULL) {
         return NULL;
     }
-    NewNode->Data = NewData;
-    NewNode->PrevNode = NULL;
-    NewNode->NextNode = NULL;
+    new_node->data = data;
+    new_node->prev = NULL;
+    new_node->next = NULL;
 
-    return NewNode;
+    return new_node;
 }
-void DLL_AppendTail(DLL *List, DLL_DataType NewData)
+void dll_append(doubly_linked_list *list, dll_data data)
 {
-    DLL_Node *new_tail = DLL_CreateNode(NewData);
+    dll_node *new_tail = dll_create_node(data);
     if (new_tail == NULL) {
         return;
     }
 
-    if (List->Head == NULL) {
-        List->Head = new_tail;
+    if (list->head == NULL) {
+        list->head = new_tail;
     } else {
-        new_tail->PrevNode = List->Tail;
-        List->Tail->NextNode = new_tail;
+        new_tail->prev = list->tail;
+        list->tail->next = new_tail;
     }
-    new_tail->NextNode = List->Head;
-    List->Head->PrevNode = new_tail;
-    List->Tail = new_tail;
+    new_tail->next = list->head;
+    list->head->prev = new_tail;
+    list->tail = new_tail;
 
-    List->Count++;
+    list->count++;
 }
-void DLL_Insert(DLL *List, size_t Location, DLL_DataType NewData)
+void dll_insert(doubly_linked_list *list, size_t pos, dll_data data)
 {
-    DLL_Node *Current = DLL_GetNodeAt(List, Location);
-    if (Current == NULL) {
+    dll_node *current = dll_get(list, pos);
+    if (current == NULL) {
         return;
     }
 
-    DLL_Node *new_node = DLL_CreateNode(NewData);
+    dll_node *new_node = dll_create_node(data);
     if (new_node == NULL) {
         return;
     }
 
-    Current->PrevNode->NextNode = new_node;
-    new_node->PrevNode = Current->PrevNode;
-    new_node->NextNode = Current;
-    Current->PrevNode = new_node;
+    current->prev->next = new_node;
+    new_node->prev = current->prev;
+    new_node->next = current;
+    current->prev = new_node;
 
-    if (Current == List->Head) {
-        List->Head = new_node;
+    if (current == list->head) {
+        list->head = new_node;
     }
-    List->Count++;
+    list->count++;
 }
 
-void DLL_RemoveNode(DLL *List, size_t Location)
+void dll_delete(doubly_linked_list *list, size_t pos)
 {
-    if (List == NULL || Location >= List->Count) {
+    if (list == NULL || pos >= list->count) {
         return;
     }
-    DLL_Node *Current = DLL_GetNodeAt(List, Location);
-    if (Current == NULL) {
+    dll_node *current = dll_get(list, pos);
+    if (current == NULL) {
         return;
     }
 
-    if (List->Head == List->Tail) {
-        List->Head = NULL;
-        List->Tail = NULL;
+    if (list->head == list->tail) {
+        list->head = NULL;
+        list->tail = NULL;
     } else {
-        Current->PrevNode->NextNode = Current->NextNode;
-        Current->NextNode->PrevNode = Current->PrevNode;
+        current->prev->next = current->next;
+        current->next->prev = current->prev;
 
-        if (Current == List->Head) {
-            List->Head = Current->NextNode;
+        if (current == list->head) {
+            list->head = current->next;
         }
-        if (Current == List->Tail) {
-            List->Tail = Current->PrevNode;
+        if (current == list->tail) {
+            list->tail = current->prev;
         }
     }
-    printf("Destroying Node : %d\n", Current->Data);
-    free(Current);
-    List->Count--;
+    printf("Destroying Node : %d\n", current->data);
+    free(current);
+    list->count--;
 }
-DLL_Node *DLL_GetNodeAt(DLL *List, size_t Location)
+dll_node *dll_get(doubly_linked_list *list, size_t pos)
 {
-    size_t Count = DLL_GetSize(List);
+    size_t count = dll_size(list);
 
-    if (Location >= Count) {
+    if (pos >= count) {
         return NULL;
     }
-    DLL_Node *Current = NULL;
+    dll_node *current = NULL;
 
-    if (Location < Count / 2) {
-        Current = List->Head;
+    if (pos < count / 2) {
+        current = list->head;
 
-        while (Location > 0) {
-            Current = Current->NextNode;
-            Location--;
+        while (pos > 0) {
+            current = current->next;
+            pos--;
         }
     } else {
-        Current = List->Tail;
+        current = list->tail;
 
-        while (Location < Count - 1) {
-            Current = Current->PrevNode;
-            Location++;
+        while (pos < count - 1) {
+            current = current->prev;
+            pos++;
         }
     }
-    return Current;
+    return current;
 }
-size_t DLL_GetSize(DLL *List)
+size_t dll_size(doubly_linked_list *list)
 {
-    if (List == NULL) {
+    if (list == NULL) {
         return 0;
     }
-    return List->Count;
+    return list->count;
 }
-void DLL_DestroyList(DLL *List)
+void dll_destroy(doubly_linked_list *list)
 {
-    if (List == NULL) {
+    if (list == NULL) {
         return;
     }
-    while (List->Count > 0) {
-        DLL_RemoveNode(List, 0);
+    while (list->count > 0) {
+        dll_delete(list, 0);
     }
-    free(List);
+    free(list);
 }
