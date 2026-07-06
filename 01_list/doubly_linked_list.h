@@ -23,7 +23,8 @@ dll_node *dll_create_node(dll_data data);
 void dll_append(doubly_linked_list *list, dll_data data);
 void dll_insert(doubly_linked_list *list, size_t pos, dll_data data);
 void dll_delete(doubly_linked_list *list, size_t pos);
-dll_node *dll_get(doubly_linked_list *list, size_t pos);
+dll_node *dll_get_node(doubly_linked_list *list, size_t pos);
+dll_data *dll_get(doubly_linked_list *list, size_t pos);
 
 void dll_destroy(doubly_linked_list *list);
 

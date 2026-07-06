@@ -62,6 +62,7 @@ void cll_test(void)
 {
     circular_linked_list *list = cll_create();
     size_t i = 0;
+    dll_node *current = NULL;
 
     for (int i = 0; i < 5; i++) {
         cll_append(list, i);
@@ -80,6 +81,15 @@ void cll_test(void)
         printf("List[%zu] : %d\n", i, cll_get(list, i));
     }
 
+    for (i = 0; i < cll_size(list) * 2; i++) {
+        if (i == 0) {
+            current = list->head;
+        } else {
+            current = current->next;
+        }
+        printf("List[%zu] : %d\n", i, current->data);
+    }
+
     printf("\nDestroying List...\n");
 
     cll_destroy(list);
@@ -88,13 +98,12 @@ void dll_test(void)
 {
     doubly_linked_list *list = dll_create();
     size_t i = 0;
-    dll_node *current = NULL;
 
     for (int i = 0; i < 5; i++) {
         dll_append(list, i);
     }
     for (i = 0; i < dll_size(list); i++) {
-        printf("List[%zu] : %d\n", i, dll_get(list, i)->data);
+        printf("List[%zu] : %d\n", i, dll_get(list, i));
     }
 
     printf("\nInserting 3000 At [3]...\n\n");
@@ -103,16 +112,13 @@ void dll_test(void)
     printf("\nRemoving Node at [2]...\n\n");
     dll_delete(list, 2);
 
-    for (i = 0; i < dll_size(list) * 2; i++) {
-        if (i == 0) {
-            current = list->head;
-        } else {
-            current = current->next;
-        }
-        printf("List[%zu] : %d\n", i, current->data);
+    for (i = 0; i < dll_size(list); i++) {
+        printf("List[%zu] : %d\n", i, dll_get(list, i));
     }
-    printf("\nDestroying List...\n");
 
+    printf("Head->Prev[%zu] : %d\n", i, list->head->prev->data);
+
+    printf("\nDestroying List...\n");
     dll_destroy(list);
 }
 int main(void)
