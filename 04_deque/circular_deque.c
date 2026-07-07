@@ -1,56 +1,68 @@
 #include "circular_deque.h"
 
-CQ *CQ_CreateQueue(size_t Size)
+circular_deque *cd_create(size_t size)
 {
-    CQ *Queue = malloc(sizeof(CQ));
-    if (Queue == NULL) {
+    circular_deque *deque = malloc(sizeof(circular_deque));
+    if (deque == NULL) {
         return NULL;
     }
 
-    Queue->Array = malloc(sizeof(CQ_DataType) * Size);
-    if (Queue->Array == NULL) {
-        free(Queue);
+    deque->array = malloc(sizeof(cd_data) * size);
+    if (deque->array == NULL) {
+        free(deque);
         return NULL;
     }
 
-    Queue->Capacity = Size;
-    Queue->Front = 0;
-    Queue->Rear = 0;
-    Queue->Count = 0;
+    deque->capacity = size;
+    deque->front = 0;
+    deque->rear = 0;
+    deque->count = 0;
 
-    return Queue;
+    return deque;
 }
-void CQ_Enqueue(CQ *Queue, CQ_DataType Data)
+void cd_push_front(circular_deque *deque, cd_data data)
 {
-    if (CQ_IsFull(Queue)) {
+}
+void cd_push_back(circular_deque *deque, cd_data data)
+{
+    if (cd_is_full(deque)) {
         return;
     }
-    Queue->Array[Queue->Rear] = Data;
-    Queue->Rear = (Queue->Rear + 1) % (Queue->Capacity);
-    Queue->Count++;
+    deque->array[deque->rear] = data;
+    deque->rear = (deque->rear + 1) % (deque->capacity);
+    deque->count++;
 }
-CQ_DataType CQ_Dequeue(CQ *Queue)
+cd_data cd_pop_front(circular_deque *deque)
 {
-    CQ_DataType Data = Queue->Array[Queue->Front];
-    Queue->Front = (Queue->Front + 1) % (Queue->Capacity);
-    Queue->Count--;
+    cd_data data = deque->array[deque->front];
+    deque->front = (deque->front + 1) % (deque->capacity);
+    deque->count--;
 
-    return Data;
+    return data;
 }
-void CQ_DestroyQueue(CQ *Queue)
+cd_data cd_pop_back(circular_deque *deque)
 {
-    if (Queue == NULL) {
+}
+void cd_destroy(circular_deque *deque)
+{
+    if (deque == NULL) {
         return;
     }
-    free(Queue->Array);
-    free(Queue);
+    free(deque->array);
+    free(deque);
 }
-bool CQ_IsEmpty(CQ *Queue) { return Queue->Count == 0; }
-bool CQ_IsFull(CQ *Queue) { return Queue->Count == Queue->Capacity; }
-size_t CQ_GetSize(CQ *Queue)
+bool cd_is_empty(circular_deque *deque)
 {
-    if (Queue == NULL) {
+    return deque->count == 0;
+}
+bool cd_is_full(circular_deque *deque)
+{
+    return deque->count == deque->capacity;
+}
+size_t cd_size(circular_deque *deque)
+{
+    if (deque == NULL) {
         return 0;
     }
-    return Queue->Count;
+    return deque->count;
 }

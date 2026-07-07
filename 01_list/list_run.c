@@ -124,9 +124,9 @@ void dll_test(void)
 }
 int main(void)
 {
-    int ListNumber = 3;
+    int list_number = 3;
 
-    switch (ListNumber) {
+    switch (list_number) {
     case 0:
         al_test();
         break;

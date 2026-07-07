@@ -1,37 +1,37 @@
 #include "circular_deque.h"
 #include "linked_deque.h"
 
-void TestCQ(void)
+void cd_test(void)
 {
-    CQ *Queue = CQ_CreateQueue(10);
+    circular_deque *deque = cd_create(10);
 
-    int Data = 0;
+    int data = 0;
 
-    CQ_Enqueue(Queue, 10);
-    CQ_Enqueue(Queue, 20);
-    CQ_Enqueue(Queue, 30);
-    CQ_Enqueue(Queue, 40);
+    cd_push_back(deque, 10);
+    cd_push_back(deque, 20);
+    cd_push_back(deque, 30);
+    cd_push_back(deque, 40);
 
     for (int i = 0; i < 3; i++) {
-        printf("Dequeue: %d. ", CQ_Dequeue(Queue));
-        printf("Front: %zu, Rear: %zu, Count: %zu\n", Queue->Front, Queue->Rear,
-               CQ_GetSize(Queue));
+        printf("Dequeue: %d. ", cd_pop_front(deque));
+        printf("Front: %zu, Rear: %zu, Count: %zu\n", deque->front, deque->rear,
+               cd_size(deque));
     }
-    Data = 100;
+    data = 100;
 
-    while (CQ_IsFull(Queue) == false) {
-        CQ_Enqueue(Queue, Data);
-        Data++;
+    while (cd_is_full(deque) == false) {
+        cd_push_back(deque, data);
+        data++;
     }
-    printf("Capacity: %zu, Size: %zu\n", Queue->Capacity, CQ_GetSize(Queue));
+    printf("Capacity: %zu, Size: %zu\n", deque->capacity, cd_size(deque));
 
-    while (CQ_IsEmpty(Queue) == false) {
-        printf("Dequeue: %d. ", CQ_Dequeue(Queue));
-        printf("Front: %zu, Rear: %zu\n", Queue->Front, Queue->Rear);
+    while (cd_is_empty(deque) == false) {
+        printf("Dequeue: %d. ", cd_pop_front(deque));
+        printf("Front: %zu, Rear: %zu\n", deque->front, deque->rear);
     }
-    CQ_DestroyQueue(Queue);
+    cd_destroy(deque);
 }
-void TestLQ(void)
+void ld_test(void)
 {
     LQ *Queue = LQ_CreateQueue();
 
@@ -51,15 +51,15 @@ void TestLQ(void)
 }
 int main(void)
 {
-    int QueueNumber = 1;
+    int deque_number = 1;
 
-    switch (QueueNumber) {
+    switch (deque_number) {
     case 0:
-        TestCQ();
+        cd_test();
         break;
 
     case 1:
-        TestLQ();
+        ld_test();
         break;
     }
     return 0;

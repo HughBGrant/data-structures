@@ -50,9 +50,9 @@ void ha_test(void)
 }
 int main(void)
 {
-    int ArrayNumber = 1;
+    int array_number = 1;
 
-    switch (ArrayNumber) {
+    switch (array_number) {
     case 0:
         sa_test();
         break;
