@@ -13,6 +13,9 @@ linked_stack *ls_create(void)
 }
 ls_node *ls_create_node(ls_data data)
 {
+    if (data == NULL) {
+        return NULL;
+    }
     ls_node *new_node = malloc(sizeof(ls_node));
     if (new_node == NULL) {
         return NULL;

@@ -6,24 +6,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef int CQ_DataType;
+typedef int cq_data;
 
 typedef struct {
-    size_t Capacity;
-    size_t Front;
-    size_t Rear;
-    CQ_DataType *Array;
-    size_t Count;
-} CQ;
+    size_t capacity;
+    size_t front;
+    size_t rear;
+    cq_data *array;
+    size_t count;
+} circular_queue;
 
-CQ *CQ_CreateQueue(size_t Capacity);
-void CQ_Enqueue(CQ *Queue, CQ_DataType Data);
-CQ_DataType CQ_Dequeue(CQ *Queue);
+circular_queue *cq_create(size_t capacity);
+void cq_enqueue(circular_queue *queue, cq_data data);
+void cq_dequeue(circular_queue *queue);
+cq_data cq_front(circular_queue *queue);
+cq_data cq_rear(circular_queue *queue);
 
-void CQ_DestroyQueue(CQ *Queue);
+void cq_destroy(circular_queue *queue);
 
-bool CQ_IsEmpty(CQ *Queue);
-bool CQ_IsFull(CQ *Queue);
-size_t CQ_GetSize(CQ *Queue);
+bool cq_is_empty(circular_queue *queue);
+bool cq_is_full(circular_queue *queue);
+size_t cq_size(circular_queue *queue);
 
 #endif

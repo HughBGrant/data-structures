@@ -53,68 +53,68 @@ int GetPriority(char Operator, bool InStack)
 }
 void GetPostfix(char *Infix, char *Postfix)
 {
-    LS *Stack = LS_CreateStack();
+    linked_stack *stack = ls_create();
 
     size_t i = 0;
     size_t size = 0;
-    char *Top = NULL;
-    char Token[32];
+    char *top = NULL;
+    char token[32];
 
     while (i < strlen(Infix)) // 중위 표기식을 다 읽을 때까지 반복
     {
-        size = GetTokenLength(&Infix[i], Token);
+        size = GetTokenLength(&Infix[i], token);
 
         if (isdigit(Infix[i])) // 토큰이 피연산자라면
         {
-            strcat(Postfix, Token);
+            strcat(Postfix, token);
             strcat(Postfix, " ");
         } else if (Infix[i] == '(') // 토큰이 왼쪽 괄호라면
         {
-            LS_Push(Stack, Token);
+            ls_push(stack, token);
         } else if (Infix[i] == ')') // 토큰이 오른쪽 괄호라면
         {
-            while (!LS_IsEmpty(Stack)) {
-                Top = LS_Top(Stack);
+            while (!ls_is_empty(stack)) {
+                top = ls_top(stack);
 
-                if (Top[0] == '(') {
-                    LS_Pop(Stack);
+                if (top[0] == '(') {
+                    ls_pop(stack);
                     break;
                 }
-                strcat(Postfix, Top);
+                strcat(Postfix, top);
                 strcat(Postfix, " ");
-                LS_Pop(Stack);
+                ls_top(stack);
             }
         } else // 토큰이 연산자라면
         {
-            while (!LS_IsEmpty(Stack) && (GetPriority(LS_Top(Stack)[0], true) >=
-                                          GetPriority(Token[0], false))) {
-                Top = LS_Top(Stack);
+            while (!ls_is_empty(stack) && (GetPriority(ls_top(stack)[0], true) >=
+                                           GetPriority(token[0], false))) {
+                top = ls_top(stack);
 
-                if (Top[0] != '(') {
-                    strcat(Postfix, Top);
+                if (top[0] != '(') {
+                    strcat(Postfix, top);
                     strcat(Postfix, " "); //
                 }
-                LS_Pop(Stack);
+                ls_pop(stack);
             }
-            LS_Push(Stack, Token);
+            ls_push(stack, token);
         }
         i += size;
     }
-    while (!LS_IsEmpty(Stack)) // 스택에 남아있는 연산자를 츨력
+    while (!ls_is_empty(stack)) // 스택에 남아있는 연산자를 츨력
     {
-        Top = LS_Top(Stack);
+        top = ls_top(stack);
 
-        if (Top[0] != '(') {
-            strcat(Postfix, Top);
+        if (top[0] != '(') {
+            strcat(Postfix, top);
             strcat(Postfix, " "); //
         }
-        LS_Pop(Stack);
+        ls_top(stack);
     }
-    LS_DestroyStack(Stack);
+    ls_destroy(stack);
 }
 double Calculate(char *Postfix)
 {
-    LS *Stack = LS_CreateStack();
+    linked_stack *stack = ls_create();
     double Result;
 
     char Token[32];
@@ -130,16 +130,16 @@ double Calculate(char *Postfix)
         }
 
         if (isdigit(Postfix[Position])) {
-            LS_Push(Stack, Token);
+            ls_push(stack, Token);
         } else {
             double Operand1, Operand2, TempResult = 0;
             char TempResultStr[32];
 
-            Operand2 = atof(LS_Top(Stack));
-            LS_Pop(Stack);
+            Operand2 = atof(ls_top(stack));
+            ls_top(stack);
 
-            Operand1 = atof(LS_Top(Stack));
-            LS_Pop(Stack);
+            Operand1 = atof(ls_top(stack));
+            ls_top(stack);
 
             switch (Postfix[Position]) {
             case '+':
@@ -156,14 +156,14 @@ double Calculate(char *Postfix)
                 break;
             }
             _gcvt(TempResult, 10, TempResultStr);
-            LS_Push(Stack, TempResultStr);
+            ls_push(stack, TempResultStr);
         }
         Position += size;
     }
-    Result = atof(LS_Top(Stack));
-    LS_Pop(Stack);
+    Result = atof(ls_top(stack));
+    ls_top(stack);
 
-    LS_DestroyStack(Stack);
+    ls_destroy(stack);
 
     return Result;
 }

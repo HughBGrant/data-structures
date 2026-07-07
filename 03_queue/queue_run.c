@@ -1,35 +1,38 @@
 #include "circular_queue.h"
 #include "linked_queue.h"
 
-void TestCQ(void)
+void cq_test(void)
 {
-    CQ *Queue = CQ_CreateQueue(10);
+    size_t capacity = 10;
+    circular_queue *queue = cq_create(capacity);
 
-    int Data = 0;
+    int data = 0;
 
-    CQ_Enqueue(Queue, 10);
-    CQ_Enqueue(Queue, 20);
-    CQ_Enqueue(Queue, 30);
-    CQ_Enqueue(Queue, 40);
+    cq_enqueue(queue, 10);
+    cq_enqueue(queue, 20);
+    cq_enqueue(queue, 30);
+    cq_enqueue(queue, 40);
 
-    for (int i = 0; i < 3; i++) {
-        printf("Dequeue: %d. ", CQ_Dequeue(Queue));
-        printf("Front: %zu, Rear: %zu, Count: %zu\n", Queue->Front, Queue->Rear,
-               CQ_GetSize(Queue));
+    for (size_t i = 0; i < 3; i++) {
+        printf("Dequeue: %d, ", cq_front(queue));
+        cq_dequeue(queue);
+        printf("Front: %d, Count: %zu\n",
+               cq_front(queue), cq_size(queue));
     }
-    Data = 100;
+    data = 100;
 
-    while (CQ_IsFull(Queue) == false) {
-        CQ_Enqueue(Queue, Data);
-        Data++;
+    while (cq_is_full(queue) == false) {
+        cq_enqueue(queue, data);
+        data++;
     }
-    printf("Capacity: %zu, Size: %zu\n", Queue->Capacity, CQ_GetSize(Queue));
 
-    while (CQ_IsEmpty(Queue) == false) {
-        printf("Dequeue: %d. ", CQ_Dequeue(Queue));
-        printf("Front: %zu, Rear: %zu\n", Queue->Front, Queue->Rear);
+    while (cq_is_empty(queue) == false) {
+        printf("Dequeue: %d. ", cq_front(queue));
+        cq_dequeue(queue);
+        printf("Front: %d, Count: %zu\n",
+               cq_front(queue), cq_size(queue));
     }
-    CQ_DestroyQueue(Queue);
+    cq_destroy(queue);
 }
 void TestLQ(void)
 {
@@ -51,11 +54,11 @@ void TestLQ(void)
 }
 int main(void)
 {
-    int QueueNumber = 1;
+    int QueueNumber = 0;
 
     switch (QueueNumber) {
     case 0:
-        TestCQ();
+        cq_test();
         break;
 
     case 1:

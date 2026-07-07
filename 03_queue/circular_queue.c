@@ -1,56 +1,77 @@
 #include "circular_queue.h"
 
-CQ *CQ_CreateQueue(size_t Size)
+circular_queue *cq_create(size_t Size)
 {
-    CQ *Queue = malloc(sizeof(CQ));
-    if (Queue == NULL) {
+    circular_queue *queue = malloc(sizeof(circular_queue));
+    if (queue == NULL) {
         return NULL;
     }
 
-    Queue->Array = malloc(sizeof(CQ_DataType) * Size);
-    if (Queue->Array == NULL) {
-        free(Queue);
+    queue->array = malloc(sizeof(cq_data) * Size);
+    if (queue->array == NULL) {
+        free(queue);
         return NULL;
     }
 
-    Queue->Capacity = Size;
-    Queue->Front = 0;
-    Queue->Rear = 0;
-    Queue->Count = 0;
+    queue->capacity = Size;
+    queue->front = 0;
+    queue->rear = 0;
+    queue->count = 0;
 
-    return Queue;
+    return queue;
 }
-void CQ_Enqueue(CQ *Queue, CQ_DataType Data)
+void cq_enqueue(circular_queue *queue, cq_data data)
 {
-    if (CQ_IsFull(Queue)) {
+    if (queue == NULL || cq_is_full(queue)) {
         return;
     }
-    Queue->Array[Queue->Rear] = Data;
-    Queue->Rear = (Queue->Rear + 1) % (Queue->Capacity);
-    Queue->Count++;
+    queue->array[queue->rear] = data;
+    queue->rear = (queue->rear + 1) % (queue->capacity);
+    queue->count++;
 }
-CQ_DataType CQ_Dequeue(CQ *Queue)
+void cq_dequeue(circular_queue *queue)
 {
-    CQ_DataType Data = Queue->Array[Queue->Front];
-    Queue->Front = (Queue->Front + 1) % (Queue->Capacity);
-    Queue->Count--;
-
-    return Data;
-}
-void CQ_DestroyQueue(CQ *Queue)
-{
-    if (Queue == NULL) {
+    if (queue == NULL || cq_is_empty(queue)) {
         return;
     }
-    free(Queue->Array);
-    free(Queue);
+    queue->front = (queue->front + 1) % (queue->capacity);
+    queue->count--;
 }
-bool CQ_IsEmpty(CQ *Queue) { return Queue->Count == 0; }
-bool CQ_IsFull(CQ *Queue) { return Queue->Count == Queue->Capacity; }
-size_t CQ_GetSize(CQ *Queue)
+cq_data cq_front(circular_queue *queue)
 {
-    if (Queue == NULL) {
+    return queue->array[queue->front];
+}
+cq_data cq_rear(circular_queue *queue)
+{
+    size_t index = (queue->rear + queue->capacity - 1) % queue->capacity;
+    return queue->array[index];
+}
+void cq_destroy(circular_queue *queue)
+{
+    if (queue == NULL) {
+        return;
+    }
+    free(queue->array);
+    free(queue);
+}
+bool cq_is_empty(circular_queue *queue)
+{
+    if (queue == NULL) {
+        return true;
+    }
+    return queue->count == 0;
+}
+bool cq_is_full(circular_queue *queue)
+{
+    if (queue == NULL) {
+        return false;
+    }
+    return queue->count == queue->capacity;
+}
+size_t cq_size(circular_queue *queue)
+{
+    if (queue == NULL) {
         return 0;
     }
-    return Queue->Count;
+    return queue->count;
 }
