@@ -5,22 +5,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef int AS_DataType;
+typedef int as_data;
 
 typedef struct {
-    size_t Capacity;
-    size_t Count;
-    AS_DataType *Array;
-} AS;
+    size_t capacity;
+    size_t count;
+    as_data *array;
+} array_stack;
 
-AS *AS_CreateStack(size_t Capacity);
-void AS_Push(AS *Stack, AS_DataType Data);
-void AS_Pop(AS *Stack);
-AS_DataType AS_Top(AS *Stack);
-void AS_DestroyStack(AS *Stack);
+array_stack *as_create(size_t capacity);
+void as_push(array_stack *stack, as_data data);
+void as_pop(array_stack *stack);
+as_data as_top(array_stack *stack);
+void as_destroy(array_stack *stack);
 
-bool AS_IsEmpty(AS *Stack);
-bool AS_IsFull(AS *Stack);
-size_t AS_GetSize(AS *Stack);
+bool as_is_empty(array_stack *stack);
+bool as_is_full(array_stack *stack);
+size_t as_size(array_stack *stack);
 
 #endif

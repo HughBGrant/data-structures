@@ -3,28 +3,27 @@
 #include "calculator.h"
 #include "linked_stack.h"
 
-void TestAS(void)
+void as_test(void)
 {
-    AS *Stack = AS_CreateStack(10);
+    array_stack *stack = as_create(10);
 
-    AS_Push(Stack, 3);
-    AS_Push(Stack, 37);
-    AS_Push(Stack, 11);
-    AS_Push(Stack, 12);
+    as_push(stack, 3);
+    as_push(stack, 37);
+    as_push(stack, 11);
+    as_push(stack, 12);
 
-    printf("Capacity: %zu, Count: %zu, Top: %d\n", Stack->Capacity,
-           AS_GetSize(Stack), AS_Top(Stack));
+    printf("Count: %zu, Top: %d\n", as_size(stack), as_top(stack));
 
-    while (!AS_IsEmpty(Stack)) {
-        printf("Popped: %d, ", AS_Top(Stack));
-        AS_Pop(Stack);
+    while (!as_is_empty(stack)) {
+        printf("Popped: %d, ", as_top(stack));
+        as_pop(stack);
 
-        if (!AS_IsEmpty(Stack))
-            printf("Current Top: %d\n", AS_Top(Stack));
+        if (!as_is_empty(stack))
+            printf("Current Top: %d\n", as_top(stack));
         else
-            printf("Stack Is Empty.\n");
+            printf("stack Is Empty.\n");
     }
-    AS_DestroyStack(Stack);
+    as_destroy(stack);
 }
 void TestLS(void)
 {
@@ -84,11 +83,11 @@ void TestCalculator(void)
 
 int main(void)
 {
-    int StackNumber = 2;
+    int stack_number = 2;
 
-    switch (StackNumber) {
+    switch (stack_number) {
     case 0:
-        TestAS();
+        as_test();
         break;
     case 1:
         TestLS();

@@ -1,58 +1,66 @@
 #include "array_stack.h"
 
-AS *AS_CreateStack(size_t Capacity)
+array_stack *as_create(size_t capacity)
 {
-    AS *Stack = malloc(sizeof(AS));
-
-    if (Stack == NULL) {
+    array_stack *stack = malloc(sizeof(array_stack));
+    if (stack == NULL) {
         return NULL;
     }
-    Stack->Array = malloc(sizeof(AS_DataType) * Capacity);
-    if (Stack->Array == NULL) {
-        free(Stack);
+    stack->array = malloc(sizeof(as_data) * capacity);
+    if (stack->array == NULL) {
+        free(stack);
         return NULL;
     }
-    Stack->Capacity = Capacity;
-    Stack->Count = 0;
+    stack->capacity = capacity;
+    stack->count = 0;
 
-    return Stack;
+    return stack;
 }
-void AS_DestroyStack(AS *Stack)
+void as_push(array_stack *stack, as_data data)
 {
-    if (Stack == NULL) {
+    if (stack == NULL || as_is_full(stack)) {
         return;
     }
-    free(Stack->Array);
-    free(Stack);
+    stack->array[stack->count] = data;
+    stack->count++;
 }
-void AS_Push(AS *Stack, AS_DataType Data)
+void as_pop(array_stack *stack)
 {
-    if (AS_IsFull(Stack)) {
+    if (stack == NULL || as_is_empty(stack)) {
         return;
     }
-    Stack->Array[Stack->Count] = Data;
-    Stack->Count++;
+    stack->count--;
 }
-void AS_Pop(AS *Stack)
+as_data as_top(array_stack *stack)
 {
-    if (AS_IsEmpty(Stack)) {
-        return;
+    return stack->array[stack->count - 1];
+}
+size_t as_size(array_stack *stack)
+{
+    if (stack == NULL) {
+        return 0;
     }
-    Stack->Count--;
+    return stack->count;
 }
-AS_DataType AS_Top(AS *Stack)
+bool as_is_empty(array_stack *stack)
 {
-    return Stack->Array[Stack->Count - 1];
-}
-size_t AS_GetSize(AS *Stack)
-{
-    return Stack->Count;
-}
-bool AS_IsEmpty(AS *Stack)
-{
-    if (Stack == NULL) {
+    if (stack == NULL) {
         return true;
     }
-    return Stack->Count == 0;
+    return stack->count == 0;
 }
-bool AS_IsFull(AS *Stack) { return Stack->Count == Stack->Capacity; }
+bool as_is_full(array_stack *stack)
+{
+    if (stack == NULL) {
+        return false;
+    }
+    return stack->count == stack->capacity;
+}
+void as_destroy(array_stack *stack)
+{
+    if (stack == NULL) {
+        return;
+    }
+    free(stack->array);
+    free(stack);
+}
