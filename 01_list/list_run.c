@@ -14,19 +14,19 @@ void al_test(void)
     al_append(list, -1);
     al_append(list, -2);
     for (i = 0; i < al_size(list); i++) {
-        printf("List[%zu] : %d\n", i, list->array[i]);
+        printf("List[%zu] : %d\n", i, al_get(list, i));
     }
 
     printf("\nInserting 3000 At [2]...\n\n");
     al_insert(list, 2, 3000);
     for (i = 0; i < al_size(list); i++) {
-        printf("List[%zu] : %d\n", i, list->array[i]);
+        printf("List[%zu] : %d\n", i, al_get(list, i));
     }
 
     printf("\nRemoving Node at [2]...\n\n");
     al_delete(list, 2);
     for (i = 0; i < al_size(list); i++) {
-        printf("List[%zu] : %d\n", i, list->array[i]);
+        printf("List[%zu] : %d\n", i, al_get(list, i));
     }
 
     printf("\nDestroying List...\n");
@@ -62,7 +62,7 @@ void cll_test(void)
 {
     circular_linked_list *list = cll_create();
     size_t i = 0;
-    dll_node *current = NULL;
+    cll_node *current = NULL;
 
     for (int i = 0; i < 5; i++) {
         cll_append(list, i);
@@ -87,6 +87,7 @@ void cll_test(void)
         } else {
             current = current->next;
         }
+
         printf("List[%zu] : %d\n", i, current->data);
     }
 

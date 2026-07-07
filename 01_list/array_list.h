@@ -16,6 +16,7 @@ array_list *al_create(size_t capacity);
 void al_append(array_list *list, al_data data);
 void al_insert(array_list *list, size_t pos, al_data data);
 void al_delete(array_list *list, size_t pos);
+al_data al_get(array_list *list, size_t pos);
 void al_destroy(array_list *list);
 
 size_t al_size(array_list *list);

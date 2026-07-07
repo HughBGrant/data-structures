@@ -27,6 +27,9 @@ cll_node *cll_create_node(cll_data data)
 }
 void cll_append(circular_linked_list *list, cll_data data)
 {
+    if (list == NULL) {
+        return;
+    }
     cll_node *new_tail = cll_create_node(data);
     if (new_tail == NULL) {
         return;
@@ -45,7 +48,11 @@ void cll_append(circular_linked_list *list, cll_data data)
 
 void cll_insert(circular_linked_list *list, size_t pos, cll_data data)
 {
-    if (pos > list->count) {
+    if (list == NULL || pos > list->count) {
+        return;
+    }
+    if (pos == list->count) {
+        cll_append(list, data);
         return;
     }
     cll_node *new_node = cll_create_node(data);
@@ -53,17 +60,18 @@ void cll_insert(circular_linked_list *list, size_t pos, cll_data data)
         return;
     }
 
-    cll_node *previous = list->tail;
-    cll_node *current = list->head;
+    cll_node *prev_node = list->tail;
+    cll_node *next_node = list->head;
     for (pos; pos > 0; pos--) {
-        previous = current;
-        current = current->next;
+        prev_node = next_node;
+        next_node = next_node->next;
     }
-    if (current == list->head) {
+    prev_node->next = new_node;
+    new_node->next = next_node;
+
+    if (pos == 0) {
         list->head = new_node;
     }
-    previous->next = new_node;
-    new_node->next = current;
 
     list->count++;
 }
@@ -74,29 +82,29 @@ void cll_delete(circular_linked_list *list, size_t pos)
         return;
     }
 
-    cll_node *previous = list->tail;
-    cll_node *current = list->head;
+    cll_node *prev_node = list->tail;
+    cll_node *free_node = list->head;
     for (pos; pos > 0; pos--) {
-        previous = current;
-        current = current->next;
+        prev_node = free_node;
+        free_node = free_node->next;
     }
 
     if (list->head == list->tail) {
         list->head = NULL;
         list->tail = NULL;
     } else {
-        previous->next = current->next;
+        prev_node->next = free_node->next;
 
-        if (current == list->head) {
-            list->head = current->next;
+        if (list->head == free_node) {
+            list->head = free_node->next;
         }
-        if (current == list->tail) {
-            list->tail = previous;
+        if (list->tail == free_node) {
+            list->tail = prev_node;
         }
     }
 
-    printf("Destroying Node : %d\n", current->data);
-    free(current);
+    printf("Destroying Node : %d\n", free_node->data);
+    free(free_node);
     list->count--;
 }
 cll_data cll_get(circular_linked_list *list, size_t pos)
@@ -105,11 +113,11 @@ cll_data cll_get(circular_linked_list *list, size_t pos)
         return list->tail->data;
     }
 
-    cll_node *current = list->head;
+    cll_node *get_node = list->head;
     for (pos; pos > 0; pos--) {
-        current = current->next;
+        get_node = get_node->next;
     }
-    return current->data;
+    return get_node->data;
 }
 size_t cll_size(circular_linked_list *list)
 {
