@@ -6,10 +6,10 @@
 
 typedef int dll_data;
 
-typedef struct tagDLL_Node {
+typedef struct _dll_node {
     dll_data data;
-    struct tagDLL_Node *prev;
-    struct tagDLL_Node *next;
+    struct _dll_node *prev;
+    struct _dll_node *next;
 } dll_node;
 
 typedef struct {
