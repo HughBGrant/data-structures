@@ -1,83 +1,91 @@
 #include "linked_stack.h"
 
-LS *LS_CreateStack(void)
+linked_stack *ls_create(void)
 {
-    LS *Stack = malloc(sizeof(LS));
-
-    if (Stack == NULL) {
+    linked_stack *stack = malloc(sizeof(linked_stack));
+    if (stack == NULL) {
         return NULL;
     }
-    Stack->Top = NULL;
-    Stack->Count = 0;
+    stack->top = NULL;
+    stack->count = 0;
 
-    return Stack;
+    return stack;
 }
-void LS_DestroyStack(LS *Stack)
+ls_node *ls_create_node(ls_data data)
 {
-    if (Stack == NULL) {
+    ls_node *new_node = malloc(sizeof(ls_node));
+    if (new_node == NULL) {
+        return NULL;
+    }
+
+    new_node->data = malloc(strlen(data) + 1);
+    if (new_node->data == NULL) {
+        free(new_node);
+        return NULL;
+    }
+
+    strcpy(new_node->data, data);
+    new_node->next = NULL;
+
+    return new_node;
+}
+void ls_push(linked_stack *stack, ls_data data)
+{
+    if (stack == NULL) {
         return;
     }
-    while (!LS_IsEmpty(Stack)) {
-        LS_Pop(Stack);
-    }
-    free(Stack);
-}
-LS_Node *LS_CreateNode(LS_DataType NewData)
-{
-    LS_Node *NewNode = malloc(sizeof(LS_Node));
-
-    if (NewNode == NULL) {
-        return NULL;
-    }
-    NewNode->Data = malloc(strlen(NewData) + 1);
-
-    if (NewNode->Data == NULL) {
-        free(NewNode); // 데이터가 아닌 노드 해제
-        return NULL;
-    }
-    strcpy(NewNode->Data, NewData);
-    NewNode->NextNode = NULL;
-
-    return NewNode;
-}
-void LS_Push(LS *Stack, LS_DataType NewData)
-{
-    LS_Node *NewNode = LS_CreateNode(NewData);
-    if (NewNode == NULL) {
+    ls_node *new_top = ls_create_node(data);
+    if (new_top == NULL) {
         return;
     }
 
-    if (Stack->Top != NULL) {
-        NewNode->NextNode = Stack->Top;
+    if (stack->top != NULL) {
+        new_top->next = stack->top;
     }
-    Stack->Top = NewNode;
-    Stack->Count++;
+    stack->top = new_top;
+    stack->count++;
 }
-void LS_Pop(LS *Stack)
+void ls_pop(linked_stack *stack)
 {
-    if (Stack == NULL || Stack->Top == NULL) {
+    if (stack == NULL || stack->top == NULL) {
         return;
     }
-    LS_Node *TopNode = Stack->Top;
+    ls_node *free_node = stack->top;
 
-    Stack->Top = TopNode->NextNode;
+    stack->top = free_node->next;
 
-    free(TopNode->Data);
-    free(TopNode);
-    Stack->Count--;
+    free(free_node->data);
+    free(free_node);
+    stack->count--;
 }
-LS_DataType LS_Top(LS *Stack)
+ls_data ls_top(linked_stack *stack)
 {
-    if (Stack->Top == NULL) {
+    if (stack == NULL || stack->top == NULL) {
         return NULL;
     }
-    return Stack->Top->Data;
+    return stack->top->data;
 }
-size_t LS_GetSize(LS *Stack)
+size_t ls_size(linked_stack *stack)
 {
-    if (Stack == NULL) {
+    if (stack == NULL) {
         return 0;
     }
-    return Stack->Count;
+    return stack->count;
 }
-bool LS_IsEmpty(LS *Stack) { return Stack->Count == 0; }
+bool ls_is_empty(linked_stack *stack)
+{
+    if (stack == NULL)
+        return true;
+    return stack->count == 0;
+}
+
+void ls_destroy(linked_stack *stack)
+{
+    if (stack == NULL) {
+        return;
+    }
+    while (!ls_is_empty(stack)) {
+        ls_pop(stack);
+    }
+    free(stack);
+}

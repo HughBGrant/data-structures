@@ -25,43 +25,31 @@ void as_test(void)
     }
     as_destroy(stack);
 }
-void TestLS(void)
+void ls_test(void)
 {
-    LS *Stack = LS_CreateStack();
+    linked_stack *stack = ls_create();
 
-    LS_Push(Stack, "abc");
-    LS_Push(Stack, "def");
-    LS_Push(Stack, "efg");
-    LS_Push(Stack, "hij");
+    ls_push(stack, "abc");
+    ls_push(stack, "def");
+    ls_push(stack, "efg");
+    ls_push(stack, "hij");
 
-    printf("Count: %zu, Top: %s\n\n", LS_GetSize(Stack), LS_Top(Stack));
+    printf("Count: %zu, Top: %s\n\n", ls_size(stack), ls_top(stack));
 
-    while (!LS_IsEmpty(Stack)) {
-        printf("Popped: %s, ", LS_Top(Stack));
-        LS_Pop(Stack);
+    while (!ls_is_empty(stack)) {
+        printf("Popped: %s, ", ls_top(stack));
+        ls_pop(stack);
 
-        if (!LS_IsEmpty(Stack)) {
-            printf("Current Top: %s\n", LS_Top(Stack));
+        if (!ls_is_empty(stack)) {
+            printf("Current Top: %s\n", ls_top(stack));
         } else {
-            printf("Stack Is Empty.\n");
+            printf("stack Is Empty.\n");
         }
     }
-    LS_DestroyStack(Stack);
+    ls_destroy(stack);
 }
-void TestCalculator(void)
+void calculator_test(void)
 {
-    // 1
-    /*char Infix[100];
-    char Postfix[100];
-
-    double Result = 0.0;
-
-    memset(Infix, 0, sizeof(Infix));
-    memset(Postfix, 0, sizeof(Postfix));
-
-    printf("Enter Infix : ");
-    scanf("%s", Infix);*/
-    // 2
     char Infix[100] = "1+3.334/(4.28*(110-7729))";
     char Postfix[100];
 
@@ -70,7 +58,6 @@ void TestCalculator(void)
     memset(Postfix, 0, sizeof(Postfix));
 
     printf("Enter Infix Expression: %s\n", Infix);
-    //
 
     GetPostfix(Infix, Postfix);
 
@@ -90,10 +77,10 @@ int main(void)
         as_test();
         break;
     case 1:
-        TestLS();
+        ls_test();
         break;
     case 2:
-        TestCalculator();
+        calculator_test();
         break;
     }
     return 0;

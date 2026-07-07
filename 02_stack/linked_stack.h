@@ -8,26 +8,26 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef char *LS_DataType;
+typedef char *ls_data;
 
-typedef struct tagLS_Node {
-    LS_DataType Data;
-    struct tagLS_Node *NextNode;
-} LS_Node;
+typedef struct _ls_node {
+    ls_data data;
+    struct _ls_node *next;
+} ls_node;
 
 typedef struct {
-    LS_Node *Top;
-    size_t Count;
-} LS;
+    ls_node *top;
+    size_t count;
+} linked_stack;
 
-LS *LS_CreateStack(void);
-LS_Node *LS_CreateNode(LS_DataType NewData);
-void LS_Push(LS *Stack, LS_DataType NewData);
-void LS_Pop(LS *Stack);
-LS_DataType LS_Top(LS *Stack);
-void LS_DestroyStack(LS *Stack);
+linked_stack *ls_create(void);
+ls_node *ls_create_node(ls_data data);
+void ls_push(linked_stack *stack, ls_data data);
+void ls_pop(linked_stack *stack);
+ls_data ls_top(linked_stack *stack);
+void ls_destroy(linked_stack *stack);
 
-size_t LS_GetSize(LS *Stack);
-bool LS_IsEmpty(LS *Stack);
+size_t ls_size(linked_stack *stack);
+bool ls_is_empty(linked_stack *stack);
 
 #endif
