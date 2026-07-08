@@ -61,9 +61,10 @@ void ll_insert(linked_list *list, size_t pos, ll_data data)
     ll_node *prev_node = NULL;
     ll_node *next_node = list->head;
 
-    for (; pos > 0; pos--) {
+    while (pos > 0) {
         prev_node = next_node;
         next_node = next_node->next;
+        pos--;
     }
     if (list->head == next_node) {
         list->head = new_node;
@@ -81,9 +82,10 @@ void ll_delete(linked_list *list, size_t pos)
     }
     ll_node *prev_node = NULL;
     ll_node *free_node = list->head;
-    for (; pos > 0; pos--) {
+    while (pos > 0) {
         prev_node = free_node;
         free_node = free_node->next;
+        pos--;
     }
     if (list->head == free_node) {
         list->head = free_node->next;
@@ -104,8 +106,9 @@ ll_data ll_get(linked_list *list, size_t pos)
     }
 
     ll_node *get_node = list->head;
-    for (; pos > 0; pos--) {
+    while (pos > 0) {
         get_node = get_node->next;
+        pos--;
     }
     return get_node->data;
 }

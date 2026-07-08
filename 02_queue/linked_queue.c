@@ -14,6 +14,9 @@ linked_queue *lq_create(void)
 }
 lq_node *lq_create_node(lq_data data)
 {
+    if (data == NULL) {
+        return NULL;
+    }
     lq_node *new_node = malloc(sizeof(lq_node));
     if (new_node == NULL) {
         return NULL;

@@ -1,6 +1,6 @@
 #include "doubly_linked_list.h"
 
-doubly_linked_list *dll_create(void)
+doubly_linked_list *dll_create(void) ///////////
 {
     doubly_linked_list *list = malloc(sizeof(doubly_linked_list));
     if (list == NULL) {
@@ -119,14 +119,16 @@ dll_node *dll_get_node(doubly_linked_list *list, size_t pos)
     if (pos < count / 2) {
         get_node = list->head;
 
-        for (; pos > 0; pos--) {
+        while (pos > 0) {
             get_node = get_node->next;
+            pos--;
         }
     } else {
         get_node = list->tail;
 
-        for (; pos < count - 1; pos++) {
+        while (pos < count - 1) {
             get_node = get_node->prev;
+            pos++;
         }
     }
     return get_node;

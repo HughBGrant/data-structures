@@ -7,24 +7,30 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct tagLQ_Node {
-    char *data;
-    struct tagLQ_Node *next;
-} lq_node;
+typedef char *ld_data;
+
+typedef struct _ld_node {
+    ld_data data;
+    struct _ld_node *next;
+    ///////////
+} ld_node;
 
 typedef struct {
-    lq_node *front;
-    lq_node *rear;
+    ld_node *front;
+    ld_node *rear;
     size_t count;
-} linked_queue;
+} linked_deque;
 
-linked_queue *lq_create(void);
-lq_node *lq_create_node(char *NewData);
-void lq_enqueue(linked_queue *Queue, char *NewData);
-void lq_dequeue(linked_queue *Queue);
-char *lq_peek(linked_queue *Queue);
-void lq_destroy(linked_queue *Queue);
+linked_deque *ld_create(void);
+ld_node *ld_create_node(ld_data data);
+void ld_push_front(linked_deque *deque, ld_data data);
+void ld_push_back(linked_deque *deque, ld_data data);
+void ld_pop_front(linked_deque *deque);
+void ld_pop_back(linked_deque *deque);
+ld_data ld_front(linked_deque *deque);
+ld_data ld_back(linked_deque *deque);
+void ld_destroy(linked_deque *deque);
 
-bool lq_is_empty(linked_queue *Queue);
+bool ld_is_empty(linked_deque *deque);
 
 #endif

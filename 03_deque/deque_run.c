@@ -33,21 +33,20 @@ void cd_test(void)
 }
 void ld_test(void)
 {
-    linked_queue *Queue = lq_create();
+    linked_deque *deque = ld_create();
 
-    lq_enqueue(Queue, "abc");
-    lq_enqueue(Queue, "def");
-    lq_enqueue(Queue, "efg");
-    lq_enqueue(Queue, "hij");
+    ld_push_back(deque, "abc");
+    ld_push_back(deque, "def");
+    ld_push_back(deque, "efg");
+    ld_push_back(deque, "hij");
 
-    printf("Queue Size : %zu\n", Queue->count);
+    printf("deque Size : %zu\n", deque->count);
 
-    while (lq_is_empty(Queue) == 0) {
-        printf("Dequeue: %s \n", lq_peek(Queue));
-
-        lq_dequeue(Queue);
+    while (ld_is_empty(deque) == 0) {
+        printf("Dequeue: %s \n", ld_front(deque));
+        ld_pop_front(deque);
     }
-    lq_destroy(Queue);
+    ld_destroy(deque);
 }
 int main(void)
 {
