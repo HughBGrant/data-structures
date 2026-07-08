@@ -7,27 +7,27 @@ void cd_test(void)
 
     int data = 0;
 
-    cd_push_back(deque, 10);
-    cd_push_back(deque, 20);
-    cd_push_back(deque, 30);
-    cd_push_back(deque, 40);
+    cd_push_front(deque, 10);
+    cd_push_front(deque, 20);
+    cd_push_front(deque, 30);
+    cd_push_front(deque, 40);
 
     for (int i = 0; i < 3; i++) {
-        printf("Dequeue: %d. ", cd_pop_front(deque));
-        printf("Front: %zu, Rear: %zu, Count: %zu\n", deque->front, deque->rear,
-               cd_size(deque));
+        printf("popped front: %d\n", cd_front(deque));
+        cd_pop_front(deque);
+        printf("Count: %zu\n", cd_size(deque));
     }
-    data = 100;
 
+    data = 100;
     while (cd_is_full(deque) == false) {
         cd_push_back(deque, data);
         data++;
     }
-    printf("Capacity: %zu, Size: %zu\n", deque->capacity, cd_size(deque));
 
     while (cd_is_empty(deque) == false) {
-        printf("Dequeue: %d. ", cd_pop_front(deque));
-        printf("Front: %zu, Rear: %zu\n", deque->front, deque->rear);
+        printf("popped back: %d\n", cd_back(deque));
+        cd_pop_back(deque);
+        printf("count: %zu\n", cd_size(deque));
     }
     cd_destroy(deque);
 }
@@ -51,7 +51,7 @@ void ld_test(void)
 }
 int main(void)
 {
-    int deque_number = 1;
+    int deque_number = 0;
 
     switch (deque_number) {
     case 0:

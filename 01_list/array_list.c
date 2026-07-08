@@ -2,6 +2,9 @@
 
 array_list *al_create(size_t capacity)
 {
+    if (capacity == 0) {
+        return NULL;
+    }
     array_list *list = malloc(sizeof(array_list));
     if (list == NULL) {
         return NULL;

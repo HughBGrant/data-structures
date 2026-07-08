@@ -2,6 +2,9 @@
 
 array_stack *as_create(size_t capacity)
 {
+    if (capacity == 0) {
+        return NULL;
+    }
     array_stack *stack = malloc(sizeof(array_stack));
     if (stack == NULL) {
         return NULL;

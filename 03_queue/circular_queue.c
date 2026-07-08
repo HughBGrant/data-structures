@@ -1,19 +1,23 @@
 #include "circular_queue.h"
 
-circular_queue *cq_create(size_t Size)
+circular_queue *cq_create(size_t capacity)
 {
+
+    if (capacity == 0) {
+        return NULL;
+    }
     circular_queue *queue = malloc(sizeof(circular_queue));
     if (queue == NULL) {
         return NULL;
     }
 
-    queue->array = malloc(sizeof(cq_data) * Size);
+    queue->array = malloc(sizeof(cq_data) * capacity);
     if (queue->array == NULL) {
         free(queue);
         return NULL;
     }
 
-    queue->capacity = Size;
+    queue->capacity = capacity;
     queue->front = 0;
     queue->rear = 0;
     queue->count = 0;
@@ -26,7 +30,7 @@ void cq_enqueue(circular_queue *queue, cq_data data)
         return;
     }
     queue->array[queue->rear] = data;
-    queue->rear = (queue->rear + 1) % (queue->capacity);
+    queue->rear = (queue->rear + 1) % queue->capacity;
     queue->count++;
 }
 void cq_dequeue(circular_queue *queue)
@@ -34,7 +38,7 @@ void cq_dequeue(circular_queue *queue)
     if (queue == NULL || cq_is_empty(queue)) {
         return;
     }
-    queue->front = (queue->front + 1) % (queue->capacity);
+    queue->front = (queue->front + 1) % queue->capacity;
     queue->count--;
 }
 cq_data cq_front(circular_queue *queue)
