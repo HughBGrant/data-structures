@@ -32,27 +32,24 @@ void cq_test(void)
     }
     cq_destroy(queue);
 }
-void TestLQ(void)
+void lq_test(void)
 {
-    linked_queue *Queue = lq_create();
+    linked_queue *queue = lq_create();
 
-    lq_enqueue(Queue, "abc");
-    lq_enqueue(Queue, "def");
-    lq_enqueue(Queue, "efg");
-    lq_enqueue(Queue, "hij");
+    lq_enqueue(queue, "abc");
+    lq_enqueue(queue, "def");
+    lq_enqueue(queue, "efg");
+    lq_enqueue(queue, "hij");
 
-    printf("Queue Size : %zu\n", Queue->count);
-
-    while (lq_is_empty(Queue) == 0) {
-        printf("Dequeue: %s \n", lq_peek(Queue));
-
-        lq_dequeue(Queue);
+    while (lq_is_empty(queue) == false) {
+        printf("Dequeue: %s \n", lq_peek(queue));
+        lq_dequeue(queue);
     }
-    lq_destroy(Queue);
+    lq_destroy(queue);
 }
 int main(void)
 {
-    int QueueNumber = 0;
+    int QueueNumber = 1;
 
     switch (QueueNumber) {
     case 0:
@@ -60,7 +57,7 @@ int main(void)
         break;
 
     case 1:
-        TestLQ();
+        lq_test();
         break;
     }
     return 0;

@@ -34,37 +34,37 @@ void lq_enqueue(linked_queue *queue, lq_data data)
     if (queue == NULL) {
         return;
     }
-    lq_node *new_node = lq_create_node(data);
-    if (new_node == NULL) {
+    lq_node *new_rear = lq_create_node(data);
+    if (new_rear == NULL) {
         return;
     }
     if (queue->front == NULL) {
-        queue->front = new_node;
+        queue->front = new_rear;
     } else {
-        queue->rear->next = new_node;
+        queue->rear->next = new_rear;
     }
-    queue->rear = new_node;
+    queue->rear = new_rear;
     queue->count++;
 }
 void lq_dequeue(linked_queue *queue)
 {
-    if (queue == NULL || lq_is_empty(queue) == false) {
+    if (queue == NULL || lq_is_empty(queue)) {
         return;
     }
-    lq_node *front = queue->front;
+    lq_node *free_node = queue->front;
+    queue->front = free_node->next;
 
-    queue->front = front->next;
     if (queue->front == NULL) {
         queue->rear = NULL;
     }
-    free(front->data);
-    free(front);
+    free(free_node->data);
+    free(free_node);
 
     queue->count--;
 }
 lq_data lq_peek(linked_queue *queue)
 {
-    if (queue == NULL || queue->front == NULL) {
+    if (queue == NULL || lq_is_empty(queue)) {
         return NULL;
     }
     return queue->front->data;
