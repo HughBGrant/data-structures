@@ -44,14 +44,7 @@ cq_data cq_peek(circular_queue *queue)
 {
     return queue->array[queue->front];
 }
-void cq_destroy(circular_queue *queue)
-{
-    if (queue == NULL) {
-        return;
-    }
-    free(queue->array);
-    free(queue);
-}
+
 bool cq_is_empty(circular_queue *queue)
 {
     if (queue == NULL) {
@@ -72,4 +65,12 @@ size_t cq_size(circular_queue *queue)
         return 0;
     }
     return queue->count;
+}
+void cq_destroy(circular_queue *queue)
+{
+    if (queue == NULL) {
+        return;
+    }
+    free(queue->array);
+    free(queue);
 }

@@ -3,7 +3,6 @@
 linked_queue *lq_create(void)
 {
     linked_queue *queue = malloc(sizeof(linked_queue));
-
     if (queue == NULL) {
         return NULL;
     }
@@ -13,15 +12,14 @@ linked_queue *lq_create(void)
 
     return queue;
 }
-lq_node *lq_create_node(char *data)
+lq_node *lq_create_node(lq_data data)
 {
     lq_node *new_node = malloc(sizeof(lq_node));
-
     if (new_node == NULL) {
         return NULL;
     }
-    new_node->data = malloc(strlen(data) + 1);
 
+    new_node->data = malloc(strlen(data) + 1);
     if (new_node->data == NULL) {
         free(new_node);
         return NULL;
@@ -31,13 +29,12 @@ lq_node *lq_create_node(char *data)
 
     return new_node;
 }
-void lq_enqueue(linked_queue *queue, char *data)
+void lq_enqueue(linked_queue *queue, lq_data data)
 {
     if (queue == NULL) {
         return;
     }
     lq_node *new_node = lq_create_node(data);
-
     if (new_node == NULL) {
         return;
     }
@@ -51,22 +48,21 @@ void lq_enqueue(linked_queue *queue, char *data)
 }
 void lq_dequeue(linked_queue *queue)
 {
-    if (queue == NULL || queue->front == NULL) {
+    if (queue == NULL || lq_is_empty(queue) == false) {
         return;
     }
     lq_node *front = queue->front;
 
     queue->front = front->next;
-
     if (queue->front == NULL) {
         queue->rear = NULL;
     }
-
     free(front->data);
     free(front);
+
     queue->count--;
 }
-char *lq_peek(linked_queue *queue)
+lq_data lq_peek(linked_queue *queue)
 {
     if (queue == NULL || queue->front == NULL) {
         return NULL;
@@ -82,9 +78,16 @@ bool lq_is_empty(linked_queue *queue)
 }
 size_t lq_size(linked_queue *queue)
 {
+    if (queue == NULL) {
+        return 0;
+    }
+    return queue->count;
 }
 void lq_destroy(linked_queue *queue)
 {
+    if (queue == NULL) {
+        return;
+    }
     while (lq_is_empty(queue) == false) {
         lq_dequeue(queue);
     }
