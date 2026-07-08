@@ -2,7 +2,6 @@
 
 circular_queue *cq_create(size_t capacity)
 {
-
     if (capacity == 0) {
         return NULL;
     }
@@ -41,14 +40,9 @@ void cq_dequeue(circular_queue *queue)
     queue->front = (queue->front + 1) % queue->capacity;
     queue->count--;
 }
-cq_data cq_front(circular_queue *queue)
+cq_data cq_peek(circular_queue *queue)
 {
     return queue->array[queue->front];
-}
-cq_data cq_rear(circular_queue *queue)
-{
-    size_t index = (queue->rear + queue->capacity - 1) % queue->capacity;
-    return queue->array[index];
 }
 void cq_destroy(circular_queue *queue)
 {

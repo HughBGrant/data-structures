@@ -7,24 +7,25 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct tagLQ_Node {
-    char *Data;
-    struct tagLQ_Node *NextNode;
-} LQ_Node;
+typedef struct _lq_node {
+    char *data;
+    struct _lq_node *next;
+} lq_node;
 
 typedef struct {
-    LQ_Node *Front;
-    LQ_Node *Rear;
-    size_t Count;
-} LQ;
+    lq_node *front;
+    lq_node *rear;
+    size_t count;
+} linked_queue;
 
-LQ *LQ_CreateQueue(void);
-LQ_Node *LQ_CreateNode(char *NewData);
-void LQ_Enqueue(LQ *Queue, char *NewData);
-void LQ_Dequeue(LQ *Queue);
-char *LQ_Peek(LQ *Queue);
-void LQ_DestroyQueue(LQ *Queue);
+linked_queue *lq_create(void);
+lq_node *lq_create_node(char *data);
+void lq_enqueue(linked_queue *queue, char *data);
+void lq_dequeue(linked_queue *queue);
+char *lq_peek(linked_queue *queue);
+void lq_destroy(linked_queue *queue);
 
-bool LQ_IsEmpty(LQ *Queue);
+bool lq_is_empty(linked_queue *queue);
+size_t lq_size(linked_queue *queue);
 
 #endif

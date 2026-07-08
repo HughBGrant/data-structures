@@ -1,89 +1,92 @@
 #include "linked_queue.h"
 
-LQ *LQ_CreateQueue(void)
+linked_queue *lq_create(void)
 {
-    LQ *Queue = malloc(sizeof(LQ));
+    linked_queue *queue = malloc(sizeof(linked_queue));
 
-    if (Queue == NULL) {
+    if (queue == NULL) {
         return NULL;
     }
-    Queue->Front = NULL;
-    Queue->Rear = NULL;
-    Queue->Count = 0;
+    queue->front = NULL;
+    queue->rear = NULL;
+    queue->count = 0;
 
-    return Queue;
+    return queue;
 }
-void LQ_DestroyQueue(LQ *Queue)
+lq_node *lq_create_node(char *data)
 {
-    while (LQ_IsEmpty(Queue) == false) {
-        LQ_Dequeue(Queue);
-    }
-    free(Queue);
-}
-LQ_Node *LQ_CreateNode(char *NewData)
-{
-    LQ_Node *NewNode = malloc(sizeof(LQ_Node));
+    lq_node *new_node = malloc(sizeof(lq_node));
 
-    if (NewNode == NULL) {
+    if (new_node == NULL) {
         return NULL;
     }
-    NewNode->Data = malloc(strlen(NewData) + 1);
+    new_node->data = malloc(strlen(data) + 1);
 
-    if (NewNode->Data == NULL) {
-        free(NewNode);
+    if (new_node->data == NULL) {
+        free(new_node);
         return NULL;
     }
-    strcpy(NewNode->Data, NewData);
-    NewNode->NextNode = NULL;
+    strcpy(new_node->data, data);
+    new_node->next = NULL;
 
-    return NewNode;
+    return new_node;
 }
-void LQ_Enqueue(LQ *Queue, char *NewData)
+void lq_enqueue(linked_queue *queue, char *data)
 {
-    if (Queue == NULL) {
+    if (queue == NULL) {
         return;
     }
-    LQ_Node *NewNode = LQ_CreateNode(NewData);
+    lq_node *new_node = lq_create_node(data);
 
-    if (NewNode == NULL) {
+    if (new_node == NULL) {
         return;
     }
-    if (Queue->Front == NULL) {
-        Queue->Front = NewNode;
+    if (queue->front == NULL) {
+        queue->front = new_node;
     } else {
-        Queue->Rear->NextNode = NewNode;
+        queue->rear->next = new_node;
     }
-    Queue->Rear = NewNode;
-    Queue->Count++;
+    queue->rear = new_node;
+    queue->count++;
 }
-void LQ_Dequeue(LQ *Queue)
+void lq_dequeue(linked_queue *queue)
 {
-    if (Queue == NULL || Queue->Front == NULL) {
+    if (queue == NULL || queue->front == NULL) {
         return;
     }
-    LQ_Node *Front = Queue->Front;
+    lq_node *front = queue->front;
 
-    Queue->Front = Front->NextNode;
+    queue->front = front->next;
 
-    if (Queue->Front == NULL) {
-        Queue->Rear = NULL;
+    if (queue->front == NULL) {
+        queue->rear = NULL;
     }
 
-    free(Front->Data);
-    free(Front);
-    Queue->Count--;
+    free(front->data);
+    free(front);
+    queue->count--;
 }
-char *LQ_Peek(LQ *Queue)
+char *lq_peek(linked_queue *queue)
 {
-    if (Queue == NULL || Queue->Front == NULL) {
+    if (queue == NULL || queue->front == NULL) {
         return NULL;
     }
-    return Queue->Front->Data;
+    return queue->front->data;
 }
-bool LQ_IsEmpty(LQ *Queue)
+bool lq_is_empty(linked_queue *queue)
 {
-    if (Queue == NULL) {
+    if (queue == NULL) {
         return true;
     }
-    return Queue->Count == 0;
+    return queue->count == 0;
+}
+size_t lq_size(linked_queue *queue)
+{
+}
+void lq_destroy(linked_queue *queue)
+{
+    while (lq_is_empty(queue) == false) {
+        lq_dequeue(queue);
+    }
+    free(queue);
 }

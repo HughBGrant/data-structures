@@ -14,10 +14,9 @@ void cq_test(void)
     cq_enqueue(queue, 40);
 
     for (size_t i = 0; i < 3; i++) {
-        printf("Dequeue: %d, ", cq_front(queue));
+        printf("Dequeue: %d\n", cq_peek(queue));
         cq_dequeue(queue);
-        printf("Front: %d, Count: %zu\n",
-               cq_front(queue), cq_size(queue));
+        printf("Count: %zu\n", cq_size(queue));
     }
     data = 100;
 
@@ -27,30 +26,29 @@ void cq_test(void)
     }
 
     while (cq_is_empty(queue) == false) {
-        printf("Dequeue: %d. ", cq_front(queue));
+        printf("Dequeue: %d\n", cq_peek(queue));
         cq_dequeue(queue);
-        printf("Front: %d, Count: %zu\n",
-               cq_front(queue), cq_size(queue));
+        printf("Count: %zu\n", cq_size(queue));
     }
     cq_destroy(queue);
 }
 void TestLQ(void)
 {
-    LQ *Queue = LQ_CreateQueue();
+    linked_queue *Queue = lq_create();
 
-    LQ_Enqueue(Queue, "abc");
-    LQ_Enqueue(Queue, "def");
-    LQ_Enqueue(Queue, "efg");
-    LQ_Enqueue(Queue, "hij");
+    lq_enqueue(Queue, "abc");
+    lq_enqueue(Queue, "def");
+    lq_enqueue(Queue, "efg");
+    lq_enqueue(Queue, "hij");
 
-    printf("Queue Size : %zu\n", Queue->Count);
+    printf("Queue Size : %zu\n", Queue->count);
 
-    while (LQ_IsEmpty(Queue) == 0) {
-        printf("Dequeue: %s \n", LQ_Peek(Queue));
+    while (lq_is_empty(Queue) == 0) {
+        printf("Dequeue: %s \n", lq_peek(Queue));
 
-        LQ_Dequeue(Queue);
+        lq_dequeue(Queue);
     }
-    LQ_DestroyQueue(Queue);
+    lq_destroy(Queue);
 }
 int main(void)
 {
