@@ -5,13 +5,13 @@ VisualStudioVersion = 17.14.37328.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "00_array", "00_array\00_array.vcxproj", "{2DBEF934-9CA9-48B5-9FFB-BFD983055D8D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "01_list", "01_list\01_list.vcxproj", "{17129CF0-0197-4A63-9695-6C796DB93ED7}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "01_stack", "01_stack\01_stack.vcxproj", "{4B870FE9-29B0-42AB-A977-C268A886DD9E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "02_stack", "02_stack\02_stack.vcxproj", "{4B870FE9-29B0-42AB-A977-C268A886DD9E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "02_queue", "02_queue\02_queue.vcxproj", "{B3EE3B85-E861-4936-896C-0B91F12BF4EF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "03_queue", "03_queue\03_queue.vcxproj", "{B3EE3B85-E861-4936-896C-0B91F12BF4EF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "03_deque", "03_deque\03_deque.vcxproj", "{8F495503-88B8-476C-8EA1-2B79B02BB2B5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "04_deque", "04_deque\04_deque.vcxproj", "{8F495503-88B8-476C-8EA1-2B79B02BB2B5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "04_list", "04_list\04_list.vcxproj", "{17129CF0-0197-4A63-9695-6C796DB93ED7}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "05_tree", "05_tree\05_tree.vcxproj", "{7BB69846-D080-471D-83B9-0FEB25C6FC17}"
 EndProject
