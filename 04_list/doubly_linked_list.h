@@ -8,8 +8,8 @@ typedef int dll_data;
 
 typedef struct _dll_node {
     dll_data data;
-    struct _dll_node *prev;
     struct _dll_node *next;
+    struct _dll_node *prev;
 } dll_node;
 
 typedef struct {

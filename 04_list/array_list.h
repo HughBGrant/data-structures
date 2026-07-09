@@ -7,9 +7,9 @@
 typedef int al_data;
 
 typedef struct {
+    al_data *array;
     size_t capacity;
     size_t count;
-    al_data *array;
 } array_list;
 
 array_list *al_create(size_t capacity);

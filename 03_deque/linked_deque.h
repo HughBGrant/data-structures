@@ -12,12 +12,11 @@ typedef char *ld_data;
 typedef struct _ld_node {
     ld_data data;
     struct _ld_node *next;
-    ///////////
 } ld_node;
 
 typedef struct {
-    ld_node *front;
     ld_node *rear;
+    ld_node *front;
     size_t count;
 } linked_deque;
 

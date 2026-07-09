@@ -8,6 +8,7 @@
 #include <string.h>
 
 typedef char *lq_data;
+
 typedef struct _lq_node {
     lq_data data;
     struct _lq_node *next;
