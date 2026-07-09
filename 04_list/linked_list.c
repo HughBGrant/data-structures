@@ -46,10 +46,14 @@ void ll_append(linked_list *list, ll_data data)
 
 void ll_insert(linked_list *list, size_t pos, ll_data data)
 {
-    if (list == NULL || pos > list->count) {
+    if (list == NULL) {
         return;
     }
-    if (pos == list->count) {
+    size_t size = ll_size(list);
+    if (pos > size) {
+        return;
+    }
+    if (pos == size) {
         ll_append(list, data);
         return;
     }
@@ -77,7 +81,7 @@ void ll_insert(linked_list *list, size_t pos, ll_data data)
 }
 void ll_delete(linked_list *list, size_t pos)
 {
-    if (list == NULL || pos >= list->count) {
+    if (list == NULL || pos >= ll_size(list)) {
         return;
     }
     ll_node *prev_node = NULL;
@@ -126,7 +130,7 @@ void ll_destroy(linked_list *list)
         return;
     }
 
-    while (list->count > 0) {
+    while (list->head != NULL) {
         ll_delete(list, 0);
     }
     free(list);

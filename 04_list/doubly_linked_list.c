@@ -49,10 +49,14 @@ void dll_append(doubly_linked_list *list, dll_data data)
 }
 void dll_insert(doubly_linked_list *list, size_t pos, dll_data data)
 {
-    if (list == NULL || pos > list->count) {
+    if (list == NULL) {
         return;
     }
-    if (pos == list->count) {
+    size_t size = dll_size(list);
+    if (pos > size) {
+        return;
+    }
+    if (pos == size) {
         dll_append(list, data);
         return;
     }
@@ -78,7 +82,7 @@ void dll_insert(doubly_linked_list *list, size_t pos, dll_data data)
 
 void dll_delete(doubly_linked_list *list, size_t pos)
 {
-    if (list == NULL || pos >= list->count) {
+    if (list == NULL || pos >= dll_size(list)) {
         return;
     }
     dll_node *free_node = dll_get_node(list, pos);
@@ -149,7 +153,7 @@ void dll_destroy(doubly_linked_list *list)
     if (list == NULL) {
         return;
     }
-    while (list->count > 0) {
+    while (list->head != NULL) {
         dll_delete(list, 0);
     }
     free(list);

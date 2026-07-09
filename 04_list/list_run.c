@@ -81,18 +81,9 @@ void cll_test(void)
         printf("List[%zu] : %d\n", i, cll_get(list, i));
     }
 
-    for (i = 0; i < cll_size(list) * 2; i++) {
-        if (i == 0) {
-            current = list->head;
-        } else {
-            current = current->next;
-        }
-
-        printf("List[%zu] : %d\n", i, current->data);
-    }
+    printf("tail->next : %d\n", list->tail->next->data);
 
     printf("\nDestroying List...\n");
-
     cll_destroy(list);
 }
 void dll_test(void)
