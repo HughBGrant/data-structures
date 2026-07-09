@@ -17,7 +17,6 @@ typedef struct _ls_node {
 
 typedef struct {
     ls_node *top;
-    size_t count;
 } linked_stack;
 
 linked_stack *ls_create(void);

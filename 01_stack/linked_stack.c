@@ -7,7 +7,6 @@ linked_stack *ls_create(void)
         return NULL;
     }
     stack->top = NULL;
-    stack->count = 0;
 
     return stack;
 }
@@ -46,7 +45,6 @@ void ls_push(linked_stack *stack, ls_data data)
         new_top->next = stack->top;
     }
     stack->top = new_top;
-    stack->count++;
 }
 void ls_pop(linked_stack *stack)
 {
@@ -59,7 +57,6 @@ void ls_pop(linked_stack *stack)
 
     free(free_node->data);
     free(free_node);
-    stack->count--;
 }
 ls_data ls_top(linked_stack *stack)
 {
@@ -73,13 +70,21 @@ size_t ls_size(linked_stack *stack)
     if (stack == NULL) {
         return 0;
     }
-    return stack->count;
+    size_t size = 0;
+    ls_node *now_node = stack->top;
+
+    while (now_node != NULL) {
+        size++;
+        now_node = now_node->next;
+    }
+
+    return size;
 }
 bool ls_is_empty(linked_stack *stack)
 {
     if (stack == NULL)
         return true;
-    return stack->count == 0;
+    return stack->top == NULL;
 }
 
 void ls_destroy(linked_stack *stack)
