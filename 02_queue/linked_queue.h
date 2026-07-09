@@ -17,7 +17,6 @@ typedef struct _lq_node {
 typedef struct {
     lq_node *front;
     lq_node *rear;
-    size_t count;
 } linked_queue;
 
 linked_queue *lq_create(void);

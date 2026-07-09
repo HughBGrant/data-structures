@@ -8,7 +8,6 @@ linked_queue *lq_create(void)
     }
     queue->front = NULL;
     queue->rear = NULL;
-    queue->count = 0;
 
     return queue;
 }
@@ -47,7 +46,6 @@ void lq_enqueue(linked_queue *queue, lq_data data)
         queue->rear->next = new_rear;
     }
     queue->rear = new_rear;
-    queue->count++;
 }
 void lq_dequeue(linked_queue *queue)
 {
@@ -62,8 +60,6 @@ void lq_dequeue(linked_queue *queue)
     }
     free(free_node->data);
     free(free_node);
-
-    queue->count--;
 }
 lq_data lq_peek(linked_queue *queue)
 {
@@ -72,19 +68,27 @@ lq_data lq_peek(linked_queue *queue)
     }
     return queue->front->data;
 }
-bool lq_is_empty(linked_queue *queue)
-{
-    if (queue == NULL) {
-        return true;
-    }
-    return queue->count == 0;
-}
 size_t lq_size(linked_queue *queue)
 {
     if (queue == NULL) {
         return 0;
     }
-    return queue->count;
+    size_t size = 0;
+    lq_node *now_node = queue->front;
+
+    while (now_node != NULL) {
+        size++;
+        now_node = now_node->next;
+    }
+
+    return size;
+}
+bool lq_is_empty(linked_queue *queue)
+{
+    if (queue == NULL) {
+        return true;
+    }
+    return queue->front == NULL;
 }
 void lq_destroy(linked_queue *queue)
 {
