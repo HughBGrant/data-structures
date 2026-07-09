@@ -9,55 +9,55 @@ array_stack *as_create(size_t capacity)
     if (stack == NULL) {
         return NULL;
     }
-    stack->array = malloc(sizeof(as_data) * capacity);
+    stack->array = malloc(sizeof(int) * capacity);
     if (stack->array == NULL) {
         free(stack);
         return NULL;
     }
     stack->capacity = capacity;
-    stack->count = 0;
+    stack->top = -1;
 
     return stack;
 }
-void as_push(array_stack *stack, as_data data)
+void as_push(array_stack *stack, int data)
 {
     if (stack == NULL || as_is_full(stack)) {
         return;
     }
-    stack->array[stack->count] = data;
-    stack->count++;
+    stack->top++;
+    stack->array[stack->top] = data;
 }
 void as_pop(array_stack *stack)
 {
     if (stack == NULL || as_is_empty(stack)) {
         return;
     }
-    stack->count--;
+    stack->top--;
 }
-as_data as_top(array_stack *stack)
+int as_top(array_stack *stack)
 {
-    return stack->array[stack->count - 1];
+    return stack->array[stack->top];
 }
 size_t as_size(array_stack *stack)
 {
     if (stack == NULL) {
         return 0;
     }
-    return stack->count;
+    return (size_t)(stack->top + 1);
 }
 bool as_is_empty(array_stack *stack)
 {
     if (stack == NULL) {
         return true;
     }
-    return stack->count == 0;
+    return stack->top == -1;
 }
 bool as_is_full(array_stack *stack)
 {
     if (stack == NULL) {
         return false;
     }
-    return stack->count == stack->capacity;
+    return (size_t)(stack->top + 1) == stack->capacity;
 }
 void as_destroy(array_stack *stack)
 {
