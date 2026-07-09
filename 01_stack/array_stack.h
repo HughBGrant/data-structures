@@ -8,15 +8,15 @@
 typedef int as_data;
 
 typedef struct {
-    int *array;
-    int top;
+    as_data *array;
+    size_t top;
     size_t capacity;
 } array_stack;
 
 array_stack *as_create(size_t capacity);
-void as_push(array_stack *stack, int data);
+void as_push(array_stack *stack, as_data data);
 void as_pop(array_stack *stack);
-int as_top(array_stack *stack);
+as_data as_top(array_stack *stack);
 void as_destroy(array_stack *stack);
 
 bool as_is_empty(array_stack *stack);
