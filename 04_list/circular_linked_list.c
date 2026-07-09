@@ -1,6 +1,6 @@
 #include "circular_linked_list.h"
 
-circular_linked_list *cll_create(void)
+circular_linked_list *cll_create(void) ///////////
 {
     circular_linked_list *list = malloc(sizeof(circular_linked_list));
     if (list == NULL) {
