@@ -1,3 +1,4 @@
+#include "heap_array.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -23,30 +24,29 @@ void sa_test(void)
 }
 void ha_test(void)
 {
-    size_t capacity = 10;
-    int *array = malloc(sizeof(int) * capacity);
+    heap_array *array = ha_create(10);
     if (array == NULL) {
         return;
     }
     size_t i = 0;
 
-    for (i = 0; i < capacity; i++) {
-        array[i] = (int)i;
+    for (i = 0; i < ha_size(array); i++) {
+        ha_set(array, i, (int)i);
     }
 
-    for (i = 0; i < capacity; i++) {
-        printf("Array[%zu] : %d\n", i, array[i]);
+    for (i = 0; i < ha_size(array); i++) {
+        printf("Array[%zu] : %d\n", i, ha_get(array, i));
     }
 
     printf("\nSetting 3000 At [2]...\n\n");
-    array[2] = 3000;
+    ha_set(array, 2, 3000);
 
-    for (i = 0; i < capacity; i++) {
-        printf("Array[%zu] : %d\n", i, array[i]);
+    for (i = 0; i < ha_size(array); i++) {
+        printf("Array[%zu] : %d\n", i, ha_get(array, i));
     }
 
     printf("\nDestroying Array...\n");
-    free(array);
+    ha_destroy(array);
 }
 int main(void)
 {
