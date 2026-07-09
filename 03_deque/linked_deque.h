@@ -17,7 +17,6 @@ typedef struct _ld_node {
 typedef struct {
     ld_node *rear;
     ld_node *front;
-    size_t count;
 } linked_deque;
 
 linked_deque *ld_create(void);
@@ -29,7 +28,7 @@ void ld_pop_back(linked_deque *deque);
 ld_data ld_front(linked_deque *deque);
 ld_data ld_back(linked_deque *deque);
 void ld_destroy(linked_deque *deque);
-
+size_t ld_size(linked_deque *deque);
 bool ld_is_empty(linked_deque *deque);
 
 #endif

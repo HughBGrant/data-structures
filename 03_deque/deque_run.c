@@ -40,7 +40,7 @@ void ld_test(void)
     ld_push_back(deque, "efg");
     ld_push_back(deque, "hij");
 
-    printf("deque Size : %zu\n", deque->count);
+    printf("deque Size : %zu\n", ld_size(deque));
 
     while (ld_is_empty(deque) == 0) {
         printf("Dequeue: %s \n", ld_front(deque));
