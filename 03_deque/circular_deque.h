@@ -13,7 +13,6 @@ typedef struct {
     size_t rear;
     size_t front;
     size_t capacity;
-    size_t count;
 } circular_deque;
 
 circular_deque *cd_create(size_t capacity);
