@@ -9,7 +9,6 @@ c_d_linked_list *cdll_create(void) ///////
 
     list->count = 0;
     list->head = NULL;
-    list->tail = NULL;
 
     return list;
 }
@@ -38,12 +37,12 @@ void cdll_append(c_d_linked_list *list, cdll_data data)
     if (list->head == NULL) {
         list->head = new_tail;
     } else {
-        new_tail->prev = list->tail;
-        list->tail->next = new_tail;
+        cdll_node *prev_node = list->head->prev;
+        new_tail->prev = prev_node;
+        prev_node->next = new_tail;
     }
     new_tail->next = list->head;
     list->head->prev = new_tail;
-    list->tail = new_tail;
 
     list->count++;
 }
@@ -68,8 +67,10 @@ void cdll_insert(c_d_linked_list *list, size_t pos, cdll_data data)
 
     cdll_node *next_node = cdll_get_node(list, pos);
     cdll_node *prev_node = next_node->prev;
+
     prev_node->next = new_node;
     new_node->prev = prev_node;
+
     new_node->next = next_node;
     next_node->prev = new_node;
 
@@ -90,9 +91,8 @@ void cdll_delete(c_d_linked_list *list, size_t pos)
         return;
     }
 
-    if (list->head == list->tail) {
+    if (free_node->next == free_node) {
         list->head = NULL;
-        list->tail = NULL;
     } else {
         cdll_node *prev_node = free_node->prev;
         cdll_node *next_node = free_node->next;
@@ -102,9 +102,6 @@ void cdll_delete(c_d_linked_list *list, size_t pos)
 
         if (list->head == free_node) {
             list->head = next_node;
-        }
-        if (list->tail == free_node) {
-            list->tail = prev_node;
         }
     }
     printf("Destroying Node : %d\n", free_node->data);
@@ -128,7 +125,7 @@ cdll_node *cdll_get_node(c_d_linked_list *list, size_t pos)
             pos--;
         }
     } else {
-        get_node = list->tail;
+        get_node = list->head->prev;
 
         while (pos < count - 1) {
             get_node = get_node->prev;

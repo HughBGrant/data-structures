@@ -15,7 +15,6 @@ typedef struct _cdll_node {
 typedef struct {
     cdll_node *head;
     size_t count;
-    cdll_node *tail; /////
 } c_d_linked_list;
 
 c_d_linked_list *cdll_create(void);
