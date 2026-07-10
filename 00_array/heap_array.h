@@ -5,8 +5,8 @@
 #include <stdlib.h>
 
 typedef struct {
-    size_t capacity;
     int *array;
+    size_t capacity;
 } heap_array;
 
 heap_array *ha_create(size_t capacity);

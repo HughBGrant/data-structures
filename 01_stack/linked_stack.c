@@ -92,7 +92,7 @@ void ls_destroy(linked_stack *stack)
     if (stack == NULL) {
         return;
     }
-    while (!ls_is_empty(stack)) {
+    while (stack->top != NULL) {
         ls_pop(stack);
     }
     free(stack);

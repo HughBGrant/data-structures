@@ -12,6 +12,7 @@ typedef char *ld_data;
 typedef struct _ld_node {
     ld_data data;
     struct _ld_node *next;
+    // struct _dl_node *prev;
 } ld_node;
 
 typedef struct {

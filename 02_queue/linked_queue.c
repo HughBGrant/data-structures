@@ -95,7 +95,7 @@ void lq_destroy(linked_queue *queue)
     if (queue == NULL) {
         return;
     }
-    while (lq_is_empty(queue) == false) {
+    while (queue->front != NULL) {
         lq_dequeue(queue);
     }
     free(queue);
