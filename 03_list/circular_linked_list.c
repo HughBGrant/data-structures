@@ -140,7 +140,7 @@ void cll_destroy(circular_linked_list *list)
         return;
     }
 
-    while (list->head != NULL) {
+    while (list->head) {
         cll_delete(list, 0);
     }
     free(list);

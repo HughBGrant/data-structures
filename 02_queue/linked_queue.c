@@ -76,7 +76,7 @@ size_t lq_size(linked_queue *queue)
     size_t size = 0;
     lq_node *now_node = queue->front;
 
-    while (now_node != NULL) {
+    while (now_node) {
         size++;
         now_node = now_node->next;
     }
@@ -95,7 +95,7 @@ void lq_destroy(linked_queue *queue)
     if (queue == NULL) {
         return;
     }
-    while (queue->front != NULL) {
+    while (queue->front) {
         lq_dequeue(queue);
     }
     free(queue);

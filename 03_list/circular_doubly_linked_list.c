@@ -153,7 +153,7 @@ void cdll_destroy(c_d_linked_list *list)
     if (list == NULL) {
         return;
     }
-    while (list->head != NULL) {
+    while (list->head) {
         cdll_delete(list, 0);
     }
     free(list);

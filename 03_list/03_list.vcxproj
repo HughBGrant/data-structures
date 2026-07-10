@@ -127,6 +127,7 @@
     <ClCompile Include="array_list.c" />
     <ClCompile Include="circular_doubly_linked_list.c" />
     <ClCompile Include="circular_linked_list.c" />
+    <ClCompile Include="doubly_linked_list.c" />
     <ClCompile Include="linked_list.c" />
     <ClCompile Include="list_run.c" />
   </ItemGroup>
@@ -134,6 +135,7 @@
     <ClInclude Include="array_list.h" />
     <ClInclude Include="circular_doubly_linked_list.h" />
     <ClInclude Include="circular_linked_list.h" />
+    <ClInclude Include="doubly_linked_list.h" />
     <ClInclude Include="linked_list.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

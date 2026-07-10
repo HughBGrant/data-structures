@@ -14,7 +14,7 @@ typedef struct _cll_node {
 typedef struct {
     cll_node *tail;
     size_t count;
-    cll_node *head;
+    cll_node *head; /////////
 } circular_linked_list;
 
 circular_linked_list *cll_create(void);

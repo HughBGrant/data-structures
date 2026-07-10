@@ -30,14 +30,14 @@ BT_Node *BT_CreateNode(BT_DataType NewData)
 }
 void BT_InsertLeft(BT_Node *Parent, BT_Node *Child)
 {
-    if (Parent == NULL || Child == NULL || Parent->Left != NULL) {
+    if (Parent == NULL || Child == NULL || Parent->Left) {
         return;
     }
     Parent->Left = Child;
 }
 void BT_InsertRight(BT_Node *Parent, BT_Node *Child)
 {
-    if (Parent == NULL || Child == NULL || Parent->Right != NULL) {
+    if (Parent == NULL || Child == NULL || Parent->Right) {
         return;
     }
     Parent->Right = Child;

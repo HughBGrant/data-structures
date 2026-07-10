@@ -22,7 +22,7 @@ void LCRST_DestroyTree(LCRST *Tree)
     if (Tree == NULL) {
         return;
     }
-    if (Tree->Root != NULL) {
+    if (Tree->Root) {
         LCRST_DestroySubTree(Tree->Root);
     }
     free(Tree);
@@ -46,7 +46,7 @@ void LCRST_DestroySubTree(LCRST_Node *SubTree) ////////
         return;
     }
     LCRST_Node *Child = SubTree->Child;
-    while (Child != NULL) {
+    while (Child) {
         LCRST_Node *Next = Child->Sibling;
         LCRST_DestroySubTree(Child);
         Child = Next;
@@ -62,7 +62,7 @@ void LCRST_AddChild(LCRST_Node *Parent, LCRST_Node *Child)
         Parent->Child = Child;
     } else {
         LCRST_Node *Previous = Parent->Child;
-        while (Previous->Sibling != NULL) {
+        while (Previous->Sibling) {
             Previous = Previous->Sibling;
         }
         Previous->Sibling = Child;
@@ -90,7 +90,7 @@ void LCRST_RemoveSubTree(LCRST *Tree, LCRST_Node *Parent,
     } else {
         LCRST_Node *Prev = Parent->Child;
 
-        while (Prev != NULL && Prev->Sibling != SubTree) {
+        while (Prev && Prev->Sibling != SubTree) {
             Prev = Prev->Sibling;
         }
 
@@ -113,7 +113,7 @@ size_t LCRST_GetSubTreeSize(LCRST_Node *SubTree) ////////
 
     LCRST_Node *Child = SubTree->Child;
 
-    while (Child != NULL) {
+    while (Child) {
         Count += LCRST_GetSubTreeSize(Child);
         Child = Child->Sibling;
     }
@@ -129,10 +129,10 @@ void LCRST_PrintSubTree(LCRST_Node *SubTree, size_t Depth)
     }
     printf("%c\n", SubTree->Data);
 
-    if (SubTree->Child != NULL) {
+    if (SubTree->Child) {
         LCRST_PrintSubTree(SubTree->Child, Depth + 1);
     }
-    if (SubTree->Sibling != NULL) {
+    if (SubTree->Sibling) {
         LCRST_PrintSubTree(SubTree->Sibling, Depth);
     }
 }

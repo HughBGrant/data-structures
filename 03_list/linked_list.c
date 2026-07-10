@@ -98,7 +98,7 @@ void ll_destroy(linked_list *list)
         return;
     }
 
-    while (list->head != NULL) {
+    while (list->head) {
         ll_delete(list, 0);
     }
     free(list);

@@ -41,7 +41,7 @@ void ls_push(linked_stack *stack, ls_data data)
         return;
     }
 
-    if (stack->top != NULL) {
+    if (stack->top) {
         new_top->next = stack->top;
     }
     stack->top = new_top;
@@ -73,7 +73,7 @@ size_t ls_size(linked_stack *stack)
     size_t size = 0;
     ls_node *now_node = stack->top;
 
-    while (now_node != NULL) {
+    while (now_node) {
         size++;
         now_node = now_node->next;
     }
@@ -92,7 +92,7 @@ void ls_destroy(linked_stack *stack)
     if (stack == NULL) {
         return;
     }
-    while (stack->top != NULL) {
+    while (stack->top) {
         ls_pop(stack);
     }
     free(stack);

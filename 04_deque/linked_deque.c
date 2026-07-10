@@ -127,7 +127,7 @@ size_t ld_size(linked_deque *deque)
     size_t size = 0;
     ld_node *now_node = deque->front;
 
-    while (now_node != NULL) {
+    while (now_node) {
         size++;
         now_node = now_node->next;
     }
@@ -145,7 +145,7 @@ void ld_destroy(linked_deque *deque)
     if (deque == NULL) {
         return;
     }
-    while (deque->front != NULL) {
+    while (deque->front) {
         ld_pop_front(deque);
     }
     free(deque);
