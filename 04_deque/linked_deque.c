@@ -1,6 +1,6 @@
 #include "linked_deque.h"
 
-linked_deque *ld_create(void)
+linked_deque *ld_create(void) //////
 {
     linked_deque *deque = malloc(sizeof(linked_deque));
     if (deque == NULL) {

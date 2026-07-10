@@ -1,6 +1,6 @@
 #include "circular_doubly_linked_list.h"
 
-c_d_linked_list *cdll_create(void)
+c_d_linked_list *cdll_create(void) ///////
 {
     c_d_linked_list *list = malloc(sizeof(c_d_linked_list));
     if (list == NULL) {
