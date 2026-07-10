@@ -19,14 +19,6 @@ array_list *al_create(size_t capacity)
 
     return list;
 }
-void al_append(array_list *list, al_data data)
-{
-    if (list == NULL || list->count >= list->capacity) {
-        return;
-    }
-    list->array[list->count] = data;
-    list->count++;
-}
 void al_insert(array_list *list, size_t pos, al_data data)
 {
     if (list == NULL || pos > list->count ||

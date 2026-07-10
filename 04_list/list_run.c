@@ -9,10 +9,10 @@ void al_test(void)
     size_t i = 0;
 
     for (int i = 0; i < 5; i++) {
-        al_append(list, i);
+        al_insert(list, al_size(list), i);
     }
-    al_append(list, -1);
-    al_append(list, -2);
+    al_append(list, al_size(list), -1);
+    al_append(list, al_size(list), -2);
     for (i = 0; i < al_size(list); i++) {
         printf("List[%zu] : %d\n", i, al_get(list, i));
     }
@@ -37,11 +37,11 @@ void ll_test(void)
     linked_list *list = ll_create();
     size_t i = 0;
 
-    for (int i = 0; i < 5; i++) {
-        ll_append(list, i);
+    for (int i = 5; i > 0; i--) {
+        ll_insert(list, ll_size(list), i);
     }
-    ll_append(list, -1);
-    ll_append(list, -2);
+    ll_insert(list, ll_size(list), -1);
+    ll_insert(list, ll_size(list), -2);
 
     for (i = 0; i < ll_size(list); i++) {
         printf("List[%zu] : %d\n", i, ll_get(list, i));
