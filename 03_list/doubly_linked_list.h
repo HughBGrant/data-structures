@@ -14,8 +14,8 @@ typedef struct _dll_node {
 
 typedef struct {
     dll_node *head;
-    size_t count;
     dll_node *tail;
+    size_t count;
 } doubly_linked_list;
 
 doubly_linked_list *dll_create(void);

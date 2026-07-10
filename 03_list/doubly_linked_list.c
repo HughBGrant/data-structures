@@ -1,19 +1,30 @@
 #include "doubly_linked_list.h"
 
-doubly_linked_list *dll_create(void) ///////
+doubly_linked_list *dll_create(void)
 {
     doubly_linked_list *list = malloc(sizeof(doubly_linked_list));
     if (list == NULL) {
         return NULL;
     }
 
+    list->head = dll_create_node(0);
+    if (list->head == NULL) {
+        free(list);
+        return NULL;
+    }
+    list->tail = dll_create_node(0);
+    if (list->tail == NULL) {
+        free(list->head);
+        free(list);
+        return NULL;
+    }
+
     list->count = 0;
-    list->head = NULL;
-    list->tail = NULL;
+    list->head->next = list->tail;
+    list->tail->prev = list->head;
 
     return list;
 }
-
 dll_node *dll_create_node(dll_data data)
 {
     dll_node *new_node = malloc(sizeof(dll_node));
@@ -27,7 +38,34 @@ dll_node *dll_create_node(dll_data data)
 
     return new_node;
 }
+dll_node *dll_get_node(doubly_linked_list *list, size_t pos)
+{
+    size_t count = dll_size(list);
 
+    if (pos >= count) {
+        return NULL;
+    }
+
+    dll_node *get_node = NULL;
+
+    if (pos < count / 2) {
+        get_node = list->head->next;
+
+        while (pos > 0) {
+            get_node = get_node->next;
+            pos--;
+        }
+    } else {
+        get_node = list->tail->prev;
+
+        while (pos < count - 1) {
+            get_node = get_node->prev;
+            pos++;
+        }
+    }
+
+    return get_node;
+}
 void dll_append(doubly_linked_list *list, dll_data data)
 {
     if (list == NULL) {
@@ -38,18 +76,15 @@ void dll_append(doubly_linked_list *list, dll_data data)
     if (new_tail == NULL) {
         return;
     }
+    dll_node *prev_node = list->tail->prev;
 
-    if (list->head == NULL) {
-        list->head = new_tail;
-    } else {
-        new_tail->prev = list->tail;
-        list->tail->next = new_tail;
-    }
-    list->tail = new_tail;
+    prev_node->next = new_tail;
+    new_tail->prev = prev_node;
+    new_tail->next = list->tail;
+    list->tail->prev = new_tail;
 
     list->count++;
 }
-
 void dll_insert(doubly_linked_list *list, size_t pos, dll_data data)
 {
     if (list == NULL) {
@@ -74,19 +109,13 @@ void dll_insert(doubly_linked_list *list, size_t pos, dll_data data)
     dll_node *next_node = dll_get_node(list, pos);
     dll_node *prev_node = next_node->prev;
 
+    prev_node->next = new_node;
     new_node->prev = prev_node;
     new_node->next = next_node;
     next_node->prev = new_node;
 
-    if (prev_node == NULL) {
-        list->head = new_node;
-    } else {
-        prev_node->next = new_node;
-    }
-
     list->count++;
 }
-
 void dll_delete(doubly_linked_list *list, size_t pos)
 {
     if (list == NULL || pos >= dll_size(list)) {
@@ -101,57 +130,17 @@ void dll_delete(doubly_linked_list *list, size_t pos)
     dll_node *prev_node = free_node->prev;
     dll_node *next_node = free_node->next;
 
-    if (prev_node == NULL) {
-        list->head = next_node;
-    } else {
-        prev_node->next = next_node;
-    }
-
-    if (next_node == NULL) {
-        list->tail = prev_node;
-    } else {
-        next_node->prev = prev_node;
-    }
+    prev_node->next = next_node;
+    next_node->prev = prev_node;
 
     printf("Destroying Node : %d\n", free_node->data);
     free(free_node);
     list->count--;
 }
-
-dll_node *dll_get_node(doubly_linked_list *list, size_t pos)
-{
-    size_t count = dll_size(list);
-
-    if (pos >= count) {
-        return NULL;
-    }
-
-    dll_node *get_node = NULL;
-
-    if (pos < count / 2) {
-        get_node = list->head;
-
-        while (pos > 0) {
-            get_node = get_node->next;
-            pos--;
-        }
-    } else {
-        get_node = list->tail;
-
-        while (pos < count - 1) {
-            get_node = get_node->prev;
-            pos++;
-        }
-    }
-
-    return get_node;
-}
-
 dll_data dll_get(doubly_linked_list *list, size_t pos)
 {
     return dll_get_node(list, pos)->data;
 }
-
 size_t dll_size(doubly_linked_list *list)
 {
     if (list == NULL) {
@@ -167,9 +156,11 @@ void dll_destroy(doubly_linked_list *list)
         return;
     }
 
-    while (list->head) {
+    while (list->count > 0) {
         dll_delete(list, 0);
     }
 
+    free(list->head);
+    free(list->tail);
     free(list);
 }
