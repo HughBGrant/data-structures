@@ -1,8 +1,8 @@
-#include "doubly_linked_list.h"
+#include "circular_doubly_linked_list.h"
 
-doubly_linked_list *dll_create(void) ///////////
+c_d_linked_list *cdll_create(void) ///////////
 {
-    doubly_linked_list *list = malloc(sizeof(doubly_linked_list));
+    c_d_linked_list *list = malloc(sizeof(c_d_linked_list));
     if (list == NULL) {
         return NULL;
     }
@@ -13,9 +13,9 @@ doubly_linked_list *dll_create(void) ///////////
 
     return list;
 }
-dll_node *dll_create_node(dll_data data)
+cdll_node *cdll_create_node(cdll_data data)
 {
-    dll_node *new_node = malloc(sizeof(dll_node));
+    cdll_node *new_node = malloc(sizeof(cdll_node));
     if (new_node == NULL) {
         return NULL;
     }
@@ -25,12 +25,12 @@ dll_node *dll_create_node(dll_data data)
 
     return new_node;
 }
-void dll_append(doubly_linked_list *list, dll_data data)
+void cdll_append(c_d_linked_list *list, cdll_data data)
 {
     if (list == NULL) {
         return;
     }
-    dll_node *new_tail = dll_create_node(data);
+    cdll_node *new_tail = cdll_create_node(data);
     if (new_tail == NULL) {
         return;
     }
@@ -47,27 +47,27 @@ void dll_append(doubly_linked_list *list, dll_data data)
 
     list->count++;
 }
-void dll_insert(doubly_linked_list *list, size_t pos, dll_data data)
+void cdll_insert(c_d_linked_list *list, size_t pos, cdll_data data)
 {
     if (list == NULL) {
         return;
     }
-    size_t size = dll_size(list);
+    size_t size = cdll_size(list);
     if (pos > size) {
         return;
     }
     if (pos == size) {
-        dll_append(list, data);
+        cdll_append(list, data);
         return;
     }
 
-    dll_node *new_node = dll_create_node(data);
+    cdll_node *new_node = cdll_create_node(data);
     if (new_node == NULL) {
         return;
     }
 
-    dll_node *next_node = dll_get_node(list, pos);
-    dll_node *prev_node = next_node->prev;
+    cdll_node *next_node = cdll_get_node(list, pos);
+    cdll_node *prev_node = next_node->prev;
     prev_node->next = new_node;
     new_node->prev = prev_node;
     new_node->next = next_node;
@@ -80,12 +80,12 @@ void dll_insert(doubly_linked_list *list, size_t pos, dll_data data)
     list->count++;
 }
 
-void dll_delete(doubly_linked_list *list, size_t pos)
+void cdll_delete(c_d_linked_list *list, size_t pos)
 {
-    if (list == NULL || pos >= dll_size(list)) {
+    if (list == NULL || pos >= cdll_size(list)) {
         return;
     }
-    dll_node *free_node = dll_get_node(list, pos);
+    cdll_node *free_node = cdll_get_node(list, pos);
     if (free_node == NULL) {
         return;
     }
@@ -94,8 +94,8 @@ void dll_delete(doubly_linked_list *list, size_t pos)
         list->head = NULL;
         list->tail = NULL;
     } else {
-        dll_node *prev_node = free_node->prev;
-        dll_node *next_node = free_node->next;
+        cdll_node *prev_node = free_node->prev;
+        cdll_node *next_node = free_node->next;
 
         prev_node->next = next_node;
         next_node->prev = prev_node;
@@ -111,14 +111,14 @@ void dll_delete(doubly_linked_list *list, size_t pos)
     free(free_node);
     list->count--;
 }
-dll_node *dll_get_node(doubly_linked_list *list, size_t pos)
+cdll_node *cdll_get_node(c_d_linked_list *list, size_t pos)
 {
-    size_t count = dll_size(list);
+    size_t count = cdll_size(list);
 
     if (pos >= count) {
         return NULL;
     }
-    dll_node *get_node = NULL;
+    cdll_node *get_node = NULL;
 
     if (pos < count / 2) {
         get_node = list->head;
@@ -137,24 +137,24 @@ dll_node *dll_get_node(doubly_linked_list *list, size_t pos)
     }
     return get_node;
 }
-dll_data dll_get(doubly_linked_list *list, size_t pos)
+cdll_data cdll_get(c_d_linked_list *list, size_t pos)
 {
-    return dll_get_node(list, pos)->data;
+    return cdll_get_node(list, pos)->data;
 }
-size_t dll_size(doubly_linked_list *list)
+size_t cdll_size(c_d_linked_list *list)
 {
     if (list == NULL) {
         return 0;
     }
     return list->count;
 }
-void dll_destroy(doubly_linked_list *list)
+void cdll_destroy(c_d_linked_list *list)
 {
     if (list == NULL) {
         return;
     }
     while (list->head != NULL) {
-        dll_delete(list, 0);
+        cdll_delete(list, 0);
     }
     free(list);
 }

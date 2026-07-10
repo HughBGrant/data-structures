@@ -1,6 +1,6 @@
 #include "array_list.h"
+#include "circular_doubly_linked_list.h"
 #include "circular_linked_list.h"
-#include "doubly_linked_list.h"
 #include "linked_list.h"
 
 void al_test(void)
@@ -86,32 +86,32 @@ void cll_test(void)
     printf("\nDestroying List...\n");
     cll_destroy(list);
 }
-void dll_test(void)
+void cdll_test(void)
 {
-    doubly_linked_list *list = dll_create();
+    c_d_linked_list *list = cdll_create();
     size_t i = 0;
 
     for (int i = 0; i < 5; i++) {
-        dll_append(list, i);
+        cdll_append(list, i);
     }
-    for (i = 0; i < dll_size(list); i++) {
-        printf("List[%zu] : %d\n", i, dll_get(list, i));
+    for (i = 0; i < cdll_size(list); i++) {
+        printf("List[%zu] : %d\n", i, cdll_get(list, i));
     }
 
     printf("\nInserting 3000 At [3]...\n\n");
-    dll_insert(list, 3, 3000);
+    cdll_insert(list, 3, 3000);
 
     printf("\nRemoving Node at [2]...\n\n");
-    dll_delete(list, 2);
+    cdll_delete(list, 2);
 
-    for (i = 0; i < dll_size(list); i++) {
-        printf("List[%zu] : %d\n", i, dll_get(list, i));
+    for (i = 0; i < cdll_size(list); i++) {
+        printf("List[%zu] : %d\n", i, cdll_get(list, i));
     }
 
     printf("Head->Prev[%zu] : %d\n", i, list->head->prev->data);
 
     printf("\nDestroying List...\n");
-    dll_destroy(list);
+    cdll_destroy(list);
 }
 int main(void)
 {
@@ -128,7 +128,7 @@ int main(void)
         cll_test();
         break;
     case 3:
-        dll_test();
+        cdll_test();
         break;
     }
     return 0;
