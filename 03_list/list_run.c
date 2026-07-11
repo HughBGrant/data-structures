@@ -11,8 +11,8 @@ void al_test(void)
     for (int i = 0; i < 5; i++) {
         al_insert(list, al_size(list), i);
     }
-    al_append(list, al_size(list), -1);
-    al_append(list, al_size(list), -2);
+    al_insert(list, al_size(list), -1);
+    al_insert(list, al_size(list), -2);
     for (i = 0; i < al_size(list); i++) {
         printf("List[%zu] : %d\n", i, al_get(list, i));
     }

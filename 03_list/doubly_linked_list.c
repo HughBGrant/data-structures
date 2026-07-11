@@ -42,10 +42,12 @@ dll_node *dll_get_node(doubly_linked_list *list, size_t pos)
 {
     size_t count = dll_size(list);
 
-    if (pos >= count) {
+    if (pos > count) {
         return NULL;
     }
-
+    if (pos == count) {
+        return list->tail;
+    }
     dll_node *get_node = NULL;
 
     if (pos < count / 2) {
@@ -66,25 +68,6 @@ dll_node *dll_get_node(doubly_linked_list *list, size_t pos)
 
     return get_node;
 }
-void dll_append(doubly_linked_list *list, dll_data data)
-{
-    if (list == NULL) {
-        return;
-    }
-
-    dll_node *new_tail = dll_create_node(data);
-    if (new_tail == NULL) {
-        return;
-    }
-    dll_node *prev_node = list->tail->prev;
-
-    prev_node->next = new_tail;
-    new_tail->prev = prev_node;
-    new_tail->next = list->tail;
-    list->tail->prev = new_tail;
-
-    list->count++;
-}
 void dll_insert(doubly_linked_list *list, size_t pos, dll_data data)
 {
     if (list == NULL) {
@@ -93,11 +76,6 @@ void dll_insert(doubly_linked_list *list, size_t pos, dll_data data)
 
     size_t size = dll_size(list);
     if (pos > size) {
-        return;
-    }
-
-    if (pos == size) {
-        dll_append(list, data);
         return;
     }
 
@@ -111,6 +89,7 @@ void dll_insert(doubly_linked_list *list, size_t pos, dll_data data)
 
     prev_node->next = new_node;
     new_node->prev = prev_node;
+
     new_node->next = next_node;
     next_node->prev = new_node;
 
