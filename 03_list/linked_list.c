@@ -56,6 +56,7 @@ void ll_delete(linked_list *list, size_t pos)
     if (list == NULL || pos >= ll_size(list)) {
         return;
     }
+    // 1
     ll_node *prev_node = NULL;
     ll_node *free_node = list->head;
 
@@ -70,6 +71,17 @@ void ll_delete(linked_list *list, size_t pos)
     } else {
         prev_node->next = free_node->next;
     }
+    // 2
+    // ll_node **link = &list->head;
+
+    // while (pos > 0) {
+    //     link = &(*link)->next;
+    //     pos--;
+    // }
+
+    // ll_node *free_node = *link;
+    //*link = free_node->next;
+    //
 
     printf("Destroying Node : %d\n", free_node->data);
     free(free_node);

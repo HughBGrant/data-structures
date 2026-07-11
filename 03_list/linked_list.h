@@ -9,11 +9,13 @@ typedef int ll_data;
 typedef struct _ll_node {
     ll_data data;
     struct _ll_node *next;
+
 } ll_node;
 
 typedef struct {
     ll_node *head;
     size_t count;
+    // ll_node *tail;
 } linked_list;
 
 linked_list *ll_create(void);
