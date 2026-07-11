@@ -1,6 +1,6 @@
 #include "linked_deque.h"
 
-linked_deque *ld_create(void) //////
+linked_deque *ld_create(void)
 {
     linked_deque *deque = malloc(sizeof(linked_deque));
     if (deque == NULL) {
@@ -12,7 +12,6 @@ linked_deque *ld_create(void) //////
 
     return deque;
 }
-
 ld_node *ld_create_node(ld_data data)
 {
     if (data == NULL) {
@@ -31,6 +30,7 @@ ld_node *ld_create_node(ld_data data)
 
     strcpy(new_node->data, data);
     new_node->next = NULL;
+    new_node->prev = NULL;
 
     return new_node;
 }
@@ -47,6 +47,7 @@ void ld_push_front(linked_deque *deque, ld_data data)
         deque->rear = new_front;
     } else {
         new_front->next = deque->front;
+        deque->front->prev = new_front;
     }
     deque->front = new_front;
 }
@@ -63,6 +64,7 @@ void ld_push_back(linked_deque *deque, ld_data data)
     if (deque->front == NULL) {
         deque->front = new_rear;
     } else {
+        new_rear->prev = deque->rear;
         deque->rear->next = new_rear;
     }
     deque->rear = new_rear;
@@ -73,11 +75,12 @@ void ld_pop_front(linked_deque *deque)
         return;
     }
     ld_node *free_node = deque->front;
-
     deque->front = free_node->next;
 
     if (deque->front == NULL) {
         deque->rear = NULL;
+    } else {
+        deque->front->prev = NULL;
     }
 
     free(free_node->data);
@@ -89,17 +92,12 @@ void ld_pop_back(linked_deque *deque)
         return;
     }
     ld_node *free_node = deque->rear;
-    if (deque->front == deque->rear) {
-        deque->front = NULL;
-        deque->rear = NULL;
+    deque->rear = free_node->prev;
 
+    if (deque->rear == NULL) {
+        deque->front = NULL;
     } else {
-        ld_node *prev_node = deque->front;
-        while (prev_node->next != free_node) {
-            prev_node = prev_node->next;
-        }
-        prev_node->next = NULL;
-        deque->rear = prev_node;
+        deque->rear->next = NULL;
     }
 
     free(free_node->data);
