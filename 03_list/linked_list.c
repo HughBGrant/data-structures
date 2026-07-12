@@ -27,22 +27,30 @@ ll_node *ll_create_node(ll_data data)
 }
 void ll_insert(linked_list *list, size_t pos, ll_data data)
 {
-    if (list == NULL || pos > ll_size(list)) {
+    if (list == NULL || pos > list->count) {
         return;
     }
     ll_node *new_node = ll_create_node(data);
     if (new_node == NULL) {
         return;
     }
-
     ll_node *prev_node = NULL;
-    ll_node *next_node = list->head;
+    ll_node *next_node = NULL;
 
-    while (pos > 0) {
-        prev_node = next_node;
-        next_node = next_node->next;
-        pos--;
+    if (pos == list->count) {
+        prev_node = list->tail;
+
+        list->tail = new_node;
+    } else {
+        next_node = list->head;
+
+        while (pos > 0) {
+            prev_node = next_node;
+            next_node = next_node->next;
+            pos--;
+        }
     }
+
     if (prev_node == NULL) {
         list->head = new_node;
     } else {
@@ -50,15 +58,11 @@ void ll_insert(linked_list *list, size_t pos, ll_data data)
     }
     new_node->next = next_node;
 
-    if (next_node == NULL) {
-        list->tail = new_node;
-    }
-
     list->count++;
 }
 void ll_delete(linked_list *list, size_t pos)
 {
-    if (list == NULL || pos >= ll_size(list)) {
+    if (list == NULL || pos >= list->count) {
         return;
     }
     // 1

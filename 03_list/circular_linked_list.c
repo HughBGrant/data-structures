@@ -47,11 +47,11 @@ void cll_append(circular_linked_list *list, cll_data data)
 
 void cll_insert(circular_linked_list *list, size_t pos, cll_data data)
 {
-    if (list == NULL || pos > cll_size(list)) {
+    if (list == NULL || pos > list->count) {
         return;
     }
 
-    if (pos == cll_size(list)) {
+    if (pos == list->count) {
         cll_append(list, data);
         return;
     }
@@ -76,7 +76,7 @@ void cll_insert(circular_linked_list *list, size_t pos, cll_data data)
 
 void cll_delete(circular_linked_list *list, size_t pos)
 {
-    if (list == NULL || pos >= cll_size(list)) {
+    if (list == NULL || pos >= list->count) {
         return;
     }
 
@@ -105,7 +105,7 @@ void cll_delete(circular_linked_list *list, size_t pos)
 }
 cll_data cll_get(circular_linked_list *list, size_t pos)
 {
-    if (pos == cll_size(list) - 1) {
+    if (pos == list->count - 1) {
         return list->tail->data;
     }
 

@@ -74,8 +74,7 @@ void dll_insert(doubly_linked_list *list, size_t pos, dll_data data)
         return;
     }
 
-    size_t size = dll_size(list);
-    if (pos > size) {
+    if (pos > list->count) {
         return;
     }
 
@@ -97,7 +96,7 @@ void dll_insert(doubly_linked_list *list, size_t pos, dll_data data)
 }
 void dll_delete(doubly_linked_list *list, size_t pos)
 {
-    if (list == NULL || pos >= dll_size(list)) {
+    if (list == NULL || pos >= list->count) {
         return;
     }
 

@@ -35,19 +35,18 @@ cdll_node *cdll_get_node(c_d_linked_list *list, size_t pos)
     if (list == NULL) {
         return NULL;
     }
-    size_t count = cdll_size(list);
 
-    if (pos > count) {
+    if (pos > list->count) {
         return NULL;
     }
 
-    if (pos == count) {
+    if (pos == list->count) {
         return list->head; // 센티널 반환
     }
 
     cdll_node *get_node = NULL;
 
-    if (pos < count / 2) {
+    if (pos < list->count / 2) {
         get_node = list->head->next;
 
         while (pos > 0) {
@@ -57,7 +56,7 @@ cdll_node *cdll_get_node(c_d_linked_list *list, size_t pos)
     } else {
         get_node = list->head->prev;
 
-        while (pos < count - 1) {
+        while (pos < list->count - 1) {
             get_node = get_node->prev;
             pos++;
         }
@@ -66,7 +65,7 @@ cdll_node *cdll_get_node(c_d_linked_list *list, size_t pos)
 }
 void cdll_insert(c_d_linked_list *list, size_t pos, cdll_data data)
 {
-    if (list == NULL || pos > cdll_size(list)) {
+    if (list == NULL || pos > list->count) {
         return;
     }
 
@@ -88,7 +87,7 @@ void cdll_insert(c_d_linked_list *list, size_t pos, cdll_data data)
 }
 void cdll_delete(c_d_linked_list *list, size_t pos)
 {
-    if (list == NULL || pos >= cdll_size(list)) {
+    if (list == NULL || pos >= list->count) {
         return;
     }
     cdll_node *free_node = cdll_get_node(list, pos);
