@@ -40,17 +40,15 @@ dll_node *dll_create_node(dll_data data)
 }
 dll_node *dll_get_node(doubly_linked_list *list, size_t pos)
 {
-    size_t count = dll_size(list);
-
-    if (pos > count) {
+    if (pos > list->count) {
         return NULL;
     }
-    if (pos == count) {
+    if (pos == list->count) {
         return list->tail;
     }
     dll_node *get_node = NULL;
 
-    if (pos < count / 2) {
+    if (pos < list->count / 2) {
         get_node = list->head->next;
 
         while (pos > 0) {
@@ -60,7 +58,7 @@ dll_node *dll_get_node(doubly_linked_list *list, size_t pos)
     } else {
         get_node = list->tail->prev;
 
-        while (pos < count - 1) {
+        while (pos < list->count - 1) {
             get_node = get_node->prev;
             pos++;
         }
@@ -70,11 +68,7 @@ dll_node *dll_get_node(doubly_linked_list *list, size_t pos)
 }
 void dll_insert(doubly_linked_list *list, size_t pos, dll_data data)
 {
-    if (list == NULL) {
-        return;
-    }
-
-    if (pos > list->count) {
+    if (list == NULL || pos > list->count) {
         return;
     }
 
@@ -83,14 +77,13 @@ void dll_insert(doubly_linked_list *list, size_t pos, dll_data data)
         return;
     }
 
-    dll_node *next_node = dll_get_node(list, pos);
-    dll_node *prev_node = next_node->prev;
+    dll_node *pos_node = dll_get_node(list, pos);
 
-    prev_node->next = new_node;
-    new_node->prev = prev_node;
+    new_node->prev = pos_node->prev;
+    new_node->next = pos_node;
 
-    new_node->next = next_node;
-    next_node->prev = new_node;
+    pos_node->prev->next = new_node;
+    pos_node->prev = new_node;
 
     list->count++;
 }
@@ -105,11 +98,8 @@ void dll_delete(doubly_linked_list *list, size_t pos)
         return;
     }
 
-    dll_node *prev_node = free_node->prev;
-    dll_node *next_node = free_node->next;
-
-    prev_node->next = next_node;
-    next_node->prev = prev_node;
+    free_node->prev->next = free_node->next;
+    free_node->next->prev = free_node->prev;
 
     printf("Destroying Node : %d\n", free_node->data);
     free(free_node);
