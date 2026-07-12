@@ -24,53 +24,32 @@ cll_node *cll_create_node(cll_data data)
 
     return new_node;
 }
-void cll_append(circular_linked_list *list, cll_data data)
-{
-    if (list == NULL) {
-        return;
-    }
-    cll_node *new_tail = cll_create_node(data);
-    if (new_tail == NULL) {
-        return;
-    }
-
-    if (list->tail) {
-        new_tail->next = list->tail->next;
-        list->tail->next = new_tail;
-    } else {
-        new_tail->next = new_tail;
-    }
-    list->tail = new_tail;
-
-    list->count++;
-}
-
 void cll_insert(circular_linked_list *list, size_t pos, cll_data data)
 {
     if (list == NULL || pos > list->count) {
-        return;
-    }
-
-    if (pos == list->count) {
-        cll_append(list, data);
         return;
     }
     cll_node *new_node = cll_create_node(data);
     if (new_node == NULL) {
         return;
     }
+    if (list->tail == NULL) {
+        new_node->next = new_node;
+        list->tail = new_node;
+    } else {
+        cll_node *prev_node = list->tail;
 
-    cll_node *prev_node = list->tail;
-    cll_node *next_node = prev_node->next;
+        while (pos > 0) {
+            prev_node = prev_node->next;
+            pos--;
+        }
+        new_node->next = prev_node->next;
+        prev_node->next = new_node;
 
-    while (pos > 0) {
-        prev_node = next_node;
-        next_node = next_node->next;
-        pos--;
+        if (prev_node == list->tail) {
+            list->tail = new_node;
+        }
     }
-    prev_node->next = new_node;
-    new_node->next = next_node;
-
     list->count++;
 }
 

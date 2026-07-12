@@ -18,7 +18,6 @@ typedef struct {
 
 circular_linked_list *cll_create(void);
 cll_node *cll_create_node(cll_data data);
-void cll_append(circular_linked_list *list, cll_data data);
 void cll_insert(circular_linked_list *list, size_t pos, cll_data data);
 void cll_delete(circular_linked_list *list, size_t pos);
 cll_data cll_get(circular_linked_list *list, size_t pos);

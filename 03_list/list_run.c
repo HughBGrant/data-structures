@@ -64,11 +64,11 @@ void cll_test(void)
     size_t i = 0;
     cll_node *current = NULL;
 
-    for (int i = 0; i < 5; i++) {
-        cll_append(list, i);
+    for (int i = 5; i > 0; i--) {
+        cll_insert(list, ll_size(list), i);
     }
-    cll_append(list, -1);
-    cll_append(list, -2);
+    cll_insert(list, ll_size(list), -1);
+    cll_insert(list, ll_size(list), -2);
 
     for (i = 0; i < cll_size(list); i++) {
         printf("List[%zu] : %d\n", i, cll_get(list, i));
