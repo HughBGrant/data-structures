@@ -9,7 +9,7 @@ typedef int as_data;
 
 typedef struct {
     as_data *array;
-    size_t top;
+    int top;
     size_t capacity;
 } array_stack;
 
