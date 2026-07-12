@@ -7,7 +7,7 @@ heap_array *ha_create(size_t capacity)
         return NULL;
     }
 
-    array->array = malloc(sizeof(int) * capacity);
+    array->array = malloc(sizeof(ha_data) * capacity);
     if (array->array == NULL) {
         free(array);
         return NULL;
@@ -17,7 +17,7 @@ heap_array *ha_create(size_t capacity)
 
     return array;
 }
-void ha_set(heap_array *array, size_t pos, int data)
+void ha_set(heap_array *array, size_t pos, ha_data data)
 {
     if (array == NULL || pos >= array->capacity) {
         return;
@@ -25,7 +25,7 @@ void ha_set(heap_array *array, size_t pos, int data)
 
     array->array[pos] = data;
 }
-int ha_get(heap_array *array, size_t pos)
+ha_data ha_get(heap_array *array, size_t pos)
 {
     return array->array[pos];
 }
