@@ -32,14 +32,9 @@ cdll_node *cdll_create_node(cdll_data data)
 }
 cdll_node *cdll_get_node(c_d_linked_list *list, size_t pos)
 {
-    if (list == NULL) {
+    if (list == NULL || pos > list->count) {
         return NULL;
     }
-
-    if (pos > list->count) {
-        return NULL;
-    }
-
     if (pos == list->count) {
         return list->head; // 센티널 반환
     }

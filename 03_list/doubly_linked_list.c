@@ -40,7 +40,7 @@ dll_node *dll_create_node(dll_data data)
 }
 dll_node *dll_get_node(doubly_linked_list *list, size_t pos)
 {
-    if (pos > list->count) {
+    if (list == NULL || pos > list->count) {
         return NULL;
     }
     if (pos == list->count) {
