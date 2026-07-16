@@ -9,13 +9,13 @@
 typedef int cq_data;
 
 typedef struct {
-    cq_data *array;
+    cq_data *items;
     size_t rear;
     size_t front;
-    size_t capacity;
+    size_t max_size;
 } circular_queue;
 
-circular_queue *cq_create(size_t capacity);
+circular_queue *cq_create(size_t max_size);
 void cq_enqueue(circular_queue *queue, cq_data data);
 void cq_dequeue(circular_queue *queue);
 cq_data cq_peek(circular_queue *queue);

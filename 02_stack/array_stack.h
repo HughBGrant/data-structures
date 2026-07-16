@@ -8,12 +8,12 @@
 typedef int as_data;
 
 typedef struct {
-    as_data *array;
+    as_data *items;
     int top;
-    size_t capacity;
+    size_t max_size;
 } array_stack;
 
-array_stack *as_create(size_t capacity);
+array_stack *as_create(size_t max_size);
 void as_push(array_stack *stack, as_data data);
 void as_pop(array_stack *stack);
 as_data as_top(array_stack *stack);

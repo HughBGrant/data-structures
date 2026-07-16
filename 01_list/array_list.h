@@ -7,12 +7,12 @@
 typedef int al_data;
 
 typedef struct {
-    al_data *array;
-    size_t capacity;
+    al_data *items;
+    size_t max_size;
     size_t count;
 } array_list;
 
-array_list *al_create(size_t capacity);
+array_list *al_create(size_t max_size);
 void al_insert(array_list *list, size_t pos, al_data data);
 void al_delete(array_list *list, size_t pos);
 al_data al_get(array_list *list, size_t pos);

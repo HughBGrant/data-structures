@@ -1,20 +1,20 @@
 #include "array_list.h"
 
-array_list *al_create(size_t capacity)
+array_list *al_create(size_t max_size)
 {
-    if (capacity == 0) {
+    if (max_size == 0) {
         return NULL;
     }
     array_list *list = malloc(sizeof(array_list));
     if (list == NULL) {
         return NULL;
     }
-    list->array = malloc(sizeof(al_data) * capacity);
-    if (list->array == NULL) {
+    list->items = malloc(sizeof(al_data) * max_size);
+    if (list->items == NULL) {
         free(list);
         return NULL;
     }
-    list->capacity = capacity;
+    list->max_size = max_size;
     list->count = 0;
 
     return list;
@@ -22,13 +22,13 @@ array_list *al_create(size_t capacity)
 void al_insert(array_list *list, size_t pos, al_data data)
 {
     if (list == NULL || pos > list->count ||
-        list->count >= list->capacity) {
+        list->count >= list->max_size) {
         return;
     }
     for (size_t i = list->count; i > pos; i--) {
-        list->array[i] = list->array[i - 1];
+        list->items[i] = list->items[i - 1];
     }
-    list->array[pos] = data;
+    list->items[pos] = data;
     list->count++;
 }
 void al_delete(array_list *list, size_t pos)
@@ -37,13 +37,13 @@ void al_delete(array_list *list, size_t pos)
         return;
     }
     for (size_t i = pos; i < list->count - 1; i++) {
-        list->array[i] = list->array[i + 1];
+        list->items[i] = list->items[i + 1];
     }
     list->count--;
 }
 al_data al_get(array_list *list, size_t pos)
 {
-    return list->array[pos];
+    return list->items[pos];
 }
 size_t al_size(array_list *list)
 {
@@ -57,6 +57,6 @@ void al_destroy(array_list *list)
     if (list == NULL) {
         return;
     }
-    free(list->array);
+    free(list->items);
     free(list);
 }
