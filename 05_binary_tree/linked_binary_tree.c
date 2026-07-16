@@ -1,17 +1,13 @@
 #include "linked_binary_tree.h"
 
-linked_binary_tree *lbt_create(lbt_data data)
+linked_binary_tree *lbt_create()
 {
     linked_binary_tree *tree = malloc(sizeof(linked_binary_tree));
     if (tree == NULL) {
         return NULL;
     }
 
-    tree->root = lbt_create_node(data);
-    if (tree->root == NULL) {
-        free(tree);
-        return NULL;
-    }
+    tree->root = NULL;
 
     return tree;
 }
@@ -27,19 +23,41 @@ lbt_node *lbt_create_node(lbt_data data)
 
     return new_node;
 }
-void lbt_insert_left(lbt_node *parent, lbt_node *child)
+lbt_node *lbt_set_root(linked_binary_tree *tree, lbt_data data)
 {
-    if (parent == NULL || child == NULL || parent->left) {
-        return;
+    if (tree == NULL) {
+        return NULL;
     }
-    parent->left = child;
+    lbt_node *root = lbt_create_node(data);
+    if (root == NULL) {
+        return NULL;
+    }
+    tree->root = root;
+    return tree->root;
 }
-void lbt_insert_right(lbt_node *parent, lbt_node *child)
+lbt_node *lbt_add_left(lbt_node *parent, lbt_data data)
 {
-    if (parent == NULL || child == NULL || parent->right) {
-        return;
+    if (parent == NULL || parent->left) {
+        return NULL;
     }
-    parent->right = child;
+    lbt_node *left = lbt_create_node(data);
+    if (left == NULL) {
+        return NULL;
+    }
+    parent->left = left;
+    return parent->left;
+}
+lbt_node *lbt_add_right(lbt_node *parent, lbt_data data)
+{
+    if (parent == NULL || parent->right) {
+        return NULL;
+    }
+    lbt_node *right = lbt_create_node(data);
+    if (right == NULL) {
+        return NULL;
+    }
+    parent->right = right;
+    return parent->right;
 }
 void lbt_destroy_subtree(lbt_node *subtree)
 {

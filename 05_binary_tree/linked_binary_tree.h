@@ -16,10 +16,11 @@ typedef struct {
     lbt_node *root;
 } linked_binary_tree;
 
-linked_binary_tree *lbt_create(lbt_data data);
+linked_binary_tree *lbt_create();
 lbt_node *lbt_create_node(lbt_data data);
-void lbt_insert_left(lbt_node *parent, lbt_node *child);
-void lbt_insert_right(lbt_node *parent, lbt_node *child);
+lbt_node *lbt_set_root(linked_binary_tree *tree, lbt_data data);
+lbt_node *lbt_add_left(lbt_node *parent, lbt_data data);
+lbt_node *lbt_add_right(lbt_node *parent, lbt_data data);
 void lbt_destroy_subtree(lbt_node *node);
 void lbt_delete_left(lbt_node *parent);
 void lbt_delete_right(lbt_node *parent);

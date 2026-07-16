@@ -2,23 +2,14 @@
 
 void lbt_test(void)
 {
-    linked_binary_tree *tree = lbt_create('A');
-    lbt_node *A = tree->root;
-    lbt_node *B = lbt_create_node('B');
-    lbt_node *C = lbt_create_node('C');
-    lbt_node *D = lbt_create_node('D');
-    lbt_node *E = lbt_create_node('E');
-    lbt_node *F = lbt_create_node('F');
-    lbt_node *G = lbt_create_node('G');
-
-    // 트리에 노드 추가
-    lbt_insert_left(A, B);
-    lbt_insert_left(B, C);
-    lbt_insert_right(B, D);
-
-    lbt_insert_right(A, E);
-    lbt_insert_left(E, F);
-    lbt_insert_right(E, G);
+    linked_binary_tree *tree = lbt_create();
+    lbt_node *A = lbt_set_root(tree, 'A');
+    lbt_node *B = lbt_add_left(A, 'B');
+    lbt_node *C = lbt_add_left(B, 'C');
+    lbt_node *D = lbt_add_right(B, 'D');
+    lbt_node *E = lbt_add_right(A, 'E');
+    lbt_node *F = lbt_add_left(E, 'F');
+    lbt_node *G = lbt_add_right(E, 'G');
 
     // 트리 출력
     printf("Preorder ...\n");
@@ -38,7 +29,6 @@ void lbt_test(void)
 }
 int main(void)
 {
-
     int tree_number = 0;
 
     switch (tree_number) {
