@@ -1,4 +1,3 @@
-#include "binary_tree.h"
 #include "expression_tree.h"
 #include "lcrs_tree.h"
 
@@ -41,42 +40,6 @@ void TestLCRST(void)
     // 트리 소멸
     LCRST_DestroyTree(Tree);
 }
-void TestBT(void)
-{
-    BT *Tree = BT_CreateTree('A');
-    BT_Node *A = Tree->Root;
-    BT_Node *B = BT_CreateNode('B');
-    BT_Node *C = BT_CreateNode('C');
-    BT_Node *D = BT_CreateNode('D');
-    BT_Node *E = BT_CreateNode('E');
-    BT_Node *F = BT_CreateNode('F');
-    BT_Node *G = BT_CreateNode('G');
-
-    // 트리에 노드 추가
-    BT_InsertLeft(A, B);
-    BT_InsertLeft(B, C);
-    BT_InsertRight(B, D);
-
-    BT_InsertRight(A, E);
-    BT_InsertLeft(E, F);
-    BT_InsertRight(E, G);
-
-    // 트리 출력
-    printf("Preorder ...\n");
-    BT_PreorderPrintSubTree(Tree->Root);
-    printf("\n\n");
-
-    printf("Inorder ... \n");
-    BT_InorderPrintSubTree(Tree->Root);
-    printf("\n\n");
-
-    printf("Postorder ... \n");
-    BT_PostorderPrintSubTree(Tree->Root);
-    printf("\n");
-
-    // 트리 소멸
-    BT_DestroyTree(Tree);
-}
 void TestET(void)
 {
     char Postfix[20] = "71*52-/";
@@ -104,16 +67,13 @@ void TestET(void)
 int main(void)
 {
 
-    int TreeNumber = 2;
+    int TreeNumber = 1;
 
     switch (TreeNumber) {
     case 0:
         TestLCRST();
         break;
     case 1:
-        TestBT();
-        break;
-    case 2:
         TestET();
         break;
     }
