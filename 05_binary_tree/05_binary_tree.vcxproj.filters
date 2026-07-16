@@ -21,21 +21,15 @@
     <ClInclude Include="linked_binary_tree.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="linked_binary_tree_old.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="array_binary_tree.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="linked_binary_tree.c">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="binary_tree_run.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="linked_binary_tree_old.c">
+    <ClCompile Include="linked_binary_tree.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

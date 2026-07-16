@@ -125,13 +125,11 @@
   <ItemGroup>
     <ClInclude Include="array_binary_tree.h" />
     <ClInclude Include="linked_binary_tree.h" />
-    <ClInclude Include="linked_binary_tree_old.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="array_binary_tree.c" />
     <ClCompile Include="binary_tree_run.c" />
     <ClCompile Include="linked_binary_tree.c" />
-    <ClCompile Include="linked_binary_tree_old.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

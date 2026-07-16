@@ -1,40 +1,40 @@
-#include "linked_binary_tree_old.h"
+#include "linked_binary_tree.h"
 
-void lbto_test(void)
+void lbt_test(void)
 {
-    linked_binary_tree_old *tree = lbto_create('A');
-    lbto_node *A = tree->root;
-    lbto_node *B = lbto_create_node('B');
-    lbto_node *C = lbto_create_node('C');
-    lbto_node *D = lbto_create_node('D');
-    lbto_node *E = lbto_create_node('E');
-    lbto_node *F = lbto_create_node('F');
-    lbto_node *G = lbto_create_node('G');
+    linked_binary_tree *tree = lbt_create('A');
+    lbt_node *A = tree->root;
+    lbt_node *B = lbt_create_node('B');
+    lbt_node *C = lbt_create_node('C');
+    lbt_node *D = lbt_create_node('D');
+    lbt_node *E = lbt_create_node('E');
+    lbt_node *F = lbt_create_node('F');
+    lbt_node *G = lbt_create_node('G');
 
     // 트리에 노드 추가
-    lbto_insert_left(A, B);
-    lbto_insert_left(B, C);
-    lbto_insert_right(B, D);
+    lbt_insert_left(A, B);
+    lbt_insert_left(B, C);
+    lbt_insert_right(B, D);
 
-    lbto_insert_right(A, E);
-    lbto_insert_left(E, F);
-    lbto_insert_right(E, G);
+    lbt_insert_right(A, E);
+    lbt_insert_left(E, F);
+    lbt_insert_right(E, G);
 
     // 트리 출력
     printf("Preorder ...\n");
-    lbto_preorder(tree->root);
+    lbt_preorder(tree->root);
     printf("\n\n");
 
     printf("Inorder ... \n");
-    lbto_inorder(tree->root);
+    lbt_inorder(tree->root);
     printf("\n\n");
 
     printf("Postorder ... \n");
-    lbto_postorder(tree->root);
+    lbt_postorder(tree->root);
     printf("\n");
 
     // 트리 소멸
-    lbto_destroy(tree);
+    lbt_destroy(tree);
 }
 int main(void)
 {
@@ -43,7 +43,7 @@ int main(void)
 
     switch (tree_number) {
     case 0:
-        lbto_test();
+        lbt_test();
         break;
     }
     return 0;
