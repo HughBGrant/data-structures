@@ -1,6 +1,6 @@
-#include "linked_list.h"
+#include "singly_linked_list.h"
 
-linked_list *ll_create(void)
+linked_list *sll_create(void)
 {
     linked_list *list = malloc(sizeof(linked_list));
     if (list == NULL) {
@@ -12,9 +12,9 @@ linked_list *ll_create(void)
 
     return list;
 }
-ll_node *ll_create_node(ll_data data)
+sll_node *sll_create_node(sll_data data)
 {
-    ll_node *new_node = malloc(sizeof(ll_node));
+    sll_node *new_node = malloc(sizeof(sll_node));
     if (new_node == NULL) {
         return NULL;
     }
@@ -24,12 +24,12 @@ ll_node *ll_create_node(ll_data data)
 
     return new_node;
 }
-void ll_insert(linked_list *list, size_t pos, ll_data data)
+void sll_insert(linked_list *list, size_t pos, sll_data data)
 {
     if (list == NULL || pos > list->count) {
         return;
     }
-    ll_node *new_node = ll_create_node(data);
+    sll_node *new_node = sll_create_node(data);
     if (new_node == NULL) {
         return;
     }
@@ -37,7 +37,7 @@ void ll_insert(linked_list *list, size_t pos, ll_data data)
         new_node->next = list->head;
         list->head = new_node;
     } else {
-        ll_node *prev = list->head;
+        sll_node *prev = list->head;
         while (pos > 1) {
             prev = prev->next;
             pos--;
@@ -48,14 +48,14 @@ void ll_insert(linked_list *list, size_t pos, ll_data data)
 
     list->count++;
 }
-void ll_delete(linked_list *list, size_t pos)
+void sll_delete(linked_list *list, size_t pos)
 {
     if (list == NULL || pos >= list->count) {
         return;
     }
     // 1
-    ll_node *prev_node = NULL;
-    ll_node *free_node = list->head;
+    sll_node *prev_node = NULL;
+    sll_node *free_node = list->head;
 
     while (pos > 0) {
         prev_node = free_node;
@@ -70,14 +70,14 @@ void ll_delete(linked_list *list, size_t pos)
     }
 
     // 2
-    // ll_node **link = &list->head;
+    // sll_node **link = &list->head;
 
     // while (pos > 0) {
     //     link = &(*link)->next;
     //     pos--;
     // }
 
-    // ll_node *free_node = *link;
+    // sll_node *free_node = *link;
     //*link = free_node->next;
     //
 
@@ -85,10 +85,10 @@ void ll_delete(linked_list *list, size_t pos)
     free(free_node);
     list->count--;
 }
-ll_data ll_get(linked_list *list, size_t pos)
+sll_data sll_get(linked_list *list, size_t pos)
 {
 
-    ll_node *get_node = list->head;
+    sll_node *get_node = list->head;
     while (pos > 0) {
         get_node = get_node->next;
         pos--;
@@ -96,21 +96,21 @@ ll_data ll_get(linked_list *list, size_t pos)
     return get_node->data;
 }
 
-size_t ll_size(linked_list *list)
+size_t sll_size(linked_list *list)
 {
     if (list == NULL) {
         return 0;
     }
     return list->count;
 }
-void ll_destroy(linked_list *list)
+void sll_destroy(linked_list *list)
 {
     if (list == NULL) {
         return;
     }
 
     while (list->head) {
-        ll_delete(list, 0);
+        sll_delete(list, 0);
     }
     free(list);
 }

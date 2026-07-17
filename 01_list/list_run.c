@@ -1,7 +1,7 @@
 #include "array_list.h"
 #include "circular_doubly_linked_list.h"
 #include "circular_linked_list.h"
-#include "linked_list.h"
+#include "singly_linked_list.h"
 
 void al_test(void)
 {
@@ -32,31 +32,31 @@ void al_test(void)
     printf("\nDestroying List...\n");
     al_destroy(list);
 }
-void ll_test(void)
+void sll_test(void)
 {
-    linked_list *list = ll_create();
+    linked_list *list = sll_create();
     size_t i = 0;
 
     for (int i = 5; i > 0; i--) {
-        ll_insert(list, ll_size(list), i);
+        sll_insert(list, sll_size(list), i);
     }
-    ll_insert(list, ll_size(list), -1);
-    ll_insert(list, ll_size(list), -2);
+    sll_insert(list, sll_size(list), -1);
+    sll_insert(list, sll_size(list), -2);
 
-    for (i = 0; i < ll_size(list); i++) {
-        printf("List[%zu] : %d\n", i, ll_get(list, i));
+    for (i = 0; i < sll_size(list); i++) {
+        printf("List[%zu] : %d\n", i, sll_get(list, i));
     }
 
     printf("\nInserting 3000 At [2]...\n\n");
-    ll_insert(list, 2, 3000);
+    sll_insert(list, 2, 3000);
 
-    for (i = 0; i < ll_size(list); i++) {
-        printf("List[%zu] : %d\n", i, ll_get(list, i));
+    for (i = 0; i < sll_size(list); i++) {
+        printf("List[%zu] : %d\n", i, sll_get(list, i));
     }
 
     printf("\nDestroying List...\n");
 
-    ll_destroy(list);
+    sll_destroy(list);
 }
 void cll_test(void)
 {
@@ -122,7 +122,7 @@ int main(void)
         al_test();
         break;
     case 1:
-        ll_test();
+        sll_test();
         break;
     case 2:
         cll_test();
