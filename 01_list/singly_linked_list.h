@@ -15,14 +15,14 @@ typedef struct _sll_node {
 typedef struct {
     sll_node *head;
     size_t count;
-} linked_list;
+} singly_linked_list;
 
-linked_list *sll_create(void);
+singly_linked_list *sll_create(void);
 sll_node *sll_create_node(sll_data data);
-void sll_insert(linked_list *list, size_t pos, sll_data data);
-void sll_delete(linked_list *list, size_t pos);
-sll_data sll_get(linked_list *list, size_t pos);
-void sll_destroy(linked_list *list);
+void sll_insert(singly_linked_list *list, size_t pos, sll_data data);
+void sll_delete(singly_linked_list *list, size_t pos);
+sll_data sll_get(singly_linked_list *list, size_t pos);
+void sll_destroy(singly_linked_list *list);
 
-size_t sll_size(linked_list *list);
+size_t sll_size(singly_linked_list *list);
 #endif

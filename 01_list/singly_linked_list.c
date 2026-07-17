@@ -1,8 +1,8 @@
 #include "singly_linked_list.h"
 
-linked_list *sll_create(void)
+singly_linked_list *sll_create(void)
 {
-    linked_list *list = malloc(sizeof(linked_list));
+    singly_linked_list *list = malloc(sizeof(singly_linked_list));
     if (list == NULL) {
         return NULL;
     }
@@ -24,7 +24,7 @@ sll_node *sll_create_node(sll_data data)
 
     return new_node;
 }
-void sll_insert(linked_list *list, size_t pos, sll_data data)
+void sll_insert(singly_linked_list *list, size_t pos, sll_data data)
 {
     if (list == NULL || pos > list->count) {
         return;
@@ -48,7 +48,7 @@ void sll_insert(linked_list *list, size_t pos, sll_data data)
 
     list->count++;
 }
-void sll_delete(linked_list *list, size_t pos)
+void sll_delete(singly_linked_list *list, size_t pos)
 {
     if (list == NULL || pos >= list->count) {
         return;
@@ -85,7 +85,7 @@ void sll_delete(linked_list *list, size_t pos)
     free(free_node);
     list->count--;
 }
-sll_data sll_get(linked_list *list, size_t pos)
+sll_data sll_get(singly_linked_list *list, size_t pos)
 {
 
     sll_node *get_node = list->head;
@@ -96,14 +96,14 @@ sll_data sll_get(linked_list *list, size_t pos)
     return get_node->data;
 }
 
-size_t sll_size(linked_list *list)
+size_t sll_size(singly_linked_list *list)
 {
     if (list == NULL) {
         return 0;
     }
     return list->count;
 }
-void sll_destroy(linked_list *list)
+void sll_destroy(singly_linked_list *list)
 {
     if (list == NULL) {
         return;

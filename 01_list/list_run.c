@@ -34,7 +34,7 @@ void al_test(void)
 }
 void sll_test(void)
 {
-    linked_list *list = sll_create();
+    singly_linked_list *list = sll_create();
     size_t i = 0;
 
     for (int i = 5; i > 0; i--) {
