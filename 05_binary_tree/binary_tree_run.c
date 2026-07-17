@@ -1,31 +1,31 @@
-#include "linked_binary_tree.h"
+#include "binary_tree.h"
 
-void lbt_test(void)
+void bt_test(void)
 {
-    linked_binary_tree *tree = lbt_create();
-    lbt_node *A = lbt_set_root(tree, 'A');
-    lbt_node *B = lbt_add_left(A, 'B');
-    lbt_node *C = lbt_add_left(B, 'C');
-    lbt_node *D = lbt_add_right(B, 'D');
-    lbt_node *E = lbt_add_right(A, 'E');
-    lbt_node *F = lbt_add_left(E, 'F');
-    lbt_node *G = lbt_add_right(E, 'G');
+    binary_tree *tree = bt_create();
+    bt_node *A = bt_set_root(tree, 'A');
+    bt_node *B = bt_add_left(A, 'B');
+    bt_node *C = bt_add_left(B, 'C');
+    bt_node *D = bt_add_right(B, 'D');
+    bt_node *E = bt_add_right(A, 'E');
+    bt_node *F = bt_add_left(E, 'F');
+    bt_node *G = bt_add_right(E, 'G');
 
     // 트리 출력
     printf("Preorder ...\n");
-    lbt_preorder(tree->root);
+    bt_preorder(tree->root);
     printf("\n\n");
 
     printf("Inorder ... \n");
-    lbt_inorder(tree->root);
+    bt_inorder(tree->root);
     printf("\n\n");
 
     printf("Postorder ... \n");
-    lbt_postorder(tree->root);
+    bt_postorder(tree->root);
     printf("\n");
 
     // 트리 소멸
-    lbt_destroy(tree);
+    bt_destroy(tree);
 }
 int main(void)
 {
@@ -33,7 +33,7 @@ int main(void)
 
     switch (tree_number) {
     case 0:
-        lbt_test();
+        bt_test();
         break;
     }
     return 0;
