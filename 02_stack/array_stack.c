@@ -34,9 +34,12 @@ void as_pop(array_stack *stack)
     }
     stack->top--;
 }
-as_data as_top(array_stack *stack)
+as_data *as_top(array_stack *stack)
 {
-    return stack->items[stack->top];
+    if (stack == NULL || as_is_empty(stack)) {
+        return NULL;
+    }
+    return &stack->items[stack->top];
 }
 size_t as_size(array_stack *stack)
 {

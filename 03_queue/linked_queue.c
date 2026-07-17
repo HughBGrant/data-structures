@@ -61,12 +61,12 @@ void lq_dequeue(linked_queue *queue)
     free(free_node->data);
     free(free_node);
 }
-lq_data lq_peek(linked_queue *queue)
+lq_data *lq_peek(linked_queue *queue)
 {
     if (queue == NULL || lq_is_empty(queue)) {
         return NULL;
     }
-    return queue->front->data;
+    return &queue->front->data;
 }
 size_t lq_size(linked_queue *queue)
 {
@@ -74,11 +74,11 @@ size_t lq_size(linked_queue *queue)
         return 0;
     }
     size_t size = 0;
-    lq_node *now_node = queue->front;
+    lq_node *current_node = queue->front;
 
-    while (now_node) {
+    while (current_node) {
         size++;
-        now_node = now_node->next;
+        current_node = current_node->next;
     }
 
     return size;

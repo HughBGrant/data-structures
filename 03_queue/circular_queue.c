@@ -37,9 +37,12 @@ void cq_dequeue(circular_queue *queue)
     }
     queue->front = (queue->front + 1) % queue->max_size;
 }
-cq_data cq_peek(circular_queue *queue)
+cq_data *cq_peek(circular_queue *queue)
 {
-    return queue->items[queue->front];
+    if (queue == NULL || cq_is_empty(queue)) {
+        return;
+    }
+    return &queue->items[queue->front];
 }
 
 bool cq_is_empty(circular_queue *queue)

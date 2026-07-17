@@ -14,7 +14,7 @@ void cq_test(void)
     cq_enqueue(queue, 40);
 
     for (size_t i = 0; i < 3; i++) {
-        printf("Dequeue: %d\n", cq_peek(queue));
+        printf("Dequeue: %d\n", *cq_peek(queue));
         cq_dequeue(queue);
         printf("Count: %zu\n", cq_size(queue));
     }
@@ -26,7 +26,7 @@ void cq_test(void)
     }
 
     while (cq_is_empty(queue) == false) {
-        printf("Dequeue: %d\n", cq_peek(queue));
+        printf("Dequeue: %d\n", *cq_peek(queue));
         cq_dequeue(queue);
         printf("Count: %zu\n", cq_size(queue));
     }
@@ -42,7 +42,7 @@ void lq_test(void)
     lq_enqueue(queue, "hij");
 
     while (lq_is_empty(queue) == false) {
-        printf("Dequeue: %s \n", lq_peek(queue));
+        printf("Dequeue: %s \n", *lq_peek(queue));
         lq_dequeue(queue);
     }
     lq_destroy(queue);

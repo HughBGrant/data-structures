@@ -82,10 +82,14 @@ void cll_delete(circular_linked_list *list, size_t pos)
     free(free_node);
     list->count--;
 }
-cll_data cll_get(circular_linked_list *list, size_t pos)
+cll_data *cll_get(circular_linked_list *list, size_t pos)
 {
+    if (list == NULL || pos >= list->count) {
+        return NULL;
+    }
+
     if (pos == list->count - 1) {
-        return list->tail->data;
+        return &list->tail->data;
     }
 
     cll_node *get_node = list->tail->next;
@@ -93,7 +97,7 @@ cll_data cll_get(circular_linked_list *list, size_t pos)
         get_node = get_node->next;
         pos--;
     }
-    return get_node->data;
+    return &get_node->data;
 }
 size_t cll_size(circular_linked_list *list)
 {

@@ -85,17 +85,71 @@ void sll_delete(singly_linked_list *list, size_t pos)
     free(free_node);
     list->count--;
 }
-sll_data sll_get(singly_linked_list *list, size_t pos)
+sll_data *sll_get(singly_linked_list *list, size_t pos)
 {
+    if (list == NULL || pos >= list->count) {
+        return NULL;
+    }
 
     sll_node *get_node = list->head;
     while (pos > 0) {
         get_node = get_node->next;
         pos--;
     }
-    return get_node->data;
+    return &get_node->data;
 }
+sll_node *sll_search_move2front(singly_linked_list *list, sll_data key)
+{
+    if (list == NULL) {
+        return NULL;
+    }
+    sll_node *prev_node = NULL;
+    sll_node *current_node = list->head;
 
+    while (current_node && current_node->data != key) {
+        prev_node = current_node;
+        current_node = current_node->next;
+    }
+
+    if (current_node == NULL) {
+        return NULL;
+    }
+    if (prev_node) {
+        prev_node->next = current_node->next;
+        current_node->next = list->head;
+        list->head = current_node;
+    }
+    return current_node;
+}
+sll_node *sll_search_transpose(singly_linked_list *list, sll_data key)
+{
+    if (list == NULL) {
+        return NULL;
+    }
+    sll_node *prev_prev_node = NULL;
+    sll_node *prev_node = NULL;
+    sll_node *current_node = list->head;
+
+    while (current_node && current_node->data != key) {
+        prev_prev_node = prev_node;
+        prev_node = current_node;
+        current_node = current_node->next;
+    }
+    if (current_node == NULL) {
+        return NULL;
+    }
+    if (prev_node) {
+        prev_node->next = current_node->next;
+        current_node->next = prev_node;
+
+        if (prev_prev_node) {
+            prev_prev_node->next = current_node;
+        } else {
+            list->head = current_node;
+        }
+    }
+    return current_node;
+}
 size_t sll_size(singly_linked_list *list)
 {
     if (list == NULL) {

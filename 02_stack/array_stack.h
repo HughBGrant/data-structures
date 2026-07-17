@@ -16,7 +16,7 @@ typedef struct {
 array_stack *as_create(size_t max_size);
 void as_push(array_stack *stack, as_data data);
 void as_pop(array_stack *stack);
-as_data as_top(array_stack *stack);
+as_data *as_top(array_stack *stack);
 void as_destroy(array_stack *stack);
 
 bool as_is_empty(array_stack *stack);

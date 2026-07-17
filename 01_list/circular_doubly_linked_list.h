@@ -22,7 +22,7 @@ cdll_node *cdll_create_node(cdll_data data);
 void cdll_insert(c_d_linked_list *list, size_t pos, cdll_data data);
 void cdll_delete(c_d_linked_list *list, size_t pos);
 cdll_node *cdll_get_node(c_d_linked_list *list, size_t pos);
-cdll_data cdll_get(c_d_linked_list *list, size_t pos);
+cdll_data *cdll_get(c_d_linked_list *list, size_t pos);
 
 void cdll_destroy(c_d_linked_list *list);
 

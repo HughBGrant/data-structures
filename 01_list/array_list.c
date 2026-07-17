@@ -41,9 +41,12 @@ void al_delete(array_list *list, size_t pos)
     }
     list->count--;
 }
-al_data al_get(array_list *list, size_t pos)
+al_data *al_get(array_list *list, size_t pos)
 {
-    return list->items[pos];
+    if (list == NULL || pos >= list->count) {
+        return NULL;
+    }
+    return &list->items[pos];
 }
 size_t al_size(array_list *list)
 {

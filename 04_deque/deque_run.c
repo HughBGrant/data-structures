@@ -13,7 +13,7 @@ void cd_test(void)
     cd_push_front(deque, 40);
 
     for (int i = 0; i < 3; i++) {
-        printf("popped front: %d\n", cd_front(deque));
+        printf("popped front: %d\n", *cd_front(deque));
         cd_pop_front(deque);
         printf("Count: %zu\n", cd_size(deque));
     }
@@ -25,7 +25,7 @@ void cd_test(void)
     }
 
     while (cd_is_empty(deque) == false) {
-        printf("popped back: %d\n", cd_back(deque));
+        printf("popped back: %d\n", *cd_back(deque));
         cd_pop_back(deque);
         printf("count: %zu\n", cd_size(deque));
     }
@@ -43,7 +43,7 @@ void ld_test(void)
     printf("deque Size : %zu\n", ld_size(deque));
 
     while (ld_is_empty(deque) == 0) {
-        printf("Dequeue: %s \n", ld_front(deque));
+        printf("Dequeue: %s \n", *ld_front(deque));
         ld_pop_front(deque);
     }
     ld_destroy(deque);

@@ -23,7 +23,7 @@ linked_queue *lq_create(void);
 lq_node *lq_create_node(lq_data data);
 void lq_enqueue(linked_queue *queue, lq_data data);
 void lq_dequeue(linked_queue *queue);
-lq_data lq_peek(linked_queue *queue);
+lq_data *lq_peek(linked_queue *queue);
 void lq_destroy(linked_queue *queue);
 
 bool lq_is_empty(linked_queue *queue);

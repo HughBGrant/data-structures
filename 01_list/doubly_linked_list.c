@@ -105,9 +105,13 @@ void dll_delete(doubly_linked_list *list, size_t pos)
     free(free_node);
     list->count--;
 }
-dll_data dll_get(doubly_linked_list *list, size_t pos)
+dll_data *dll_get(doubly_linked_list *list, size_t pos)
 {
-    return dll_get_node(list, pos)->data;
+    if (list == NULL || pos >= list->count) {
+        return;
+    }
+
+    return &dll_get_node(list, pos)->data;
 }
 size_t dll_size(doubly_linked_list *list)
 {

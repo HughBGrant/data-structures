@@ -98,9 +98,12 @@ void cdll_delete(c_d_linked_list *list, size_t pos)
 
     list->count--;
 }
-cdll_data cdll_get(c_d_linked_list *list, size_t pos)
+cdll_data *cdll_get(c_d_linked_list *list, size_t pos)
 {
-    return cdll_get_node(list, pos)->data;
+    if (list == NULL || pos >= list->count) {
+        return NULL;
+    }
+    return &cdll_get_node(list, pos)->data;
 }
 size_t cdll_size(c_d_linked_list *list)
 {

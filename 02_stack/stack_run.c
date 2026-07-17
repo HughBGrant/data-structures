@@ -12,14 +12,14 @@ void as_test(void)
     as_push(stack, 11);
     as_push(stack, 12);
 
-    printf("Count: %zu, Top: %d\n", as_size(stack), as_top(stack));
+    printf("Count: %zu, Top: %d\n", as_size(stack), *as_top(stack));
 
     while (!as_is_empty(stack)) {
-        printf("Popped: %d, ", as_top(stack));
+        printf("Popped: %d, ", *as_top(stack));
         as_pop(stack);
 
         if (!as_is_empty(stack))
-            printf("Current Top: %d\n", as_top(stack));
+            printf("Current Top: %d\n", *as_top(stack));
         else
             printf("stack Is Empty.\n");
     }
@@ -34,14 +34,14 @@ void ls_test(void)
     ls_push(stack, "efg");
     ls_push(stack, "hij");
 
-    printf("Count: %zu, Top: %s\n\n", ls_size(stack), ls_top(stack));
+    printf("Count: %zu, Top: %s\n\n", ls_size(stack), *ls_top(stack));
 
     while (!ls_is_empty(stack)) {
-        printf("Popped: %s, ", ls_top(stack));
+        printf("Popped: %s, ", *ls_top(stack));
         ls_pop(stack);
 
         if (!ls_is_empty(stack)) {
-            printf("Current Top: %s\n", ls_top(stack));
+            printf("Current Top: %s\n", *ls_top(stack));
         } else {
             printf("stack Is Empty.\n");
         }

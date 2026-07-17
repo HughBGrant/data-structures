@@ -58,12 +58,12 @@ void ls_pop(linked_stack *stack)
     free(free_node->data);
     free(free_node);
 }
-ls_data ls_top(linked_stack *stack)
+ls_data *ls_top(linked_stack *stack)
 {
     if (stack == NULL || ls_is_empty(stack)) {
         return NULL;
     }
-    return stack->top->data;
+    return &stack->top->data;
 }
 size_t ls_size(linked_stack *stack)
 {
@@ -71,11 +71,11 @@ size_t ls_size(linked_stack *stack)
         return 0;
     }
     size_t size = 0;
-    ls_node *now_node = stack->top;
+    ls_node *current_node = stack->top;
 
-    while (now_node) {
+    while (current_node) {
         size++;
-        now_node = now_node->next;
+        current_node = current_node->next;
     }
 
     return size;

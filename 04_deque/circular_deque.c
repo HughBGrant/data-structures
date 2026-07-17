@@ -52,14 +52,20 @@ void cd_pop_back(circular_deque *deque)
     }
     deque->rear = (deque->rear + deque->max_size - 1) % deque->max_size;
 }
-cd_data cd_front(circular_deque *deque)
+cd_data *cd_front(circular_deque *deque)
 {
-    return deque->items[deque->front];
+    if (deque == NULL || cd_is_empty(deque)) {
+        return NULL;
+    }
+    return &deque->items[deque->front];
 }
-cd_data cd_back(circular_deque *deque)
+cd_data *cd_back(circular_deque *deque)
 {
+    if (deque == NULL || cd_is_empty(deque)) {
+        return NULL;
+    }
     size_t index = (deque->rear + deque->max_size - 1) % deque->max_size;
-    return deque->items[index];
+    return &deque->items[index];
 }
 void cd_destroy(circular_deque *deque)
 {

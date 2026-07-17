@@ -103,19 +103,19 @@ void ld_pop_back(linked_deque *deque)
     free(free_node->data);
     free(free_node);
 }
-ld_data ld_front(linked_deque *deque)
+ld_data *ld_front(linked_deque *deque)
 {
     if (deque == NULL || ld_is_empty(deque)) {
         return NULL;
     }
-    return deque->front->data;
+    return &deque->front->data;
 }
-ld_data ld_back(linked_deque *deque)
+ld_data *ld_back(linked_deque *deque)
 {
     if (deque == NULL || ld_is_empty(deque)) {
         return NULL;
     }
-    return deque->rear->data;
+    return &deque->rear->data;
 }
 size_t ld_size(linked_deque *deque)
 {
@@ -123,11 +123,11 @@ size_t ld_size(linked_deque *deque)
         return 0;
     }
     size_t size = 0;
-    ld_node *now_node = deque->front;
+    ld_node *current_node = deque->front;
 
-    while (now_node) {
+    while (current_node) {
         size++;
-        now_node = now_node->next;
+        current_node = current_node->next;
     }
     return size;
 }

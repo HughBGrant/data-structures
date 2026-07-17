@@ -18,7 +18,7 @@ typedef struct {
 circular_queue *cq_create(size_t max_size);
 void cq_enqueue(circular_queue *queue, cq_data data);
 void cq_dequeue(circular_queue *queue);
-cq_data cq_peek(circular_queue *queue);
+cq_data *cq_peek(circular_queue *queue);
 
 void cq_destroy(circular_queue *queue);
 

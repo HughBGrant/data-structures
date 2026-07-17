@@ -20,8 +20,8 @@ void cd_push_front(circular_deque *deque, cd_data data);
 void cd_push_back(circular_deque *deque, cd_data data);
 void cd_pop_front(circular_deque *deque);
 void cd_pop_back(circular_deque *deque);
-cd_data cd_front(circular_deque *deque);
-cd_data cd_back(circular_deque *deque);
+cd_data *cd_front(circular_deque *deque);
+cd_data *cd_back(circular_deque *deque);
 
 void cd_destroy(circular_deque *deque);
 
