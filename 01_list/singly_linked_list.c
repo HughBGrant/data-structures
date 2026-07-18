@@ -98,7 +98,7 @@ sll_data *sll_get(singly_linked_list *list, size_t pos)
     }
     return &get_node->data;
 }
-sll_node *sll_search_move2front(singly_linked_list *list, sll_data key)
+sll_node *sll_linear_search_move2front(singly_linked_list *list, sll_data key)
 {
     if (list == NULL) {
         return NULL;
@@ -121,7 +121,7 @@ sll_node *sll_search_move2front(singly_linked_list *list, sll_data key)
     }
     return current_node;
 }
-sll_node *sll_search_transpose(singly_linked_list *list, sll_data key)
+sll_node *sll_linear_search_transpose(singly_linked_list *list, sll_data key)
 {
     if (list == NULL) {
         return NULL;

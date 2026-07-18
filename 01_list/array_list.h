@@ -17,6 +17,9 @@ void al_insert(array_list *list, size_t pos, al_data data);
 void al_delete(array_list *list, size_t pos);
 
 al_data *al_get(array_list *list, size_t pos);
+int al_linear_search_transpose(array_list *list, al_data key);
+int al_linear_search_move2front(array_list *list, al_data key);
+int al_binary_search(array_list *list, al_data key);
 void al_destroy(array_list *list);
 
 size_t al_size(array_list *list);
