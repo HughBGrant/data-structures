@@ -12,10 +12,10 @@ typedef struct {
     cq_data *items;
     size_t rear;
     size_t front;
-    size_t max_size;
+    size_t capacity;
 } circular_queue;
 
-circular_queue *cq_create(size_t max_size);
+circular_queue *cq_create(size_t capacity);
 void cq_enqueue(circular_queue *queue, cq_data data);
 void cq_dequeue(circular_queue *queue);
 cq_data *cq_peek(circular_queue *queue);

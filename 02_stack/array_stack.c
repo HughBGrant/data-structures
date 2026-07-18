@@ -1,20 +1,20 @@
 #include "array_stack.h"
 
-array_stack *as_create(size_t max_size)
+array_stack *as_create(size_t capacity)
 {
-    if (max_size == 0) {
+    if (capacity == 0) {
         return NULL;
     }
     array_stack *stack = malloc(sizeof(array_stack));
     if (stack == NULL) {
         return NULL;
     }
-    stack->items = malloc(sizeof(as_data) * max_size);
+    stack->items = malloc(sizeof(as_data) * capacity);
     if (stack->items == NULL) {
         free(stack);
         return NULL;
     }
-    stack->max_size = max_size;
+    stack->capacity = capacity;
     stack->top = -1;
 
     return stack;
@@ -60,7 +60,7 @@ bool as_is_full(array_stack *stack)
     if (stack == NULL) {
         return false;
     }
-    return (size_t)(stack->top + 1) == stack->max_size;
+    return (size_t)(stack->top + 1) == stack->capacity;
 }
 void as_destroy(array_stack *stack)
 {

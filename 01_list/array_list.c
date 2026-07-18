@@ -1,20 +1,20 @@
 #include "array_list.h"
 
-array_list *al_create(size_t max_size)
+array_list *al_create(size_t capacity)
 {
-    if (max_size == 0) {
+    if (capacity == 0) {
         return NULL;
     }
     array_list *list = malloc(sizeof(array_list));
     if (list == NULL) {
         return NULL;
     }
-    list->items = malloc(sizeof(al_data) * max_size);
+    list->items = malloc(sizeof(al_data) * capacity);
     if (list->items == NULL) {
         free(list);
         return NULL;
     }
-    list->max_size = max_size;
+    list->capacity = capacity;
     list->count = 0;
 
     return list;
@@ -22,7 +22,7 @@ array_list *al_create(size_t max_size)
 void al_insert(array_list *list, size_t pos, al_data data)
 {
     if (list == NULL || pos > list->count ||
-        list->count >= list->max_size) {
+        list->count >= list->capacity) {
         return;
     }
     for (size_t i = list->count; i > pos; i--) {

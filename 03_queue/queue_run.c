@@ -3,8 +3,8 @@
 
 void cq_test(void)
 {
-    size_t max_size = 10;
-    circular_queue *queue = cq_create(max_size);
+    size_t capacity = 10;
+    circular_queue *queue = cq_create(capacity);
 
     int data = 0;
 

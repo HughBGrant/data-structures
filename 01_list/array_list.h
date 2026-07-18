@@ -8,11 +8,11 @@ typedef int al_data;
 
 typedef struct {
     al_data *items;
-    size_t max_size;
+    size_t capacity;
     size_t count;
 } array_list;
 
-array_list *al_create(size_t max_size);
+array_list *al_create(size_t capacity);
 void al_insert(array_list *list, size_t pos, al_data data);
 void al_delete(array_list *list, size_t pos);
 

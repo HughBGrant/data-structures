@@ -12,10 +12,10 @@ typedef struct {
     cd_data *items;
     size_t rear;
     size_t front;
-    size_t max_size;
+    size_t capacity;
 } circular_deque;
 
-circular_deque *cd_create(size_t max_size);
+circular_deque *cd_create(size_t capacity);
 void cd_push_front(circular_deque *deque, cd_data data);
 void cd_push_back(circular_deque *deque, cd_data data);
 void cd_pop_front(circular_deque *deque);
