@@ -6,7 +6,7 @@
 
 void al_test(void)
 {
-    array_list *list = al_create(10);
+    array_list *list = al_create(32);
     size_t i = 0;
 
     for (int i = 0; i < 5; i++) {
