@@ -27,11 +27,10 @@ void al_insert(array_list *list, size_t pos, al_data data)
     if (list->count == list->capacity) {
         size_t new_capacity = list->capacity * 2;
 
-        al_data *temp =
-            realloc(list->items, sizeof(al_data) * new_capacity);
-
-        if (temp == NULL)
+        al_data *temp = realloc(list->items, sizeof(al_data) * new_capacity);
+        if (temp == NULL) {
             return; // 메모리 부족
+        }
 
         list->items = temp;
         list->capacity = new_capacity;
@@ -109,7 +108,7 @@ int al_binary_search(array_list *list, al_data key)
     }
     int left = 0;
     int mid = 0;
-    int right = list->count - 1;
+    int right = (int)list->count - 1;
 
     while (left <= right) {
         mid = (left + right) / 2;
@@ -131,6 +130,13 @@ size_t al_size(array_list *list)
         return 0;
     }
     return list->count;
+}
+void al_print(array_list *list)
+{
+    size_t i;
+    for (i = 0; i < list->count; i++) {
+        printf("List[%zu] : %d\n", i, list->items[i]);
+    }
 }
 void al_destroy(array_list *list)
 {

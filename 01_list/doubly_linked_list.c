@@ -108,7 +108,7 @@ void dll_delete(doubly_linked_list *list, size_t pos)
 dll_data *dll_get(doubly_linked_list *list, size_t pos)
 {
     if (list == NULL || pos >= list->count) {
-        return;
+        return NULL;
     }
 
     return &dll_get_node(list, pos)->data;

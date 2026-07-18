@@ -14,23 +14,16 @@ void al_test(void)
     }
     al_insert(list, al_size(list), -1);
     al_insert(list, al_size(list), -2);
-    for (i = 0; i < al_size(list); i++) {
-        printf("List[%zu] : %d\n", i, *al_get(list, i));
-    }
+    al_printf(list);
 
     printf("\nInserting 3000 At [2]...\n\n");
     al_insert(list, 2, 3000);
-    for (i = 0; i < al_size(list); i++) {
-        printf("List[%zu] : %d\n", i, *al_get(list, i));
-    }
+    al_printf(list);
 
     printf("\nRemoving Node at [2]...\n\n");
     al_delete(list, 2);
-    for (i = 0; i < al_size(list); i++) {
-        printf("List[%zu] : %d\n", i, *al_get(list, i));
-    }
+    al_printf(list);
 
-    printf("\nDestroying List...\n");
     al_destroy(list);
 }
 void sll_test(void)
@@ -66,10 +59,10 @@ void cll_test(void)
     cll_node *current = NULL;
 
     for (int i = 5; i > 0; i--) {
-        cll_insert(list, ll_size(list), i);
+        cll_insert(list, cll_size(list), i);
     }
-    cll_insert(list, ll_size(list), -1);
-    cll_insert(list, ll_size(list), -2);
+    cll_insert(list, cll_size(list), -1);
+    cll_insert(list, cll_size(list), -2);
 
     for (i = 0; i < cll_size(list); i++) {
         printf("List[%zu] : %d\n", i, *cll_get(list, i));
@@ -89,15 +82,15 @@ void cll_test(void)
 }
 void dll_test(void)
 {
-    circular_linked_list *list = dll_create();
+    doubly_linked_list *list = dll_create();
     size_t i = 0;
     dll_node *current = NULL;
 
     for (int i = 5; i > 0; i--) {
-        dll_insert(list, ll_size(list), i);
+        dll_insert(list, dll_size(list), i);
     }
-    dll_insert(list, ll_size(list), -1);
-    dll_insert(list, ll_size(list), -2);
+    dll_insert(list, dll_size(list), -1);
+    dll_insert(list, dll_size(list), -2);
 
     for (i = 0; i < dll_size(list); i++) {
         printf("List[%zu] : %d\n", i, *dll_get(list, i));
@@ -120,8 +113,8 @@ void cdll_test(void)
     c_d_linked_list *list = cdll_create();
     size_t i = 0;
 
-    for (int i = 0; i < 5; i++) {
-        cdll_append(list, i);
+    for (int i = 5; i > 0; i--) {
+        cdll_insert(list, cdll_size(list), i);
     }
     for (i = 0; i < cdll_size(list); i++) {
         printf("List[%zu] : %d\n", i, *cdll_get(list, i));
@@ -144,7 +137,7 @@ void cdll_test(void)
 }
 int main(void)
 {
-    int list_number = 3;
+    int list_number = 0;
 
     switch (list_number) {
     case 0:
