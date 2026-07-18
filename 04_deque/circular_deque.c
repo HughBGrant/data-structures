@@ -3,7 +3,7 @@
 circular_deque *cd_create(size_t capacity)
 {
     if (capacity == 0) {
-        return NULL;
+        capacity = 1;
     }
     circular_deque *deque = malloc(sizeof(circular_deque));
     if (deque == NULL) {

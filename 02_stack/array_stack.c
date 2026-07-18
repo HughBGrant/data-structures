@@ -3,7 +3,7 @@
 array_stack *as_create(size_t capacity)
 {
     if (capacity == 0) {
-        return NULL;
+        capacity = 1;
     }
     array_stack *stack = malloc(sizeof(array_stack));
     if (stack == NULL) {

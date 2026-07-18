@@ -3,7 +3,7 @@
 array_list *al_create(size_t capacity)
 {
     if (capacity == 0) {
-        return NULL;
+        capacity = 1;
     }
     array_list *list = malloc(sizeof(array_list));
     if (list == NULL) {
@@ -21,10 +21,22 @@ array_list *al_create(size_t capacity)
 }
 void al_insert(array_list *list, size_t pos, al_data data)
 {
-    if (list == NULL || pos > list->count ||
-        list->count >= list->capacity) {
+    if (list == NULL || pos > list->count) {
         return;
     }
+    if (list->count == list->capacity) {
+        size_t new_capacity = list->capacity * 2;
+
+        al_data *temp =
+            realloc(list->items, sizeof(al_data) * new_capacity);
+
+        if (temp == NULL)
+            return; // 메모리 부족
+
+        list->items = temp;
+        list->capacity = new_capacity;
+    }
+
     for (size_t i = list->count; i > pos; i--) {
         list->items[i] = list->items[i - 1];
     }
