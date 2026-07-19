@@ -37,19 +37,14 @@ void sll_test(void)
     sll_insert(list, sll_size(list), -1);
     sll_insert(list, sll_size(list), -2);
 
-    for (i = 0; i < sll_size(list); i++) {
-        printf("List[%zu] : %d\n", i, *sll_get(list, i));
-    }
+    sll_print(list);
 
     printf("\nInserting 3000 At [2]...\n\n");
     sll_insert(list, 2, 3000);
 
-    for (i = 0; i < sll_size(list); i++) {
-        printf("List[%zu] : %d\n", i, *sll_get(list, i));
-    }
+    sll_print(list);
 
     printf("\nDestroying List...\n");
-
     sll_destroy(list);
 }
 void cll_test(void)
