@@ -77,10 +77,10 @@ void dll_insert(doubly_linked_list *list, size_t pos, dll_data data)
 
     dll_node *next_node = dll_get_node(list, pos);
 
-    new_node->prev = next_node->prev;
-    new_node->next = next_node;
-
     next_node->prev->next = new_node;
+    new_node->prev = next_node->prev;
+
+    new_node->next = next_node;
     next_node->prev = new_node;
 
     list->count++;

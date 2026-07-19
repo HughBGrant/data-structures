@@ -13,7 +13,7 @@ typedef struct _cdll_node {
 } cdll_node;
 
 typedef struct {
-    cdll_node *head;
+    cdll_node *head_sentinel;
     size_t count;
 } c_d_linked_list;
 
@@ -23,9 +23,9 @@ void cdll_insert(c_d_linked_list *list, size_t pos, cdll_data data);
 void cdll_delete(c_d_linked_list *list, size_t pos);
 cdll_node *cdll_get_node(c_d_linked_list *list, size_t pos);
 cdll_data *cdll_get(c_d_linked_list *list, size_t pos);
+size_t cdll_size(c_d_linked_list *list);
+void cdll_print(c_d_linked_list *list);
 
 void cdll_destroy(c_d_linked_list *list);
-
-size_t cdll_size(c_d_linked_list *list);
 
 #endif

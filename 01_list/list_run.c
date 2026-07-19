@@ -62,7 +62,7 @@ void cll_test(void)
 
     cll_print(list);
 
-    printf("tail->next : %d\n", list->tail->next->data);
+    printf("tail->next: %d\n", list->tail->next->data);
 
     printf("\nDestroying List...\n");
     cll_destroy(list);
@@ -95,9 +95,7 @@ void cdll_test(void)
     for (int i = 5; i > 0; i--) {
         cdll_insert(list, cdll_size(list), i);
     }
-    for (i = 0; i < cdll_size(list); i++) {
-        printf("List[%zu] : %d\n", i, *cdll_get(list, i));
-    }
+    cdll_print(list);
 
     printf("\nInserting 3000 At [3]...\n\n");
     cdll_insert(list, 3, 3000);
@@ -105,18 +103,16 @@ void cdll_test(void)
     printf("\nRemoving Node at [2]...\n\n");
     cdll_delete(list, 2);
 
-    for (i = 0; i < cdll_size(list); i++) {
-        printf("List[%zu] : %d\n", i, *cdll_get(list, i));
-    }
+    cdll_print(list);
 
-    printf("Head->Prev[%zu] : %d\n", i, list->head->prev->data);
+    printf("head->prev: %d\n", list->head_sentinel->prev->data);
 
     printf("\nDestroying List...\n");
     cdll_destroy(list);
 }
 int main(void)
 {
-    int list_number = 3;
+    int list_number = 4;
 
     switch (list_number) {
     case 0:
