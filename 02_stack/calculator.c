@@ -74,7 +74,7 @@ void GetPostfix(char *Infix, char *Postfix)
         } else if (Infix[i] == ')') // 토큰이 오른쪽 괄호라면
         {
             while (!ls_is_empty(stack)) {
-                top = ls_top(stack);
+                top = *ls_top(stack);
 
                 if (top[0] == '(') {
                     ls_pop(stack);
@@ -82,13 +82,13 @@ void GetPostfix(char *Infix, char *Postfix)
                 }
                 strcat(Postfix, top);
                 strcat(Postfix, " ");
-                ls_top(stack);
+                ls_pop(stack);
             }
         } else // 토큰이 연산자라면
         {
-            while (!ls_is_empty(stack) && (GetPriority(ls_top(stack)[0], true) >=
+            while (!ls_is_empty(stack) && (GetPriority(*ls_top(stack)[0], true) >=
                                            GetPriority(token[0], false))) {
-                top = ls_top(stack);
+                top = *ls_top(stack);
 
                 if (top[0] != '(') {
                     strcat(Postfix, top);
@@ -102,13 +102,13 @@ void GetPostfix(char *Infix, char *Postfix)
     }
     while (!ls_is_empty(stack)) // 스택에 남아있는 연산자를 츨력
     {
-        top = ls_top(stack);
+        top = *ls_top(stack);
 
         if (top[0] != '(') {
             strcat(Postfix, top);
             strcat(Postfix, " "); //
         }
-        ls_top(stack);
+        ls_pop(stack);
     }
     ls_destroy(stack);
 }
@@ -135,11 +135,11 @@ double Calculate(char *Postfix)
             double Operand1, Operand2, TempResult = 0;
             char TempResultStr[32];
 
-            Operand2 = atof(ls_top(stack));
-            ls_top(stack);
+            Operand2 = atof(*ls_top(stack));
+            ls_pop(stack);
 
-            Operand1 = atof(ls_top(stack));
-            ls_top(stack);
+            Operand1 = atof(*ls_top(stack));
+            ls_pop(stack);
 
             switch (Postfix[Position]) {
             case '+':
@@ -160,8 +160,8 @@ double Calculate(char *Postfix)
         }
         Position += size;
     }
-    Result = atof(ls_top(stack));
-    ls_top(stack);
+    Result = atof(*ls_top(stack));
+    ls_pop(stack);
 
     ls_destroy(stack);
 

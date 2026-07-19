@@ -6,7 +6,7 @@
 
 void al_test(void)
 {
-    array_list *list = al_create(32);
+    array_list *list = al_create(2);
 
     for (int i = 0; i < 5; i++) {
         al_insert(list, al_size(list), i);

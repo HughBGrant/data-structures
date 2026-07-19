@@ -15,52 +15,64 @@ array_stack *as_create(size_t capacity)
         return NULL;
     }
     stack->capacity = capacity;
-    stack->top = -1;
+    stack->count = 0;
 
     return stack;
 }
 void as_push(array_stack *stack, as_data data)
 {
-    if (stack == NULL || as_is_full(stack)) {
+    if (stack == NULL) {
         return;
     }
-    stack->top++;
-    stack->items[stack->top] = data;
+    /////
+    if (stack->count == stack->capacity) {
+        size_t new_capacity = stack->capacity * 2;
+
+        as_data *new_items = realloc(stack->items, sizeof(as_data) * new_capacity);
+        if (new_items == NULL) {
+            return; // 메모리 부족
+        }
+
+        stack->items = new_items;
+        stack->capacity = new_capacity;
+    }
+    stack->items[stack->count] = data;
+    stack->count++;
 }
 void as_pop(array_stack *stack)
 {
     if (stack == NULL || as_is_empty(stack)) {
         return;
     }
-    stack->top--;
+    stack->count--;
 }
 as_data *as_top(array_stack *stack)
 {
     if (stack == NULL || as_is_empty(stack)) {
         return NULL;
     }
-    return &stack->items[stack->top];
+    return &stack->items[stack->count - 1];
 }
 size_t as_size(array_stack *stack)
 {
     if (stack == NULL) {
         return 0;
     }
-    return (size_t)(stack->top + 1);
+    return stack->count;
 }
 bool as_is_empty(array_stack *stack)
 {
     if (stack == NULL) {
         return true;
     }
-    return stack->top == -1;
+    return stack->count == 0;
 }
 bool as_is_full(array_stack *stack)
 {
     if (stack == NULL) {
         return false;
     }
-    return (size_t)(stack->top + 1) == stack->capacity;
+    return stack->count == stack->capacity;
 }
 void as_destroy(array_stack *stack)
 {

@@ -27,12 +27,12 @@ void al_insert(array_list *list, size_t pos, al_data data)
     if (list->count == list->capacity) {
         size_t new_capacity = list->capacity * 2;
 
-        al_data *temp = realloc(list->items, sizeof(al_data) * new_capacity);
-        if (temp == NULL) {
+        al_data *new_items = realloc(list->items, sizeof(al_data) * new_capacity);
+        if (new_items == NULL) {
             return; // 메모리 부족
         }
 
-        list->items = temp;
+        list->items = new_items;
         list->capacity = new_capacity;
     }
 
