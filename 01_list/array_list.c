@@ -133,8 +133,9 @@ size_t al_size(array_list *list)
 }
 void al_print(array_list *list)
 {
+    printf("| ");
     for (size_t index = 0; index < list->count; index++) {
-        printf("List[%zu] : %d\n", index, list->items[index]);
+        printf("%d | ", list->items[index]);
     }
 }
 void al_destroy(array_list *list)

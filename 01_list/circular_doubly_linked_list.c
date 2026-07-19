@@ -44,7 +44,7 @@ cdll_node *cdll_get_node(c_d_linked_list *list, size_t pos)
     if (pos < list->count / 2) {
         target_node = list->head->next;
 
-        while (pos > 0) {
+        for (size_t i = 0; i < pos; i++) {
             target_node = target_node->next;
             pos--;
         }

@@ -13,8 +13,8 @@ typedef struct _dll_node {
 } dll_node;
 
 typedef struct {
-    dll_node *head;
-    dll_node *tail;
+    dll_node *head_sentinel;
+    dll_node *tail_sentinel;
     size_t count;
 } doubly_linked_list;
 
@@ -25,8 +25,9 @@ void dll_delete(doubly_linked_list *list, size_t pos);
 dll_node *dll_get_node(doubly_linked_list *list, size_t pos);
 dll_data *dll_get(doubly_linked_list *list, size_t pos);
 
-void dll_destroy(doubly_linked_list *list);
-
 size_t dll_size(doubly_linked_list *list);
+void dll_print(doubly_linked_list *list);
+
+void dll_destroy(doubly_linked_list *list);
 
 #endif

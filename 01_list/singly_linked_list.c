@@ -38,9 +38,8 @@ void sll_insert(singly_linked_list *list, size_t pos, sll_data data)
         list->head = new_node;
     } else {
         sll_node *prev = list->head;
-        while (pos > 1) {
+        for (size_t i = 0; i < pos - 1; i++) {
             prev = prev->next;
-            pos--;
         }
         new_node->next = prev->next;
         prev->next = new_node;
@@ -61,9 +60,8 @@ void sll_delete(singly_linked_list *list, size_t pos)
     } else {
         sll_node *prev_node = list->head;
 
-        while (pos > 1) {
+        for (size_t i = 0; i < pos - 1; i++) {
             prev_node = prev_node->next;
-            pos--;
         }
         target_node = prev_node->next;
         prev_node->next = target_node->next;
@@ -78,9 +76,8 @@ sll_data *sll_get(singly_linked_list *list, size_t pos)
     }
     sll_node *target_node = list->head;
 
-    while (pos > 0) {
+    for (size_t i = 0; i < pos; i++) {
         target_node = target_node->next;
-        pos--;
     }
     return &target_node->data;
 }
@@ -154,7 +151,7 @@ void sll_print(singly_linked_list *list)
         printf("%d -> ", current_node->data);
         current_node = current_node->next;
     }
-    printf("NULL\n");
+    printf("\n");
 }
 void sll_destroy(singly_linked_list *list)
 {

@@ -48,8 +48,6 @@ void sll_test(void)
 void cll_test(void)
 {
     circular_linked_list *list = cll_create();
-    size_t i = 0;
-    cll_node *current = NULL;
 
     for (int i = 5; i > 0; i--) {
         cll_insert(list, cll_size(list), i);
@@ -72,8 +70,6 @@ void cll_test(void)
 void dll_test(void)
 {
     doubly_linked_list *list = dll_create();
-    size_t i = 0;
-    dll_node *current = NULL;
 
     for (int i = 5; i > 0; i--) {
         dll_insert(list, dll_size(list), i);
@@ -81,18 +77,12 @@ void dll_test(void)
     dll_insert(list, dll_size(list), -1);
     dll_insert(list, dll_size(list), -2);
 
-    for (i = 0; i < dll_size(list); i++) {
-        printf("List[%zu] : %d\n", i, *dll_get(list, i));
-    }
+    dll_print(list);
 
     printf("\nInserting 3000 At [2]...\n\n");
     dll_insert(list, 2, 3000);
 
-    for (i = 0; i < dll_size(list); i++) {
-        printf("List[%zu] : %d\n", i, *dll_get(list, i));
-    }
-
-    printf("tail->next : %d\n", list->tail->next->data);
+    dll_print(list);
 
     printf("\nDestroying List...\n");
     dll_destroy(list);
@@ -126,7 +116,7 @@ void cdll_test(void)
 }
 int main(void)
 {
-    int list_number = 2;
+    int list_number = 3;
 
     switch (list_number) {
     case 0:

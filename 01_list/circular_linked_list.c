@@ -39,9 +39,8 @@ void cll_insert(circular_linked_list *list, size_t pos, cll_data data)
     } else {
         cll_node *prev_node = list->tail;
 
-        while (pos > 0) {
+        for (size_t i = 0; i < pos; i++) {
             prev_node = prev_node->next;
-            pos--;
         }
         new_node->next = prev_node->next;
         prev_node->next = new_node;
@@ -58,13 +57,10 @@ void cll_delete(circular_linked_list *list, size_t pos)
     if (list == NULL || pos >= list->count) {
         return;
     }
-
     cll_node *prev_node = list->tail;
-    cll_node *target_node = prev_node->next;
 
-    while (pos > 0) {
+    for (size_t i = 0; i < pos; i++) {
         prev_node = prev_node->next;
-        pos--;
     }
     cll_node *target_node = prev_node->next;
 
@@ -91,9 +87,8 @@ cll_data *cll_get(circular_linked_list *list, size_t pos)
     }
 
     cll_node *target_node = list->tail->next;
-    while (pos > 0) {
+    for (size_t i = 0; i < pos; i++) {
         target_node = target_node->next;
-        pos--;
     }
     return &target_node->data;
 }
