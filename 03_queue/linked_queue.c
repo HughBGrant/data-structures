@@ -52,14 +52,14 @@ void lq_dequeue(linked_queue *queue)
     if (queue == NULL || lq_is_empty(queue)) {
         return;
     }
-    lq_node *free_node = queue->front;
-    queue->front = free_node->next;
+    lq_node *target_node = queue->front;
+    queue->front = target_node->next;
 
     if (queue->front == NULL) {
         queue->rear = NULL;
     }
-    free(free_node->data);
-    free(free_node);
+    free(target_node->data);
+    free(target_node);
 }
 lq_data *lq_peek(linked_queue *queue)
 {

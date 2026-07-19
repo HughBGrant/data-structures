@@ -46,25 +46,25 @@ dll_node *dll_get_node(doubly_linked_list *list, size_t pos)
     if (pos == list->count) {
         return list->tail;
     }
-    dll_node *get_node = NULL;
+    dll_node *target_node = NULL;
 
     if (pos < list->count / 2) {
-        get_node = list->head->next;
+        target_node = list->head->next;
 
         while (pos > 0) {
-            get_node = get_node->next;
+            target_node = target_node->next;
             pos--;
         }
     } else {
-        get_node = list->tail->prev;
+        target_node = list->tail->prev;
 
         while (pos < list->count - 1) {
-            get_node = get_node->prev;
+            target_node = target_node->prev;
             pos++;
         }
     }
 
-    return get_node;
+    return target_node;
 }
 void dll_insert(doubly_linked_list *list, size_t pos, dll_data data)
 {
@@ -93,16 +93,16 @@ void dll_delete(doubly_linked_list *list, size_t pos)
         return;
     }
 
-    dll_node *free_node = dll_get_node(list, pos);
-    if (free_node == NULL) {
+    dll_node *target_node = dll_get_node(list, pos);
+    if (target_node == NULL) {
         return;
     }
 
-    free_node->prev->next = free_node->next;
-    free_node->next->prev = free_node->prev;
+    target_node->prev->next = target_node->next;
+    target_node->next->prev = target_node->prev;
 
-    printf("Destroying Node : %d\n", free_node->data);
-    free(free_node);
+    printf("Destroying Node : %d\n", target_node->data);
+    free(target_node);
     list->count--;
 }
 dll_data *dll_get(doubly_linked_list *list, size_t pos)

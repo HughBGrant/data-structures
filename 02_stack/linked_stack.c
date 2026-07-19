@@ -51,12 +51,12 @@ void ls_pop(linked_stack *stack)
     if (stack == NULL || ls_is_empty(stack)) {
         return;
     }
-    ls_node *free_node = stack->top;
+    ls_node *target_node = stack->top;
 
-    stack->top = free_node->next;
+    stack->top = target_node->next;
 
-    free(free_node->data);
-    free(free_node);
+    free(target_node->data);
+    free(target_node);
 }
 ls_data *ls_top(linked_stack *stack)
 {

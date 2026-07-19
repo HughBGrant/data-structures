@@ -53,11 +53,11 @@ void sll_delete(singly_linked_list *list, size_t pos)
     if (list == NULL || pos >= list->count) {
         return;
     }
-    sll_node *free_node = NULL;
+    sll_node *target_node = NULL;
 
     if (pos == 0) {
-        free_node = list->head;
-        list->head = free_node->next;
+        target_node = list->head;
+        list->head = target_node->next;
     } else {
         sll_node *prev_node = list->head;
 
@@ -65,10 +65,10 @@ void sll_delete(singly_linked_list *list, size_t pos)
             prev_node = prev_node->next;
             pos--;
         }
-        free_node = prev_node->next;
-        prev_node->next = free_node->next;
+        target_node = prev_node->next;
+        prev_node->next = target_node->next;
     }
-    free(free_node);
+    free(target_node);
     list->count--;
 }
 sll_data *sll_get(singly_linked_list *list, size_t pos)
@@ -76,13 +76,13 @@ sll_data *sll_get(singly_linked_list *list, size_t pos)
     if (list == NULL || pos >= list->count) {
         return NULL;
     }
-    sll_node *get_node = list->head;
+    sll_node *target_node = list->head;
 
     while (pos > 0) {
-        get_node = get_node->next;
+        target_node = target_node->next;
         pos--;
     }
-    return &get_node->data;
+    return &target_node->data;
 }
 sll_node *sll_linear_search_move2front(singly_linked_list *list, sll_data key)
 {
@@ -145,17 +145,16 @@ size_t sll_size(singly_linked_list *list)
 }
 void sll_print(singly_linked_list *list)
 {
-    if (list == NULL) {
+    if (list == NULL || list->head == NULL) {
         return;
     }
-    size_t index = 0;
     sll_node *current_node = list->head;
 
     while (current_node != NULL) {
-        printf("List[%zu] : %d\n", index, current_node->data);
+        printf("%d -> ", current_node->data);
         current_node = current_node->next;
-        index++;
     }
+    printf("NULL\n");
 }
 void sll_destroy(singly_linked_list *list)
 {

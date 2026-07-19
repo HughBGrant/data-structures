@@ -7,29 +7,27 @@
 void al_test(void)
 {
     array_list *list = al_create(32);
-    size_t i = 0;
 
     for (int i = 0; i < 5; i++) {
         al_insert(list, al_size(list), i);
     }
     al_insert(list, al_size(list), -1);
     al_insert(list, al_size(list), -2);
-    al_printf(list);
+    al_print(list);
 
     printf("\nInserting 3000 At [2]...\n\n");
     al_insert(list, 2, 3000);
-    al_printf(list);
+    al_print(list);
 
     printf("\nRemoving Node at [2]...\n\n");
     al_delete(list, 2);
-    al_printf(list);
+    al_print(list);
 
     al_destroy(list);
 }
 void sll_test(void)
 {
     singly_linked_list *list = sll_create();
-    size_t i = 0;
 
     for (int i = 5; i > 0; i--) {
         sll_insert(list, sll_size(list), i);
@@ -59,16 +57,12 @@ void cll_test(void)
     cll_insert(list, cll_size(list), -1);
     cll_insert(list, cll_size(list), -2);
 
-    for (i = 0; i < cll_size(list); i++) {
-        printf("List[%zu] : %d\n", i, *cll_get(list, i));
-    }
+    cll_print(list);
 
     printf("\nInserting 3000 At [2]...\n\n");
     cll_insert(list, 2, 3000);
 
-    for (i = 0; i < cll_size(list); i++) {
-        printf("List[%zu] : %d\n", i, *cll_get(list, i));
-    }
+    cll_print(list);
 
     printf("tail->next : %d\n", list->tail->next->data);
 
@@ -132,7 +126,7 @@ void cdll_test(void)
 }
 int main(void)
 {
-    int list_number = 0;
+    int list_number = 2;
 
     switch (list_number) {
     case 0:

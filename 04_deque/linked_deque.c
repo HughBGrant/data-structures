@@ -74,8 +74,8 @@ void ld_pop_front(linked_deque *deque)
     if (deque == NULL || ld_is_empty(deque)) {
         return;
     }
-    ld_node *free_node = deque->front;
-    deque->front = free_node->next;
+    ld_node *target_node = deque->front;
+    deque->front = target_node->next;
 
     if (deque->front == NULL) {
         deque->rear = NULL;
@@ -83,16 +83,16 @@ void ld_pop_front(linked_deque *deque)
         deque->front->prev = NULL;
     }
 
-    free(free_node->data);
-    free(free_node);
+    free(target_node->data);
+    free(target_node);
 }
 void ld_pop_back(linked_deque *deque)
 {
     if (deque == NULL || ld_is_empty(deque)) {
         return;
     }
-    ld_node *free_node = deque->rear;
-    deque->rear = free_node->prev;
+    ld_node *target_node = deque->rear;
+    deque->rear = target_node->prev;
 
     if (deque->rear == NULL) {
         deque->front = NULL;
@@ -100,8 +100,8 @@ void ld_pop_back(linked_deque *deque)
         deque->rear->next = NULL;
     }
 
-    free(free_node->data);
-    free(free_node);
+    free(target_node->data);
+    free(target_node);
 }
 ld_data *ld_front(linked_deque *deque)
 {
