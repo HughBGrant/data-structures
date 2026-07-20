@@ -5,22 +5,8 @@ void cq_test(void)
 {
     circular_queue *queue = cq_create(2);
 
-    int data = 0;
-
-    cq_enqueue(queue, 10);
-    cq_enqueue(queue, 20);
-    cq_enqueue(queue, 30);
-    cq_enqueue(queue, 40);
-
-    for (size_t i = 0; i < 3; i++) {
-        printf("Dequeue: %d\n", *cq_peek(queue));
-        cq_dequeue(queue);
-    }
-    data = 100;
-
-    while (cq_is_full(queue) == false) {
-        cq_enqueue(queue, data);
-        data++;
+    for (cq_data i = 0; i < 16; i++) {
+        cq_enqueue(queue, i);
     }
     printf("Count: %zu, Front: %d\n", cq_size(queue), *cq_peek(queue));
 
@@ -47,7 +33,7 @@ void lq_test(void)
 }
 int main(void)
 {
-    int QueueNumber = 1;
+    int QueueNumber = 0;
 
     switch (QueueNumber) {
     case 0:

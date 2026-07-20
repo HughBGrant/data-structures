@@ -24,8 +24,23 @@ circular_queue *cq_create(size_t capacity)
 }
 void cq_enqueue(circular_queue *queue, cq_data data)
 {
-    if (queue == NULL || cq_is_full(queue)) {
+    if (queue == NULL) {
         return;
+    }
+    if (cq_is_full(queue)) {
+        size_t new_capacity = queue->capacity * 2;
+        cq_data *new_items = malloc(sizeof(cq_data) * new_capacity);
+        if (new_items == NULL) {
+            return;
+        }
+
+        for (size_t i = 0; i < queue->count; ++i) {
+            new_items[i] = queue->items[(queue->front + i) % queue->capacity];
+        }
+        free(queue->items);
+        queue->items = new_items;
+        queue->front = 0;
+        queue->capacity = new_capacity;
     }
     size_t rear = (queue->front + queue->count) % queue->capacity;
     queue->items[rear] = data;
