@@ -24,7 +24,7 @@ void as_push(array_stack *stack, as_data data)
     if (stack == NULL) {
         return;
     }
-    /////
+
     if (stack->count == stack->capacity) {
         size_t new_capacity = stack->capacity * 2;
 

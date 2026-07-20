@@ -3,8 +3,7 @@
 
 void cq_test(void)
 {
-    size_t capacity = 10;
-    circular_queue *queue = cq_create(capacity);
+    circular_queue *queue = cq_create(2);
 
     int data = 0;
 
@@ -16,7 +15,6 @@ void cq_test(void)
     for (size_t i = 0; i < 3; i++) {
         printf("Dequeue: %d\n", *cq_peek(queue));
         cq_dequeue(queue);
-        printf("Count: %zu\n", cq_size(queue));
     }
     data = 100;
 
@@ -24,11 +22,11 @@ void cq_test(void)
         cq_enqueue(queue, data);
         data++;
     }
+    printf("Count: %zu, Front: %d\n", cq_size(queue), *cq_peek(queue));
 
     while (cq_is_empty(queue) == false) {
         printf("Dequeue: %d\n", *cq_peek(queue));
         cq_dequeue(queue);
-        printf("Count: %zu\n", cq_size(queue));
     }
     cq_destroy(queue);
 }

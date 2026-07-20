@@ -10,8 +10,8 @@ typedef int cq_data;
 
 typedef struct {
     cq_data *items;
-    size_t rear;
     size_t front;
+    size_t count;
     size_t capacity;
 } circular_queue;
 

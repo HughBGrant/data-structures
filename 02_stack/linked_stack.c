@@ -52,7 +52,6 @@ void ls_pop(linked_stack *stack)
         return;
     }
     ls_node *target_node = stack->top;
-
     stack->top = target_node->next;
 
     free(target_node->data);

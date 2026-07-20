@@ -14,7 +14,7 @@ void as_test(void)
 
     printf("Count: %zu, Top: %d\n", as_size(stack), *as_top(stack));
 
-    while (!as_is_empty(stack)) {
+    while (as_is_empty(stack) == false) {
         printf("Popped: %d\n", *as_top(stack));
         as_pop(stack);
     }
@@ -32,8 +32,8 @@ void ls_test(void)
 
     printf("Count: %zu, Top: %s\n\n", ls_size(stack), *ls_top(stack));
 
-    while (!ls_is_empty(stack)) {
-        printf("Popped: %s, ", *ls_top(stack));
+    while (ls_is_empty(stack) == false) {
+        printf("Popped: %s\n", *ls_top(stack));
         ls_pop(stack);
     }
     printf("stack Is Empty.\n");
@@ -58,10 +58,10 @@ void calculator_test(void)
 
     printf("Calculation Result : %f\n", Result);
 }
-
 int main(void)
 {
-    int stack_number = 0;
+
+    int stack_number = 1;
 
     switch (stack_number) {
     case 0:
