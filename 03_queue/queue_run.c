@@ -33,9 +33,9 @@ void lq_test(void)
 }
 int main(void)
 {
-    int QueueNumber = 0;
+    int queue_number = 0;
 
-    switch (QueueNumber) {
+    switch (queue_number) {
     case 0:
         cq_test();
         break;
