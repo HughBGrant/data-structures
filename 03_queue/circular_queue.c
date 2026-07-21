@@ -27,7 +27,7 @@ void cq_enqueue(circular_queue *queue, cq_data data)
     if (queue == NULL) {
         return;
     }
-    if (cq_is_full(queue)) {
+    if (queue->count == queue->capacity) {
         size_t new_capacity = queue->capacity * 2;
         cq_data *new_items = malloc(sizeof(cq_data) * new_capacity);
         if (new_items == NULL) {
@@ -48,7 +48,7 @@ void cq_enqueue(circular_queue *queue, cq_data data)
 }
 void cq_dequeue(circular_queue *queue)
 {
-    if (queue == NULL || cq_is_empty(queue)) {
+    if (queue == NULL || queue->count == 0) {
         return;
     }
     queue->front = (queue->front + 1) % queue->capacity;
@@ -56,7 +56,7 @@ void cq_dequeue(circular_queue *queue)
 }
 cq_data *cq_peek(circular_queue *queue)
 {
-    if (queue == NULL || cq_is_empty(queue)) {
+    if (queue == NULL || queue->count == 0) {
         return NULL;
     }
     return &queue->items[queue->front];
@@ -67,13 +67,6 @@ bool cq_is_empty(circular_queue *queue)
         return true;
     }
     return queue->count == 0;
-}
-bool cq_is_full(circular_queue *queue)
-{
-    if (queue == NULL) {
-        return false;
-    }
-    return queue->count == queue->capacity;
 }
 size_t cq_size(circular_queue *queue)
 {

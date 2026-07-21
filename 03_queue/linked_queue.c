@@ -13,20 +13,12 @@ linked_queue *lq_create(void)
 }
 lq_node *lq_create_node(lq_data data)
 {
-    if (data == NULL) {
-        return NULL;
-    }
     lq_node *new_node = malloc(sizeof(lq_node));
     if (new_node == NULL) {
         return NULL;
     }
 
-    new_node->data = malloc(strlen(data) + 1);
-    if (new_node->data == NULL) {
-        free(new_node);
-        return NULL;
-    }
-    strcpy(new_node->data, data);
+    new_node->data = data;
     new_node->next = NULL;
 
     return new_node;
@@ -58,7 +50,6 @@ void lq_dequeue(linked_queue *queue)
     if (queue->front == NULL) {
         queue->rear = NULL;
     }
-    free(target_node->data);
     free(target_node);
 }
 lq_data *lq_peek(linked_queue *queue)

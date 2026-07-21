@@ -20,13 +20,13 @@ void lq_test(void)
 {
     linked_queue *queue = lq_create();
 
-    lq_enqueue(queue, "abc");
-    lq_enqueue(queue, "def");
-    lq_enqueue(queue, "efg");
-    lq_enqueue(queue, "hij");
+    for (cq_data i = 0; i < 16; i++) {
+        lq_enqueue(queue, i);
+    }
+    printf("Count: %zu, Front: %d\n", lq_size(queue), *lq_peek(queue));
 
     while (lq_is_empty(queue) == false) {
-        printf("Dequeue: %s \n", *lq_peek(queue));
+        printf("Dequeue: %d \n", *lq_peek(queue));
         lq_dequeue(queue);
     }
     lq_destroy(queue);

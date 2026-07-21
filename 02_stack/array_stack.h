@@ -20,7 +20,6 @@ as_data *as_top(array_stack *stack);
 void as_destroy(array_stack *stack);
 
 bool as_is_empty(array_stack *stack);
-bool as_is_full(array_stack *stack);
 size_t as_size(array_stack *stack);
 
 #endif

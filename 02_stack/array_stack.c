@@ -67,13 +67,6 @@ bool as_is_empty(array_stack *stack)
     }
     return stack->count == 0;
 }
-bool as_is_full(array_stack *stack)
-{
-    if (stack == NULL) {
-        return false;
-    }
-    return stack->count == stack->capacity;
-}
 void as_destroy(array_stack *stack)
 {
     if (stack == NULL) {

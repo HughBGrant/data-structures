@@ -23,7 +23,6 @@ cq_data *cq_peek(circular_queue *queue);
 void cq_destroy(circular_queue *queue);
 
 bool cq_is_empty(circular_queue *queue);
-bool cq_is_full(circular_queue *queue);
 size_t cq_size(circular_queue *queue);
 
 #endif

@@ -27,6 +27,7 @@ void cd_push_front(circular_deque *deque, cd_data data)
     if (deque == NULL || cd_is_full(deque)) {
         return;
     }
+
     deque->front = (deque->capacity + deque->front - 1) % deque->capacity;
     deque->items[deque->front] = data;
 }
@@ -35,6 +36,7 @@ void cd_push_back(circular_deque *deque, cd_data data)
     if (deque == NULL || cd_is_full(deque)) {
         return;
     }
+
     deque->items[deque->rear] = data;
     deque->rear = (deque->rear + 1) % deque->capacity;
 }
@@ -64,8 +66,7 @@ cd_data *cd_back(circular_deque *deque)
     if (deque == NULL || cd_is_empty(deque)) {
         return NULL;
     }
-    size_t index = (deque->rear + deque->capacity - 1) % deque->capacity;
-    return &deque->items[index];
+    return &deque->items[(deque->rear + deque->capacity - 1) % deque->capacity];
 }
 void cd_destroy(circular_deque *deque)
 {

@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef char *lq_data;
+typedef int lq_data;
 
 typedef struct _lq_node {
     lq_data data;
