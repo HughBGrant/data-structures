@@ -9,8 +9,8 @@ typedef int as_data;
 
 typedef struct {
     as_data *items;
-    size_t count;
     size_t capacity;
+    size_t count;
 } array_stack;
 
 array_stack *as_create(size_t capacity);

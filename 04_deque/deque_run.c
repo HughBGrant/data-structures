@@ -3,31 +3,26 @@
 
 void cd_test(void)
 {
-    circular_deque *deque = cd_create(10);
+    circular_deque *deque = cd_create(16);
 
-    int data = 0;
+    for (cd_data i = 0; i < 8; i++) {
+        cd_push_front(deque, i);
+    }
+    printf("Count: %zu, Front: %d\n",
+           cd_size(deque), *cd_front(deque));
 
-    cd_push_front(deque, 10);
-    cd_push_front(deque, 20);
-    cd_push_front(deque, 30);
-    cd_push_front(deque, 40);
-
-    for (int i = 0; i < 3; i++) {
-        printf("popped front: %d\n", *cd_front(deque));
+    for (cd_data i = 8; i < 16; i++) {
+        cd_push_back(deque, i);
+    }
+    printf("Count: %zu, back: %d\n",
+           cd_size(deque), *cd_back(deque));
+    for (size_t i = 0; i < 8; i++) {
+        printf("popped back: %d\n", *cd_front(deque));
         cd_pop_front(deque);
-        printf("Count: %zu\n", cd_size(deque));
     }
-
-    data = 100;
-    while (cd_is_full(deque) == false) {
-        cd_push_back(deque, data);
-        data++;
-    }
-
-    while (cd_is_empty(deque) == false) {
+    for (size_t i = 0; i < 8; i++) {
         printf("popped back: %d\n", *cd_back(deque));
         cd_pop_back(deque);
-        printf("count: %zu\n", cd_size(deque));
     }
     cd_destroy(deque);
 }
