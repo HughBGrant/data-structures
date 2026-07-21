@@ -3,7 +3,7 @@
 
 void cd_test(void)
 {
-    circular_deque *deque = cd_create(16);
+    circular_deque *deque = cd_create(2);
 
     for (cd_data i = 0; i < 8; i++) {
         cd_push_front(deque, i);
