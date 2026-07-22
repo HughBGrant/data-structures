@@ -1,4 +1,3 @@
-#include "expression_tree.h"
 #include "lcrs_tree.h"
 
 void TestLCRST(void)
@@ -40,30 +39,6 @@ void TestLCRST(void)
     // 트리 소멸
     LCRST_DestroyTree(Tree);
 }
-void TestET(void)
-{
-    char Postfix[20] = "71*52-/";
-    ET *Tree = ET_CreateTree(Postfix);
-    ET_Node *Root = Tree->Root;
-
-    // 트리 출력
-    printf("Preorder ... \n");
-    ET_PreorderPrintSubTree(Root);
-    printf("\n\n");
-
-    printf("Inorder ... \n");
-    ET_InorderPrintSubTree(Root);
-    printf("\n\n");
-
-    printf("Postorder ... \n");
-    ET_PostorderPrintSubTree(Root);
-    printf("\n");
-
-    printf("Evaluation Result : %f \n", ET_Calculate(Root));
-
-    // 트리 소멸
-    ET_DestroyTree(Tree);
-}
 int main(void)
 {
 
@@ -74,7 +49,7 @@ int main(void)
         TestLCRST();
         break;
     case 1:
-        TestET();
+        et_test();
         break;
     }
     return 0;

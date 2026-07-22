@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef int bt_data;
+typedef char bt_data;
 
 typedef struct _bt_node {
     bt_data data;
@@ -18,7 +18,7 @@ typedef struct {
 
 binary_tree *bt_create();
 bt_node *bt_create_node(bt_data data);
-bt_node *bt_set_root(binary_tree *tree, bt_data data);
+void *bt_set_root(binary_tree *tree, bt_node *root);
 bt_node *bt_add_left(bt_node *parent, bt_data data);
 bt_node *bt_add_right(bt_node *parent, bt_data data);
 

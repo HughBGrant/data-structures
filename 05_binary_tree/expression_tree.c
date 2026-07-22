@@ -1,142 +1,69 @@
 #include "expression_tree.h"
 
-ET *ET_CreateTree(char *Postfix)
+bt_node *build_expression_tree(char *expression)
 {
-    ET *Tree = malloc(sizeof(ET));
-    if (Tree == NULL) {
-        return NULL;
-    }
-
-    Tree->Root = ET_CreateSubTree(Postfix);
-    if (Tree->Root == NULL) {
-        free(Tree);
-        return NULL;
-    }
-
-    return Tree;
-}
-bt_node *ET_CreateSubTree(char *Postfix)
-{
-    size_t len = strlen(Postfix);
+    size_t len = strlen(expression);
     if (len == 0) {
         return NULL;
     }
 
-    ET_dataType Token = Postfix[len - 1];
-    bt_node *NewNode = ET_CreateNode(Token);
-    if (NewNode == NULL) {
+    bt_data token = expression[len - 1];
+    bt_node *new_node = bt_create_node(token);
+    if (new_node == NULL) {
         return NULL;
     }
 
-    Postfix[len - 1] = '\0';
+    expression[len - 1] = '\0';
 
-    switch (Token) {
+    switch (token) {
     case '+': // 연산자인 경우
     case '-':
     case '*':
     case '/':
-        NewNode->right = ET_CreateSubTree(Postfix);
-        NewNode->left = ET_CreateSubTree(Postfix);
+        new_node->right = build_expression_tree(expression);
+        new_node->left = build_expression_tree(expression);
 
-        if (NewNode->right == NULL || NewNode->left == NULL) {
-            ET_DestroySubTree(NewNode);
+        if (new_node->right == NULL || new_node->left == NULL) {
+            bt_destroy_subtree(new_node);
             return NULL;
         }
         break;
     }
-    return NewNode;
+    return new_node;
 }
-bt_node *ET_CreateNode(ET_dataType Newdata)
+double evaluate_tree(bt_node *subtree)
 {
-    bt_node *NewNode = malloc(sizeof(bt_node));
-    if (NewNode == NULL) {
-        return NULL;
-    }
-    NewNode->left = NULL;
-    NewNode->right = NULL;
-    NewNode->data = Newdata;
-
-    return NewNode;
-}
-void ET_PreorderPrintSubTree(bt_node *Tree)
-{
-    if (Tree == NULL) {
-        return;
-    }
-    printf(" %c", Tree->data);
-    ET_PreorderPrintSubTree(Tree->left);
-    ET_PreorderPrintSubTree(Tree->right);
-}
-void ET_InorderPrintSubTree(bt_node *Tree)
-{
-    if (Tree == NULL) {
-        return;
-    }
-    printf("(");
-    ET_InorderPrintSubTree(Tree->left);
-    printf("%c", Tree->data);
-    ET_InorderPrintSubTree(Tree->right);
-    printf(")");
-}
-void ET_PostorderPrintSubTree(bt_node *Tree)
-{
-    if (Tree == NULL) {
-        return;
-    }
-    ET_PostorderPrintSubTree(Tree->left);
-    ET_PostorderPrintSubTree(Tree->right);
-    printf(" %c", Tree->data);
-}
-void ET_DestroySubTree(bt_node *SubTree)
-{
-    if (SubTree == NULL) {
-        return;
-    }
-    ET_DestroySubTree(SubTree->left);
-    ET_DestroySubTree(SubTree->right);
-    free(SubTree);
-}
-void ET_DestroyTree(ET *Tree)
-{
-    if (Tree == NULL) {
-        return;
-    }
-    ET_DestroySubTree(Tree->Root);
-    free(Tree);
-}
-double ET_Calculate(bt_node *SubTree)
-{
-    char Temp[2];
+    char temp[2];
 
     double left = 0;
     double right = 0;
-    double Result = 0;
+    double result = 0;
 
-    if (SubTree == NULL) {
+    if (subtree == NULL) {
         return 0;
     }
-    switch (SubTree->data) {
+    switch (subtree->data) {
     case '+': // 연산자인 경우
     case '-':
     case '*':
     case '/':
-        left = ET_Calculate(SubTree->left);
-        right = ET_Calculate(SubTree->right);
+        left = evaluate_tree(subtree->left);
+        right = evaluate_tree(subtree->right);
 
-        if (SubTree->data == '+')
-            Result = left + right;
-        else if (SubTree->data == '-')
-            Result = left - right;
-        else if (SubTree->data == '*')
-            Result = left * right;
-        else if (SubTree->data == '/')
-            Result = left / right;
+        if (subtree->data == '+')
+            result = left + right;
+        else if (subtree->data == '-')
+            result = left - right;
+        else if (subtree->data == '*')
+            result = left * right;
+        else if (subtree->data == '/')
+            result = left / right;
         break;
     default: // 피연산자인 경우
-        memset(Temp, 0, sizeof(Temp));
-        Temp[0] = SubTree->data;
-        Result = atof(Temp);
+        memset(temp, 0, sizeof(temp));
+        temp[0] = subtree->data;
+        result = atof(temp);
         break;
     }
-    return Result;
+    return result;
 }
