@@ -117,10 +117,10 @@ void cdll_print(c_d_linked_list *list)
     }
     cdll_node *current_node = list->head_sentinel->next;
 
-    do {
+    while (current_node != list->head_sentinel) {
         printf("<- %d ->", current_node->data);
         current_node = current_node->next;
-    } while (current_node != list->head_sentinel);
+    }
 
     printf("<- head\n");
 }

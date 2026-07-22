@@ -65,7 +65,7 @@ void bt_preorder(bt_node *node)
     if (node == NULL) {
         return;
     }
-    printf(" %c", node->data);
+    printf(" %d", node->data);
     bt_preorder(node->left);
     bt_preorder(node->right);
 }
@@ -75,7 +75,7 @@ void bt_inorder(bt_node *node)
         return;
     }
     bt_inorder(node->left);
-    printf(" %c", node->data);
+    printf(" %d", node->data);
     bt_inorder(node->right);
 }
 void bt_postorder(bt_node *node)
@@ -85,7 +85,7 @@ void bt_postorder(bt_node *node)
     }
     bt_postorder(node->left);
     bt_postorder(node->right);
-    printf(" %c", node->data);
+    printf(" %d", node->data);
 }
 void bt_destroy_subtree(bt_node *subtree)
 {

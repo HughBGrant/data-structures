@@ -124,11 +124,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="expression_tree.h" />
     <ClInclude Include="lcrs_tree.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="expression_tree.c" />
     <ClCompile Include="lcrs_tree.c" />
     <ClCompile Include="tree_run.c" />
   </ItemGroup>

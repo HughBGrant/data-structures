@@ -125,10 +125,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="binary_tree.h" />
+    <ClInclude Include="expression_tree.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="binary_tree_run.c" />
     <ClCompile Include="binary_tree.c" />
+    <ClCompile Include="expression_tree.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

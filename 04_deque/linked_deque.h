@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef char *ld_data;
+typedef int ld_data;
 
 typedef struct _ld_node {
     ld_data data;
@@ -28,8 +28,8 @@ void ld_pop_front(linked_deque *deque);
 void ld_pop_back(linked_deque *deque);
 ld_data *ld_front(linked_deque *deque);
 ld_data *ld_back(linked_deque *deque);
-void ld_destroy(linked_deque *deque);
 size_t ld_size(linked_deque *deque);
 bool ld_is_empty(linked_deque *deque);
+void ld_destroy(linked_deque *deque);
 
 #endif

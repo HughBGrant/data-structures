@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef char bt_data;
+typedef int bt_data;
 
 typedef struct _bt_node {
     bt_data data;

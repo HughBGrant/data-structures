@@ -2,26 +2,27 @@
 
 void bt_test(void)
 {
+
     binary_tree *tree = bt_create();
-    bt_node *A = bt_set_root(tree, 'A');
-    bt_node *B = bt_add_left(A, 'B');
-    bt_node *C = bt_add_left(B, 'C');
-    bt_node *D = bt_add_right(B, 'D');
-    bt_node *E = bt_add_right(A, 'E');
-    bt_node *F = bt_add_left(E, 'F');
-    bt_node *G = bt_add_right(E, 'G');
+    bt_node *A = bt_set_root(tree, 1);
+    bt_node *B = bt_add_left(A, 2);
+    bt_node *C = bt_add_left(B, 3);
+    bt_node *D = bt_add_right(B, 4);
+    bt_node *E = bt_add_right(A, 5);
+    bt_node *F = bt_add_left(E, 6);
+    bt_node *G = bt_add_right(E, 7);
 
     // 트리 출력
     printf("Preorder ...\n");
-    bt_preorder(tree->root);
+    bt_preorder(A);
     printf("\n\n");
 
     printf("Inorder ... \n");
-    bt_inorder(tree->root);
+    bt_inorder(A);
     printf("\n\n");
 
     printf("Postorder ... \n");
-    bt_postorder(tree->root);
+    bt_postorder(A);
     printf("\n");
 
     // 트리 소멸

@@ -17,9 +17,11 @@ void cd_test(void)
     printf("Count: %zu, back: %d\n",
            cd_size(deque), *cd_back(deque));
     for (size_t i = 0; i < 8; i++) {
-        printf("popped back: %d\n", *cd_front(deque));
+        printf("popped front: %d\n", *cd_front(deque));
         cd_pop_front(deque);
     }
+    printf("Count: %zu, back: %d\n",
+           cd_size(deque), *cd_back(deque));
     for (size_t i = 0; i < 8; i++) {
         printf("popped back: %d\n", *cd_back(deque));
         cd_pop_back(deque);
@@ -30,22 +32,32 @@ void ld_test(void)
 {
     linked_deque *deque = ld_create();
 
-    ld_push_back(deque, "abc");
-    ld_push_back(deque, "def");
-    ld_push_back(deque, "efg");
-    ld_push_back(deque, "hij");
+    for (ld_data i = 0; i < 8; i++) {
+        ld_push_front(deque, i);
+    }
+    printf("Count: %zu, Front: %d\n",
+           ld_size(deque), *ld_front(deque));
 
-    printf("deque Size : %zu\n", ld_size(deque));
-
-    while (ld_is_empty(deque) == 0) {
-        printf("Dequeue: %s \n", *ld_front(deque));
+    for (ld_data i = 8; i < 16; i++) {
+        ld_push_back(deque, i);
+    }
+    printf("Count: %zu, back: %d\n",
+           ld_size(deque), *ld_back(deque));
+    for (size_t i = 0; i < 8; i++) {
+        printf("popped front: %d\n", *ld_front(deque));
         ld_pop_front(deque);
+    }
+    printf("Count: %zu, back: %d\n",
+           ld_size(deque), *ld_back(deque));
+    for (size_t i = 0; i < 8; i++) {
+        printf("popped back: %d\n", *ld_back(deque));
+        ld_pop_back(deque);
     }
     ld_destroy(deque);
 }
 int main(void)
 {
-    int deque_number = 0;
+    int deque_number = 1;
 
     switch (deque_number) {
     case 0:
