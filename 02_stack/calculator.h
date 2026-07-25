@@ -5,9 +5,10 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-bool IsNumber(char Cipher);
-size_t GetTokenLength(char *Expression, char *Token);
-void GetPostfix(char *Infix, char *Postfix);
-double Calculate(char *Postfix);
+bool is_operand(char symbol);
+size_t get_token_size(char *expression, char *token);
+int prioritize(char operator, bool in_stack);
+void convert(char *infix, char *postfix);
+double evaluate(char *postfix);
 
 #endif

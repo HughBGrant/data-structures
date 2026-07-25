@@ -41,27 +41,23 @@ void ls_test(void)
 }
 void calculator_test(void)
 {
-    char Infix[100] = "1+3.334/(4.28*(110-7729))";
-    char Postfix[100];
+    char infix[] = "1+3.334/(4.28*(110-7729))";
+    char postfix[64];
+    memset(postfix, 0, sizeof(postfix));
 
     double Result = 0.0;
+    printf("Enter infix Expression: %s\n", infix);
 
-    memset(Postfix, 0, sizeof(Postfix));
+    convert(infix, postfix);
+    printf("infix: %s\npostfix: %s\n", infix, postfix);
 
-    printf("Enter Infix Expression: %s\n", Infix);
-
-    GetPostfix(Infix, Postfix);
-
-    printf("Infix: %s\nPostfix: %s\n", Infix, Postfix);
-
-    Result = Calculate(Postfix);
-
+    Result = evaluate(postfix);
     printf("Calculation Result : %f\n", Result);
 }
 int main(void)
 {
 
-    int stack_number = 1;
+    int stack_number = 2;
 
     switch (stack_number) {
     case 0:

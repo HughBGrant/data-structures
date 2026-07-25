@@ -1,169 +1,170 @@
 #include "calculator.h"
 #include "linked_stack.h"
 
-char NUMBER[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'};
+char numbers[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'};
 
-bool IsNumber(char Cipher)
+bool is_operand(char symbol)
 {
-    int ArrayLength = sizeof(NUMBER) / sizeof(char);
+    unsigned long long array_size = strlen(numbers);
 
-    for (int i = 0; i < ArrayLength; i++) {
-        if (Cipher == NUMBER[i]) {
+    for (size_t i = 0; i < array_size; i++) {
+        if (symbol == numbers[i]) {
             return true;
         }
     }
     return false;
 }
-
-size_t GetTokenLength(char *Expression, char *Token)
+int prioritize(char operator, bool in_stack)
 {
-    size_t i = 0;
+    switch (operator) {
+    case ')':
+        return 0;
 
-    for (i = 0; Expression[i] != '\0'; i++) {
-        Token[i] = Expression[i];
-
-        if (IsNumber(Expression[i]) == false) {
-            break;
-        }
-        if (IsNumber(Expression[i + 1]) == false) {
-            break;
-        }
-    }
-    i++;
-    Token[i] = '\0';
-
-    return i;
-}
-int GetPriority(char Operator, bool InStack)
-{
-    switch (Operator) {
     case '(':
-        if (InStack)
-            return 0;
-        else
-            return 3;
+        return in_stack ? 0 : 5;
+
     case '+':
     case '-':
-        return 1;
+        return in_stack ? 2 : 1;
+
     case '*':
     case '/':
-        return 2;
+        return in_stack ? 4 : 3;
+
+    default:
+        return -1;
     }
-    return -1;
 }
-void GetPostfix(char *Infix, char *Postfix)
+size_t get_token_size(char *expression, char *token)
 {
-    linked_stack *stack = ls_create();
-
-    size_t i = 0;
-    size_t size = 0;
-    char *top = NULL;
-    char token[32];
-
-    while (i < strlen(Infix)) // 중위 표기식을 다 읽을 때까지 반복
-    {
-        size = GetTokenLength(&Infix[i], token);
-
-        if (isdigit(Infix[i])) // 토큰이 피연산자라면
-        {
-            strcat(Postfix, token);
-            strcat(Postfix, " ");
-        } else if (Infix[i] == '(') // 토큰이 왼쪽 괄호라면
-        {
-            ls_push(stack, token);
-        } else if (Infix[i] == ')') // 토큰이 오른쪽 괄호라면
-        {
-            while (!ls_is_empty(stack)) {
-                top = *ls_top(stack);
-
-                if (top[0] == '(') {
-                    ls_pop(stack);
-                    break;
-                }
-                strcat(Postfix, top);
-                strcat(Postfix, " ");
-                ls_pop(stack);
-            }
-        } else // 토큰이 연산자라면
-        {
-            while (!ls_is_empty(stack) && (GetPriority(*ls_top(stack)[0], true) >=
-                                           GetPriority(token[0], false))) {
-                top = *ls_top(stack);
-
-                if (top[0] != '(') {
-                    strcat(Postfix, top);
-                    strcat(Postfix, " "); //
-                }
-                ls_pop(stack);
-            }
-            ls_push(stack, token);
-        }
-        i += size;
+    if (expression == NULL || token == NULL) {
+        return 0;
     }
-    while (!ls_is_empty(stack)) // 스택에 남아있는 연산자를 츨력
-    {
-        top = *ls_top(stack);
+    size_t size = 0;
 
-        if (top[0] != '(') {
-            strcat(Postfix, top);
-            strcat(Postfix, " "); //
+    while (expression[size] != '\0') {
+        token[size] = expression[size];
+
+        if (is_operand(expression[size]) == false) {
+            break;
         }
+        if (is_operand(expression[size + 1]) == false) {
+            break;
+        }
+        size++;
+    }
+    size++;
+    token[size] = '\0';
+
+    return size;
+}
+void convert(char *infix, char *postfix)
+{
+    if (infix == NULL) {
+        return;
+    }
+    linked_stack *stack = ls_create();
+    if (stack == NULL) {
+        return;
+    }
+    size_t pos = 0;
+    char token_out[32];
+
+    while (infix[pos] != '\0') // 중위 표기식을 다 읽을 때까지 반복
+    {
+        size_t token_size = get_token_size(&infix[pos], token_out);
+
+        if (is_operand(token_out[0])) // 토큰이 피연산자라면
+        {
+            strcat(postfix, token_out);
+            strcat(postfix, " ");
+            pos += token_size;
+            continue;
+        }
+        if (ls_is_empty(stack)) {
+            ls_push(stack, token_out);
+            pos += token_size;
+            continue;
+        }
+        ls_data operator_in = *ls_top(stack);
+
+        int input_priority = prioritize(token_out[0], false);
+        int stack_priority = prioritize(operator_in[0], true);
+
+        if (input_priority > stack_priority) {
+            ls_push(stack, token_out);
+            pos += token_size;
+        } else if (input_priority == stack_priority) {
+            ls_pop(stack);
+            pos += token_size;
+        } else {
+            strcat(postfix, operator_in);
+            strcat(postfix, " ");
+            ls_pop(stack);
+        }
+    }
+    while (ls_is_empty(stack) == false) {
+        ls_data operator_in = *ls_top(stack);
+
+        strcat(postfix, operator_in);
+        strcat(postfix, " ");
+
         ls_pop(stack);
     }
     ls_destroy(stack);
 }
-double Calculate(char *Postfix)
+double evaluate(char *postfix)
 {
     linked_stack *stack = ls_create();
-    double Result;
+    double result;
 
-    char Token[32];
+    char token[32];
     size_t size = 0;
-    size_t Position = 0;
+    size_t pos = 0;
 
-    while (Position < strlen(Postfix)) {
-        size = GetTokenLength(&Postfix[Position], Token);
+    while (pos < strlen(postfix)) {
+        size = get_token_size(&postfix[pos], token);
 
-        if (Postfix[Position] == ' ') {
-            Position += size;
+        if (postfix[pos] == ' ') {
+            pos += size;
             continue;
         }
 
-        if (isdigit(Postfix[Position])) {
-            ls_push(stack, Token);
+        if (isdigit(postfix[pos])) {
+            ls_push(stack, token);
         } else {
-            double Operand1, Operand2, TempResult = 0;
-            char TempResultStr[32];
+            double operand1, operand2, temp = 0;
+            char temp_str[32];
 
-            Operand2 = atof(*ls_top(stack));
+            operand2 = atof(*ls_top(stack));
             ls_pop(stack);
 
-            Operand1 = atof(*ls_top(stack));
+            operand1 = atof(*ls_top(stack));
             ls_pop(stack);
 
-            switch (Postfix[Position]) {
+            switch (postfix[pos]) {
             case '+':
-                TempResult = Operand1 + Operand2;
+                temp = operand1 + operand2;
                 break;
             case '-':
-                TempResult = Operand1 - Operand2;
+                temp = operand1 - operand2;
                 break;
             case '*':
-                TempResult = Operand1 * Operand2;
+                temp = operand1 * operand2;
                 break;
             case '/':
-                TempResult = Operand1 / Operand2;
+                temp = operand1 / operand2;
                 break;
             }
-            _gcvt(TempResult, 10, TempResultStr);
-            ls_push(stack, TempResultStr);
+            _gcvt(temp, 16, temp_str);
+            ls_push(stack, temp_str);
         }
-        Position += size;
+        pos += size;
     }
-    Result = atof(*ls_top(stack));
+    result = atof(*ls_top(stack));
     ls_pop(stack);
 
     ls_destroy(stack);
 
-    return Result;
+    return result;
 }
