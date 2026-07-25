@@ -1,7 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "array_stack.h"
-#include "calculator.h"
 #include "linked_stack.h"
+#include "postfix_calculator.h"
 
 void as_test(void)
 {

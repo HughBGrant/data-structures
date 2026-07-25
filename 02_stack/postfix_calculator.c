@@ -1,4 +1,4 @@
-#include "calculator.h"
+#include "postfix_calculator.h"
 #include "linked_stack.h"
 
 char numbers[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'};
@@ -115,33 +115,36 @@ void convert(char *infix, char *postfix)
 }
 double evaluate(char *postfix)
 {
+    if (postfix == NULL) {
+        return 0.0;
+    }
     linked_stack *stack = ls_create();
-    double result;
+    if (stack == NULL) {
+        return 0.0;
+    }
 
-    char token[32];
-    size_t size = 0;
     size_t pos = 0;
+    char token[32];
 
     while (pos < strlen(postfix)) {
-        size = get_token_size(&postfix[pos], token);
+        size_t token_size = get_token_size(&postfix[pos], token);
 
         if (postfix[pos] == ' ') {
-            pos += size;
+            pos += token_size;
             continue;
         }
 
-        if (isdigit(postfix[pos])) {
+        if (is_operand(token[0])) {
             ls_push(stack, token);
         } else {
-            double operand1, operand2, temp = 0;
-            char temp_str[32];
 
-            operand2 = atof(*ls_top(stack));
+            double operand2 = atof(*ls_top(stack));
             ls_pop(stack);
 
-            operand1 = atof(*ls_top(stack));
+            double operand1 = atof(*ls_top(stack));
             ls_pop(stack);
 
+            double temp = 0;
             switch (postfix[pos]) {
             case '+':
                 temp = operand1 + operand2;
@@ -156,13 +159,13 @@ double evaluate(char *postfix)
                 temp = operand1 / operand2;
                 break;
             }
+            char temp_str[32];
             _gcvt(temp, 16, temp_str);
             ls_push(stack, temp_str);
         }
-        pos += size;
+        pos += token_size;
     }
-    result = atof(*ls_top(stack));
-    ls_pop(stack);
+    double result = atof(*ls_top(stack));
 
     ls_destroy(stack);
 
