@@ -18,7 +18,7 @@
     <ClCompile Include="disjoint_set.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="disjoint_set_run.c">
+    <ClCompile Include="disjoint_set_main.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

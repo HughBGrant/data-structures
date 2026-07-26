@@ -128,7 +128,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lcrs_tree.c" />
-    <ClCompile Include="tree_run.c" />
+    <ClCompile Include="tree_main.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -124,7 +124,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="disjoint_set.c" />
-    <ClCompile Include="disjoint_set_run.c" />
+    <ClCompile Include="disjoint_set_main.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="disjoint_set.h" />
