@@ -11,7 +11,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "04_deque", "04_deque\04_deq
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "01_list", "01_list\01_list.vcxproj", "{17129CF0-0197-4A63-9695-6C796DB93ED7}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "05_tree", "05_tree\05_tree.vcxproj", "{7BB69846-D080-471D-83B9-0FEB25C6FC17}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "etc", "etc\etc.vcxproj", "{7BB69846-D080-471D-83B9-0FEB25C6FC17}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "disjoint_set", "disjoint_set\disjoint_set.vcxproj", "{A9C581AD-BEFE-4773-A0CA-85D3A35D3362}"
 EndProject
