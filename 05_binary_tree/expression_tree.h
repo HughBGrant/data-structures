@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-bt_node *build_expression_tree(char *expression);
-double evaluate_tree(bt_node *tree);
+bt_node *build(char *expression);
+double evaluate(bt_node *tree);
 
 #endif

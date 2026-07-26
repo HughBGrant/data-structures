@@ -1,6 +1,6 @@
 #include "expression_tree.h"
 
-bt_node *build_expression_tree(char *expression)
+bt_node *build(char *expression)
 {
     size_t len = strlen(expression);
     if (len == 0) {
@@ -20,8 +20,8 @@ bt_node *build_expression_tree(char *expression)
     case '-':
     case '*':
     case '/':
-        new_node->right = build_expression_tree(expression);
-        new_node->left = build_expression_tree(expression);
+        new_node->right = build(expression);
+        new_node->left = build(expression);
 
         if (new_node->right == NULL || new_node->left == NULL) {
             bt_destroy_subtree(new_node);
@@ -31,7 +31,7 @@ bt_node *build_expression_tree(char *expression)
     }
     return new_node;
 }
-double evaluate_tree(bt_node *subtree)
+double evaluate(bt_node *subtree)
 {
     char temp[2];
 
@@ -47,8 +47,8 @@ double evaluate_tree(bt_node *subtree)
     case '-':
     case '*':
     case '/':
-        left = evaluate_tree(subtree->left);
-        right = evaluate_tree(subtree->right);
+        left = evaluate(subtree->left);
+        right = evaluate(subtree->right);
 
         if (subtree->data == '+')
             result = left + right;

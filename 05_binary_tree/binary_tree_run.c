@@ -35,7 +35,7 @@ void et_test(void)
 {
     binary_tree *tree = bt_create();
     char expression[32] = "71*52-/";
-    bt_node *root = build_expression_tree(expression);
+    bt_node *root = build(expression);
     bt_set_root(tree, root);
 
     // 트리 출력
@@ -51,7 +51,7 @@ void et_test(void)
     bt_postorder(root);
     printf("\n");
 
-    printf("Evaluation Result : %f \n", evaluate_tree(root));
+    printf("Evaluation Result : %f \n", evaluate(root));
 
     // 트리 소멸
     bt_destroy(tree);
