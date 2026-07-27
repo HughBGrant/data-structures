@@ -1,19 +1,11 @@
 #include "postfix_calculator.h"
 #include "linked_stack.h"
 
-char numbers[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'};
-
 bool is_operand(char symbol)
 {
-    unsigned long long array_size = strlen(numbers);
-
-    for (size_t i = 0; i < array_size; i++) {
-        if (symbol == numbers[i]) {
-            return true;
-        }
-    }
-    return false;
+    return symbol >= '0' && symbol <= '9';
 }
+
 int prioritize(char operator, bool in_stack)
 {
     switch (operator) {
@@ -35,137 +27,131 @@ int prioritize(char operator, bool in_stack)
         return -1;
     }
 }
-size_t get_token_size(char *expression, char *token)
-{
-    if (expression == NULL || token == NULL) {
-        return 0;
-    }
-    size_t size = 0;
 
-    while (expression[size] != '\0') {
-        token[size] = expression[size];
-
-        if (is_operand(expression[size]) == false) {
-            break;
-        }
-        if (is_operand(expression[size + 1]) == false) {
-            break;
-        }
-        size++;
-    }
-    size++;
-    token[size] = '\0';
-
-    return size;
-}
 void convert(char *infix, char *postfix)
 {
-    if (infix == NULL) {
-        return;
-    }
     linked_stack *stack = ls_create();
-    if (stack == NULL) {
+
+    if (infix == NULL || postfix == NULL || stack == NULL) {
+        ls_destroy(stack);
         return;
     }
-    size_t pos = 0;
-    char token_out[32];
 
-    while (infix[pos] != '\0') // 중위 표기식을 다 읽을 때까지 반복
-    {
-        size_t token_size = get_token_size(&infix[pos], token_out);
+    size_t input_pos = 0;
+    size_t output_pos = 0;
 
-        if (is_operand(token_out[0])) // 토큰이 피연산자라면
-        {
-            strcat(postfix, token_out);
-            strcat(postfix, " ");
-            pos += token_size;
+    while (infix[input_pos] != '\0') {
+        char symbol = infix[input_pos];
+
+        if (is_operand(symbol)) {
+            postfix[output_pos++] = symbol;
+            input_pos++;
             continue;
         }
+
         if (ls_is_empty(stack)) {
-            ls_push(stack, token_out);
-            pos += token_size;
+            ls_push(stack, symbol);
+            input_pos++;
             continue;
         }
-        ls_data operator_in = *ls_top(stack);
 
-        int input_priority = prioritize(token_out[0], false);
-        int stack_priority = prioritize(operator_in[0], true);
+        char operator_in_stack = (char)*ls_top(stack);
+
+        int input_priority = prioritize(symbol, false);
+        int stack_priority = prioritize(operator_in_stack, true);
 
         if (input_priority > stack_priority) {
-            ls_push(stack, token_out);
-            pos += token_size;
+            ls_push(stack, symbol);
+            input_pos++;
         } else if (input_priority == stack_priority) {
             ls_pop(stack);
-            pos += token_size;
+            input_pos++;
         } else {
-            strcat(postfix, operator_in);
-            strcat(postfix, " ");
+            postfix[output_pos++] = operator_in_stack;
             ls_pop(stack);
         }
     }
-    while (ls_is_empty(stack) == false) {
-        ls_data operator_in = *ls_top(stack);
 
-        strcat(postfix, operator_in);
-        strcat(postfix, " ");
-
+    while (!ls_is_empty(stack)) {
+        postfix[output_pos++] = (char)*ls_top(stack);
         ls_pop(stack);
     }
+
+    postfix[output_pos] = '\0';
+
     ls_destroy(stack);
 }
-double evaluate(char *postfix)
+
+int evaluate(const char *postfix)
 {
-    if (postfix == NULL) {
-        return 0.0;
-    }
     linked_stack *stack = ls_create();
-    if (stack == NULL) {
-        return 0.0;
+
+    if (postfix == NULL || stack == NULL) {
+        ls_destroy(stack);
+        return 0;
     }
 
-    size_t pos = 0;
-    char token[32];
+    for (size_t i = 0; postfix[i] != '\0'; i++) {
+        char symbol = postfix[i];
 
-    while (pos < strlen(postfix)) {
-        size_t token_size = get_token_size(&postfix[pos], token);
-
-        if (postfix[pos] == ' ') {
-            pos += token_size;
-            continue;
-        }
-
-        if (is_operand(token[0])) {
-            ls_push(stack, token);
+        if (is_operand(symbol)) {
+            ls_push(stack, symbol - '0');
         } else {
+            int *top = ls_top(stack);
 
-            double operand2 = atof(*ls_top(stack));
-            ls_pop(stack);
-
-            double operand1 = atof(*ls_top(stack));
-            ls_pop(stack);
-
-            double temp = 0;
-            switch (postfix[pos]) {
-            case '+':
-                temp = operand1 + operand2;
-                break;
-            case '-':
-                temp = operand1 - operand2;
-                break;
-            case '*':
-                temp = operand1 * operand2;
-                break;
-            case '/':
-                temp = operand1 / operand2;
-                break;
+            if (top == NULL) {
+                ls_destroy(stack);
+                return 0;
             }
-            char temp_str[32];
-            _gcvt(temp, 16, temp_str);
-            ls_push(stack, temp_str);
+
+            int operand2 = *top;
+            ls_pop(stack);
+
+            top = ls_top(stack);
+
+            if (top == NULL) {
+                ls_destroy(stack);
+                return 0;
+            }
+
+            int operand1 = *top;
+            ls_pop(stack);
+
+            int result = 0;
+
+            switch (symbol) {
+            case '+':
+                result = operand1 + operand2;
+                break;
+
+            case '-':
+                result = operand1 - operand2;
+                break;
+
+            case '*':
+                result = operand1 * operand2;
+                break;
+
+            case '/':
+                if (operand2 == 0) {
+                    ls_destroy(stack);
+                    return 0;
+                }
+
+                result = operand1 / operand2;
+                break;
+
+            default:
+                ls_destroy(stack);
+                return 0;
+            }
+
+            ls_push(stack, result);
         }
-        pos += token_size;
     }
-    double result = atof(*ls_top(stack));
+
+    int *top = ls_top(stack);
+    int result = top == NULL ? 0 : *top;
 
     ls_destroy(stack);
 

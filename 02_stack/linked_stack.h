@@ -2,13 +2,11 @@
 #ifndef LINKED_STACK_H
 #define LINKED_STACK_H
 
-#include <ctype.h>
 #include <stdbool.h>
-#include <stdio.h>
+#include <stddef.h>
 #include <stdlib.h>
-#include <string.h>
 
-typedef char *ls_data;
+typedef int ls_data;
 
 typedef struct _ls_node {
     ls_data data;

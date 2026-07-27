@@ -12,63 +12,74 @@ void as_test(void)
     as_push(stack, 11);
     as_push(stack, 12);
 
-    printf("Count: %zu, Top: %d\n", as_size(stack), *as_top(stack));
+    printf(
+        "Count: %zu, Top: %d\n",
+        as_size(stack),
+        *as_top(stack));
 
     while (as_is_empty(stack) == false) {
         printf("Popped: %d\n", *as_top(stack));
         as_pop(stack);
     }
+
     printf("stack Is Empty.\n");
+
     as_destroy(stack);
 }
+
 void ls_test(void)
 {
     linked_stack *stack = ls_create();
 
-    ls_push(stack, "abc");
-    ls_push(stack, "def");
-    ls_push(stack, "efg");
-    ls_push(stack, "hij");
+    ls_push(stack, 10);
+    ls_push(stack, 20);
+    ls_push(stack, 30);
+    ls_push(stack, 40);
 
-    printf("Count: %zu, Top: %s\n\n", ls_size(stack), *ls_top(stack));
+    printf(
+        "Count: %zu, Top: %d\n\n",
+        ls_size(stack),
+        *ls_top(stack));
 
     while (ls_is_empty(stack) == false) {
-        printf("Popped: %s\n", *ls_top(stack));
+        printf("Popped: %d\n", *ls_top(stack));
         ls_pop(stack);
     }
+
     printf("stack Is Empty.\n");
+
     ls_destroy(stack);
 }
+
 void calculator_test(void)
 {
-    char infix[] = "1+3.334/(4.28*(110-7729))";
-    char postfix[64];
-    memset(postfix, 0, sizeof(postfix));
-
-    double Result = 0.0;
-    printf("Enter infix Expression: %s\n", infix);
+    char infix[] = "1+3/(4*(8-7))";
+    char postfix[64] = {0};
 
     convert(infix, postfix);
-    printf("infix: %s\npostfix: %s\n", infix, postfix);
 
-    Result = evaluate(postfix);
-    printf("Calculation Result : %f\n", Result);
+    printf("infix  : %s\n", infix);
+    printf("postfix: %s\n", postfix);
+    printf("result : %d\n", evaluate(postfix));
 }
+
 int main(void)
 {
-
     int stack_number = 2;
 
     switch (stack_number) {
     case 0:
         as_test();
         break;
+
     case 1:
         ls_test();
         break;
+
     case 2:
         calculator_test();
         break;
     }
+
     return 0;
 }
