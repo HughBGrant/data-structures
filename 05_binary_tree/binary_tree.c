@@ -23,7 +23,7 @@ bt_node *bt_create_node(bt_data data)
 
     return new_node;
 }
-void *bt_set_root(binary_tree *tree, bt_node *root)
+void bt_set_root(binary_tree *tree, bt_node *root)
 {
     if (tree == NULL || root == NULL) {
         return;

@@ -2,34 +2,69 @@
 
 bt_node *build(char *expression)
 {
+    if (expression == NULL || expression[0] == '\0') {
+        return NULL;
+    }
+
     size_t len = strlen(expression);
-    if (len == 0) {
+    bt_node **stack = malloc(sizeof(bt_node *) * len);
+
+    if (stack == NULL) {
         return NULL;
     }
 
-    bt_data token = expression[len - 1];
-    bt_node *new_node = bt_create_node(token);
-    if (new_node == NULL) {
-        return NULL;
-    }
+    int top = -1;
 
-    expression[len - 1] = '\0';
+    for (size_t i = 0; i < len; i++) {
+        bt_data token = expression[i];
+        bt_node *new_node = bt_create_node(token);
 
-    switch (token) {
-    case '+': // 연산자인 경우
-    case '-':
-    case '*':
-    case '/':
-        new_node->right = build(expression);
-        new_node->left = build(expression);
+        if (new_node == NULL) {
+            while (top >= 0) {
+                bt_destroy_subtree(stack[top--]);
+            }
 
-        if (new_node->right == NULL || new_node->left == NULL) {
-            bt_destroy_subtree(new_node);
+            free(stack);
             return NULL;
         }
-        break;
+
+        switch (token) {
+        case '+':
+        case '-':
+        case '*':
+        case '/':
+            if (top < 1) {
+                bt_destroy_subtree(new_node);
+
+                while (top >= 0) {
+                    bt_destroy_subtree(stack[top--]);
+                }
+
+                free(stack);
+                return NULL;
+            }
+
+            new_node->right = stack[top--];
+            new_node->left = stack[top--];
+            break;
+        }
+
+        stack[++top] = new_node;
     }
-    return new_node;
+
+    if (top != 0) {
+        while (top >= 0) {
+            bt_destroy_subtree(stack[top--]);
+        }
+
+        free(stack);
+        return NULL;
+    }
+
+    bt_node *root = stack[0];
+    free(stack);
+
+    return root;
 }
 double evaluate(bt_node *subtree)
 {
