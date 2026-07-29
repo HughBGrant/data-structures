@@ -30,10 +30,11 @@ int prioritize(char operator, bool in_stack)
 
 void convert(char *infix, char *postfix)
 {
-    linked_stack *stack = ls_create();
+    if (infix == NULL || postfix == NULL)
+        return;
 
-    if (infix == NULL || postfix == NULL || stack == NULL) {
-        ls_destroy(stack);
+    linked_stack *stack = ls_create();
+    if (stack == NULL) {
         return;
     }
 

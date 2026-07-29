@@ -17,6 +17,21 @@ bt_node *build(char *expression)
 
     for (size_t i = 0; i < len; i++) {
         bt_data token = expression[i];
+
+        if ((token == '+' ||
+             token == '-' ||
+             token == '*' ||
+             token == '/') &&
+            top < 1) {
+
+            while (top >= 0) {
+                bt_destroy_subtree(stack[top--]);
+            }
+
+            free(stack);
+            return NULL;
+        }
+
         bt_node *new_node = bt_create_node(token);
 
         if (new_node == NULL) {
@@ -33,17 +48,6 @@ bt_node *build(char *expression)
         case '-':
         case '*':
         case '/':
-            if (top < 1) {
-                bt_destroy_subtree(new_node);
-
-                while (top >= 0) {
-                    bt_destroy_subtree(stack[top--]);
-                }
-
-                free(stack);
-                return NULL;
-            }
-
             new_node->right = stack[top--];
             new_node->left = stack[top--];
             break;
@@ -68,37 +72,35 @@ bt_node *build(char *expression)
 }
 double evaluate(bt_node *subtree)
 {
-    char temp[2];
-
-    double left = 0;
-    double right = 0;
-    double result = 0;
-
     if (subtree == NULL) {
         return 0;
     }
-    switch (subtree->data) {
-    case '+': // 연산자인 경우
-    case '-':
-    case '*':
-    case '/':
-        left = evaluate(subtree->left);
-        right = evaluate(subtree->right);
 
-        if (subtree->data == '+')
-            result = left + right;
-        else if (subtree->data == '-')
-            result = left - right;
-        else if (subtree->data == '*')
-            result = left * right;
-        else if (subtree->data == '/')
-            result = left / right;
-        break;
-    default: // 피연산자인 경우
-        memset(temp, 0, sizeof(temp));
-        temp[0] = subtree->data;
-        result = atof(temp);
-        break;
+    if (subtree->data >= '0' && subtree->data <= '9') {
+        return (double)(subtree->data - '0');
+    }
+    double left = evaluate(subtree->left);
+    double right = evaluate(subtree->right);
+    double result = 0;
+
+    switch (subtree->data) {
+    case '+':
+        return left + right;
+
+    case '-':
+        return left - right;
+
+    case '*':
+        return left * right;
+
+    case '/':
+        if (right == 0.0) {
+            return 0;
+        }
+        return left / right;
+
+    default:
+        return 0;
     }
     return result;
 }
