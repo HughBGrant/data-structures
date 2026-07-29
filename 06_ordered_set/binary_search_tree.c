@@ -10,7 +10,6 @@ binary_search_tree *bst_create()
 
     return tree;
 }
-/* 새로운 노드 생성 */
 bst_node *bst_create_node(int key)
 {
     bst_node *node = malloc(sizeof(bst_node));
@@ -25,7 +24,6 @@ bst_node *bst_create_node(int key)
 
     return node;
 }
-/* 노드 삽입 */
 void bst_insert(binary_search_tree *tree, int key)
 {
     if (tree == NULL) {
@@ -62,7 +60,6 @@ void bst_insert(binary_search_tree *tree, int key)
         parent_node->right = new_node;
     }
 }
-/* 중위 순회 */
 void bst_inorder(bst_node *node)
 {
     if (node == NULL) {
@@ -72,7 +69,6 @@ void bst_inorder(bst_node *node)
     printf("%d, ", node->data);
     bst_inorder(node->right);
 }
-/* 노드 검색 */
 bst_node *bst_search(binary_search_tree *tree, int key)
 {
     if (tree == NULL) {
@@ -90,8 +86,6 @@ bst_node *bst_search(binary_search_tree *tree, int key)
     }
     return NULL;
 }
-
-/* 동적 할당된 노드 해제 */
 void bst_destroy_subtree(bst_node *subtree)
 {
     if (subtree == NULL) {
