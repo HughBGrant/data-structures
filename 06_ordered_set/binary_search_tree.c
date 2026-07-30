@@ -28,7 +28,6 @@ void bst_insert(binary_search_tree *tree, bst_data key)
     if (tree == NULL) {
         return;
     }
-    /* 루트가 비어 있는 경우 */
     if (tree->root == NULL) {
         tree->root = bst_create_node(key);
         return;
@@ -64,59 +63,40 @@ bst_node *bst_delete(bst_node *node, bst_data key)
     if (node == NULL) {
         return NULL;
     }
-    if (node->left == NULL || node->right == NULL) {
 
-        free(node);
-        return NULL;
-    }
     if (key < node->data) {
-        node->left = bst_delete(node->left, key);
+        node->left = bst_delete_node(node->left, key);
     } else if (key > node->data) {
-        node->right = bst_delete(node->right, key);
-
+        node->right = bst_delete_node(node->right, key);
     } else {
-        bst_node *successor = NULL;
-        if (bst_height(node->left) > bst_height(node->right)) {
-            successor = bst_predecessor(node->left);
-            node->data = successor->data;
-            node->left = bst_delete(node->left, successor->data);
-        } else {
-            successor = bst_successor(node->right);
-            node->data = successor->data;
-            node->right = bst_delete(node->right, successor->data);
+        if (node->left == NULL) {
+            bst_node *right_child = node->right;
+            free(node);
+            return right_child;
         }
+
+        if (node->right == NULL) {
+            bst_node *left_child = node->left;
+            free(node);
+            return left_child;
+        }
+
+        bst_node *successor = bst_find_min(node->right);
+        node->data = successor->data;
+        node->right =
+            bst_delete_node(node->right, successor->data);
     }
+
     return node;
 }
-size_t bst_height(bst_node *node)
+bst_node *bst_find_min(bst_node *node)
 {
-    if (node == NULL) {
-        return 0;
-    }
-    size_t left_height = bst_height(node->left);
-    size_t right_height = bst_height(node->right);
-    return left_height > right_height ? left_height + 1 : right_height + 1;
-}
-bst_node *bst_predecessor(bst_node *node)
-{
-    if (node == NULL) {
-        return NULL;
-    }
-    while (node && node->right) {
-        node = node->right;
-    }
-    return node;
-}
-bst_node *bst_successor(bst_node *node)
-{
-    if (node == NULL) {
-        return NULL;
-    }
-    while (node && node->left) {
+    while (node->left != NULL) {
         node = node->left;
     }
     return node;
 }
+
 bst_node *bst_search(binary_search_tree *tree, bst_data key)
 {
     if (tree == NULL) {
