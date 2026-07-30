@@ -16,9 +16,13 @@ typedef struct {
     bst_node *root;
 } binary_search_tree;
 binary_search_tree *bst_create();
-bst_node *bst_create_node(int key);
-void bst_insert(binary_search_tree *tree, int key);
-bst_node *bst_search(binary_search_tree *tree, int key);
+bst_node *bst_create_node(bst_data key);
+void bst_insert(binary_search_tree *tree, bst_data key);
+bst_node *bst_delete(bst_node *node, bst_data key);
+size_t bst_height(bst_node *node);
+bst_node *bst_predecessor(bst_node *node);
+bst_node *bst_successor(bst_node *node);
+bst_node *bst_search(binary_search_tree *tree, bst_data key);
 void bst_inorder(bst_node *node);
 void bst_destroy_subtree(bst_node *node);
 void bst_destroy(binary_search_tree *tree);
