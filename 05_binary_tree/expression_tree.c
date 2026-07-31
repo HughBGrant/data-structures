@@ -25,18 +25,18 @@ bt_node *build(char *expression)
             top < 1) {
 
             while (top >= 0) {
-                bt_destroy_subtree(stack[top--]);
+                bt_subtree_destroy(stack[top--]);
             }
 
             free(stack);
             return NULL;
         }
 
-        bt_node *new_node = bt_create_node(token);
+        bt_node *new_node = bt_node_create(token);
 
         if (new_node == NULL) {
             while (top >= 0) {
-                bt_destroy_subtree(stack[top--]);
+                bt_subtree_destroy(stack[top--]);
             }
 
             free(stack);
@@ -58,7 +58,7 @@ bt_node *build(char *expression)
 
     if (top != 0) {
         while (top >= 0) {
-            bt_destroy_subtree(stack[top--]);
+            bt_subtree_destroy(stack[top--]);
         }
 
         free(stack);

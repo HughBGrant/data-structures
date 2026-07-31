@@ -11,7 +11,7 @@ binary_tree *bt_create()
 
     return tree;
 }
-bt_node *bt_create_node(bt_data data)
+bt_node *bt_node_create(bt_data data)
 {
     bt_node *new_node = malloc(sizeof(bt_node));
     if (new_node == NULL) {
@@ -23,6 +23,10 @@ bt_node *bt_create_node(bt_data data)
 
     return new_node;
 }
+void bt_node_destroy(bt_node *node)
+{
+    free(node);
+}
 void bt_set_root(binary_tree *tree, bt_node *root)
 {
     if (tree == NULL || root == NULL) {
@@ -30,37 +34,28 @@ void bt_set_root(binary_tree *tree, bt_node *root)
     }
     tree->root = root;
 }
-bt_node *bt_add_left(bt_node *parent, bt_data data)
+bt_node *bt_node_set_left(bt_node *parent, bt_node *child)
 {
-    if (parent == NULL || parent->left) {
+    if (parent == NULL || parent->left || child == NULL) {
         return NULL;
     }
-    bt_node *left = bt_create_node(data);
-    if (left == NULL) {
-        return NULL;
-    }
-    parent->left = left;
+    parent->left = child;
     return parent->left;
 }
-bt_node *bt_add_right(bt_node *parent, bt_data data)
+bt_node *bt_node_set_right(bt_node *parent, bt_node *child)
 {
-    if (parent == NULL || parent->right) {
+    if (parent == NULL || parent->right || child == NULL) {
         return NULL;
     }
-    bt_node *right = bt_create_node(data);
-    if (right == NULL) {
-        return NULL;
-    }
-    parent->right = right;
+    parent->right = child;
     return parent->right;
 }
-
 void bt_preorder(bt_node *node)
 {
     if (node == NULL) {
         return;
     }
-    printf(" %c", node->data);
+    printf("%d ", node->data);
     bt_preorder(node->left);
     bt_preorder(node->right);
 }
@@ -70,7 +65,7 @@ void bt_inorder(bt_node *node)
         return;
     }
     bt_inorder(node->left);
-    printf(" %c", node->data);
+    printf("%d ", node->data);
     bt_inorder(node->right);
 }
 void bt_postorder(bt_node *node)
@@ -80,22 +75,22 @@ void bt_postorder(bt_node *node)
     }
     bt_postorder(node->left);
     bt_postorder(node->right);
-    printf(" %c", node->data);
+    printf("%d ", node->data);
 }
-void bt_destroy_subtree(bt_node *subtree)
+void bt_subtree_destroy(bt_node *node)
 {
-    if (subtree == NULL) {
+    if (node == NULL) {
         return;
     }
-    bt_destroy_subtree(subtree->left);
-    bt_destroy_subtree(subtree->right);
-    free(subtree);
+    bt_subtree_destroy(node->left);
+    bt_subtree_destroy(node->right);
+    bt_node_destroy(node);
 }
 void bt_destroy(binary_tree *tree)
 {
     if (tree == NULL) {
         return;
     }
-    bt_destroy_subtree(tree->root);
+    bt_subtree_destroy(tree->root);
     free(tree);
 }

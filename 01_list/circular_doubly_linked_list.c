@@ -34,7 +34,7 @@ void cdll_node_destroy(cdll_node *node)
 {
     free(node);
 }
-cdll_node *cdll_get_node(c_d_linked_list *list, size_t pos)
+cdll_node *cdll_node_get(c_d_linked_list *list, size_t pos)
 {
     if (list == NULL || pos > list->count) {
         return NULL;
@@ -71,7 +71,7 @@ void cdll_insert(c_d_linked_list *list, size_t pos, cdll_data data)
         return;
     }
 
-    cdll_node *next_node = cdll_get_node(list, pos);
+    cdll_node *next_node = cdll_node_get(list, pos);
     if (next_node == NULL) {
         return;
     }
@@ -89,7 +89,7 @@ void cdll_delete(c_d_linked_list *list, size_t pos)
     if (list == NULL || pos >= list->count) {
         return;
     }
-    cdll_node *target_node = cdll_get_node(list, pos);
+    cdll_node *target_node = cdll_node_get(list, pos);
     if (target_node == NULL) {
         return;
     }
@@ -105,7 +105,7 @@ cdll_data *cdll_get(c_d_linked_list *list, size_t pos)
     if (list == NULL || pos >= list->count) {
         return NULL;
     }
-    return &cdll_get_node(list, pos)->data;
+    return &cdll_node_get(list, pos)->data;
 }
 size_t cdll_size(c_d_linked_list *list)
 {

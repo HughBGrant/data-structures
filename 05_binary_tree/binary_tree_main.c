@@ -4,27 +4,27 @@
 void bt_test(void)
 {
     binary_tree *tree = bt_create();
-    bt_node *A = bt_create_node('1');
-    bt_set_root(tree, A);
+    bt_node *root = bt_node_create(1);
+    bt_set_root(tree, root);
 
-    bt_node *B = bt_add_left(A, '2');
-    bt_node *C = bt_add_left(B, '3');
-    bt_node *D = bt_add_right(B, '4');
-    bt_node *E = bt_add_right(A, '5');
-    bt_node *F = bt_add_left(E, '6');
-    bt_node *G = bt_add_right(E, '7');
+    bt_node *B = bt_node_set_left(root, bt_node_create(2));
+    bt_node *C = bt_node_set_left(B, bt_node_create(3));
+    bt_node *D = bt_node_set_right(B, bt_node_create(4));
+    bt_node *E = bt_node_set_right(root, bt_node_create(5));
+    bt_node *F = bt_node_set_left(E, bt_node_create(6));
+    bt_node *G = bt_node_set_right(E, bt_node_create(7));
 
     // 트리 출력
     printf("Preorder ...\n");
-    bt_preorder(A);
+    bt_preorder(root);
     printf("\n\n");
 
     printf("Inorder ... \n");
-    bt_inorder(A);
+    bt_inorder(root);
     printf("\n\n");
 
     printf("Postorder ... \n");
-    bt_postorder(A);
+    bt_postorder(root);
     printf("\n");
 
     // 트리 소멸
@@ -58,7 +58,7 @@ void et_test(void)
 }
 int main(void)
 {
-    int tree_number = 1;
+    int tree_number = 0;
 
     switch (tree_number) {
     case 0:

@@ -42,7 +42,7 @@ void dll_node_destroy(dll_node *node)
 {
     free(node);
 }
-dll_node *dll_get_node(doubly_linked_list *list, size_t pos)
+dll_node *dll_node_get(doubly_linked_list *list, size_t pos)
 {
     if (list == NULL || pos > list->count) {
         return NULL;
@@ -79,7 +79,7 @@ void dll_insert(doubly_linked_list *list, size_t pos, dll_data data)
         return;
     }
 
-    dll_node *next_node = dll_get_node(list, pos);
+    dll_node *next_node = dll_node_get(list, pos);
 
     next_node->prev->next = new_node;
     new_node->prev = next_node->prev;
@@ -95,7 +95,7 @@ void dll_delete(doubly_linked_list *list, size_t pos)
         return;
     }
 
-    dll_node *target_node = dll_get_node(list, pos);
+    dll_node *target_node = dll_node_get(list, pos);
     if (target_node == NULL) {
         return;
     }
@@ -112,7 +112,7 @@ dll_data *dll_get(doubly_linked_list *list, size_t pos)
         return NULL;
     }
 
-    return &dll_get_node(list, pos)->data;
+    return &dll_node_get(list, pos)->data;
 }
 size_t dll_size(doubly_linked_list *list)
 {
