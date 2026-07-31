@@ -21,7 +21,7 @@ singly_linked_list *sll_create(void);
 sll_node *sll_node_create(sll_data data);
 void sll_node_destroy(sll_node *node);
 void sll_insert(singly_linked_list *list, size_t pos, sll_data data);
-void sll_delete(singly_linked_list *list, size_t pos);
+void sll_remove(singly_linked_list *list, size_t pos);
 sll_data *sll_get(singly_linked_list *list, size_t pos);
 sll_node *sll_linear_search_move2front(singly_linked_list *list, sll_data key);
 sll_node *sll_linear_search_transpose(singly_linked_list *list, sll_data key);

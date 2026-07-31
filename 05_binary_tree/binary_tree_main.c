@@ -16,15 +16,15 @@ void bt_test(void)
 
     // 트리 출력
     printf("Preorder ...\n");
-    bt_preorder(root);
+    bt_node_preorder(root);
     printf("\n\n");
 
     printf("Inorder ... \n");
-    bt_inorder(root);
+    bt_node_inorder(root);
     printf("\n\n");
 
     printf("Postorder ... \n");
-    bt_postorder(root);
+    bt_node_postorder(root);
     printf("\n");
 
     // 트리 소멸
@@ -40,15 +40,15 @@ void et_test(void)
 
     // 트리 출력
     printf("Preorder ... \n");
-    bt_preorder(root);
+    bt_node_preorder(root);
     printf("\n\n");
 
     printf("Inorder ... \n");
-    bt_inorder(root);
+    bt_node_inorder(root);
     printf("\n\n");
 
     printf("Postorder ... \n");
-    bt_postorder(root);
+    bt_node_postorder(root);
     printf("\n");
 
     printf("Evaluation Result : %f \n", evaluate(root));
@@ -58,7 +58,7 @@ void et_test(void)
 }
 int main(void)
 {
-    int tree_number = 0;
+    int tree_number = 1;
 
     switch (tree_number) {
     case 0:

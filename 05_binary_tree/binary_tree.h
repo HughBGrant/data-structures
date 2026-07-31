@@ -27,8 +27,8 @@ bt_node *bt_node_set_right(bt_node *parent, bt_node *child);
 
 void bt_set_root(binary_tree *tree, bt_node *root);
 
-void bt_preorder(bt_node *node);
-void bt_inorder(bt_node *node);
-void bt_postorder(bt_node *node);
+void bt_node_preorder(bt_node *node);
+void bt_node_inorder(bt_node *node);
+void bt_node_postorder(bt_node *node);
 
 #endif

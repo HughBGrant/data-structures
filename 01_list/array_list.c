@@ -42,7 +42,7 @@ void al_insert(array_list *list, size_t pos, al_data data)
     list->items[pos] = data;
     list->count++;
 }
-void al_delete(array_list *list, size_t pos)
+void al_remove(array_list *list, size_t pos)
 {
     if (list == NULL || pos >= list->count) {
         return;

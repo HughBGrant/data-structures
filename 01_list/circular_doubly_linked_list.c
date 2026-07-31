@@ -84,7 +84,7 @@ void cdll_insert(c_d_linked_list *list, size_t pos, cdll_data data)
 
     list->count++;
 }
-void cdll_delete(c_d_linked_list *list, size_t pos)
+void cdll_remove(c_d_linked_list *list, size_t pos)
 {
     if (list == NULL || pos >= list->count) {
         return;
@@ -134,7 +134,7 @@ void cdll_destroy(c_d_linked_list *list)
         return;
     }
     while (list->count > 0) {
-        cdll_delete(list, 0);
+        cdll_remove(list, 0);
     }
     cdll_node_destroy(list->head_sentinel);
     free(list);

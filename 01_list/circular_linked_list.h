@@ -20,7 +20,7 @@ circular_linked_list *cll_create(void);
 cll_node *cll_node_create(cll_data data);
 void cll_node_destroy(cll_node *node);
 void cll_insert(circular_linked_list *list, size_t pos, cll_data data);
-void cll_delete(circular_linked_list *list, size_t pos);
+void cll_remove(circular_linked_list *list, size_t pos);
 cll_data *cll_get(circular_linked_list *list, size_t pos);
 size_t cll_size(circular_linked_list *list);
 void cll_print(circular_linked_list *list);

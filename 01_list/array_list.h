@@ -14,7 +14,7 @@ typedef struct {
 
 array_list *al_create(size_t capacity);
 void al_insert(array_list *list, size_t pos, al_data data);
-void al_delete(array_list *list, size_t pos);
+void al_remove(array_list *list, size_t pos);
 
 al_data *al_get(array_list *list, size_t pos);
 int al_linear_search_transpose(array_list *list, al_data key);

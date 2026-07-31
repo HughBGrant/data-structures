@@ -56,7 +56,7 @@ void cll_insert(circular_linked_list *list, size_t pos, cll_data data)
     list->count++;
 }
 
-void cll_delete(circular_linked_list *list, size_t pos)
+void cll_remove(circular_linked_list *list, size_t pos)
 {
     if (list == NULL || pos >= list->count) {
         return;
@@ -124,7 +124,7 @@ void cll_destroy(circular_linked_list *list)
     }
 
     while (list->tail) {
-        cll_delete(list, 0);
+        cll_remove(list, 0);
     }
     free(list);
 }

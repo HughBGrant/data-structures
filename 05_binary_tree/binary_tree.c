@@ -50,31 +50,31 @@ bt_node *bt_node_set_right(bt_node *parent, bt_node *child)
     parent->right = child;
     return parent->right;
 }
-void bt_preorder(bt_node *node)
+void bt_node_preorder(bt_node *node)
 {
     if (node == NULL) {
         return;
     }
     printf("%d ", node->data);
-    bt_preorder(node->left);
-    bt_preorder(node->right);
+    bt_node_preorder(node->left);
+    bt_node_preorder(node->right);
 }
-void bt_inorder(bt_node *node)
+void bt_node_inorder(bt_node *node)
 {
     if (node == NULL) {
         return;
     }
-    bt_inorder(node->left);
+    bt_node_inorder(node->left);
     printf("%d ", node->data);
-    bt_inorder(node->right);
+    bt_node_inorder(node->right);
 }
-void bt_postorder(bt_node *node)
+void bt_node_postorder(bt_node *node)
 {
     if (node == NULL) {
         return;
     }
-    bt_postorder(node->left);
-    bt_postorder(node->right);
+    bt_node_postorder(node->left);
+    bt_node_postorder(node->right);
     printf("%d ", node->data);
 }
 void bt_subtree_destroy(bt_node *node)

@@ -51,7 +51,7 @@ void sll_insert(singly_linked_list *list, size_t pos, sll_data data)
 
     list->count++;
 }
-void sll_delete(singly_linked_list *list, size_t pos)
+void sll_remove(singly_linked_list *list, size_t pos)
 {
     if (list == NULL || pos >= list->count) {
         return;
@@ -164,7 +164,7 @@ void sll_destroy(singly_linked_list *list)
     }
 
     while (list->head) {
-        sll_delete(list, 0);
+        sll_remove(list, 0);
     }
     free(list);
 }

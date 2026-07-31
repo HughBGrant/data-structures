@@ -20,7 +20,7 @@ void al_test(void)
     al_print(list);
 
     printf("\nRemoving Node at [2]...\n\n");
-    al_delete(list, 2);
+    al_remove(list, 2);
     al_print(list);
 
     al_destroy(list);
@@ -101,7 +101,7 @@ void cdll_test(void)
     cdll_insert(list, 3, 3000);
 
     printf("\nRemoving Node at [2]...\n\n");
-    cdll_delete(list, 2);
+    cdll_remove(list, 2);
 
     cdll_print(list);
 
