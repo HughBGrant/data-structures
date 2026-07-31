@@ -18,7 +18,8 @@ typedef struct {
 } singly_linked_list;
 
 singly_linked_list *sll_create(void);
-sll_node *sll_create_node(sll_data data);
+sll_node *sll_node_create(sll_data data);
+void sll_node_destroy(sll_node *node);
 void sll_insert(singly_linked_list *list, size_t pos, sll_data data);
 void sll_delete(singly_linked_list *list, size_t pos);
 sll_data *sll_get(singly_linked_list *list, size_t pos);

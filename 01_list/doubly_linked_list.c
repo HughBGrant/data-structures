@@ -7,14 +7,14 @@ doubly_linked_list *dll_create(void)
         return NULL;
     }
 
-    list->head_sentinel = dll_create_node(0);
+    list->head_sentinel = dll_node_create(0);
     if (list->head_sentinel == NULL) {
         free(list);
         return NULL;
     }
-    list->tail_sentinel = dll_create_node(0);
+    list->tail_sentinel = dll_node_create(0);
     if (list->tail_sentinel == NULL) {
-        free(list->head_sentinel);
+        dll_node_destroy(list->head_sentinel);
         free(list);
         return NULL;
     }
@@ -25,7 +25,7 @@ doubly_linked_list *dll_create(void)
 
     return list;
 }
-dll_node *dll_create_node(dll_data data)
+dll_node *dll_node_create(dll_data data)
 {
     dll_node *new_node = malloc(sizeof(dll_node));
     if (new_node == NULL) {
@@ -37,6 +37,10 @@ dll_node *dll_create_node(dll_data data)
     new_node->next = NULL;
 
     return new_node;
+}
+void dll_node_destroy(dll_node *node)
+{
+    free(node);
 }
 dll_node *dll_get_node(doubly_linked_list *list, size_t pos)
 {
@@ -70,7 +74,7 @@ void dll_insert(doubly_linked_list *list, size_t pos, dll_data data)
         return;
     }
 
-    dll_node *new_node = dll_create_node(data);
+    dll_node *new_node = dll_node_create(data);
     if (new_node == NULL) {
         return;
     }
@@ -99,7 +103,7 @@ void dll_delete(doubly_linked_list *list, size_t pos)
     target_node->prev->next = target_node->next;
     target_node->next->prev = target_node->prev;
 
-    free(target_node);
+    dll_node_destroy(target_node);
     list->count--;
 }
 dll_data *dll_get(doubly_linked_list *list, size_t pos)
@@ -141,7 +145,7 @@ void dll_destroy(doubly_linked_list *list)
         dll_delete(list, 0);
     }
 
-    free(list->head_sentinel);
-    free(list->tail_sentinel);
+    dll_node_destroy(list->head_sentinel);
+    dll_node_destroy(list->tail_sentinel);
     free(list);
 }

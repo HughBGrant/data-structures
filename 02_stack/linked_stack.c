@@ -13,7 +13,7 @@ linked_stack *ls_create(void)
     return stack;
 }
 
-ls_node *ls_create_node(ls_data data)
+ls_node *ls_node_create(ls_data data)
 {
     ls_node *new_node = malloc(sizeof(ls_node));
 
@@ -26,14 +26,17 @@ ls_node *ls_create_node(ls_data data)
 
     return new_node;
 }
-
+void ls_node_destroy(ls_node *node)
+{
+    free(node);
+}
 void ls_push(linked_stack *stack, ls_data data)
 {
     if (stack == NULL) {
         return;
     }
 
-    ls_node *new_top = ls_create_node(data);
+    ls_node *new_top = ls_node_create(data);
 
     if (new_top == NULL) {
         return;
@@ -52,7 +55,7 @@ void ls_pop(linked_stack *stack)
     ls_node *target_node = stack->top;
     stack->top = target_node->next;
 
-    free(target_node);
+    ls_node_destroy(target_node);
 }
 
 ls_data *ls_top(linked_stack *stack)

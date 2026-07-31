@@ -20,7 +20,8 @@ typedef struct {
 } linked_queue;
 
 linked_queue *lq_create(void);
-lq_node *lq_create_node(lq_data data);
+lq_node *lq_node_create(lq_data data);
+void lq_node_destroy(lq_node *node);
 void lq_enqueue(linked_queue *queue, lq_data data);
 void lq_dequeue(linked_queue *queue);
 lq_data *lq_peek(linked_queue *queue);

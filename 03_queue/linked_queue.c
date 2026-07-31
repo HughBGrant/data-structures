@@ -11,7 +11,7 @@ linked_queue *lq_create(void)
 
     return queue;
 }
-lq_node *lq_create_node(lq_data data)
+lq_node *lq_node_create(lq_data data)
 {
     lq_node *new_node = malloc(sizeof(lq_node));
     if (new_node == NULL) {
@@ -23,12 +23,16 @@ lq_node *lq_create_node(lq_data data)
 
     return new_node;
 }
+void lq_node_destroy(lq_node *node)
+{
+    free(node);
+}
 void lq_enqueue(linked_queue *queue, lq_data data)
 {
     if (queue == NULL) {
         return;
     }
-    lq_node *new_rear = lq_create_node(data);
+    lq_node *new_rear = lq_node_create(data);
     if (new_rear == NULL) {
         return;
     }
@@ -50,7 +54,7 @@ void lq_dequeue(linked_queue *queue)
     if (queue->front == NULL) {
         queue->rear = NULL;
     }
-    free(target_node);
+    lq_node_destroy(target_node);
 }
 lq_data *lq_peek(linked_queue *queue)
 {

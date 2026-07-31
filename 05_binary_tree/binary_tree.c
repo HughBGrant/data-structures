@@ -1,5 +1,16 @@
 #include "binary_tree.h"
 
+binary_tree *bt_create()
+{
+    binary_tree *tree = malloc(sizeof(binary_tree));
+    if (tree == NULL) {
+        return NULL;
+    }
+
+    tree->root = NULL;
+
+    return tree;
+}
 bt_node *bt_create_node(bt_data data)
 {
     bt_node *new_node = malloc(sizeof(bt_node));
@@ -11,6 +22,13 @@ bt_node *bt_create_node(bt_data data)
     new_node->right = NULL;
 
     return new_node;
+}
+void bt_set_root(binary_tree *tree, bt_node *root)
+{
+    if (tree == NULL || root == NULL) {
+        return;
+    }
+    tree->root = root;
 }
 bt_node *bt_add_left(bt_node *parent, bt_data data)
 {
@@ -72,4 +90,12 @@ void bt_destroy_subtree(bt_node *subtree)
     bt_destroy_subtree(subtree->left);
     bt_destroy_subtree(subtree->right);
     free(subtree);
+}
+void bt_destroy(binary_tree *tree)
+{
+    if (tree == NULL) {
+        return;
+    }
+    bt_destroy_subtree(tree->root);
+    free(tree);
 }

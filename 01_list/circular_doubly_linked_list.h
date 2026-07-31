@@ -18,7 +18,8 @@ typedef struct {
 } c_d_linked_list;
 
 c_d_linked_list *cdll_create(void);
-cdll_node *cdll_create_node(cdll_data data);
+cdll_node *cdll_node_create(cdll_data data);
+void cdll_node_destroy(cdll_node *node);
 void cdll_insert(c_d_linked_list *list, size_t pos, cdll_data data);
 void cdll_delete(c_d_linked_list *list, size_t pos);
 cdll_node *cdll_get_node(c_d_linked_list *list, size_t pos);

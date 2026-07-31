@@ -12,13 +12,22 @@ typedef struct _bt_node {
     struct _bt_node *right;
 } bt_node;
 
+typedef struct {
+    bt_node *root;
+} binary_tree;
+
+binary_tree *bt_create(void);
 bt_node *bt_create_node(bt_data data);
+void bt_destroy_subtree(bt_node *node);
+void bt_destroy(binary_tree *tree);
+
 bt_node *bt_add_left(bt_node *parent, bt_data data);
 bt_node *bt_add_right(bt_node *parent, bt_data data);
+
+void bt_set_root(binary_tree *tree, bt_node *root);
 
 void bt_preorder(bt_node *node);
 void bt_inorder(bt_node *node);
 void bt_postorder(bt_node *node);
-void bt_destroy_subtree(bt_node *node);
 
 #endif

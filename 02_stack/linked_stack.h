@@ -18,7 +18,8 @@ typedef struct {
 } linked_stack;
 
 linked_stack *ls_create(void);
-ls_node *ls_create_node(ls_data data);
+ls_node *ls_node_create(ls_data data);
+void ls_node_destroy(ls_node *node);
 void ls_push(linked_stack *stack, ls_data data);
 void ls_pop(linked_stack *stack);
 ls_data *ls_top(linked_stack *stack);

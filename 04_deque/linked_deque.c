@@ -12,7 +12,7 @@ linked_deque *ld_create(void)
 
     return deque;
 }
-ld_node *ld_create_node(ld_data data)
+ld_node *ld_node_create(ld_data data)
 {
     ld_node *new_node = malloc(sizeof(ld_node));
     if (new_node == NULL) {
@@ -25,12 +25,16 @@ ld_node *ld_create_node(ld_data data)
 
     return new_node;
 }
+void ld_node_destroy(ld_node *node)
+{
+    free(node);
+}
 void ld_push_front(linked_deque *deque, ld_data data)
 {
     if (deque == NULL) {
         return;
     }
-    ld_node *new_front = ld_create_node(data);
+    ld_node *new_front = ld_node_create(data);
     if (new_front == NULL) {
         return;
     }
@@ -47,7 +51,7 @@ void ld_push_back(linked_deque *deque, ld_data data)
     if (deque == NULL) {
         return;
     }
-    ld_node *new_rear = ld_create_node(data);
+    ld_node *new_rear = ld_node_create(data);
     if (new_rear == NULL) {
         return;
     }
@@ -74,7 +78,7 @@ void ld_pop_front(linked_deque *deque)
         deque->front->prev = NULL;
     }
 
-    free(target_node);
+    ld_node_destroy(target_node);
 }
 void ld_pop_back(linked_deque *deque)
 {
@@ -90,7 +94,7 @@ void ld_pop_back(linked_deque *deque)
         deque->rear->next = NULL;
     }
 
-    free(target_node);
+    ld_node_destroy(target_node);
 }
 ld_data *ld_front(linked_deque *deque)
 {

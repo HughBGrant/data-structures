@@ -21,7 +21,9 @@ typedef struct {
 } linked_deque;
 
 linked_deque *ld_create(void);
-ld_node *ld_create_node(ld_data data);
+void ld_destroy(linked_deque *deque);
+ld_node *ld_node_create(ld_data data);
+void ld_node_destroy(ld_node *node);
 void ld_push_front(linked_deque *deque, ld_data data);
 void ld_push_back(linked_deque *deque, ld_data data);
 void ld_pop_front(linked_deque *deque);
@@ -30,6 +32,5 @@ ld_data *ld_front(linked_deque *deque);
 ld_data *ld_back(linked_deque *deque);
 size_t ld_size(linked_deque *deque);
 bool ld_is_empty(linked_deque *deque);
-void ld_destroy(linked_deque *deque);
 
 #endif

@@ -3,7 +3,9 @@
 
 void bt_test(void)
 {
+    binary_tree *tree = bt_create();
     bt_node *A = bt_create_node('1');
+    bt_set_root(tree, A);
 
     bt_node *B = bt_add_left(A, '2');
     bt_node *C = bt_add_left(B, '3');
@@ -24,12 +26,17 @@ void bt_test(void)
     printf("Postorder ... \n");
     bt_postorder(A);
     printf("\n");
+
+    // 트리 소멸
+    bt_destroy(tree);
 }
 
 void et_test(void)
 {
+    binary_tree *tree = bt_create();
     char expression[32] = "71*52-/";
     bt_node *root = build(expression);
+    bt_set_root(tree, root);
 
     // 트리 출력
     printf("Preorder ... \n");
@@ -45,6 +52,9 @@ void et_test(void)
     printf("\n");
 
     printf("Evaluation Result : %f \n", evaluate(root));
+
+    // 트리 소멸
+    bt_destroy(tree);
 }
 int main(void)
 {

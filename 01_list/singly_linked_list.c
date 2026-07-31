@@ -12,7 +12,7 @@ singly_linked_list *sll_create(void)
 
     return list;
 }
-sll_node *sll_create_node(sll_data data)
+sll_node *sll_node_create(sll_data data)
 {
     sll_node *new_node = malloc(sizeof(sll_node));
     if (new_node == NULL) {
@@ -24,12 +24,16 @@ sll_node *sll_create_node(sll_data data)
 
     return new_node;
 }
+void sll_node_destroy(sll_node *node)
+{
+    free(node);
+}
 void sll_insert(singly_linked_list *list, size_t pos, sll_data data)
 {
     if (list == NULL || pos > list->count) {
         return;
     }
-    sll_node *new_node = sll_create_node(data);
+    sll_node *new_node = sll_node_create(data);
     if (new_node == NULL) {
         return;
     }
@@ -66,7 +70,7 @@ void sll_delete(singly_linked_list *list, size_t pos)
         target_node = prev_node->next;
         prev_node->next = target_node->next;
     }
-    free(target_node);
+    sll_node_destroy(target_node);
     list->count--;
 }
 sll_data *sll_get(singly_linked_list *list, size_t pos)
