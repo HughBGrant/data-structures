@@ -83,8 +83,7 @@ bst_node *bst_delete(bst_node *node, bst_data key)
 
         bst_node *successor = bst_find_min(node->right);
         node->data = successor->data;
-        node->right =
-            bst_delete_node(node->right, successor->data);
+        node->right = bst_delete_node(node->right, successor->data);
     }
 
     return node;
