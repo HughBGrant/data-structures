@@ -11,25 +11,15 @@ int main(void)
     bst_insert(bst, 40);
 
     printf("inorder: ");
-    bst_node_inorder(bst->root);
-    printf("\n");
-
+    bst_print(bst);
     bst_node *node = bst_search(bst, 40);
-
     if (node != NULL) {
-        printf("result: %d\n", node->data);
+        printf("result: %d\n", *bst_node_get_key(node));
     }
-
-    printf("min: %d\n",
-           bst_node_get_min(bst->root)->data);
-
-    bst->root = bst_node_remove(bst->root, 30);
-
     printf("after removing 30: ");
-    bst_node_inorder(bst->root);
-    printf("\n");
+    bst_remove(bst, 30);
+    bst_print(bst);
 
     bst_destroy(bst);
-
     return 0;
 }
