@@ -49,34 +49,34 @@ void bst_insert(binary_search_tree *tree, bst_data key)
     if (tree == NULL) {
         return;
     }
+
     if (tree->root == NULL) {
         tree->root = bst_node_create(key);
         return;
     }
-    bst_node *parent_node = NULL;
+
     bst_node *current_node = tree->root;
 
-    while (current_node != NULL) {
+    while (1) {
         if (key == current_node->key) {
             return;
         }
-        parent_node = current_node;
+
         if (key < current_node->key) {
+            if (current_node->left == NULL) {
+                current_node->left = bst_node_create(key);
+                return;
+            }
+
             current_node = current_node->left;
-        } else if (key > current_node->key) {
+        } else {
+            if (current_node->right == NULL) {
+                current_node->right = bst_node_create(key);
+                return;
+            }
+
             current_node = current_node->right;
         }
-    }
-
-    bst_node *new_node = bst_node_create(key);
-    if (new_node == NULL) {
-        return;
-    }
-
-    if (key < parent_node->key) {
-        parent_node->left = new_node;
-    } else {
-        parent_node->right = new_node;
     }
 }
 bst_node *bst_node_remove(bst_node *node, bst_data key)
