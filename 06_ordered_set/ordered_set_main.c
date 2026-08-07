@@ -1,6 +1,6 @@
 #include "binary_search_tree.h"
 
-int main(void)
+void bst_test(void)
 {
     binary_search_tree *bst = bst_create();
 
@@ -21,5 +21,16 @@ int main(void)
     bst_print(bst);
 
     bst_destroy(bst);
+}
+
+int main(void)
+{
+    int set_number = 0;
+
+    switch (set_number) {
+    case 0:
+        bst_test();
+        break;
+    }
     return 0;
 }

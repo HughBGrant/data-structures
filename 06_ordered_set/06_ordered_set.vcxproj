@@ -124,10 +124,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="avl_tree.c" />
     <ClCompile Include="binary_search_tree.c" />
     <ClCompile Include="ordered_set_main.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="avl_tree.h" />
     <ClInclude Include="binary_search_tree.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
