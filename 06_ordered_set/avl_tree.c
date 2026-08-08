@@ -34,9 +34,9 @@ avl_node *avl_node_create(avl_data key)
         return NULL;
     }
 
-    new_node->left = NULL;
     new_node->key = key;
     new_node->height = 1;
+    new_node->left = NULL;
     new_node->right = NULL;
 
     return new_node;
@@ -89,13 +89,6 @@ void avl_update_height(avl_node *node)
     size_t right_height = avl_height(node->right);
     node->height = 1 + avl_max(left_height, right_height);
 }
-int avl_balance_factor(avl_node *node)
-{
-    if (node == NULL) {
-        return 0;
-    }
-    return (int)(avl_height(node->left) - avl_height(node->right));
-}
 avl_node *avl_rotate_right(avl_node *y)
 {
     if (y == NULL) {
@@ -136,4 +129,8 @@ size_t avl_height(avl_node *node)
 size_t avl_max(size_t a, size_t b)
 {
     return a > b ? a : b;
+}
+int avl_balance_factor(avl_node *node)
+{
+    return (int)(avl_height(node->left) - avl_height(node->right));
 }

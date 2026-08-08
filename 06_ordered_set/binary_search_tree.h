@@ -7,8 +7,8 @@
 typedef int bst_data;
 
 typedef struct _bst_node {
-    struct _bst_node *left;
     bst_data key;
+    struct _bst_node *left;
     struct _bst_node *right;
 } bst_node;
 

@@ -6,9 +6,9 @@
 typedef int avl_data;
 
 typedef struct _avl_node {
-    struct _avl_node *left;
     avl_data key;
     size_t height;
+    struct _avl_node *left;
     struct _avl_node *right;
 } avl_node;
 
