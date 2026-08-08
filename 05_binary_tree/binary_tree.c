@@ -40,18 +40,18 @@ bt_node *bt_node_insert_left(bt_node *parent, bt_data data)
         return NULL;
     }
 
-    bt_node *child = bt_node_create(data);
-    if (child == NULL) {
+    bt_node *new_child = bt_node_create(data);
+    if (new_child == NULL) {
         return NULL;
     }
 
     if (parent->left != NULL) {
-        child->left = parent->left;
+        new_child->left = parent->left;
     }
 
-    parent->left = child;
+    parent->left = new_child;
 
-    return child;
+    return new_child;
 }
 bt_node *bt_node_insert_right(bt_node *parent, bt_data data)
 {
@@ -59,18 +59,18 @@ bt_node *bt_node_insert_right(bt_node *parent, bt_data data)
         return NULL;
     }
 
-    bt_node *child = bt_node_create(data);
-    if (child == NULL) {
+    bt_node *new_child = bt_node_create(data);
+    if (new_child == NULL) {
         return NULL;
     }
 
     if (parent->right != NULL) {
-        child->right = parent->right;
+        new_child->right = parent->right;
     }
 
-    parent->right = child;
+    parent->right = new_child;
 
-    return child;
+    return new_child;
 }
 void bt_node_preorder(bt_node *node)
 {

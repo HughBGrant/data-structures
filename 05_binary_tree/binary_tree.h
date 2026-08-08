@@ -22,9 +22,7 @@ bt_node *bt_node_create(bt_data data);
 void bt_node_destroy(bt_node *node);
 void bt_subtree_destroy(bt_node *node);
 
-bt_node *bt_node_set_left(bt_node *parent, bt_node *child);
 bt_node *bt_node_insert_left(bt_node *parent, bt_data data);
-bt_node *bt_node_set_right(bt_node *parent, bt_node *child);
 bt_node *bt_node_insert_right(bt_node *parent, bt_data data);
 
 void bt_set_root(binary_tree *tree, bt_node *root);
