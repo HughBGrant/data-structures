@@ -18,17 +18,17 @@ typedef struct {
 
 binary_tree *bt_create(void);
 void bt_destroy(binary_tree *tree);
+void bt_subtree_destroy(bt_node *node);
 bt_node *bt_node_create(bt_data data);
 void bt_node_destroy(bt_node *node);
-void bt_subtree_destroy(bt_node *node);
 
-bt_node *bt_node_insert_left(bt_node *parent, bt_data data);
-bt_node *bt_node_insert_right(bt_node *parent, bt_data data);
+bt_node *bt_insert_left(bt_node *parent, bt_data data);
+bt_node *bt_insert_right(bt_node *parent, bt_data data);
 
 void bt_set_root(binary_tree *tree, bt_node *root);
 
-void bt_node_preorder(bt_node *node);
-void bt_node_inorder(bt_node *node);
-void bt_node_postorder(bt_node *node);
+void bt_preorder(bt_node *node);
+void bt_inorder(bt_node *node);
+void bt_postorder(bt_node *node);
 
 #endif

@@ -7,24 +7,24 @@ void bt_test(void)
     bt_node *root = bt_node_create(1);
     bt_set_root(tree, root);
 
-    bt_node *B = bt_node_insert_left(root, 2);
-    bt_node *C = bt_node_insert_left(B, 3);
-    bt_node *D = bt_node_insert_right(B, 4);
-    bt_node *E = bt_node_insert_right(root, 5);
-    bt_node *F = bt_node_insert_left(E, 6);
-    bt_node *G = bt_node_insert_right(E, 7);
+    bt_node *B = bt_insert_left(root, 2);
+    bt_node *C = bt_insert_left(B, 3);
+    bt_node *D = bt_insert_right(B, 4);
+    bt_node *E = bt_insert_right(root, 5);
+    bt_node *F = bt_insert_left(E, 6);
+    bt_node *G = bt_insert_right(E, 7);
 
     // 트리 출력
     printf("Preorder ...\n");
-    bt_node_preorder(root);
+    bt_preorder(root);
     printf("\n\n");
 
     printf("Inorder ... \n");
-    bt_node_inorder(root);
+    bt_inorder(root);
     printf("\n\n");
 
     printf("Postorder ... \n");
-    bt_node_postorder(root);
+    bt_postorder(root);
     printf("\n");
 
     // 트리 소멸
@@ -40,15 +40,15 @@ void et_test(void)
 
     // 트리 출력
     printf("Preorder ... \n");
-    bt_node_preorder(root);
+    bt_preorder(root);
     printf("\n\n");
 
     printf("Inorder ... \n");
-    bt_node_inorder(root);
+    bt_inorder(root);
     printf("\n\n");
 
     printf("Postorder ... \n");
-    bt_node_postorder(root);
+    bt_postorder(root);
     printf("\n");
 
     printf("Evaluation Result : %f \n", evaluate(root));

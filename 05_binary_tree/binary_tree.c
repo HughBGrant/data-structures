@@ -34,7 +34,7 @@ void bt_set_root(binary_tree *tree, bt_node *root)
     }
     tree->root = root;
 }
-bt_node *bt_node_insert_left(bt_node *parent, bt_data data)
+bt_node *bt_insert_left(bt_node *parent, bt_data data)
 {
     if (parent == NULL) {
         return NULL;
@@ -53,7 +53,7 @@ bt_node *bt_node_insert_left(bt_node *parent, bt_data data)
 
     return new_child;
 }
-bt_node *bt_node_insert_right(bt_node *parent, bt_data data)
+bt_node *bt_insert_right(bt_node *parent, bt_data data)
 {
     if (parent == NULL) {
         return NULL;
@@ -72,31 +72,31 @@ bt_node *bt_node_insert_right(bt_node *parent, bt_data data)
 
     return new_child;
 }
-void bt_node_preorder(bt_node *node)
+void bt_preorder(bt_node *node)
 {
     if (node == NULL) {
         return;
     }
     printf("%d ", node->data);
-    bt_node_preorder(node->left);
-    bt_node_preorder(node->right);
+    bt_preorder(node->left);
+    bt_preorder(node->right);
 }
-void bt_node_inorder(bt_node *node)
+void bt_inorder(bt_node *node)
 {
     if (node == NULL) {
         return;
     }
-    bt_node_inorder(node->left);
+    bt_inorder(node->left);
     printf("%d ", node->data);
-    bt_node_inorder(node->right);
+    bt_inorder(node->right);
 }
-void bt_node_postorder(bt_node *node)
+void bt_postorder(bt_node *node)
 {
     if (node == NULL) {
         return;
     }
-    bt_node_postorder(node->left);
-    bt_node_postorder(node->right);
+    bt_postorder(node->left);
+    bt_postorder(node->right);
     printf("%d ", node->data);
 }
 void bt_subtree_destroy(bt_node *node)
