@@ -54,26 +54,64 @@ void avl_insert(avl_tree *tree, avl_data key)
 }
 avl_node *avl_node_insert(avl_node *node, int key)
 {
-    if (node == NULL)
+    if (node == NULL) {
         return avl_node_create(key);
+    }
     if (key < node->key) {
         node->left = avl_node_insert(node->left, key);
     } else if (key > node->key) {
         node->right = avl_node_insert(node->right, key);
+    } else {
+        return node;
+    }
+    return avl_rebalance(node);
+}
+avl_node *avl_node_remove(avl_node *node, int key)
+{
+    if (node == NULL) {
+        return NULL;
     }
 
-    avl_update_height(node);
+    if (key < node->key) {
+        node->left = avl_node_remove(node->left, key);
+    } else if (key > node->key) {
+        node->right = avl_node_remove(node->right, key);
+    } else {
+        if (node->left == NULL || node->right == NULL) {
+            avl_node *child = NULL;
+            if (node->left) {
+                child = node->left;
+            } else {
+                child = node->right;
+            }
+            avl_node_destroy(child);
+            return child;
+        }
+        avl_node *successor = avl_find_min(node->right);
+        node->key = successor->key;
+        node->right = avl_node_remove(node->right, successor->key);
+    }
 
-    int balance = avl_balance_factor(node);
+    return avl_rebalance(node);
+}
+avl_node *avl_rebalance(avl_node *node)
+{
+    if (node == NULL) {
+        return NULL;
+    }
+    avl_update_height(node);
+    int balance = avl_balancefactor(node);
 
     if (balance > 1) {
-        if (avl_balance_factor(node->left) < 0) {
+        if (avl_balancefactor(node->left) < 0) {
             node->left = avl_rotate_left(node->left);
         }
+
         return avl_rotate_right(node);
     }
     if (balance < -1) {
-        if (avl_balance_factor(node->right) > 0) {
+
+        if (avl_balancefactor(node->right) > 0) {
             node->right = avl_rotate_right(node->right);
         }
         return avl_rotate_left(node);
@@ -113,6 +151,16 @@ avl_node *avl_rotate_left(avl_node *x)
     avl_update_height(y);
     return y;
 }
+avl_node *avl_find_min(avl_node *node)
+{
+    if (node == NULL) {
+        return NULL;
+    }
+    while (node->left != NULL) {
+        node = node->left;
+    }
+    return node;
+}
 void avl_inorder(avl_node *node)
 {
     if (node == NULL) {
@@ -130,7 +178,7 @@ size_t avl_max(size_t a, size_t b)
 {
     return a > b ? a : b;
 }
-int avl_balance_factor(avl_node *node)
+int avl_balancefactor(avl_node *node)
 {
     return (int)(avl_height(node->left) - avl_height(node->right));
 }

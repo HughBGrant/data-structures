@@ -37,7 +37,7 @@ void avl_test(void)
 }
 int main(void)
 {
-    int set_number = 1;
+    int set_number = 0;
 
     switch (set_number) {
     case 0:

@@ -23,12 +23,15 @@ void avl_node_destroy(avl_node *node);
 void avl_subtree_destroy(avl_node *node);
 void avl_insert(avl_tree *tree, avl_data key);
 avl_node *avl_node_insert(avl_node *node, int key);
+avl_node *avl_node_remove(avl_node *p, int key);
+avl_node *avl_rebalance(avl_node *node);
 void avl_update_height(avl_node *node);
 size_t avl_height(avl_node *node);
 size_t avl_max(size_t a, size_t b);
-int avl_balance_factor(avl_node *node);
+int avl_balancefactor(avl_node *node);
 avl_node *avl_rotate_right(avl_node *y);
 avl_node *avl_rotate_left(avl_node *x);
+avl_node *avl_find_min(avl_node *node);
 void avl_inorder(avl_node *node);
 
 #endif
