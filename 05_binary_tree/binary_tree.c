@@ -34,21 +34,43 @@ void bt_set_root(binary_tree *tree, bt_node *root)
     }
     tree->root = root;
 }
-bt_node *bt_node_set_left(bt_node *parent, bt_node *child)
+bt_node *bt_node_insert_left(bt_node *parent, bt_data data)
 {
-    if (parent == NULL || parent->left || child == NULL) {
+    if (parent == NULL) {
         return NULL;
     }
+
+    bt_node *child = bt_node_create(data);
+    if (child == NULL) {
+        return NULL;
+    }
+
+    if (parent->left != NULL) {
+        child->left = parent->left;
+    }
+
     parent->left = child;
-    return parent->left;
+
+    return child;
 }
-bt_node *bt_node_set_right(bt_node *parent, bt_node *child)
+bt_node *bt_node_insert_right(bt_node *parent, bt_data data)
 {
-    if (parent == NULL || parent->right || child == NULL) {
+    if (parent == NULL) {
         return NULL;
     }
+
+    bt_node *child = bt_node_create(data);
+    if (child == NULL) {
+        return NULL;
+    }
+
+    if (parent->right != NULL) {
+        child->right = parent->right;
+    }
+
     parent->right = child;
-    return parent->right;
+
+    return child;
 }
 void bt_node_preorder(bt_node *node)
 {
