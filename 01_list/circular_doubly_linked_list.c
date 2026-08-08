@@ -18,6 +18,17 @@ c_d_linked_list *cdll_create(void)
 
     return list;
 }
+void cdll_destroy(c_d_linked_list *list)
+{
+    if (list == NULL) {
+        return;
+    }
+    while (list->count > 0) {
+        cdll_remove(list, 0);
+    }
+    cdll_node_destroy(list->head_sentinel);
+    free(list);
+}
 cdll_node *cdll_node_create(cdll_data data)
 {
     cdll_node *new_node = malloc(sizeof(cdll_node));
@@ -107,13 +118,6 @@ cdll_data *cdll_get(c_d_linked_list *list, size_t pos)
     }
     return &cdll_node_get(list, pos)->data;
 }
-size_t cdll_size(c_d_linked_list *list)
-{
-    if (list == NULL) {
-        return 0;
-    }
-    return list->count;
-}
 void cdll_print(c_d_linked_list *list)
 {
     if (list == NULL || list->head_sentinel == NULL) {
@@ -128,14 +132,7 @@ void cdll_print(c_d_linked_list *list)
 
     printf("<- head\n");
 }
-void cdll_destroy(c_d_linked_list *list)
+size_t cdll_size(c_d_linked_list *list)
 {
-    if (list == NULL) {
-        return;
-    }
-    while (list->count > 0) {
-        cdll_remove(list, 0);
-    }
-    cdll_node_destroy(list->head_sentinel);
-    free(list);
+    return list ? list->count : 0;
 }

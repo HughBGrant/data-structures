@@ -12,6 +12,16 @@ linked_deque *ld_create(void)
 
     return deque;
 }
+void ld_destroy(linked_deque *deque)
+{
+    if (deque == NULL) {
+        return;
+    }
+    while (deque->front) {
+        ld_pop_front(deque);
+    }
+    free(deque);
+}
 ld_node *ld_node_create(ld_data data)
 {
     ld_node *new_node = malloc(sizeof(ld_node));
@@ -126,18 +136,5 @@ size_t ld_size(linked_deque *deque)
 }
 bool ld_is_empty(linked_deque *deque)
 {
-    if (deque == NULL) {
-        return true;
-    }
-    return deque->front == NULL;
-}
-void ld_destroy(linked_deque *deque)
-{
-    if (deque == NULL) {
-        return;
-    }
-    while (deque->front) {
-        ld_pop_front(deque);
-    }
-    free(deque);
+    return deque == NULL || deque->front == NULL;
 }

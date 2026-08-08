@@ -13,6 +13,7 @@ typedef struct {
 } array_list;
 
 array_list *al_create(size_t capacity);
+void al_destroy(array_list *list);
 void al_insert(array_list *list, size_t pos, al_data data);
 void al_remove(array_list *list, size_t pos);
 
@@ -22,6 +23,5 @@ int al_linear_search_move2front(array_list *list, al_data key);
 int al_binary_search(array_list *list, al_data key);
 size_t al_size(array_list *list);
 void al_print(array_list *list);
-void al_destroy(array_list *list);
 
 #endif

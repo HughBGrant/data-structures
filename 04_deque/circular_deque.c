@@ -22,6 +22,14 @@ circular_deque *cd_create(size_t capacity)
 
     return deque;
 }
+void cd_destroy(circular_deque *deque)
+{
+    if (deque == NULL) {
+        return;
+    }
+    free(deque->items);
+    free(deque);
+}
 void cd_push_front(circular_deque *deque, cd_data data)
 {
     if (deque == NULL) {
@@ -99,25 +107,11 @@ cd_data *cd_back(circular_deque *deque)
     size_t back_index = (deque->front + deque->count - 1) % deque->capacity;
     return &deque->items[back_index];
 }
-void cd_destroy(circular_deque *deque)
-{
-    if (deque == NULL) {
-        return;
-    }
-    free(deque->items);
-    free(deque);
-}
 bool cd_is_empty(circular_deque *deque)
 {
-    if (deque == NULL) {
-        return true;
-    }
-    return deque->count == 0;
+    return deque == NULL || deque->count == 0;
 }
 size_t cd_size(circular_deque *deque)
 {
-    if (deque == NULL) {
-        return 0;
-    }
-    return deque->count;
+    return deque ? deque->count : 0;
 }

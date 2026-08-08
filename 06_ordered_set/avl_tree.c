@@ -89,14 +89,6 @@ void avl_update_height(avl_node *node)
     size_t right_height = avl_height(node->right);
     node->height = 1 + avl_max(left_height, right_height);
 }
-size_t avl_height(avl_node *node)
-{
-    return node ? node->height : 0;
-}
-size_t avl_max(size_t a, size_t b)
-{
-    return a > b ? a : b;
-}
 int avl_balance_factor(avl_node *node)
 {
     if (node == NULL) {
@@ -136,4 +128,12 @@ void avl_inorder(avl_node *node)
     avl_inorder(node->left);
     printf("%d ", node->key);
     avl_inorder(node->right);
+}
+size_t avl_height(avl_node *node)
+{
+    return node ? node->height : 0;
+}
+size_t avl_max(size_t a, size_t b)
+{
+    return a > b ? a : b;
 }

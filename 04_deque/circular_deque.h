@@ -16,6 +16,7 @@ typedef struct {
 } circular_deque;
 
 circular_deque *cd_create(size_t capacity);
+void cd_destroy(circular_deque *deque);
 
 void cd_push_front(circular_deque *deque, cd_data data);
 void cd_push_back(circular_deque *deque, cd_data data);
@@ -27,6 +28,5 @@ cd_data *cd_back(circular_deque *deque);
 
 bool cd_is_empty(circular_deque *deque);
 size_t cd_size(circular_deque *deque);
-void cd_destroy(circular_deque *deque);
 
 #endif

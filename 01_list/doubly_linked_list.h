@@ -19,6 +19,7 @@ typedef struct {
 } doubly_linked_list;
 
 doubly_linked_list *dll_create(void);
+void dll_destroy(doubly_linked_list *list);
 dll_node *dll_node_create(dll_data data);
 void dll_node_destroy(dll_node *node);
 void dll_insert(doubly_linked_list *list, size_t pos, dll_data data);
@@ -28,7 +29,5 @@ dll_data *dll_get(doubly_linked_list *list, size_t pos);
 
 size_t dll_size(doubly_linked_list *list);
 void dll_print(doubly_linked_list *list);
-
-void dll_destroy(doubly_linked_list *list);
 
 #endif

@@ -11,6 +11,23 @@ binary_tree *bt_create()
 
     return tree;
 }
+void bt_destroy(binary_tree *tree)
+{
+    if (tree == NULL) {
+        return;
+    }
+    bt_subtree_destroy(tree->root);
+    free(tree);
+}
+void bt_subtree_destroy(bt_node *node)
+{
+    if (node == NULL) {
+        return;
+    }
+    bt_subtree_destroy(node->left);
+    bt_subtree_destroy(node->right);
+    bt_node_destroy(node);
+}
 bt_node *bt_node_create(bt_data data)
 {
     bt_node *new_node = malloc(sizeof(bt_node));
@@ -98,21 +115,4 @@ void bt_postorder(bt_node *node)
     bt_postorder(node->left);
     bt_postorder(node->right);
     printf("%d ", node->data);
-}
-void bt_subtree_destroy(bt_node *node)
-{
-    if (node == NULL) {
-        return;
-    }
-    bt_subtree_destroy(node->left);
-    bt_subtree_destroy(node->right);
-    bt_node_destroy(node);
-}
-void bt_destroy(binary_tree *tree)
-{
-    if (tree == NULL) {
-        return;
-    }
-    bt_subtree_destroy(tree->root);
-    free(tree);
 }

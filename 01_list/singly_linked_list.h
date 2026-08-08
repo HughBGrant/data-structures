@@ -18,6 +18,7 @@ typedef struct {
 } singly_linked_list;
 
 singly_linked_list *sll_create(void);
+void sll_destroy(singly_linked_list *list);
 sll_node *sll_node_create(sll_data data);
 void sll_node_destroy(sll_node *node);
 void sll_insert(singly_linked_list *list, size_t pos, sll_data data);
@@ -27,6 +28,5 @@ sll_node *sll_linear_search_move2front(singly_linked_list *list, sll_data key);
 sll_node *sll_linear_search_transpose(singly_linked_list *list, sll_data key);
 void sll_print(singly_linked_list *list);
 size_t sll_size(singly_linked_list *list);
-void sll_destroy(singly_linked_list *list);
 
 #endif

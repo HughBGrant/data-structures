@@ -11,6 +11,16 @@ linked_queue *lq_create(void)
 
     return queue;
 }
+void lq_destroy(linked_queue *queue)
+{
+    if (queue == NULL) {
+        return;
+    }
+    while (queue->front) {
+        lq_dequeue(queue);
+    }
+    free(queue);
+}
 lq_node *lq_node_create(lq_data data)
 {
     lq_node *new_node = malloc(sizeof(lq_node));
@@ -80,18 +90,5 @@ size_t lq_size(linked_queue *queue)
 }
 bool lq_is_empty(linked_queue *queue)
 {
-    if (queue == NULL) {
-        return true;
-    }
-    return queue->front == NULL;
-}
-void lq_destroy(linked_queue *queue)
-{
-    if (queue == NULL) {
-        return;
-    }
-    while (queue->front) {
-        lq_dequeue(queue);
-    }
-    free(queue);
+    return queue == NULL || queue->front == NULL;
 }

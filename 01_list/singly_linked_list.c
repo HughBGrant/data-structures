@@ -12,6 +12,17 @@ singly_linked_list *sll_create(void)
 
     return list;
 }
+void sll_destroy(singly_linked_list *list)
+{
+    if (list == NULL) {
+        return;
+    }
+
+    while (list->head) {
+        sll_remove(list, 0);
+    }
+    free(list);
+}
 sll_node *sll_node_create(sll_data data)
 {
     sll_node *new_node = malloc(sizeof(sll_node));
@@ -137,13 +148,6 @@ sll_node *sll_linear_search_transpose(singly_linked_list *list, sll_data key)
     }
     return current_node;
 }
-size_t sll_size(singly_linked_list *list)
-{
-    if (list == NULL) {
-        return 0;
-    }
-    return list->count;
-}
 void sll_print(singly_linked_list *list)
 {
     if (list == NULL || list->head == NULL) {
@@ -157,14 +161,7 @@ void sll_print(singly_linked_list *list)
     }
     printf("\n");
 }
-void sll_destroy(singly_linked_list *list)
+size_t sll_size(singly_linked_list *list)
 {
-    if (list == NULL) {
-        return;
-    }
-
-    while (list->head) {
-        sll_remove(list, 0);
-    }
-    free(list);
+    return list ? list->count : 0;
 }

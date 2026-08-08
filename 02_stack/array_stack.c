@@ -19,6 +19,14 @@ array_stack *as_create(size_t capacity)
 
     return stack;
 }
+void as_destroy(array_stack *stack)
+{
+    if (stack == NULL) {
+        return;
+    }
+    free(stack->items);
+    free(stack);
+}
 void as_push(array_stack *stack, as_data data)
 {
     if (stack == NULL) {
@@ -55,23 +63,9 @@ as_data *as_top(array_stack *stack)
 }
 size_t as_size(array_stack *stack)
 {
-    if (stack == NULL) {
-        return 0;
-    }
-    return stack->count;
+    return stack ? stack->count : 0;
 }
 bool as_is_empty(array_stack *stack)
 {
-    if (stack == NULL) {
-        return true;
-    }
-    return stack->count == 0;
-}
-void as_destroy(array_stack *stack)
-{
-    if (stack == NULL) {
-        return;
-    }
-    free(stack->items);
-    free(stack);
+    return stack == NULL || stack->count == 0;
 }

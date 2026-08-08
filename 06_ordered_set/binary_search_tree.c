@@ -79,6 +79,13 @@ void bst_insert(binary_search_tree *tree, bst_data key)
         }
     }
 }
+void bst_remove(binary_search_tree *tree, bst_data key)
+{
+    if (tree == NULL) {
+        return;
+    }
+    tree->root = bst_node_remove(tree->root, key);
+}
 bst_node *bst_node_remove(bst_node *node, bst_data key)
 {
     if (node == NULL) {
@@ -108,13 +115,6 @@ bst_node *bst_node_remove(bst_node *node, bst_data key)
     }
     return node;
 }
-void bst_remove(binary_search_tree *tree, bst_data key)
-{
-    if (tree == NULL) {
-        return;
-    }
-    tree->root = bst_node_remove(tree->root, key);
-}
 bst_node *bst_min(bst_node *node)
 {
     if (node == NULL) {
@@ -142,13 +142,6 @@ bst_node *bst_search(binary_search_tree *tree, bst_data key)
     }
     return NULL;
 }
-bst_data *bst_key(bst_node *node)
-{
-    if (node == NULL) {
-        return NULL;
-    }
-    return &node->key;
-}
 void bst_inorder(bst_node *node)
 {
     if (node == NULL) {
@@ -163,7 +156,13 @@ void bst_print(binary_search_tree *tree)
     if (tree == NULL || tree->root == NULL) {
         return;
     }
-
     bst_inorder(tree->root);
     printf("\n");
+}
+bst_data *bst_key(bst_node *node)
+{
+    if (node == NULL) {
+        return NULL;
+    }
+    return &node->key;
 }

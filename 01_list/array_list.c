@@ -19,6 +19,15 @@ array_list *al_create(size_t capacity)
 
     return list;
 }
+void al_destroy(array_list *list)
+{
+    if (list == NULL) {
+        return;
+    }
+    free(list->items);
+    free(list);
+}
+
 void al_insert(array_list *list, size_t pos, al_data data)
 {
     if (list == NULL || pos > list->count) {
@@ -124,13 +133,6 @@ int al_binary_search(array_list *list, al_data key)
     }
     return -1;
 }
-size_t al_size(array_list *list)
-{
-    if (list == NULL) {
-        return 0;
-    }
-    return list->count;
-}
 void al_print(array_list *list)
 {
     printf("| ");
@@ -138,11 +140,7 @@ void al_print(array_list *list)
         printf("%d | ", list->items[index]);
     }
 }
-void al_destroy(array_list *list)
+size_t al_size(array_list *list)
 {
-    if (list == NULL) {
-        return;
-    }
-    free(list->items);
-    free(list);
+    return list ? list->count : 0;
 }

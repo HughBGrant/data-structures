@@ -12,6 +12,17 @@ circular_linked_list *cll_create(void)
 
     return list;
 }
+void cll_destroy(circular_linked_list *list)
+{
+    if (list == NULL) {
+        return;
+    }
+
+    while (list->tail) {
+        cll_remove(list, 0);
+    }
+    free(list);
+}
 cll_node *cll_node_create(cll_data data)
 {
     cll_node *new_node = malloc(sizeof(cll_node));
@@ -55,7 +66,6 @@ void cll_insert(circular_linked_list *list, size_t pos, cll_data data)
     }
     list->count++;
 }
-
 void cll_remove(circular_linked_list *list, size_t pos)
 {
     if (list == NULL || pos >= list->count) {
@@ -96,13 +106,6 @@ cll_data *cll_get(circular_linked_list *list, size_t pos)
     }
     return &target_node->data;
 }
-size_t cll_size(circular_linked_list *list)
-{
-    if (list == NULL) {
-        return 0;
-    }
-    return list->count;
-}
 void cll_print(circular_linked_list *list)
 {
     if (list == NULL || list->tail == NULL) {
@@ -117,14 +120,7 @@ void cll_print(circular_linked_list *list)
 
     printf("head\n");
 }
-void cll_destroy(circular_linked_list *list)
+size_t cll_size(circular_linked_list *list)
 {
-    if (list == NULL) {
-        return;
-    }
-
-    while (list->tail) {
-        cll_remove(list, 0);
-    }
-    free(list);
+    return list ? list->count : 0;
 }

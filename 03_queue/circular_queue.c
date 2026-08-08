@@ -22,6 +22,14 @@ circular_queue *cq_create(size_t capacity)
 
     return queue;
 }
+void cq_destroy(circular_queue *queue)
+{
+    if (queue == NULL) {
+        return;
+    }
+    free(queue->items);
+    free(queue);
+}
 void cq_enqueue(circular_queue *queue, cq_data data)
 {
     if (queue == NULL) {
@@ -63,24 +71,9 @@ cq_data *cq_peek(circular_queue *queue)
 }
 bool cq_is_empty(circular_queue *queue)
 {
-    if (queue == NULL) {
-        return true;
-    }
-    return queue->count == 0;
+    return queue == NULL || queue->count == 0;
 }
 size_t cq_size(circular_queue *queue)
 {
-    if (queue == NULL) {
-        return 0;
-    }
-
-    return queue->count;
-}
-void cq_destroy(circular_queue *queue)
-{
-    if (queue == NULL) {
-        return;
-    }
-    free(queue->items);
-    free(queue);
+    return queue ? queue->count : 0;
 }

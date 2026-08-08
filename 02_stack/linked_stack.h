@@ -18,6 +18,7 @@ typedef struct {
 } linked_stack;
 
 linked_stack *ls_create(void);
+void ls_destroy(linked_stack *stack);
 ls_node *ls_node_create(ls_data data);
 void ls_node_destroy(ls_node *node);
 void ls_push(linked_stack *stack, ls_data data);
@@ -26,6 +27,5 @@ ls_data *ls_top(linked_stack *stack);
 
 size_t ls_size(linked_stack *stack);
 bool ls_is_empty(linked_stack *stack);
-void ls_destroy(linked_stack *stack);
 
 #endif
