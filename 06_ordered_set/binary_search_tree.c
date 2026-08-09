@@ -51,39 +51,16 @@ void bst_insert(binary_search_tree *tree, bst_data key)
     }
     tree->root = bst_node_insert(tree->root, key);
 }
-bst_node *bst_node_insert(bst_node *node, bst_data key) //////////
+bst_node *bst_node_insert(bst_node *node, int key)
 {
     if (node == NULL) {
         return bst_node_create(key);
     }
-    //// 1
-    bst_node *current_node = node;
-    while (1) {
-        if (key < current_node->key) {
-            if (current_node->left == NULL) {
-                current_node->left = bst_node_create(key);
-                return node;
-            }
-            current_node = current_node->left;
-        } else if (key > current_node->key) {
-            if (current_node->right == NULL) {
-                current_node->right = bst_node_create(key);
-                return node;
-            }
-            current_node = current_node->right;
-        } else {
-            return node;
-        }
+    if (key < node->key) {
+        node->left = bst_node_insert(node->left, key);
+    } else if (key > node->key) {
+        node->right = bst_node_insert(node->right, key);
     }
-    //// 2
-    // if (key < node->key) {
-    //     node->left = bst_node_insert(node->left, key);
-    // } else if (key > node->key) {
-    //     node->right = bst_node_insert(node->right, key);
-    // } else {
-    //     return node;
-    // }
-    ////
     return node;
 }
 void bst_remove(binary_search_tree *tree, bst_data key)
@@ -122,6 +99,7 @@ bst_node *bst_node_remove(bst_node *node, bst_data key)
     }
     return node;
 }
+
 bst_node *bst_find_min(bst_node *node)
 {
     if (node == NULL) {
