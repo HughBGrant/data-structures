@@ -1,14 +1,5 @@
 #include "avl_tree.h"
 
-void avl_subtree_destroy(avl_node *subtree)
-{
-    if (subtree == NULL) {
-        return;
-    }
-    avl_subtree_destroy(subtree->left);
-    avl_subtree_destroy(subtree->right);
-    avl_node_destroy(subtree);
-}
 avl_node *avl_node_create(avl_data key)
 {
     avl_node *new_node = malloc(sizeof(avl_node));
@@ -22,6 +13,15 @@ avl_node *avl_node_create(avl_data key)
     new_node->right = NULL;
 
     return new_node;
+}
+void avl_subtree_destroy(avl_node *subtree)
+{
+    if (subtree == NULL) {
+        return;
+    }
+    avl_subtree_destroy(subtree->left);
+    avl_subtree_destroy(subtree->right);
+    avl_node_destroy(subtree);
 }
 void avl_node_destroy(avl_node *node)
 {
