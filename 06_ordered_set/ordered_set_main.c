@@ -3,25 +3,23 @@
 
 void bst_test(void)
 {
-    binary_search_tree *bst = bst_create();
-
-    bst_insert(bst, 50);
-    bst_insert(bst, 30);
-    bst_insert(bst, 70);
-    bst_insert(bst, 20);
-    bst_insert(bst, 40);
+    bst_node *root = NULL;
+    bst_data keys[] = {10, 20, 30, 40, 50, 25};
+    for (int i = 0; i < 6; i++) {
+        root = bst_node_insert(root, keys[i]);
+    }
 
     printf("inorder: ");
-    bst_print(bst);
-    bst_node *node = bst_search(bst, 40);
+    bst_inorder(root);
+    printf("\n");
+    bst_node *node = bst_search(root, 40);
     if (node != NULL) {
         printf("result: %d\n", *bst_key(node));
     }
     printf("after removing 30: ");
-    bst_remove(bst, 30);
-    bst_print(bst);
-
-    bst_destroy(bst);
+    bst_node_remove(root, 30);
+    bst_inorder(root);
+    bst_subtree_destroy(root);
 }
 void avl_test(void)
 {
@@ -34,6 +32,13 @@ void avl_test(void)
     printf("In-order: ");
     avl_inorder(root);
     printf("\n");
+
+    printf("remove 20\n");
+    root = avl_node_remove(root, 20);
+    avl_inorder(root);
+    printf("\n");
+
+    avl_subtree_destroy(root);
 }
 int main(void)
 {

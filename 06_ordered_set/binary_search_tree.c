@@ -1,23 +1,5 @@
 #include "binary_search_tree.h"
 
-binary_search_tree *bst_create()
-{
-    binary_search_tree *tree = malloc(sizeof(binary_search_tree));
-    if (tree == NULL) {
-        return NULL;
-    }
-    tree->root = NULL;
-
-    return tree;
-}
-void bst_destroy(binary_search_tree *tree)
-{
-    if (tree == NULL) {
-        return;
-    }
-    bst_subtree_destroy(tree->root);
-    free(tree);
-}
 bst_node *bst_node_create(bst_data key)
 {
     bst_node *new_node = malloc(sizeof(bst_node));
@@ -44,14 +26,7 @@ void bst_subtree_destroy(bst_node *subtree)
     bst_subtree_destroy(subtree->right);
     bst_node_destroy(subtree);
 }
-void bst_insert(binary_search_tree *tree, bst_data key)
-{
-    if (tree == NULL) {
-        return;
-    }
-    tree->root = bst_node_insert(tree->root, key);
-}
-bst_node *bst_node_insert(bst_node *node, int key)
+bst_node *bst_node_insert(bst_node *node, bst_data key)
 {
     if (node == NULL) {
         return bst_node_create(key);
@@ -62,13 +37,6 @@ bst_node *bst_node_insert(bst_node *node, int key)
         node->right = bst_node_insert(node->right, key);
     }
     return node;
-}
-void bst_remove(binary_search_tree *tree, bst_data key)
-{
-    if (tree == NULL) {
-        return;
-    }
-    tree->root = bst_node_remove(tree->root, key);
 }
 bst_node *bst_node_remove(bst_node *node, bst_data key)
 {
@@ -89,7 +57,7 @@ bst_node *bst_node_remove(bst_node *node, bst_data key)
             } else {
                 child = node->right;
             }
-            bst_node_destroy(child);
+            bst_node_destroy(node);
             return child;
         }
 
@@ -110,12 +78,9 @@ bst_node *bst_find_min(bst_node *node)
     }
     return node;
 }
-bst_node *bst_search(binary_search_tree *tree, bst_data key)
+bst_node *bst_search(bst_node *node, bst_data key)
 {
-    if (tree == NULL) {
-        return NULL;
-    }
-    bst_node *current_node = tree->root;
+    bst_node *current_node = node;
     while (current_node != NULL) {
         if (key == current_node->key) {
             return current_node;
@@ -135,14 +100,6 @@ void bst_inorder(bst_node *node)
     bst_inorder(node->left);
     printf("%d ", node->key);
     bst_inorder(node->right);
-}
-void bst_print(binary_search_tree *tree)
-{
-    if (tree == NULL || tree->root == NULL) {
-        return;
-    }
-    bst_inorder(tree->root);
-    printf("\n");
 }
 bst_data *bst_key(bst_node *node)
 {

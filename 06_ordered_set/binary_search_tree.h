@@ -12,23 +12,14 @@ typedef struct _bst_node {
     struct _bst_node *right;
 } bst_node;
 
-typedef struct {
-    bst_node *root;
-} binary_search_tree;
-
-binary_search_tree *bst_create();
-void bst_destroy(binary_search_tree *tree);
 bst_node *bst_node_create(bst_data key);
 void bst_node_destroy(bst_node *node);
 void bst_subtree_destroy(bst_node *node);
-void bst_insert(binary_search_tree *tree, bst_data key);
 bst_node *bst_node_insert(bst_node *node, bst_data key);
 bst_node *bst_node_remove(bst_node *node, bst_data key);
-void bst_remove(binary_search_tree *tree, bst_data key);
-bst_node *bst_search(binary_search_tree *tree, bst_data key);
+bst_node *bst_search(bst_node *node, bst_data key);
 bst_node *bst_find_min(bst_node *node);
 bst_data *bst_key(bst_node *node);
 void bst_inorder(bst_node *node);
-void bst_print(binary_search_tree *tree);
 
 #endif

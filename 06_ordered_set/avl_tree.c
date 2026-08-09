@@ -1,23 +1,5 @@
 #include "avl_tree.h"
 
-avl_tree *avl_create()
-{
-    avl_tree *tree = malloc(sizeof(avl_tree));
-    if (tree == NULL) {
-        return NULL;
-    }
-    tree->root = NULL;
-
-    return tree;
-}
-void avl_destroy(avl_tree *tree)
-{
-    if (tree == NULL) {
-        return;
-    }
-    avl_subtree_destroy(tree->root);
-    free(tree);
-}
 void avl_subtree_destroy(avl_node *subtree)
 {
     if (subtree == NULL) {
@@ -45,14 +27,7 @@ void avl_node_destroy(avl_node *node)
 {
     free(node);
 }
-void avl_insert(avl_tree *tree, avl_data key)
-{
-    if (tree == NULL) {
-        return;
-    }
-    tree->root = avl_node_insert(tree->root, key);
-}
-avl_node *avl_node_insert(avl_node *node, int key)
+avl_node *avl_node_insert(avl_node *node, avl_data key)
 {
     if (node == NULL) {
         return avl_node_create(key);
@@ -66,7 +41,7 @@ avl_node *avl_node_insert(avl_node *node, int key)
     }
     return avl_rebalance(node);
 }
-avl_node *avl_node_remove(avl_node *node, int key)
+avl_node *avl_node_remove(avl_node *node, avl_data key)
 {
     if (node == NULL) {
         return NULL;
@@ -84,7 +59,7 @@ avl_node *avl_node_remove(avl_node *node, int key)
             } else {
                 child = node->right;
             }
-            avl_node_destroy(child);
+            avl_node_destroy(node);
             return child;
         }
         avl_node *successor = avl_find_min(node->right);
@@ -180,5 +155,5 @@ size_t avl_max(size_t a, size_t b)
 }
 int avl_balancefactor(avl_node *node)
 {
-    return (int)(avl_height(node->left) - avl_height(node->right));
+    return (int)avl_height(node->left) - (int)avl_height(node->right);
 }

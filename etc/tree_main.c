@@ -42,14 +42,11 @@ void TestLCRST(void)
 int main(void)
 {
 
-    int TreeNumber = 1;
+    int TreeNumber = 0;
 
     switch (TreeNumber) {
     case 0:
         TestLCRST();
-        break;
-    case 1:
-        et_test();
         break;
     }
     return 0;
