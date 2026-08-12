@@ -15,25 +15,11 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="binary_search_tree.c">
+    <ClCompile Include="hash_table.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="ordered_set_main.c">
+    <ClCompile Include="hash_map.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="avl_tree.c">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="trie.c">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="binary_search_tree.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="avl_tree.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>
