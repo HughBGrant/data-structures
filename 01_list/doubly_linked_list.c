@@ -1,70 +1,60 @@
 #include "doubly_linked_list.h"
 
-doubly_linked_list *dll_create(void)
+doubly_linked_list *cdll_create(void)
 {
     doubly_linked_list *list = malloc(sizeof(doubly_linked_list));
     if (list == NULL) {
         return NULL;
     }
-
-    list->head_sentinel = dll_node_create(0);
+    list->head_sentinel = cdll_node_create(0);
     if (list->head_sentinel == NULL) {
         free(list);
         return NULL;
     }
-    list->tail_sentinel = dll_node_create(0);
-    if (list->tail_sentinel == NULL) {
-        dll_node_destroy(list->head_sentinel);
-        free(list);
-        return NULL;
-    }
 
+    list->head_sentinel->next = list->head_sentinel;
+    list->head_sentinel->prev = list->head_sentinel;
     list->count = 0;
-    list->head_sentinel->next = list->tail_sentinel;
-    list->tail_sentinel->prev = list->head_sentinel;
 
     return list;
 }
-void dll_destroy(doubly_linked_list *list)
+void cdll_destroy(doubly_linked_list *list)
 {
     if (list == NULL) {
         return;
     }
-
     while (list->count > 0) {
-        dll_remove(list, 0);
+        cdll_remove(list, 0);
     }
-
-    dll_node_destroy(list->head_sentinel);
-    dll_node_destroy(list->tail_sentinel);
+    cdll_node_destroy(list->head_sentinel);
     free(list);
 }
-dll_node *dll_node_create(dll_data data)
+cdll_node *cdll_node_create(cdll_data data)
 {
-    dll_node *new_node = malloc(sizeof(dll_node));
+    cdll_node *new_node = malloc(sizeof(cdll_node));
     if (new_node == NULL) {
         return NULL;
     }
-
     new_node->data = data;
     new_node->prev = NULL;
     new_node->next = NULL;
 
     return new_node;
 }
-void dll_node_destroy(dll_node *node)
+void cdll_node_destroy(cdll_node *node)
 {
     free(node);
 }
-dll_node *dll_node_get(doubly_linked_list *list, size_t pos)
+cdll_node *cdll_node_get(doubly_linked_list *list, size_t pos)
 {
     if (list == NULL || pos > list->count) {
         return NULL;
     }
     if (pos == list->count) {
-        return list->tail_sentinel;
+        return list->head_sentinel; // 센티널 반환
     }
-    dll_node *target_node = NULL;
+
+    cdll_node *target_node = NULL;
 
     if (pos < list->count / 2) {
         target_node = list->head_sentinel->next;
@@ -73,27 +63,29 @@ dll_node *dll_node_get(doubly_linked_list *list, size_t pos)
             target_node = target_node->next;
         }
     } else {
-        target_node = list->tail_sentinel->prev;
+        target_node = list->head_sentinel->prev;
 
         for (size_t i = list->count - 1; i > pos; i--) {
             target_node = target_node->prev;
         }
     }
-
     return target_node;
 }
-void dll_insert(doubly_linked_list *list, size_t pos, dll_data data)
+void cdll_insert(doubly_linked_list *list, size_t pos, cdll_data data)
 {
     if (list == NULL || pos > list->count) {
         return;
     }
 
-    dll_node *new_node = dll_node_create(data);
+    cdll_node *new_node = cdll_node_create(data);
     if (new_node == NULL) {
         return;
     }
 
-    dll_node *next_node = dll_node_get(list, pos);
+    cdll_node *next_node = cdll_node_get(list, pos);
+    if (next_node == NULL) {
+        return;
+    }
 
     next_node->prev->next = new_node;
     new_node->prev = next_node->prev;
@@ -103,45 +95,44 @@ void dll_insert(doubly_linked_list *list, size_t pos, dll_data data)
 
     list->count++;
 }
-void dll_remove(doubly_linked_list *list, size_t pos)
+void cdll_remove(doubly_linked_list *list, size_t pos)
 {
     if (list == NULL || pos >= list->count) {
         return;
     }
-
-    dll_node *target_node = dll_node_get(list, pos);
+    cdll_node *target_node = cdll_node_get(list, pos);
     if (target_node == NULL) {
         return;
     }
 
     target_node->prev->next = target_node->next;
     target_node->next->prev = target_node->prev;
+    cdll_node_destroy(target_node);
 
-    dll_node_destroy(target_node);
     list->count--;
 }
-dll_data *dll_get(doubly_linked_list *list, size_t pos)
+cdll_data *cdll_get(doubly_linked_list *list, size_t pos)
 {
     if (list == NULL || pos >= list->count) {
         return NULL;
     }
-
-    return &dll_node_get(list, pos)->data;
+    return &cdll_node_get(list, pos)->data;
 }
-void dll_print(doubly_linked_list *list)
+void cdll_print(doubly_linked_list *list)
 {
     if (list == NULL || list->head_sentinel == NULL) {
         return;
     }
-    dll_node *current_node = list->head_sentinel->next;
+    cdll_node *current_node = list->head_sentinel->next;
 
-    while (current_node != list->tail_sentinel) {
+    while (current_node != list->head_sentinel) {
         printf("<- %d ->", current_node->data);
         current_node = current_node->next;
     }
-    printf("\n");
+
+    printf("<- head\n");
 }
-size_t dll_size(doubly_linked_list *list)
+size_t cdll_size(doubly_linked_list *list)
 {
     return list ? list->count : 0;
 }

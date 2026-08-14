@@ -1,7 +1,6 @@
 #include "array_list.h"
-#include "circular_doubly_linked_list.h"
-#include "circular_linked_list.h"
 #include "doubly_linked_list.h"
+#include "circular_linked_list.h"
 #include "singly_linked_list.h"
 
 void al_test(void)
@@ -69,27 +68,7 @@ void cll_test(void)
 }
 void dll_test(void)
 {
-    doubly_linked_list *list = dll_create();
-
-    for (int i = 5; i > 0; i--) {
-        dll_insert(list, dll_size(list), i);
-    }
-    dll_insert(list, dll_size(list), -1);
-    dll_insert(list, dll_size(list), -2);
-
-    dll_print(list);
-
-    printf("\nInserting 3000 At [2]...\n\n");
-    dll_insert(list, 2, 3000);
-
-    dll_print(list);
-
-    printf("\nDestroying List...\n");
-    dll_destroy(list);
-}
-void cdll_test(void)
-{
-    c_d_linked_list *list = cdll_create();
+    doubly_linked_list *list = cdll_create();
     size_t i = 0;
 
     for (int i = 5; i > 0; i--) {
@@ -112,7 +91,7 @@ void cdll_test(void)
 }
 int main(void)
 {
-    int list_number = 4;
+    int list_number = 3;
 
     switch (list_number) {
     case 0:
@@ -126,9 +105,6 @@ int main(void)
         break;
     case 3:
         dll_test();
-        break;
-    case 4:
-        cdll_test();
         break;
     }
     return 0;
