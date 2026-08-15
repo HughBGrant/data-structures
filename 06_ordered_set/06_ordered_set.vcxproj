@@ -127,11 +127,12 @@
     <ClCompile Include="avl_tree.c" />
     <ClCompile Include="binary_search_tree.c" />
     <ClCompile Include="ordered_set_main.c" />
-    <ClCompile Include="trie.c" />
+    <ClCompile Include="two_three_tree.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="avl_tree.h" />
     <ClInclude Include="binary_search_tree.h" />
+    <ClInclude Include="two_three_tree.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

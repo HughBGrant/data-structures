@@ -26,5 +26,8 @@
     <ClCompile Include="tree_main.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="trie.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,5 +1,6 @@
 #include "avl_tree.h"
 #include "binary_search_tree.h"
+#include "two_three_tree.h"
 
 void bst_test(void)
 {
@@ -39,6 +40,57 @@ void avl_test(void)
     printf("\n");
 
     avl_subtree_destroy(root);
+}
+void ttt_test(void)
+{
+    Tree23 tree;
+
+    tree23_init(&tree);
+
+    int values[] = {
+        50, 20, 70,
+        10, 30, 60, 80,
+        25, 27, 26,
+        5, 15,
+        65, 90};
+
+    int size =
+        sizeof(values) /
+        sizeof(values[0]);
+
+    /* 삽입 */
+    for (int i = 0; i < size; ++i) {
+
+        tree23_insert(
+            &tree,
+            values[i]);
+    }
+
+    /* 트리 구조 */
+    printf("Tree structure:\n");
+
+    tree23_print_structure(&tree);
+
+    /* 중위 순회 */
+    printf("\nInorder:\n");
+
+    tree23_print_inorder(&tree);
+
+    /* 탐색 */
+    printf(
+        "\nSearch 27: %s\n",
+        tree23_search(&tree, 27)
+            ? "found"
+            : "not found");
+
+    printf(
+        "Search 99: %s\n",
+        tree23_search(&tree, 99)
+            ? "found"
+            : "not found");
+
+    /* 메모리 해제 */
+    tree23_destroy(&tree);
 }
 int main(void)
 {
