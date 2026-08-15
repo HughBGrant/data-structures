@@ -68,26 +68,26 @@ void cll_test(void)
 }
 void dll_test(void)
 {
-    doubly_linked_list *list = cdll_create();
+    doubly_linked_list *list = dll_create();
     size_t i = 0;
 
     for (int i = 5; i > 0; i--) {
-        cdll_insert(list, cdll_size(list), i);
+        dll_insert(list, dll_size(list), i);
     }
-    cdll_print(list);
+    dll_print(list);
 
     printf("\nInserting 3000 At [3]...\n\n");
-    cdll_insert(list, 3, 3000);
+    dll_insert(list, 3, 3000);
 
     printf("\nRemoving Node at [2]...\n\n");
-    cdll_remove(list, 2);
+    dll_remove(list, 2);
 
-    cdll_print(list);
+    dll_print(list);
 
     printf("head->prev: %d\n", list->head_sentinel->prev->data);
 
     printf("\nDestroying List...\n");
-    cdll_destroy(list);
+    dll_destroy(list);
 }
 int main(void)
 {
