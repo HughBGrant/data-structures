@@ -24,18 +24,12 @@
     <ClCompile Include="avl_tree.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="two_three_tree.c">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="binary_search_tree.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="avl_tree.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="two_three_tree.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
