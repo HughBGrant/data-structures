@@ -10,14 +10,14 @@ typedef struct {
     as_data *items;
     size_t capacity;
     size_t count;
-} array_stack;
+} as_stack;
 
-array_stack *as_create(size_t capacity);
-void as_destroy(array_stack *stack);
+void as_push(as_stack *stack, as_data data);
+void as_pop(as_stack *stack);
+as_data *as_top(as_stack *stack);
+bool as_is_empty(as_stack *stack);
+size_t as_size(as_stack *stack);
 
-void as_push(array_stack *stack, as_data data);
-void as_pop(array_stack *stack);
-as_data *as_top(array_stack *stack);
-bool as_is_empty(array_stack *stack);
-size_t as_size(array_stack *stack);
+as_stack *as_create(size_t capacity);
+void as_destroy(as_stack *stack);
 #endif

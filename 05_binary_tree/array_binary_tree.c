@@ -2,12 +2,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-array_binary_tree *abt_create(size_t capacity)
+abt_tree *abt_create(size_t capacity)
 {
     if (capacity == 0) {
         capacity = 1;
     }
-    array_binary_tree *tree = malloc(sizeof(array_binary_tree));
+    abt_tree *tree = malloc(sizeof(abt_tree));
     if (tree == NULL) {
         return NULL;
     }
@@ -21,7 +21,7 @@ array_binary_tree *abt_create(size_t capacity)
 
     return tree;
 }
-void abt_destroy(array_binary_tree *tree)
+void abt_destroy(abt_tree *tree)
 {
     if (tree == NULL) {
         return;
@@ -29,7 +29,7 @@ void abt_destroy(array_binary_tree *tree)
     free(tree->items);
     free(tree);
 }
-void abt_insert(array_binary_tree *tree, abt_data data)
+void abt_insert(abt_tree *tree, abt_data data)
 {
     if (tree == NULL) {
         return;
@@ -43,7 +43,7 @@ void abt_insert(array_binary_tree *tree, abt_data data)
     tree->items[tree->count] = data;
     tree->count++;
 }
-abt_data *abt_get_parent(array_binary_tree *tree, size_t child_pos)
+abt_data *abt_get_parent(abt_tree *tree, size_t child_pos)
 {
     if (abt_is_empty(tree) || child_pos == 0 || child_pos >= tree->count) {
         return NULL;
@@ -52,7 +52,7 @@ abt_data *abt_get_parent(array_binary_tree *tree, size_t child_pos)
 
     return &tree->items[parent_pos];
 }
-abt_data *abt_get_left(array_binary_tree *tree, size_t parent_pos)
+abt_data *abt_get_left(abt_tree *tree, size_t parent_pos)
 {
     if (abt_is_empty(tree) || parent_pos >= tree->count) {
         return NULL;
@@ -63,7 +63,7 @@ abt_data *abt_get_left(array_binary_tree *tree, size_t parent_pos)
     }
     return &tree->items[left_pos];
 }
-abt_data *abt_get_right(array_binary_tree *tree, size_t parent_pos)
+abt_data *abt_get_right(abt_tree *tree, size_t parent_pos)
 {
     if (abt_is_empty(tree) || parent_pos >= tree->count) {
         return NULL;
@@ -75,7 +75,7 @@ abt_data *abt_get_right(array_binary_tree *tree, size_t parent_pos)
     }
     return &tree->items[right_pos];
 }
-void abt_print(array_binary_tree *tree)
+void abt_print(abt_tree *tree)
 {
     if (tree == NULL) {
         return;
@@ -84,11 +84,11 @@ void abt_print(array_binary_tree *tree)
         printf("index %zu : %d\n", i, tree->items[i]);
     }
 }
-bool abt_is_empty(array_binary_tree *tree)
+bool abt_is_empty(abt_tree *tree)
 {
     return tree == NULL || tree->count == 0;
 }
-size_t abt_size(array_binary_tree *tree)
+size_t abt_size(abt_tree *tree)
 {
     return tree ? tree->count : 0;
 }

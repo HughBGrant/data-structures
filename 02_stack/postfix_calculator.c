@@ -34,7 +34,7 @@ void convert(char *infix, char *postfix)
     if (infix == NULL || postfix == NULL)
         return;
 
-    linked_stack *stack = ls_create();
+    ls_stack *stack = ls_create();
     if (stack == NULL) {
         return;
     }
@@ -86,7 +86,7 @@ void convert(char *infix, char *postfix)
 
 int evaluate(const char *postfix)
 {
-    linked_stack *stack = ls_create();
+    ls_stack *stack = ls_create();
 
     if (postfix == NULL || stack == NULL) {
         ls_destroy(stack);

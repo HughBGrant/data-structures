@@ -2,12 +2,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-array_stack *as_create(size_t capacity)
+as_stack *as_create(size_t capacity)
 {
     if (capacity == 0) {
         capacity = 1;
     }
-    array_stack *stack = malloc(sizeof(array_stack));
+    as_stack *stack = malloc(sizeof(as_stack));
     if (stack == NULL) {
         return NULL;
     }
@@ -21,7 +21,7 @@ array_stack *as_create(size_t capacity)
 
     return stack;
 }
-void as_destroy(array_stack *stack)
+void as_destroy(as_stack *stack)
 {
     if (stack == NULL) {
         return;
@@ -29,7 +29,7 @@ void as_destroy(array_stack *stack)
     free(stack->items);
     free(stack);
 }
-void as_push(array_stack *stack, as_data data)
+void as_push(as_stack *stack, as_data data)
 {
     if (stack == NULL) {
         return;
@@ -49,25 +49,25 @@ void as_push(array_stack *stack, as_data data)
     stack->items[stack->count] = data;
     stack->count++;
 }
-void as_pop(array_stack *stack)
+void as_pop(as_stack *stack)
 {
     if (as_is_empty(stack)) {
         return;
     }
     stack->count--;
 }
-as_data *as_top(array_stack *stack)
+as_data *as_top(as_stack *stack)
 {
     if (as_is_empty(stack)) {
         return NULL;
     }
     return &stack->items[stack->count - 1];
 }
-size_t as_size(array_stack *stack)
+size_t as_size(as_stack *stack)
 {
     return stack ? stack->count : 0;
 }
-bool as_is_empty(array_stack *stack)
+bool as_is_empty(as_stack *stack)
 {
     return stack == NULL || stack->count == 0;
 }

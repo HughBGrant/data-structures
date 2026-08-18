@@ -2,12 +2,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-circular_queue *cq_create(size_t capacity)
+cq_queue *cq_create(size_t capacity)
 {
     if (capacity == 0) {
         capacity = 1;
     }
-    circular_queue *queue = malloc(sizeof(circular_queue));
+    cq_queue *queue = malloc(sizeof(cq_queue));
     if (queue == NULL) {
         return NULL;
     }
@@ -24,7 +24,7 @@ circular_queue *cq_create(size_t capacity)
 
     return queue;
 }
-void cq_destroy(circular_queue *queue)
+void cq_destroy(cq_queue *queue)
 {
     if (queue == NULL) {
         return;
@@ -32,7 +32,7 @@ void cq_destroy(circular_queue *queue)
     free(queue->items);
     free(queue);
 }
-void cq_enqueue(circular_queue *queue, cq_data data)
+void cq_enqueue(cq_queue *queue, cq_data data)
 {
     if (queue == NULL) {
         return;
@@ -56,7 +56,7 @@ void cq_enqueue(circular_queue *queue, cq_data data)
     queue->items[rear] = data;
     queue->count++;
 }
-void cq_dequeue(circular_queue *queue)
+void cq_dequeue(cq_queue *queue)
 {
     if (cq_is_empty(queue)) {
         return;
@@ -64,18 +64,18 @@ void cq_dequeue(circular_queue *queue)
     queue->front = (queue->front + 1) % queue->capacity;
     queue->count--;
 }
-cq_data *cq_peek(circular_queue *queue)
+cq_data *cq_peek(cq_queue *queue)
 {
     if (cq_is_empty(queue)) {
         return NULL;
     }
     return &queue->items[queue->front];
 }
-bool cq_is_empty(circular_queue *queue)
+bool cq_is_empty(cq_queue *queue)
 {
     return queue == NULL || queue->count == 0;
 }
-size_t cq_size(circular_queue *queue)
+size_t cq_size(cq_queue *queue)
 {
     return queue ? queue->count : 0;
 }

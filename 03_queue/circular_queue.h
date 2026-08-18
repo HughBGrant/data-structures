@@ -1,4 +1,3 @@
-#define _CRT_SECURE_NO_WARNINGS
 #ifndef CIRCULAR_QUEUE_H
 #define CIRCULAR_QUEUE_H
 
@@ -12,15 +11,15 @@ typedef struct {
     size_t capacity;
     size_t front;
     size_t count;
-} circular_queue;
+} cq_queue;
 
-circular_queue *cq_create(size_t capacity);
-void cq_destroy(circular_queue *queue);
+void cq_enqueue(cq_queue *queue, cq_data data);
+void cq_dequeue(cq_queue *queue);
+cq_data *cq_peek(cq_queue *queue);
+bool cq_is_empty(cq_queue *queue);
+size_t cq_size(cq_queue *queue);
 
-void cq_enqueue(circular_queue *queue, cq_data data);
-void cq_dequeue(circular_queue *queue);
-cq_data *cq_peek(circular_queue *queue);
-bool cq_is_empty(circular_queue *queue);
-size_t cq_size(circular_queue *queue);
+cq_queue *cq_create(size_t capacity);
+void cq_destroy(cq_queue *queue);
 
 #endif

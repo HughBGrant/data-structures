@@ -2,9 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-linked_queue *lq_create(void)
+lq_queue *lq_create(void)
 {
-    linked_queue *queue = malloc(sizeof(linked_queue));
+    lq_queue *queue = malloc(sizeof(lq_queue));
     if (queue == NULL) {
         return NULL;
     }
@@ -13,7 +13,7 @@ linked_queue *lq_create(void)
 
     return queue;
 }
-void lq_destroy(linked_queue *queue)
+void lq_destroy(lq_queue *queue)
 {
     if (queue == NULL) {
         return;
@@ -39,7 +39,7 @@ void lq_node_destroy(lq_node *node)
 {
     free(node);
 }
-void lq_enqueue(linked_queue *queue, lq_data data)
+void lq_enqueue(lq_queue *queue, lq_data data)
 {
     if (queue == NULL) {
         return;
@@ -55,7 +55,7 @@ void lq_enqueue(linked_queue *queue, lq_data data)
     }
     queue->rear = new_rear;
 }
-void lq_dequeue(linked_queue *queue)
+void lq_dequeue(lq_queue *queue)
 {
     if (lq_is_empty(queue)) {
         return;
@@ -68,14 +68,14 @@ void lq_dequeue(linked_queue *queue)
     }
     lq_node_destroy(target_node);
 }
-lq_data *lq_peek(linked_queue *queue)
+lq_data *lq_peek(lq_queue *queue)
 {
     if (lq_is_empty(queue)) {
         return NULL;
     }
     return &queue->front->data;
 }
-size_t lq_size(linked_queue *queue)
+size_t lq_size(lq_queue *queue)
 {
     if (queue == NULL) {
         return 0;
@@ -90,7 +90,7 @@ size_t lq_size(linked_queue *queue)
 
     return size;
 }
-bool lq_is_empty(linked_queue *queue)
+bool lq_is_empty(lq_queue *queue)
 {
     return queue == NULL || queue->front == NULL;
 }

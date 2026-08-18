@@ -2,9 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-circular_linked_list *cll_create(void)
+cll_list *cll_create(void)
 {
-    circular_linked_list *list = malloc(sizeof(circular_linked_list));
+    cll_list *list = malloc(sizeof(cll_list));
     if (list == NULL) {
         return NULL;
     }
@@ -14,7 +14,7 @@ circular_linked_list *cll_create(void)
 
     return list;
 }
-void cll_destroy(circular_linked_list *list)
+void cll_destroy(cll_list *list)
 {
     if (list == NULL) {
         return;
@@ -41,7 +41,7 @@ void cll_node_destroy(cll_node *node)
 {
     free(node);
 }
-void cll_insert(circular_linked_list *list, size_t pos, cll_data data)
+void cll_insert(cll_list *list, size_t pos, cll_data data)
 {
     if (list == NULL || pos > list->count) {
         return;
@@ -68,7 +68,7 @@ void cll_insert(circular_linked_list *list, size_t pos, cll_data data)
     }
     list->count++;
 }
-void cll_remove(circular_linked_list *list, size_t pos)
+void cll_remove(cll_list *list, size_t pos)
 {
     if (list == NULL || pos >= list->count) {
         return;
@@ -92,7 +92,7 @@ void cll_remove(circular_linked_list *list, size_t pos)
     cll_node_destroy(target_node);
     list->count--;
 }
-cll_data *cll_get(circular_linked_list *list, size_t pos)
+cll_data *cll_get(cll_list *list, size_t pos)
 {
     if (list == NULL || pos >= list->count) {
         return NULL;
@@ -108,7 +108,7 @@ cll_data *cll_get(circular_linked_list *list, size_t pos)
     }
     return &target_node->data;
 }
-void cll_print(circular_linked_list *list)
+void cll_print(cll_list *list)
 {
     if (list == NULL || list->tail == NULL) {
         return;
@@ -122,7 +122,7 @@ void cll_print(circular_linked_list *list)
 
     printf("head\n");
 }
-size_t cll_size(circular_linked_list *list)
+size_t cll_size(cll_list *list)
 {
     return list ? list->count : 0;
 }

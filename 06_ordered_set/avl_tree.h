@@ -12,9 +12,6 @@ typedef struct _avl_node {
     struct _avl_node *right;
 } avl_node;
 
-avl_node *avl_node_create(avl_data key);
-void avl_node_destroy(avl_node *node);
-void avl_subtree_destroy(avl_node *node);
 avl_node *avl_node_insert(avl_node *node, avl_data key);
 avl_node *avl_node_remove(avl_node *p, avl_data key);
 avl_node *avl_rebalance(avl_node *node);
@@ -26,5 +23,9 @@ avl_node *avl_rotate_right(avl_node *y);
 avl_node *avl_rotate_left(avl_node *x);
 avl_node *avl_find_min(avl_node *node);
 void avl_inorder(avl_node *node);
+
+avl_node *avl_node_create(avl_data key);
+void avl_node_destroy(avl_node *node);
+void avl_subtree_destroy(avl_node *node);
 
 #endif

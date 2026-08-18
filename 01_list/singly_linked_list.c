@@ -2,9 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-singly_linked_list *sll_create(void)
+sll_list *sll_create(void)
 {
-    singly_linked_list *list = malloc(sizeof(singly_linked_list));
+    sll_list *list = malloc(sizeof(sll_list));
     if (list == NULL) {
         return NULL;
     }
@@ -14,7 +14,7 @@ singly_linked_list *sll_create(void)
 
     return list;
 }
-void sll_destroy(singly_linked_list *list)
+void sll_destroy(sll_list *list)
 {
     if (list == NULL) {
         return;
@@ -41,7 +41,7 @@ void sll_node_destroy(sll_node *node)
 {
     free(node);
 }
-void sll_insert(singly_linked_list *list, size_t pos, sll_data data)
+void sll_insert(sll_list *list, size_t pos, sll_data data)
 {
     if (list == NULL || pos > list->count) {
         return;
@@ -64,7 +64,7 @@ void sll_insert(singly_linked_list *list, size_t pos, sll_data data)
 
     list->count++;
 }
-void sll_remove(singly_linked_list *list, size_t pos)
+void sll_remove(sll_list *list, size_t pos)
 {
     if (list == NULL || pos >= list->count) {
         return;
@@ -86,7 +86,7 @@ void sll_remove(singly_linked_list *list, size_t pos)
     sll_node_destroy(target_node);
     list->count--;
 }
-sll_data *sll_get(singly_linked_list *list, size_t pos)
+sll_data *sll_get(sll_list *list, size_t pos)
 {
     if (list == NULL || pos >= list->count) {
         return NULL;
@@ -98,7 +98,7 @@ sll_data *sll_get(singly_linked_list *list, size_t pos)
     }
     return &target_node->data;
 }
-sll_node *sll_linear_search_move2front(singly_linked_list *list, sll_data key)
+sll_node *sll_linear_search_move2front(sll_list *list, sll_data key)
 {
     if (list == NULL) {
         return NULL;
@@ -121,7 +121,7 @@ sll_node *sll_linear_search_move2front(singly_linked_list *list, sll_data key)
     }
     return current_node;
 }
-sll_node *sll_linear_search_transpose(singly_linked_list *list, sll_data key)
+sll_node *sll_linear_search_transpose(sll_list *list, sll_data key)
 {
     if (list == NULL) {
         return NULL;
@@ -150,7 +150,7 @@ sll_node *sll_linear_search_transpose(singly_linked_list *list, sll_data key)
     }
     return current_node;
 }
-void sll_print(singly_linked_list *list)
+void sll_print(sll_list *list)
 {
     if (list == NULL || list->head == NULL) {
         return;
@@ -163,7 +163,7 @@ void sll_print(singly_linked_list *list)
     }
     printf("\n");
 }
-size_t sll_size(singly_linked_list *list)
+size_t sll_size(sll_list *list)
 {
     return list ? list->count : 0;
 }

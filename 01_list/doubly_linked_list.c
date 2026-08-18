@@ -2,9 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-doubly_linked_list *dll_create(void)
+dll_list *dll_create(void)
 {
-    doubly_linked_list *list = malloc(sizeof(doubly_linked_list));
+    dll_list *list = malloc(sizeof(dll_list));
     if (list == NULL) {
         return NULL;
     }
@@ -20,7 +20,7 @@ doubly_linked_list *dll_create(void)
 
     return list;
 }
-void dll_destroy(doubly_linked_list *list)
+void dll_destroy(dll_list *list)
 {
     if (list == NULL) {
         return;
@@ -47,7 +47,7 @@ void dll_node_destroy(dll_node *node)
 {
     free(node);
 }
-dll_node *dll_node_get(doubly_linked_list *list, size_t pos)
+dll_node *dll_node_get(dll_list *list, size_t pos)
 {
     if (list == NULL || pos > list->count) {
         return NULL;
@@ -73,7 +73,7 @@ dll_node *dll_node_get(doubly_linked_list *list, size_t pos)
     }
     return target_node;
 }
-void dll_insert(doubly_linked_list *list, size_t pos, dll_data data)
+void dll_insert(dll_list *list, size_t pos, dll_data data)
 {
     if (list == NULL || pos > list->count) {
         return;
@@ -97,7 +97,7 @@ void dll_insert(doubly_linked_list *list, size_t pos, dll_data data)
 
     list->count++;
 }
-void dll_remove(doubly_linked_list *list, size_t pos)
+void dll_remove(dll_list *list, size_t pos)
 {
     if (list == NULL || pos >= list->count) {
         return;
@@ -115,14 +115,14 @@ void dll_remove(doubly_linked_list *list, size_t pos)
 
     list->count--;
 }
-dll_data *dll_get(doubly_linked_list *list, size_t pos)
+dll_data *dll_get(dll_list *list, size_t pos)
 {
     if (list == NULL || pos >= list->count) {
         return NULL;
     }
     return &dll_node_get(list, pos)->data;
 }
-void dll_print(doubly_linked_list *list)
+void dll_print(dll_list *list)
 {
     if (list == NULL || list->head_sentinel == NULL) {
         return;
@@ -136,7 +136,7 @@ void dll_print(doubly_linked_list *list)
 
     printf("<- head\n");
 }
-size_t dll_size(doubly_linked_list *list)
+size_t dll_size(dll_list *list)
 {
     return list ? list->count : 0;
 }

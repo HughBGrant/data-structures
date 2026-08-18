@@ -4,7 +4,7 @@
 
 void cd_test(void)
 {
-    circular_deque *deque = cd_create(2);
+    cd_deque *deque = cd_create(2);
 
     for (cd_data i = 0; i < 8; i++) {
         cd_push_front(deque, i);
@@ -31,7 +31,7 @@ void cd_test(void)
 }
 void ld_test(void)
 {
-    linked_deque *deque = ld_create();
+    ld_deque *deque = ld_create();
 
     for (ld_data i = 0; i < 8; i++) {
         ld_push_front(deque, i);

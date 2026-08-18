@@ -2,12 +2,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-array_list *al_create(size_t capacity)
+al_list *al_create(size_t capacity)
 {
     if (capacity == 0) {
         capacity = 1;
     }
-    array_list *list = malloc(sizeof(array_list));
+    al_list *list = malloc(sizeof(al_list));
     if (list == NULL) {
         return NULL;
     }
@@ -21,7 +21,7 @@ array_list *al_create(size_t capacity)
 
     return list;
 }
-void al_destroy(array_list *list)
+void al_destroy(al_list *list)
 {
     if (list == NULL) {
         return;
@@ -30,7 +30,7 @@ void al_destroy(array_list *list)
     free(list);
 }
 
-void al_insert(array_list *list, size_t pos, al_data data)
+void al_insert(al_list *list, size_t pos, al_data data)
 {
     if (list == NULL || pos > list->count) {
         return;
@@ -53,7 +53,7 @@ void al_insert(array_list *list, size_t pos, al_data data)
     list->items[pos] = data;
     list->count++;
 }
-void al_remove(array_list *list, size_t pos)
+void al_remove(al_list *list, size_t pos)
 {
     if (list == NULL || pos >= list->count) {
         return;
@@ -63,14 +63,14 @@ void al_remove(array_list *list, size_t pos)
     }
     list->count--;
 }
-al_data *al_get(array_list *list, size_t pos)
+al_data *al_get(al_list *list, size_t pos)
 {
     if (list == NULL || pos >= list->count) {
         return NULL;
     }
     return &list->items[pos];
 }
-int al_linear_search_transpose(array_list *list, al_data key)
+int al_linear_search_transpose(al_list *list, al_data key)
 {
     if (list == NULL) {
         return -1;
@@ -91,7 +91,7 @@ int al_linear_search_transpose(array_list *list, al_data key)
     }
     return pos;
 }
-int al_linear_search_move2front(array_list *list, al_data key)
+int al_linear_search_move2front(al_list *list, al_data key)
 {
     if (list == NULL) {
         return -1;
@@ -112,7 +112,7 @@ int al_linear_search_move2front(array_list *list, al_data key)
 
     return pos;
 }
-int al_binary_search(array_list *list, al_data key)
+int al_binary_search(al_list *list, al_data key)
 {
     if (list == NULL) {
         return -1;
@@ -135,7 +135,7 @@ int al_binary_search(array_list *list, al_data key)
     }
     return -1;
 }
-void al_print(array_list *list)
+void al_print(al_list *list)
 {
     if (list == NULL) {
         return;
@@ -145,7 +145,7 @@ void al_print(array_list *list)
         printf("%d | ", list->items[index]);
     }
 }
-size_t al_size(array_list *list)
+size_t al_size(al_list *list)
 {
     return list ? list->count : 0;
 }

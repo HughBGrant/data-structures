@@ -8,18 +8,19 @@ typedef struct {
     al_data *items;
     size_t capacity;
     size_t count;
-} array_list;
+} al_list;
 
-array_list *al_create(size_t capacity);
-void al_destroy(array_list *list);
-void al_insert(array_list *list, size_t pos, al_data data);
-void al_remove(array_list *list, size_t pos);
+void al_insert(al_list *list, size_t pos, al_data data);
+void al_remove(al_list *list, size_t pos);
 
-al_data *al_get(array_list *list, size_t pos);
-int al_linear_search_transpose(array_list *list, al_data key);
-int al_linear_search_move2front(array_list *list, al_data key);
-int al_binary_search(array_list *list, al_data key);
-size_t al_size(array_list *list);
-void al_print(array_list *list);
+al_data *al_get(al_list *list, size_t pos);
+int al_linear_search_transpose(al_list *list, al_data key);
+int al_linear_search_move2front(al_list *list, al_data key);
+int al_binary_search(al_list *list, al_data key);
+size_t al_size(al_list *list);
+void al_print(al_list *list);
+
+al_list *al_create(size_t capacity);
+void al_destroy(al_list *list);
 
 #endif

@@ -2,9 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-linked_deque *ld_create(void)
+ld_deque *ld_create(void)
 {
-    linked_deque *deque = malloc(sizeof(linked_deque));
+    ld_deque *deque = malloc(sizeof(ld_deque));
     if (deque == NULL) {
         return NULL;
     }
@@ -14,7 +14,7 @@ linked_deque *ld_create(void)
 
     return deque;
 }
-void ld_destroy(linked_deque *deque)
+void ld_destroy(ld_deque *deque)
 {
     if (deque == NULL) {
         return;
@@ -41,7 +41,7 @@ void ld_node_destroy(ld_node *node)
 {
     free(node);
 }
-void ld_push_front(linked_deque *deque, ld_data data)
+void ld_push_front(ld_deque *deque, ld_data data)
 {
     if (deque == NULL) {
         return;
@@ -58,7 +58,7 @@ void ld_push_front(linked_deque *deque, ld_data data)
     }
     deque->front = new_front;
 }
-void ld_push_back(linked_deque *deque, ld_data data)
+void ld_push_back(ld_deque *deque, ld_data data)
 {
     if (deque == NULL) {
         return;
@@ -76,7 +76,7 @@ void ld_push_back(linked_deque *deque, ld_data data)
     }
     deque->rear = new_rear;
 }
-void ld_pop_front(linked_deque *deque)
+void ld_pop_front(ld_deque *deque)
 {
     if (ld_is_empty(deque)) {
         return;
@@ -92,7 +92,7 @@ void ld_pop_front(linked_deque *deque)
 
     ld_node_destroy(target_node);
 }
-void ld_pop_back(linked_deque *deque)
+void ld_pop_back(ld_deque *deque)
 {
     if (ld_is_empty(deque)) {
         return;
@@ -108,21 +108,21 @@ void ld_pop_back(linked_deque *deque)
 
     ld_node_destroy(target_node);
 }
-ld_data *ld_front(linked_deque *deque)
+ld_data *ld_front(ld_deque *deque)
 {
     if (ld_is_empty(deque)) {
         return NULL;
     }
     return &deque->front->data;
 }
-ld_data *ld_back(linked_deque *deque)
+ld_data *ld_back(ld_deque *deque)
 {
     if (ld_is_empty(deque)) {
         return NULL;
     }
     return &deque->rear->data;
 }
-size_t ld_size(linked_deque *deque)
+size_t ld_size(ld_deque *deque)
 {
     if (deque == NULL) {
         return 0;
@@ -136,7 +136,7 @@ size_t ld_size(linked_deque *deque)
     }
     return size;
 }
-bool ld_is_empty(linked_deque *deque)
+bool ld_is_empty(ld_deque *deque)
 {
     return deque == NULL || deque->front == NULL;
 }

@@ -4,7 +4,7 @@
 
 void cq_test(void)
 {
-    circular_queue *queue = cq_create(2);
+    cq_queue *queue = cq_create(2);
 
     for (cq_data i = 0; i < 16; i++) {
         cq_enqueue(queue, i);
@@ -19,7 +19,7 @@ void cq_test(void)
 }
 void lq_test(void)
 {
-    linked_queue *queue = lq_create();
+    lq_queue *queue = lq_create();
 
     for (cq_data i = 0; i < 16; i++) {
         lq_enqueue(queue, i);

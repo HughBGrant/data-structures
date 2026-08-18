@@ -6,7 +6,7 @@
 
 void as_test(void)
 {
-    array_stack *stack = as_create(2);
+    as_stack *stack = as_create(2);
 
     as_push(stack, 3);
     as_push(stack, 37);
@@ -30,7 +30,7 @@ void as_test(void)
 
 void ls_test(void)
 {
-    linked_stack *stack = ls_create();
+    ls_stack *stack = ls_create();
 
     ls_push(stack, 10);
     ls_push(stack, 20);

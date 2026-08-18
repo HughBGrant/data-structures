@@ -14,17 +14,17 @@ typedef struct _ls_node {
 
 typedef struct {
     ls_node *top;
-} linked_stack;
+} ls_stack;
 
-linked_stack *ls_create(void);
-void ls_destroy(linked_stack *stack);
+void ls_push(ls_stack *stack, ls_data data);
+void ls_pop(ls_stack *stack);
+ls_data *ls_top(ls_stack *stack);
+size_t ls_size(ls_stack *stack);
+bool ls_is_empty(ls_stack *stack);
+
+ls_stack *ls_create(void);
+void ls_destroy(ls_stack *stack);
 ls_node *ls_node_create(ls_data data);
 void ls_node_destroy(ls_node *node);
-void ls_push(linked_stack *stack, ls_data data);
-void ls_pop(linked_stack *stack);
-ls_data *ls_top(linked_stack *stack);
-
-size_t ls_size(linked_stack *stack);
-bool ls_is_empty(linked_stack *stack);
 
 #endif

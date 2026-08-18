@@ -13,16 +13,17 @@ typedef struct _cll_node {
 typedef struct {
     cll_node *tail;
     size_t count;
-} circular_linked_list;
+} cll_list;
 
-circular_linked_list *cll_create(void);
-void cll_destroy(circular_linked_list *list);
+void cll_insert(cll_list *list, size_t pos, cll_data data);
+void cll_remove(cll_list *list, size_t pos);
+cll_data *cll_get(cll_list *list, size_t pos);
+size_t cll_size(cll_list *list);
+void cll_print(cll_list *list);
+
+cll_list *cll_create(void);
+void cll_destroy(cll_list *list);
 cll_node *cll_node_create(cll_data data);
 void cll_node_destroy(cll_node *node);
-void cll_insert(circular_linked_list *list, size_t pos, cll_data data);
-void cll_remove(circular_linked_list *list, size_t pos);
-cll_data *cll_get(circular_linked_list *list, size_t pos);
-size_t cll_size(circular_linked_list *list);
-void cll_print(circular_linked_list *list);
 
 #endif

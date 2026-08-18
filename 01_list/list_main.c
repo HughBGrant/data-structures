@@ -6,7 +6,7 @@
 
 void al_test(void)
 {
-    array_list *list = al_create(2);
+    al_list *list = al_create(2);
 
     for (int i = 0; i < 5; i++) {
         al_insert(list, al_size(list), i);
@@ -27,7 +27,7 @@ void al_test(void)
 }
 void sll_test(void)
 {
-    singly_linked_list *list = sll_create();
+    sll_list *list = sll_create();
 
     for (int i = 5; i > 0; i--) {
         sll_insert(list, sll_size(list), i);
@@ -47,7 +47,7 @@ void sll_test(void)
 }
 void cll_test(void)
 {
-    circular_linked_list *list = cll_create();
+    cll_list *list = cll_create();
 
     for (int i = 5; i > 0; i--) {
         cll_insert(list, cll_size(list), i);
@@ -69,7 +69,7 @@ void cll_test(void)
 }
 void dll_test(void)
 {
-    doubly_linked_list *list = dll_create();
+    dll_list *list = dll_create();
     size_t i = 0;
 
     for (int i = 5; i > 0; i--) {
