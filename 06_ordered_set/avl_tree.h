@@ -1,8 +1,7 @@
 #ifndef AVL_TREE_H
 #define AVL_TREE_H
 
-#include <stdio.h>
-#include <stdlib.h>
+#include <stddef.h>
 
 typedef int avl_data;
 

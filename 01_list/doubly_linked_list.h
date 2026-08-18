@@ -1,8 +1,7 @@
 #ifndef DOUBLY_LINKED_LIST_H
 #define DOUBLY_LINKED_LIST_H
 
-#include <stdio.h>
-#include <stdlib.h>
+#include <stddef.h>
 
 typedef int dll_data;
 

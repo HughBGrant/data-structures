@@ -1,8 +1,7 @@
 #ifndef CIRCULAR_LINKED_LIST_H
 #define CIRCULAR_LINKED_LIST_H
 
-#include <stdio.h>
-#include <stdlib.h>
+#include <stddef.h>
 
 typedef int cll_data;
 

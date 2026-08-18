@@ -2,8 +2,7 @@
 #define ARRAY_STACK_H
 
 #include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <stddef.h>
 
 typedef int as_data;
 

@@ -1,8 +1,7 @@
 #ifndef BINARY_SEARCH_TREE_H
 #define BINARY_SEARCH_TREE_H
 
-#include <stdio.h>
-#include <stdlib.h>
+#include <stddef.h>
 
 typedef int bst_data;
 

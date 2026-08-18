@@ -3,8 +3,7 @@
 #define CIRCULAR_QUEUE_H
 
 #include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <stddef.h>
 
 typedef int cq_data;
 
