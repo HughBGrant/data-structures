@@ -3,70 +3,70 @@
 #include <stdlib.h>
 
 // 생성 함수
-HeapType *create(void)
+h_priority_queue *h_create(void)
 {
-    HeapType *heap = malloc(sizeof(HeapType));
-    if (heap == NULL) {
+    h_priority_queue *queue = malloc(sizeof(h_priority_queue));
+    if (queue == NULL) {
         return NULL;
     }
-    heap->count = 0;
+    queue->count = 0;
 
-    return heap;
+    return queue;
 }
 
 // 최대 힙에 원소 삽입
-void insert_max_heap(HeapType *h, item item)
+void h_insert(h_priority_queue *queue, h_item item)
 {
     int i;
 
-    i = ++(h->count);
+    i = ++(queue->count);
 
     // 부모 노드와 비교하면서 위로 이동
     while ((i != 1) &&
-           (item.key > h->items[i / 2].key)) {
+           (item.data > queue->items[i / 2].data)) {
 
-        h->items[i] = h->items[i / 2];
+        queue->items[i] = queue->items[i / 2];
         i /= 2;
     }
 
-    h->items[i] = item;
+    queue->items[i] = item;
 }
 
 // 최대 힙에서 최댓값 삭제
-item delete_max_heap(HeapType *h)
+h_item h_delete(h_priority_queue *queue)
 {
     int parent, child;
-    item item, temp;
+    h_item item, temp;
 
     // 루트 = 최댓값
-    item = h->items[1];
+    item = queue->items[1];
 
     // 마지막 원소를 임시 저장
-    temp = h->items[(h->count)--];
+    temp = queue->items[(queue->count)--];
 
     parent = 1;
     child = 2;
 
-    while (child <= h->count) {
+    while (child <= queue->count) {
 
         // 두 자식 중 더 큰 자식 선택
-        if ((child < h->count) &&
-            (h->items[child].key < h->items[child + 1].key)) {
+        if ((child < queue->count) &&
+            (queue->items[child].data < queue->items[child + 1].data)) {
             child++;
         }
 
         // temp가 자식보다 크거나 같으면 종료
-        if (temp.key >= h->items[child].key)
+        if (temp.data >= queue->items[child].data)
             break;
 
         // 더 큰 자식을 부모 자리로 이동
-        h->items[parent] = h->items[child];
+        queue->items[parent] = queue->items[child];
 
         parent = child;
         child *= 2;
     }
 
-    h->items[parent] = temp;
+    queue->items[parent] = temp;
 
     return item;
 }

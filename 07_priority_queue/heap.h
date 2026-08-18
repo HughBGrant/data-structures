@@ -3,21 +3,20 @@
 #define MAX_ELEMENT 200
 #include <stddef.h>
 
-typedef struct {
-    int key;
-} item;
+typedef int h_data;
 
 typedef struct {
-    item items[MAX_ELEMENT];
+    h_data data;
+} h_item;
+
+typedef struct {
+    h_item items[MAX_ELEMENT];
     size_t count;
-} HeapType;
+} h_priority_queue;
 
-HeapType *create(void);
+void h_insert(h_priority_queue *queue, h_item item);
+h_item h_delete(h_priority_queue *queue);
 
-// 삽입
-void insert_max_heap(HeapType *h, item item);
-
-// 삭제
-item delete_max_heap(HeapType *h);
+h_priority_queue *h_create(void);
 
 #endif
