@@ -24,18 +24,12 @@
     <ClCompile Include="heap.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="max_binary_heap1.c">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="heap.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="max_binary_heap3.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="max_binary_heap1.h">
+    <ClInclude Include="heap.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

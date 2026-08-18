@@ -1,12 +1,27 @@
-#ifndef HEAP_H
-#define HEAP_H
+#ifndef MAX_BINARY_HEAP_1_H
+#define MAX_BINARY_HEAP_1_H
 
-void Insert(int vec[], int *size, int key);
-void InsertInplace(int A[], int n);
+#define MAX_ELEMENT 200
 
-void CreateHeap(int vec[], int *size, int A[], int n);
-void createHeap(int A[], int n);
+typedef struct {
+    int key;
+} element;
 
-void Print(int A[], int n, char c);
+typedef struct {
+    element heap[MAX_ELEMENT];
+    int heap_size;
+} HeapType;
+
+// 생성
+HeapType *create(void);
+
+// 초기화
+void init(HeapType *h);
+
+// 삽입
+void insert_max_heap(HeapType *h, element item);
+
+// 삭제
+element delete_max_heap(HeapType *h);
 
 #endif

@@ -1,30 +1,9 @@
 #include "heap.h"
-#include "max_binary_heap1.h"
 #include "max_binary_heap3.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-void max_bh_test(void)
-{
-    printf("Create Heap\n");
-
-    int b[] = {10, 20, 30, 25, 5, 40, 35};
-    int n = sizeof(b) / sizeof(b[0]);
-
-    Print(b, n, 'b');
-
-    int v[100];
-    int vSize = 0;
-
-    CreateHeap(v, &vSize, b, n);
-    Print(v, vSize, 'v');
-
-    printf("Inplace Insert\n");
-
-    createHeap(b, n);
-    Print(b, n, 'b');
-}
-void max_bh1_test(void)
+void h_test(void)
 {
     element e1 = {10};
     element e2 = {5};
@@ -57,7 +36,7 @@ void max_bh1_test(void)
 
     free(heap);
 }
-void max_bh3_test(void)
+void h1_test(void)
 {
     int values[] = {5, 3, 8, 1, 9, 2};
 
@@ -81,13 +60,10 @@ int main(void)
 
     switch (pq_number) {
     case 0:
-        max_bh_test();
-        break;
-    case 1:
-        max_bh1_test();
+        h_test();
         break;
     case 3:
-        max_bh3_test();
+        h1_test();
         break;
     }
     return 0;

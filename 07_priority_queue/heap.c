@@ -1,80 +1,72 @@
-#include "heap.h"
+#include "max_binary_heap1.h"
 #include <stdio.h>
+#include <stdlib.h>
 
-/* Insert key at the end */
-void Insert(int vec[], int *size, int key)
+// 생성 함수
+HeapType *create(void)
 {
-    int i = *size;
-    vec[i] = key;
-    (*size)++;
+    return (HeapType *)malloc(sizeof(HeapType));
+}
 
-    while (i > 0) {
-        int parent = (i % 2 == 0)
-                         ? (i / 2) - 1
-                         : i / 2;
+// 초기화 함수
+void init(HeapType *h)
+{
+    h->heap_size = 0;
+}
 
-        if (key <= vec[parent]) {
+// 최대 힙에 원소 삽입
+void insert_max_heap(HeapType *h, element item)
+{
+    int i;
+
+    i = ++(h->heap_size);
+
+    // 부모 노드와 비교하면서 위로 이동
+    while ((i != 1) &&
+           (item.key > h->heap[i / 2].key)) {
+
+        h->heap[i] = h->heap[i / 2];
+        i /= 2;
+    }
+
+    h->heap[i] = item;
+}
+
+// 최대 힙에서 최댓값 삭제
+element delete_max_heap(HeapType *h)
+{
+    int parent, child;
+    element item, temp;
+
+    // 루트 = 최댓값
+    item = h->heap[1];
+
+    // 마지막 원소를 임시 저장
+    temp = h->heap[(h->heap_size)--];
+
+    parent = 1;
+    child = 2;
+
+    while (child <= h->heap_size) {
+
+        // 두 자식 중 더 큰 자식 선택
+        if ((child < h->heap_size) &&
+            (h->heap[child].key < h->heap[child + 1].key)) {
+            child++;
+        }
+
+        // temp가 자식보다 크거나 같으면 종료
+        if (temp.key >= h->heap[child].key)
             break;
-        }
 
-        vec[i] = vec[parent];
-        i = parent;
+        // 더 큰 자식을 부모 자리로 이동
+        h->heap[parent] = h->heap[child];
+
+        parent = child;
+        child *= 2;
     }
 
-    vec[i] = key;
-}
+    h->heap[parent] = temp;
 
-/* In-place insertion */
-void InsertInplace(int A[], int n)
-{
-    int i = n;
-    int temp = A[n];
-
-    while (i > 0) {
-        int parent = (i % 2 == 0)
-                         ? (i / 2) - 1
-                         : i / 2;
-
-        if (temp <= A[parent]) {
-            break;
-        }
-
-        A[i] = A[parent];
-        i = parent;
-    }
-
-    A[i] = temp;
-}
-
-/* Create Heap using another array */
-void CreateHeap(int vec[], int *size, int A[], int n)
-{
-    /* O(n log n) */
-    for (int i = 0; i < n; i++) {
-        Insert(vec, size, A[i]);
-    }
-}
-
-/* Create Heap in-place */
-void createHeap(int A[], int n)
-{
-    for (int i = 0; i < n; i++) {
-        InsertInplace(A, i);
-    }
-}
-
-/* Print array */
-void Print(int A[], int n, char c)
-{
-    printf("%c: [", c);
-
-    for (int i = 0; i < n; i++) {
-        printf("%d", A[i]);
-
-        if (i < n - 1) {
-            printf(", ");
-        }
-    }
-
-    printf("]\n");
+    return item;
 }
