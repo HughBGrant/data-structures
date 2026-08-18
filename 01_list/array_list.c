@@ -137,6 +137,9 @@ int al_binary_search(array_list *list, al_data key)
 }
 void al_print(array_list *list)
 {
+    if (list == NULL) {
+        return;
+    }
     printf("| ");
     for (size_t index = 0; index < list->count; index++) {
         printf("%d | ", list->items[index]);

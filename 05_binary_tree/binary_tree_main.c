@@ -5,7 +5,7 @@
 
 void abt_test(void)
 {
-    array_binary_tree *tree = abt_create(128);
+    array_binary_tree *tree = abt_create(32);
 
     abt_data data[] = {10, 20, 30, 40, 50, 60, 70};
     for (int i = 0; i < 7; i++) {
@@ -15,14 +15,13 @@ void abt_test(void)
     abt_print(tree);
 
     printf("\n");
-    printf("20의 왼쪽 자식: %d\n",
-           *abt_left(tree, 1));
+    printf("left of 20: %d\n", *abt_get_left(tree, 1));
 
-    printf("20의 오른쪽 자식: %d\n",
-           *abt_right(tree, 1));
+    printf("right of 20: %d\n", *abt_get_right(tree, 1));
 
-    printf("50의 부모: %d\n",
-           *abt_parent(tree, 4));
+    printf("parent of 50: %d\n", *abt_get_parent(tree, 4));
+
+    abt_destroy(tree);
 }
 
 void lbt_test(void)

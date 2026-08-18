@@ -58,7 +58,7 @@ void cq_enqueue(circular_queue *queue, cq_data data)
 }
 void cq_dequeue(circular_queue *queue)
 {
-    if (queue == NULL || queue->count == 0) {
+    if (cq_is_empty(queue)) {
         return;
     }
     queue->front = (queue->front + 1) % queue->capacity;
@@ -66,7 +66,7 @@ void cq_dequeue(circular_queue *queue)
 }
 cq_data *cq_peek(circular_queue *queue)
 {
-    if (queue == NULL || queue->count == 0) {
+    if (cq_is_empty(queue)) {
         return NULL;
     }
     return &queue->items[queue->front];

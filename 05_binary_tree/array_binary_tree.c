@@ -31,6 +31,10 @@ void abt_destroy(array_binary_tree *tree)
 }
 void abt_insert(array_binary_tree *tree, abt_data data)
 {
+    if (tree == NULL) {
+        return;
+    }
+
     if (tree->count >= tree->capacity) {
         printf("Tree is full.\n");
         return;
@@ -39,25 +43,52 @@ void abt_insert(array_binary_tree *tree, abt_data data)
     tree->items[tree->count] = data;
     tree->count++;
 }
-abt_data *abt_parent(array_binary_tree *tree, size_t pos)
+abt_data *abt_get_parent(array_binary_tree *tree, size_t child_pos)
 {
-    if (pos == 0) {
+    if (abt_is_empty(tree) || child_pos == 0 || child_pos >= tree->count) {
+        return NULL;
+    }
+    size_t parent_pos = (child_pos - 1) / 2;
+
+    return &tree->items[parent_pos];
+}
+abt_data *abt_get_left(array_binary_tree *tree, size_t parent_pos)
+{
+    if (abt_is_empty(tree) || parent_pos >= tree->count) {
+        return NULL;
+    }
+    size_t left_pos = 2 * parent_pos + 1;
+    if (left_pos >= tree->count) {
+        return NULL;
+    }
+    return &tree->items[left_pos];
+}
+abt_data *abt_get_right(array_binary_tree *tree, size_t parent_pos)
+{
+    if (abt_is_empty(tree) || parent_pos >= tree->count) {
         return NULL;
     }
 
-    return &tree->items[(pos - 1) / 2];
-}
-abt_data *abt_left(array_binary_tree *tree, size_t pos)
-{
-    return &tree->items[2 * pos + 1];
-}
-abt_data *abt_right(array_binary_tree *tree, size_t pos)
-{
-    return &tree->items[2 * pos + 2];
+    size_t right_pos = 2 * parent_pos + 2;
+    if (right_pos >= tree->count) {
+        return NULL;
+    }
+    return &tree->items[right_pos];
 }
 void abt_print(array_binary_tree *tree)
 {
-    for (int i = 0; i < tree->count; i++) {
-        printf("index %d : %d\n", i, tree->items[i]);
+    if (tree == NULL) {
+        return;
     }
+    for (size_t i = 0; i < tree->count; i++) {
+        printf("index %zu : %d\n", i, tree->items[i]);
+    }
+}
+bool abt_is_empty(array_binary_tree *tree)
+{
+    return tree == NULL || tree->count == 0;
+}
+size_t abt_size(array_binary_tree *tree)
+{
+    return tree ? tree->count : 0;
 }

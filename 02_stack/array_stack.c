@@ -51,14 +51,14 @@ void as_push(array_stack *stack, as_data data)
 }
 void as_pop(array_stack *stack)
 {
-    if (stack == NULL || as_is_empty(stack)) {
+    if (as_is_empty(stack)) {
         return;
     }
     stack->count--;
 }
 as_data *as_top(array_stack *stack)
 {
-    if (stack == NULL || as_is_empty(stack)) {
+    if (as_is_empty(stack)) {
         return NULL;
     }
     return &stack->items[stack->count - 1];

@@ -61,7 +61,7 @@ void ls_push(linked_stack *stack, ls_data data)
 
 void ls_pop(linked_stack *stack)
 {
-    if (stack == NULL || ls_is_empty(stack)) {
+    if (ls_is_empty(stack)) {
         return;
     }
 
@@ -73,7 +73,7 @@ void ls_pop(linked_stack *stack)
 
 ls_data *ls_top(linked_stack *stack)
 {
-    if (stack == NULL || ls_is_empty(stack)) {
+    if (ls_is_empty(stack)) {
         return NULL;
     }
 

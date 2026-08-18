@@ -78,7 +78,7 @@ void ld_push_back(linked_deque *deque, ld_data data)
 }
 void ld_pop_front(linked_deque *deque)
 {
-    if (deque == NULL || ld_is_empty(deque)) {
+    if (ld_is_empty(deque)) {
         return;
     }
     ld_node *target_node = deque->front;
@@ -94,7 +94,7 @@ void ld_pop_front(linked_deque *deque)
 }
 void ld_pop_back(linked_deque *deque)
 {
-    if (deque == NULL || ld_is_empty(deque)) {
+    if (ld_is_empty(deque)) {
         return;
     }
     ld_node *target_node = deque->rear;
@@ -110,14 +110,14 @@ void ld_pop_back(linked_deque *deque)
 }
 ld_data *ld_front(linked_deque *deque)
 {
-    if (deque == NULL || ld_is_empty(deque)) {
+    if (ld_is_empty(deque)) {
         return NULL;
     }
     return &deque->front->data;
 }
 ld_data *ld_back(linked_deque *deque)
 {
-    if (deque == NULL || ld_is_empty(deque)) {
+    if (ld_is_empty(deque)) {
         return NULL;
     }
     return &deque->rear->data;

@@ -57,7 +57,7 @@ void lq_enqueue(linked_queue *queue, lq_data data)
 }
 void lq_dequeue(linked_queue *queue)
 {
-    if (queue == NULL || lq_is_empty(queue)) {
+    if (lq_is_empty(queue)) {
         return;
     }
     lq_node *target_node = queue->front;
@@ -70,7 +70,7 @@ void lq_dequeue(linked_queue *queue)
 }
 lq_data *lq_peek(linked_queue *queue)
 {
-    if (queue == NULL || lq_is_empty(queue)) {
+    if (lq_is_empty(queue)) {
         return NULL;
     }
     return &queue->front->data;
