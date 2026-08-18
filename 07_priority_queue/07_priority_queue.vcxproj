@@ -142,11 +142,11 @@
   <ItemGroup>
     <ClCompile Include="max_binary_heap1.c" />
     <ClCompile Include="max_binary_heap3.c" />
-    <ClCompile Include="max_binary_heap.c" />
+    <ClCompile Include="heap.c" />
     <ClCompile Include="priority_queue_main.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="max_binary_heap.h" />
+    <ClInclude Include="heap.h" />
     <ClInclude Include="max_binary_heap1.h" />
     <ClInclude Include="max_binary_heap3.h" />
   </ItemGroup>

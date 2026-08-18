@@ -1,18 +1,28 @@
-#include "max_binary_heap.h"
+#include "heap.h"
 #include "max_binary_heap1.h"
 #include "max_binary_heap3.h"
+#include <stdio.h>
 #include <stdlib.h>
 
 void max_bh_test(void)
 {
-    int heap[] = {
-        45, 35, 15, 30, 10,
-        12, 6, 5, 20, 50};
+    printf("Create Heap\n");
 
-    // 50을 Heap에 삽입
-    Insert(heap, 9);
+    int b[] = {10, 20, 30, 25, 5, 40, 35};
+    int n = sizeof(b) / sizeof(b[0]);
 
-    Print(heap, 10);
+    Print(b, n, 'b');
+
+    int v[100];
+    int vSize = 0;
+
+    CreateHeap(v, &vSize, b, n);
+    Print(v, vSize, 'v');
+
+    printf("Inplace Insert\n");
+
+    createHeap(b, n);
+    Print(b, n, 'b');
 }
 void max_bh1_test(void)
 {
