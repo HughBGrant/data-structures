@@ -2,6 +2,7 @@
 #include "array_stack.h"
 #include "linked_stack.h"
 #include "postfix_calculator.h"
+#include <stdio.h>
 
 void as_test(void)
 {

@@ -1,4 +1,6 @@
 #include "circular_queue.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 circular_queue *cq_create(size_t capacity)
 {

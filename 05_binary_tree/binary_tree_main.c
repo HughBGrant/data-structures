@@ -1,33 +1,28 @@
 #include "array_binary_tree.h"
 #include "expression_tree.h"
 #include "linked_binary_tree.h"
+#include <stdio.h>
 
 void abt_test(void)
 {
-    BinaryTree tree;
+    array_binary_tree *tree = abt_create(128);
 
-    init(&tree);
+    abt_data data[] = {10, 20, 30, 40, 50, 60, 70};
+    for (int i = 0; i < 7; i++) {
+        abt_insert(tree, data[i]);
+    }
 
-    insert(&tree, 10);
-    insert(&tree, 20);
-    insert(&tree, 30);
-    insert(&tree, 40);
-    insert(&tree, 50);
-    insert(&tree, 60);
-    insert(&tree, 70);
-
-    printTree(&tree);
+    abt_print(tree);
 
     printf("\n");
-
     printf("20의 왼쪽 자식: %d\n",
-           tree.items[leftChild(1)]);
+           *abt_left(tree, 1));
 
     printf("20의 오른쪽 자식: %d\n",
-           tree.items[rightChild(1)]);
+           *abt_right(tree, 1));
 
     printf("50의 부모: %d\n",
-           tree.items[parent(4)]);
+           *abt_parent(tree, 4));
 }
 
 void lbt_test(void)

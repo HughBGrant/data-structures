@@ -1,4 +1,6 @@
 #include "array_list.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 array_list *al_create(size_t capacity)
 {

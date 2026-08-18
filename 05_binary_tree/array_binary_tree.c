@@ -1,43 +1,63 @@
 #include "array_binary_tree.h"
 #include <stdio.h>
+#include <stdlib.h>
 
-void init(BinaryTree *tree)
+array_binary_tree *abt_create(size_t capacity)
 {
-    tree->size = 0;
+    if (capacity == 0) {
+        capacity = 1;
+    }
+    array_binary_tree *tree = malloc(sizeof(array_binary_tree));
+    if (tree == NULL) {
+        return NULL;
+    }
+    tree->items = malloc(sizeof(abt_data) * capacity);
+    if (tree->items == NULL) {
+        free(tree);
+        return NULL;
+    }
+    tree->capacity = capacity;
+    tree->count = 0;
+
+    return tree;
 }
-
-void insert(BinaryTree *tree, int value)
+void abt_destroy(array_binary_tree *tree)
 {
-    if (tree->size >= MAX_SIZE) {
+    if (tree == NULL) {
+        return;
+    }
+    free(tree->items);
+    free(tree);
+}
+void abt_insert(array_binary_tree *tree, abt_data data)
+{
+    if (tree->count >= tree->capacity) {
         printf("Tree is full.\n");
         return;
     }
 
-    tree->items[tree->size] = value;
-    tree->size++;
+    tree->items[tree->count] = data;
+    tree->count++;
 }
-
-int parent(int index)
+abt_data *abt_parent(array_binary_tree *tree, size_t pos)
 {
-    if (index == 0)
-        return -1;
+    if (pos == 0) {
+        return NULL;
+    }
 
-    return (index - 1) / 2;
+    return &tree->items[(pos - 1) / 2];
 }
-
-int leftChild(int index)
+abt_data *abt_left(array_binary_tree *tree, size_t pos)
 {
-    return 2 * index + 1;
+    return &tree->items[2 * pos + 1];
 }
-
-int rightChild(int index)
+abt_data *abt_right(array_binary_tree *tree, size_t pos)
 {
-    return 2 * index + 2;
+    return &tree->items[2 * pos + 2];
 }
-
-void printTree(BinaryTree *tree)
+void abt_print(array_binary_tree *tree)
 {
-    for (int i = 0; i < tree->size; i++) {
+    for (int i = 0; i < tree->count; i++) {
         printf("index %d : %d\n", i, tree->items[i]);
     }
 }

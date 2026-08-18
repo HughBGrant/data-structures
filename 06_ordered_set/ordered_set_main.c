@@ -1,5 +1,6 @@
 #include "avl_tree.h"
 #include "binary_search_tree.h"
+#include <stdio.h>
 
 void bst_test(void)
 {

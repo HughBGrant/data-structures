@@ -1,5 +1,6 @@
 #include "postfix_calculator.h"
 #include "linked_stack.h"
+#include <stdio.h>
 
 bool is_operand(char symbol)
 {

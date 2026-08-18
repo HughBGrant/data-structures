@@ -1,4 +1,6 @@
 #include "linked_deque.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 linked_deque *ld_create(void)
 {

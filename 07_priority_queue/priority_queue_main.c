@@ -1,6 +1,7 @@
 #include "max_binary_heap.h"
 #include "max_binary_heap1.h"
 #include "max_binary_heap3.h"
+#include <stdlib.h>
 
 void max_bh_test(void)
 {

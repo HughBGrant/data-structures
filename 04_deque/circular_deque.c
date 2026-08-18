@@ -1,4 +1,6 @@
 #include "circular_deque.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 circular_deque *cd_create(size_t capacity)
 {

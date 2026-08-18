@@ -1,4 +1,6 @@
 #include "binary_search_tree.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 bst_node *bst_node_create(bst_data key)
 {

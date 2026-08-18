@@ -1,5 +1,6 @@
 #include "circular_deque.h"
 #include "linked_deque.h"
+#include <stdio.h>
 
 void cd_test(void)
 {

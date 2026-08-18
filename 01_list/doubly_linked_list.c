@@ -1,4 +1,6 @@
 #include "doubly_linked_list.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 doubly_linked_list *dll_create(void)
 {

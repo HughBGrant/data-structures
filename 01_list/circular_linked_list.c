@@ -1,4 +1,6 @@
 #include "circular_linked_list.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 circular_linked_list *cll_create(void)
 {

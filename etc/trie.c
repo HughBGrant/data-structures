@@ -45,15 +45,15 @@ bool startsWith(TrieNode *root, const char *prefix)
     return walk(root, prefix) != NULL;
 }
 
-int main(void)
-{
-    TrieNode *root = newNode();
-    const char *words[] = {"car", "card", "care", "dog"};
-    for (int i = 0; i < 4; i++)
-        insert(root, words[i]);
-    printf("search(card): %s\n", search(root, "card") ? "true" : "false");
-    printf("search(ca): %s\n", search(root, "ca") ? "true" : "false");
-    printf("startsWith(ca): %s\n", startsWith(root, "ca") ? "true" : "false");
-    printf("startsWith(dot): %s\n", startsWith(root, "dot") ? "true" : "false");
-    return 0;
-}
+// int main(void)
+//{
+//     TrieNode *root = newNode();
+//     const char *words[] = {"car", "card", "care", "dog"};
+//     for (int i = 0; i < 4; i++)
+//         insert(root, words[i]);
+//     printf("search(card): %s\n", search(root, "card") ? "true" : "false");
+//     printf("search(ca): %s\n", search(root, "ca") ? "true" : "false");
+//     printf("startsWith(ca): %s\n", startsWith(root, "ca") ? "true" : "false");
+//     printf("startsWith(dot): %s\n", startsWith(root, "dot") ? "true" : "false");
+//     return 0;
+// }

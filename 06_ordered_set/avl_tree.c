@@ -1,4 +1,6 @@
 #include "avl_tree.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 avl_node *avl_node_create(avl_data key)
 {

@@ -1,4 +1,6 @@
 #include "array_stack.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 array_stack *as_create(size_t capacity)
 {

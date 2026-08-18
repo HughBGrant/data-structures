@@ -1,7 +1,8 @@
 #include "array_list.h"
-#include "doubly_linked_list.h"
 #include "circular_linked_list.h"
+#include "doubly_linked_list.h"
 #include "singly_linked_list.h"
+#include <stdio.h>
 
 void al_test(void)
 {

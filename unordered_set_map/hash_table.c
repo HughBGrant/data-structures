@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -71,16 +72,16 @@ void printBuckets(void)
     }
 }
 
-int main(void)
-{
-    set("apple", 3);
-    set("banana", 7);
-    set("apple", 4); // overwrites the old value
-    set("grape", 9);
-    printBuckets();
-    int *value = get("apple");
-    printf("get(apple): %d\n", value ? *value : -1);
-    removeKey("banana");
-    printf("banana after remove: %s\n", get("banana") ? "found" : "not found");
-    return 0;
-}
+// int main(void)
+//{
+//     set("apple", 3);
+//     set("banana", 7);
+//     set("apple", 4); // overwrites the old value
+//     set("grape", 9);
+//     printBuckets();
+//     int *value = get("apple");
+//     printf("get(apple): %d\n", value ? *value : -1);
+//     removeKey("banana");
+//     printf("banana after remove: %s\n", get("banana") ? "found" : "not found");
+//     return 0;
+// }

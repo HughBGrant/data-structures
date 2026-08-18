@@ -1,4 +1,6 @@
 #include "linked_binary_tree.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 void lbt_subtree_destroy(lbt_node *node)
 {

@@ -1,4 +1,7 @@
 #include "expression_tree.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 lbt_node *build(char *expression)
 {

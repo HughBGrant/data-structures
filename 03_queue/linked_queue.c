@@ -1,4 +1,6 @@
 #include "linked_queue.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 linked_queue *lq_create(void)
 {

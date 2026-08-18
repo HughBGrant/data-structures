@@ -1,4 +1,6 @@
 #include "linked_stack.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 linked_stack *ls_create(void)
 {

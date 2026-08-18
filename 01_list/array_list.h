@@ -4,7 +4,6 @@
 #include <stddef.h>
 
 typedef int al_data;
-
 typedef struct {
     al_data *items;
     size_t capacity;

@@ -1,5 +1,6 @@
 #include "circular_queue.h"
 #include "linked_queue.h"
+#include <stdio.h>
 
 void cq_test(void)
 {
