@@ -1,13 +1,13 @@
 #include "expression_tree.h"
 
-bt_node *build(char *expression)
+lbt_node *build(char *expression)
 {
     if (expression == NULL || expression[0] == '\0') {
         return NULL;
     }
 
     size_t len = strlen(expression);
-    bt_node **stack = malloc(sizeof(bt_node *) * len);
+    lbt_node **stack = malloc(sizeof(lbt_node *) * len);
 
     if (stack == NULL) {
         return NULL;
@@ -16,7 +16,7 @@ bt_node *build(char *expression)
     int top = -1;
 
     for (size_t i = 0; i < len; i++) {
-        bt_data token = expression[i];
+        lbt_data token = expression[i];
 
         if ((token == '+' ||
              token == '-' ||
@@ -25,18 +25,18 @@ bt_node *build(char *expression)
             top < 1) {
 
             while (top >= 0) {
-                bt_subtree_destroy(stack[top--]);
+                lbt_subtree_destroy(stack[top--]);
             }
 
             free(stack);
             return NULL;
         }
 
-        bt_node *new_node = bt_node_create(token);
+        lbt_node *new_node = lbt_node_create(token);
 
         if (new_node == NULL) {
             while (top >= 0) {
-                bt_subtree_destroy(stack[top--]);
+                lbt_subtree_destroy(stack[top--]);
             }
 
             free(stack);
@@ -58,19 +58,19 @@ bt_node *build(char *expression)
 
     if (top != 0) {
         while (top >= 0) {
-            bt_subtree_destroy(stack[top--]);
+            lbt_subtree_destroy(stack[top--]);
         }
 
         free(stack);
         return NULL;
     }
 
-    bt_node *root = stack[0];
+    lbt_node *root = stack[0];
     free(stack);
 
     return root;
 }
-double evaluate(bt_node *subtree)
+double evaluate(lbt_node *subtree)
 {
     if (subtree == NULL) {
         return 0;
