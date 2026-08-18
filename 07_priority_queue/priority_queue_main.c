@@ -5,19 +5,15 @@
 
 void h_test(void)
 {
-    element e1 = {10};
-    element e2 = {5};
-    element e3 = {30};
+    item e1 = {10};
+    item e2 = {5};
+    item e3 = {30};
 
-    element e4, e5, e6;
+    item e4, e5, e6;
 
     HeapType *heap;
 
-    // 힙 생성
     heap = create();
-
-    // 힙 초기화
-    init(heap);
 
     // 삽입
     insert_max_heap(heap, e1);
@@ -38,18 +34,23 @@ void h_test(void)
 }
 void h1_test(void)
 {
+    int heap[CAP];
+    int heapSize = 0;
+
     int values[] = {5, 3, 8, 1, 9, 2};
 
+    // Insert
     for (int i = 0; i < 6; i++) {
-        push(values[i]);
+        push(heap, &heapSize, values[i]);
     }
 
-    printf("Max: %d\n", peek());
+    printf("Min: %d\n", heap[0]);
 
+    // Pop
     printf("Popped in order: ");
 
-    while (!isEmpty()) {
-        printf("%d ", pop());
+    while (heapSize > 0) {
+        printf("%d ", pop(heap, &heapSize));
     }
 
     printf("\n");
