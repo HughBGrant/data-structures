@@ -5,23 +5,23 @@
 
 void abt_test(void)
 {
-    abt_binary_tree *tree = abt_create(32);
+    abt_binary_tree *bt = abt_create(32);
 
     abt_item data[] = {10, 20, 30, 40, 50, 60, 70};
     for (int i = 0; i < 7; i++) {
-        abt_insert(tree, data[i]);
+        abt_insert(bt, data[i]);
     }
 
-    abt_print(tree);
+    abt_print(bt);
 
     printf("\n");
-    printf("left of 20: %d\n", *abt_get_left(tree, 1));
+    printf("left of 20: %d\n", *abt_get_left(bt, 1));
 
-    printf("right of 20: %d\n", *abt_get_right(tree, 1));
+    printf("right of 20: %d\n", *abt_get_right(bt, 1));
 
-    printf("parent of 50: %d\n", *abt_get_parent(tree, 4));
+    printf("parent of 50: %d\n", *abt_get_parent(bt, 4));
 
-    abt_destroy(tree);
+    abt_destroy(bt);
 }
 
 void lbt_test(void)
@@ -71,9 +71,9 @@ void et_test(void)
 }
 int main(void)
 {
-    int tree_number = 1;
+    int bt_number = 1;
 
-    switch (tree_number) {
+    switch (bt_number) {
     case 0:
         abt_test();
         break;

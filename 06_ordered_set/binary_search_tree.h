@@ -11,6 +11,12 @@ typedef struct _bst_node {
     struct _bst_node *right;
 } bst_node;
 
+struct binary_search_tree {
+    bst_node *root;
+};
+
+typedef struct binary_search_tree bst_ordered_set;
+
 bst_node *bst_node_insert(bst_node *node, bst_item key);
 bst_node *bst_node_remove(bst_node *node, bst_item key);
 bst_node *bst_search(bst_node *node, bst_item key);

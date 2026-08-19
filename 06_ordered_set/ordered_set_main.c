@@ -1,4 +1,4 @@
-#include "avl_tree.h"
+#include "a_v_l_tree.h"
 #include "binary_search_tree.h"
 #include <stdio.h>
 
@@ -22,35 +22,35 @@ void bst_test(void)
     bst_inorder(root);
     bst_subtree_destroy(root);
 }
-void avl_test(void)
+void avlt_test(void)
 {
-    avl_node *root = NULL;
-    avl_item keys[] = {10, 20, 30, 40, 50, 25};
+    avlt_node *root = NULL;
+    avlt_item keys[] = {10, 20, 30, 40, 50, 25};
     for (int i = 0; i < 6; i++) {
-        root = avl_node_insert(root, keys[i]);
+        root = avlt_node_insert(root, keys[i]);
     }
     printf("Root after rebalancing: %d\n", root->key);
     printf("In-order: ");
-    avl_inorder(root);
+    avlt_inorder(root);
     printf("\n");
 
     printf("remove 20\n");
-    root = avl_node_remove(root, 20);
-    avl_inorder(root);
+    root = avlt_node_remove(root, 20);
+    avlt_inorder(root);
     printf("\n");
 
-    avl_subtree_destroy(root);
+    avlt_subtree_destroy(root);
 }
 int main(void)
 {
-    int set_number = 0;
+    int os_number = 1;
 
-    switch (set_number) {
+    switch (os_number) {
     case 0:
         bst_test();
         break;
     case 1:
-        avl_test();
+        avlt_test();
         break;
     }
     return 0;
