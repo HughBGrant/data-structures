@@ -33,7 +33,7 @@ void h_insert(h_priority_queue *queue, h_item data)
 }
 
 // 최대 힙에서 최댓값 삭제
-h_item h_delete(h_priority_queue *queue)
+h_item h_remove(h_priority_queue *queue)
 {
     int parent, child;
     h_item item, temp;

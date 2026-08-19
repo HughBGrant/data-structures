@@ -13,10 +13,11 @@ typedef h_node h_item;
 typedef struct {
     h_item data[MAX_ELEMENT];
     size_t count;
-} h_priority_queue;
+} heap;
+typedef heap h_priority_queue;
 
 void h_insert(h_priority_queue *queue, h_item data);
-h_item h_delete(h_priority_queue *queue);
+h_item h_remove(h_priority_queue *queue);
 
 h_priority_queue *h_create(void);
 

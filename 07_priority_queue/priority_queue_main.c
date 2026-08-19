@@ -5,15 +5,13 @@
 
 void h_test(void)
 {
+    h_priority_queue *pq = h_create();
+
     h_node e1 = {10};
     h_node e2 = {5};
     h_node e3 = {30};
 
     h_node e4, e5, e6;
-
-    h_priority_queue *pq;
-
-    pq = h_create();
 
     // 삽입
     h_insert(pq, e1);
@@ -21,13 +19,13 @@ void h_test(void)
     h_insert(pq, e3);
 
     // 삭제
-    e4 = h_delete(pq);
+    e4 = h_remove(pq);
     printf("< %d > ", e4.value);
 
-    e5 = h_delete(pq);
+    e5 = h_remove(pq);
     printf("< %d > ", e5.value);
 
-    e6 = h_delete(pq);
+    e6 = h_remove(pq);
     printf("< %d >\n", e6.value);
 
     free(pq);
