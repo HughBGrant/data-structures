@@ -31,7 +31,7 @@ void dll_destroy(dll_list *list)
     dll_node_destroy(list->head_sentinel);
     free(list);
 }
-dll_node *dll_node_create(dll_data data)
+dll_node *dll_node_create(dll_item data)
 {
     dll_node *new_node = malloc(sizeof(dll_node));
     if (new_node == NULL) {
@@ -73,7 +73,7 @@ dll_node *dll_node_get(dll_list *list, size_t pos)
     }
     return target_node;
 }
-void dll_insert(dll_list *list, size_t pos, dll_data data)
+void dll_insert(dll_list *list, size_t pos, dll_item data)
 {
     if (list == NULL || pos > list->count) {
         return;
@@ -115,7 +115,7 @@ void dll_remove(dll_list *list, size_t pos)
 
     list->count--;
 }
-dll_data *dll_get(dll_list *list, size_t pos)
+dll_item *dll_get(dll_list *list, size_t pos)
 {
     if (list == NULL || pos >= list->count) {
         return NULL;

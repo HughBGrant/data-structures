@@ -5,7 +5,7 @@
 void bst_test(void)
 {
     bst_node *root = NULL;
-    bst_data keys[] = {10, 20, 30, 40, 50, 25};
+    bst_item keys[] = {10, 20, 30, 40, 50, 25};
     for (int i = 0; i < 6; i++) {
         root = bst_node_insert(root, keys[i]);
     }

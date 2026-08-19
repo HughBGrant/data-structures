@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-bst_node *bst_node_create(bst_data key)
+bst_node *bst_node_create(bst_item key)
 {
     bst_node *new_node = malloc(sizeof(bst_node));
     if (new_node == NULL) {
@@ -28,7 +28,7 @@ void bst_subtree_destroy(bst_node *subtree)
     bst_subtree_destroy(subtree->right);
     bst_node_destroy(subtree);
 }
-bst_node *bst_node_insert(bst_node *node, bst_data key)
+bst_node *bst_node_insert(bst_node *node, bst_item key)
 {
     if (node == NULL) {
         return bst_node_create(key);
@@ -40,7 +40,7 @@ bst_node *bst_node_insert(bst_node *node, bst_data key)
     }
     return node;
 }
-bst_node *bst_node_remove(bst_node *node, bst_data key)
+bst_node *bst_node_remove(bst_node *node, bst_item key)
 {
     if (node == NULL) {
         return NULL;
@@ -80,7 +80,7 @@ bst_node *bst_find_min(bst_node *node)
     }
     return node;
 }
-bst_node *bst_search(bst_node *node, bst_data key)
+bst_node *bst_search(bst_node *node, bst_item key)
 {
     bst_node *current_node = node;
     while (current_node != NULL) {
@@ -103,7 +103,7 @@ void bst_inorder(bst_node *node)
     printf("%d ", node->key);
     bst_inorder(node->right);
 }
-bst_data *bst_key(bst_node *node)
+bst_item *bst_key(bst_node *node)
 {
     if (node == NULL) {
         return NULL;

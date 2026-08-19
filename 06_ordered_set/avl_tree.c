@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-avl_node *avl_node_create(avl_data key)
+avl_node *avl_node_create(avl_item key)
 {
     avl_node *new_node = malloc(sizeof(avl_node));
     if (new_node == NULL) {
@@ -29,7 +29,7 @@ void avl_node_destroy(avl_node *node)
 {
     free(node);
 }
-avl_node *avl_node_insert(avl_node *node, avl_data key)
+avl_node *avl_node_insert(avl_node *node, avl_item key)
 {
     if (node == NULL) {
         return avl_node_create(key);
@@ -43,7 +43,7 @@ avl_node *avl_node_insert(avl_node *node, avl_data key)
     }
     return avl_rebalance(node);
 }
-avl_node *avl_node_remove(avl_node *node, avl_data key)
+avl_node *avl_node_remove(avl_node *node, avl_item key)
 {
     if (node == NULL) {
         return NULL;

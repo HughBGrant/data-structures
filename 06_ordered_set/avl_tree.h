@@ -3,17 +3,17 @@
 
 #include <stddef.h>
 
-typedef int avl_data;
+typedef int avl_item;
 
 typedef struct _avl_node {
-    avl_data key;
+    avl_item key;
     size_t height;
     struct _avl_node *left;
     struct _avl_node *right;
 } avl_node;
 
-avl_node *avl_node_insert(avl_node *node, avl_data key);
-avl_node *avl_node_remove(avl_node *p, avl_data key);
+avl_node *avl_node_insert(avl_node *node, avl_item key);
+avl_node *avl_node_remove(avl_node *p, avl_item key);
 avl_node *avl_rebalance(avl_node *node);
 void avl_update_height(avl_node *node);
 size_t avl_height(avl_node *node);
@@ -24,7 +24,7 @@ avl_node *avl_rotate_left(avl_node *x);
 avl_node *avl_find_min(avl_node *node);
 void avl_inorder(avl_node *node);
 
-avl_node *avl_node_create(avl_data key);
+avl_node *avl_node_create(avl_item key);
 void avl_node_destroy(avl_node *node);
 void avl_subtree_destroy(avl_node *node);
 

@@ -4,17 +4,17 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-typedef int as_data;
+typedef int as_item;
 
 typedef struct {
-    as_data *items;
+    as_item *data;
     size_t capacity;
     size_t count;
 } as_stack;
 
-void as_push(as_stack *stack, as_data data);
+void as_push(as_stack *stack, as_item data);
 void as_pop(as_stack *stack);
-as_data *as_top(as_stack *stack);
+as_item *as_top(as_stack *stack);
 bool as_is_empty(as_stack *stack);
 size_t as_size(as_stack *stack);
 

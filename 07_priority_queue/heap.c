@@ -15,7 +15,7 @@ h_priority_queue *h_create(void)
 }
 
 // 최대 힙에 원소 삽입
-void h_insert(h_priority_queue *queue, h_item item)
+void h_insert(h_priority_queue *queue, h_item data)
 {
     int i;
 
@@ -23,13 +23,13 @@ void h_insert(h_priority_queue *queue, h_item item)
 
     // 부모 노드와 비교하면서 위로 이동
     while ((i != 1) &&
-           (item.data > queue->items[i / 2].data)) {
+           (data.value > queue->data[i / 2].value)) {
 
-        queue->items[i] = queue->items[i / 2];
+        queue->data[i] = queue->data[i / 2];
         i /= 2;
     }
 
-    queue->items[i] = item;
+    queue->data[i] = data;
 }
 
 // 최대 힙에서 최댓값 삭제
@@ -39,10 +39,10 @@ h_item h_delete(h_priority_queue *queue)
     h_item item, temp;
 
     // 루트 = 최댓값
-    item = queue->items[1];
+    item = queue->data[1];
 
     // 마지막 원소를 임시 저장
-    temp = queue->items[(queue->count)--];
+    temp = queue->data[(queue->count)--];
 
     parent = 1;
     child = 2;
@@ -51,22 +51,22 @@ h_item h_delete(h_priority_queue *queue)
 
         // 두 자식 중 더 큰 자식 선택
         if ((child < queue->count) &&
-            (queue->items[child].data < queue->items[child + 1].data)) {
+            (queue->data[child].value < queue->data[child + 1].value)) {
             child++;
         }
 
         // temp가 자식보다 크거나 같으면 종료
-        if (temp.data >= queue->items[child].data)
+        if (temp.value >= queue->data[child].value)
             break;
 
         // 더 큰 자식을 부모 자리로 이동
-        queue->items[parent] = queue->items[child];
+        queue->data[parent] = queue->data[child];
 
         parent = child;
         child *= 2;
     }
 
-    queue->items[parent] = temp;
+    queue->data[parent] = temp;
 
     return item;
 }

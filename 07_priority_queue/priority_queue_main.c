@@ -5,61 +5,61 @@
 
 void h_test(void)
 {
-    h_item e1 = {10};
-    h_item e2 = {5};
-    h_item e3 = {30};
+    h_node e1 = {10};
+    h_node e2 = {5};
+    h_node e3 = {30};
 
-    h_item e4, e5, e6;
+    h_node e4, e5, e6;
 
-    h_priority_queue *queue;
+    h_priority_queue *pq;
 
-    queue = h_create();
+    pq = h_create();
 
     // 삽입
-    h_insert(queue, e1);
-    h_insert(queue, e2);
-    h_insert(queue, e3);
+    h_insert(pq, e1);
+    h_insert(pq, e2);
+    h_insert(pq, e3);
 
     // 삭제
-    e4 = h_delete(queue);
-    printf("< %d > ", e4.data);
+    e4 = h_delete(pq);
+    printf("< %d > ", e4.value);
 
-    e5 = h_delete(queue);
-    printf("< %d > ", e5.data);
+    e5 = h_delete(pq);
+    printf("< %d > ", e5.value);
 
-    e6 = h_delete(queue);
-    printf("< %d >\n", e6.data);
+    e6 = h_delete(pq);
+    printf("< %d >\n", e6.value);
 
-    free(queue);
+    free(pq);
 }
 void h1_test(void)
 {
-    int queue[CAP];
+    int pq[CAP];
     int count = 0;
 
     int datas[] = {5, 3, 8, 1, 9, 2};
 
     // Insert
     for (size_t i = 0; i < 6; i++) {
-        push(queue, &count, datas[i]);
+        push(pq, &count, datas[i]);
     }
 
-    printf("Min: %d\n", queue[0]);
+    printf("Min: %d\n", pq[0]);
 
     // Pop
     printf("Popped in order: ");
 
     while (count > 0) {
-        printf("%d ", pop(queue, &count));
+        printf("%d ", pop(pq, &count));
     }
 
     printf("\n");
 }
 int main(void)
 {
-    int queue_number = 0;
+    int pq_number = 0;
 
-    switch (queue_number) {
+    switch (pq_number) {
     case 0:
         h_test();
         break;

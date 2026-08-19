@@ -11,8 +11,8 @@ abt_tree *abt_create(size_t capacity)
     if (tree == NULL) {
         return NULL;
     }
-    tree->items = malloc(sizeof(abt_data) * capacity);
-    if (tree->items == NULL) {
+    tree->data = malloc(sizeof(abt_item) * capacity);
+    if (tree->data == NULL) {
         free(tree);
         return NULL;
     }
@@ -26,10 +26,10 @@ void abt_destroy(abt_tree *tree)
     if (tree == NULL) {
         return;
     }
-    free(tree->items);
+    free(tree->data);
     free(tree);
 }
-void abt_insert(abt_tree *tree, abt_data data)
+void abt_insert(abt_tree *tree, abt_item data)
 {
     if (tree == NULL) {
         return;
@@ -40,19 +40,19 @@ void abt_insert(abt_tree *tree, abt_data data)
         return;
     }
 
-    tree->items[tree->count] = data;
+    tree->data[tree->count] = data;
     tree->count++;
 }
-abt_data *abt_get_parent(abt_tree *tree, size_t child_pos)
+abt_item *abt_get_parent(abt_tree *tree, size_t child_pos)
 {
     if (abt_is_empty(tree) || child_pos == 0 || child_pos >= tree->count) {
         return NULL;
     }
     size_t parent_pos = (child_pos - 1) / 2;
 
-    return &tree->items[parent_pos];
+    return &tree->data[parent_pos];
 }
-abt_data *abt_get_left(abt_tree *tree, size_t parent_pos)
+abt_item *abt_get_left(abt_tree *tree, size_t parent_pos)
 {
     if (abt_is_empty(tree) || parent_pos >= tree->count) {
         return NULL;
@@ -61,9 +61,9 @@ abt_data *abt_get_left(abt_tree *tree, size_t parent_pos)
     if (left_pos >= tree->count) {
         return NULL;
     }
-    return &tree->items[left_pos];
+    return &tree->data[left_pos];
 }
-abt_data *abt_get_right(abt_tree *tree, size_t parent_pos)
+abt_item *abt_get_right(abt_tree *tree, size_t parent_pos)
 {
     if (abt_is_empty(tree) || parent_pos >= tree->count) {
         return NULL;
@@ -73,7 +73,7 @@ abt_data *abt_get_right(abt_tree *tree, size_t parent_pos)
     if (right_pos >= tree->count) {
         return NULL;
     }
-    return &tree->items[right_pos];
+    return &tree->data[right_pos];
 }
 void abt_print(abt_tree *tree)
 {
@@ -81,7 +81,7 @@ void abt_print(abt_tree *tree)
         return;
     }
     for (size_t i = 0; i < tree->count; i++) {
-        printf("index %zu : %d\n", i, tree->items[i]);
+        printf("index %zu : %d\n", i, tree->data[i]);
     }
 }
 bool abt_is_empty(abt_tree *tree)

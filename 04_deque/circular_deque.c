@@ -12,8 +12,8 @@ cd_deque *cd_create(size_t capacity)
         return NULL;
     }
 
-    deque->items = malloc(sizeof(cd_data) * capacity);
-    if (deque->items == NULL) {
+    deque->data = malloc(sizeof(cd_item) * capacity);
+    if (deque->data == NULL) {
         free(deque);
         return NULL;
     }
@@ -29,10 +29,10 @@ void cd_destroy(cd_deque *deque)
     if (deque == NULL) {
         return;
     }
-    free(deque->items);
+    free(deque->data);
     free(deque);
 }
-void cd_push_front(cd_deque *deque, cd_data data)
+void cd_push_front(cd_deque *deque, cd_item data)
 {
     if (deque == NULL) {
         return;
@@ -45,10 +45,10 @@ void cd_push_front(cd_deque *deque, cd_data data)
     }
 
     deque->front = (deque->capacity + deque->front - 1) % deque->capacity;
-    deque->items[deque->front] = data;
+    deque->data[deque->front] = data;
     deque->count++;
 }
-void cd_push_back(cd_deque *deque, cd_data data)
+void cd_push_back(cd_deque *deque, cd_item data)
 {
     if (deque == NULL) {
         return;
@@ -60,22 +60,22 @@ void cd_push_back(cd_deque *deque, cd_data data)
         }
     }
     size_t rear = (deque->front + deque->count) % deque->capacity;
-    deque->items[rear] = data;
+    deque->data[rear] = data;
     deque->count++;
 }
 void cd_resize(cd_deque *deque)
 {
     size_t new_capacity = deque->capacity * 2;
-    cd_data *new_items = malloc(sizeof(cd_data) * new_capacity);
+    cd_item *new_items = malloc(sizeof(cd_item) * new_capacity);
     if (new_items == NULL) {
         return;
     }
 
     for (size_t i = 0; i < deque->count; ++i) {
-        new_items[i] = deque->items[(deque->front + i) % deque->capacity];
+        new_items[i] = deque->data[(deque->front + i) % deque->capacity];
     }
-    free(deque->items);
-    deque->items = new_items;
+    free(deque->data);
+    deque->data = new_items;
     deque->capacity = new_capacity;
     deque->front = 0;
 }
@@ -94,20 +94,20 @@ void cd_pop_back(cd_deque *deque)
     }
     deque->count--;
 }
-cd_data *cd_front(cd_deque *deque)
+cd_item *cd_front(cd_deque *deque)
 {
     if (cd_is_empty(deque)) {
         return NULL;
     }
-    return &deque->items[deque->front];
+    return &deque->data[deque->front];
 }
-cd_data *cd_back(cd_deque *deque)
+cd_item *cd_back(cd_deque *deque)
 {
     if (cd_is_empty(deque)) {
         return NULL;
     }
     size_t back_index = (deque->front + deque->count - 1) % deque->capacity;
-    return &deque->items[back_index];
+    return &deque->data[back_index];
 }
 bool cd_is_empty(cd_deque *deque)
 {

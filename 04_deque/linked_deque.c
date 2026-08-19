@@ -24,7 +24,7 @@ void ld_destroy(ld_deque *deque)
     }
     free(deque);
 }
-ld_node *ld_node_create(ld_data data)
+ld_node *ld_node_create(ld_item data)
 {
     ld_node *new_node = malloc(sizeof(ld_node));
     if (new_node == NULL) {
@@ -41,7 +41,7 @@ void ld_node_destroy(ld_node *node)
 {
     free(node);
 }
-void ld_push_front(ld_deque *deque, ld_data data)
+void ld_push_front(ld_deque *deque, ld_item data)
 {
     if (deque == NULL) {
         return;
@@ -58,7 +58,7 @@ void ld_push_front(ld_deque *deque, ld_data data)
     }
     deque->front = new_front;
 }
-void ld_push_back(ld_deque *deque, ld_data data)
+void ld_push_back(ld_deque *deque, ld_item data)
 {
     if (deque == NULL) {
         return;
@@ -108,14 +108,14 @@ void ld_pop_back(ld_deque *deque)
 
     ld_node_destroy(target_node);
 }
-ld_data *ld_front(ld_deque *deque)
+ld_item *ld_front(ld_deque *deque)
 {
     if (ld_is_empty(deque)) {
         return NULL;
     }
     return &deque->front->data;
 }
-ld_data *ld_back(ld_deque *deque)
+ld_item *ld_back(ld_deque *deque)
 {
     if (ld_is_empty(deque)) {
         return NULL;

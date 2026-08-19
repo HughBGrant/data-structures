@@ -25,7 +25,7 @@ void cll_destroy(cll_list *list)
     }
     free(list);
 }
-cll_node *cll_node_create(cll_data data)
+cll_node *cll_node_create(cll_item data)
 {
     cll_node *new_node = malloc(sizeof(cll_node));
     if (new_node == NULL) {
@@ -41,7 +41,7 @@ void cll_node_destroy(cll_node *node)
 {
     free(node);
 }
-void cll_insert(cll_list *list, size_t pos, cll_data data)
+void cll_insert(cll_list *list, size_t pos, cll_item data)
 {
     if (list == NULL || pos > list->count) {
         return;
@@ -92,7 +92,7 @@ void cll_remove(cll_list *list, size_t pos)
     cll_node_destroy(target_node);
     list->count--;
 }
-cll_data *cll_get(cll_list *list, size_t pos)
+cll_item *cll_get(cll_list *list, size_t pos)
 {
     if (list == NULL || pos >= list->count) {
         return NULL;

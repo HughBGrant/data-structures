@@ -6,13 +6,13 @@ void cd_test(void)
 {
     cd_deque *deque = cd_create(2);
 
-    for (cd_data i = 0; i < 8; i++) {
+    for (cd_item i = 0; i < 8; i++) {
         cd_push_front(deque, i);
     }
     printf("Count: %zu, Front: %d\n",
            cd_size(deque), *cd_front(deque));
 
-    for (cd_data i = 8; i < 16; i++) {
+    for (cd_item i = 8; i < 16; i++) {
         cd_push_back(deque, i);
     }
     printf("Count: %zu, back: %d\n",
@@ -33,13 +33,13 @@ void ld_test(void)
 {
     ld_deque *deque = ld_create();
 
-    for (ld_data i = 0; i < 8; i++) {
+    for (ld_item i = 0; i < 8; i++) {
         ld_push_front(deque, i);
     }
     printf("Count: %zu, Front: %d\n",
            ld_size(deque), *ld_front(deque));
 
-    for (ld_data i = 8; i < 16; i++) {
+    for (ld_item i = 8; i < 16; i++) {
         ld_push_back(deque, i);
     }
     printf("Count: %zu, back: %d\n",

@@ -26,7 +26,7 @@ void ls_destroy(ls_stack *stack)
 
     free(stack);
 }
-ls_node *ls_node_create(ls_data data)
+ls_node *ls_node_create(ls_item data)
 {
     ls_node *new_node = malloc(sizeof(ls_node));
 
@@ -43,7 +43,7 @@ void ls_node_destroy(ls_node *node)
 {
     free(node);
 }
-void ls_push(ls_stack *stack, ls_data data)
+void ls_push(ls_stack *stack, ls_item data)
 {
     if (stack == NULL) {
         return;
@@ -71,7 +71,7 @@ void ls_pop(ls_stack *stack)
     ls_node_destroy(target_node);
 }
 
-ls_data *ls_top(ls_stack *stack)
+ls_item *ls_top(ls_stack *stack)
 {
     if (ls_is_empty(stack)) {
         return NULL;

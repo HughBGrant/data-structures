@@ -25,7 +25,7 @@ void sll_destroy(sll_list *list)
     }
     free(list);
 }
-sll_node *sll_node_create(sll_data data)
+sll_node *sll_node_create(sll_item data)
 {
     sll_node *new_node = malloc(sizeof(sll_node));
     if (new_node == NULL) {
@@ -41,7 +41,7 @@ void sll_node_destroy(sll_node *node)
 {
     free(node);
 }
-void sll_insert(sll_list *list, size_t pos, sll_data data)
+void sll_insert(sll_list *list, size_t pos, sll_item data)
 {
     if (list == NULL || pos > list->count) {
         return;
@@ -86,7 +86,7 @@ void sll_remove(sll_list *list, size_t pos)
     sll_node_destroy(target_node);
     list->count--;
 }
-sll_data *sll_get(sll_list *list, size_t pos)
+sll_item *sll_get(sll_list *list, size_t pos)
 {
     if (list == NULL || pos >= list->count) {
         return NULL;
@@ -98,7 +98,7 @@ sll_data *sll_get(sll_list *list, size_t pos)
     }
     return &target_node->data;
 }
-sll_node *sll_linear_search_move2front(sll_list *list, sll_data key)
+sll_node *sll_linear_search_move2front(sll_list *list, sll_item key)
 {
     if (list == NULL) {
         return NULL;
@@ -121,7 +121,7 @@ sll_node *sll_linear_search_move2front(sll_list *list, sll_data key)
     }
     return current_node;
 }
-sll_node *sll_linear_search_transpose(sll_list *list, sll_data key)
+sll_node *sll_linear_search_transpose(sll_list *list, sll_item key)
 {
     if (list == NULL) {
         return NULL;

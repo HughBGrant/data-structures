@@ -19,7 +19,7 @@ lbt_node *build(char *expression)
     int top = -1;
 
     for (size_t i = 0; i < len; i++) {
-        lbt_data token = expression[i];
+        lbt_item token = expression[i];
 
         if ((token == '+' ||
              token == '-' ||

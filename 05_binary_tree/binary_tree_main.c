@@ -7,7 +7,7 @@ void abt_test(void)
 {
     abt_tree *tree = abt_create(32);
 
-    abt_data data[] = {10, 20, 30, 40, 50, 60, 70};
+    abt_item data[] = {10, 20, 30, 40, 50, 60, 70};
     for (int i = 0; i < 7; i++) {
         abt_insert(tree, data[i]);
     }
