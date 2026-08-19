@@ -14,7 +14,8 @@ typedef struct _ls_node {
 
 typedef struct {
     ls_node *top;
-} ls_stack;
+} linked_stack;
+typedef linked_stack ls_stack;
 
 void ls_push(ls_stack *stack, ls_item data);
 void ls_pop(ls_stack *stack);

@@ -16,7 +16,8 @@ typedef struct _ld_node {
 typedef struct {
     ld_node *rear;
     ld_node *front;
-} ld_deque;
+} linked_deque;
+typedef linked_deque ld_deque;
 
 void ld_push_front(ld_deque *deque, ld_item data);
 void ld_push_back(ld_deque *deque, ld_item data);

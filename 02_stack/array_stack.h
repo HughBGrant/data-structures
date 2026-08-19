@@ -10,7 +10,8 @@ typedef struct {
     as_item *data;
     size_t capacity;
     size_t count;
-} as_stack;
+} array_stack;
+typedef array_stack as_stack;
 
 void as_push(as_stack *stack, as_item data);
 void as_pop(as_stack *stack);

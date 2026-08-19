@@ -25,7 +25,7 @@ void bst_test(void)
 void avl_test(void)
 {
     avl_node *root = NULL;
-    int keys[] = {10, 20, 30, 40, 50, 25};
+    avl_item keys[] = {10, 20, 30, 40, 50, 25};
     for (int i = 0; i < 6; i++) {
         root = avl_node_insert(root, keys[i]);
     }

@@ -12,7 +12,8 @@ typedef struct {
     size_t capacity;
     size_t front;
     size_t count;
-} cd_deque;
+} circular_deque;
+typedef circular_deque cd_deque;
 
 void cd_push_front(cd_deque *deque, cd_item data);
 void cd_push_back(cd_deque *deque, cd_item data);

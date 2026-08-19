@@ -11,7 +11,8 @@ typedef struct {
     size_t capacity;
     size_t front;
     size_t count;
-} cq_queue;
+} circular_queue;
+typedef circular_queue cq_queue;
 
 void cq_enqueue(cq_queue *queue, cq_item data);
 void cq_dequeue(cq_queue *queue);

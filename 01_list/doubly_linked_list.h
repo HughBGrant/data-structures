@@ -14,7 +14,8 @@ typedef struct _dll_node {
 typedef struct {
     dll_node *head_sentinel;
     size_t count;
-} dll_list;
+} doubly_linked_list;
+typedef doubly_linked_list dll_list;
 
 void dll_insert(dll_list *list, size_t pos, dll_item data);
 void dll_remove(dll_list *list, size_t pos);

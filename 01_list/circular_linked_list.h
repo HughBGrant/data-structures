@@ -13,7 +13,9 @@ typedef struct _cll_node {
 typedef struct {
     cll_node *tail;
     size_t count;
-} cll_list;
+} circular_linked_list;
+
+typedef circular_linked_list cll_list;
 
 void cll_insert(cll_list *list, size_t pos, cll_item data);
 void cll_remove(cll_list *list, size_t pos);

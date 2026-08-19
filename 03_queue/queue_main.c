@@ -6,7 +6,7 @@ void cq_test(void)
 {
     cq_queue *queue = cq_create(2);
 
-    for (cq_item i = 0; i < 16; i++) {
+    for (int i = 0; i < 16; i++) {
         cq_enqueue(queue, i);
     }
     printf("Count: %zu, Front: %d\n", cq_size(queue), *cq_peek(queue));
@@ -21,7 +21,7 @@ void lq_test(void)
 {
     lq_queue *queue = lq_create();
 
-    for (cq_item i = 0; i < 16; i++) {
+    for (int i = 0; i < 16; i++) {
         lq_enqueue(queue, i);
     }
     printf("Count: %zu, Front: %d\n", lq_size(queue), *lq_peek(queue));

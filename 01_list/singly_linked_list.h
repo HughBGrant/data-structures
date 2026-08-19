@@ -13,7 +13,8 @@ typedef struct _sll_node {
 typedef struct {
     sll_node *head;
     size_t count;
-} sll_list;
+} singly_linked_list;
+typedef singly_linked_list sll_list;
 
 void sll_insert(sll_list *list, size_t pos, sll_item data);
 void sll_remove(sll_list *list, size_t pos);

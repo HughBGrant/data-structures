@@ -15,7 +15,8 @@ typedef struct _lq_node {
 typedef struct {
     lq_node *rear;
     lq_node *front;
-} lq_queue;
+} linked_queue;
+typedef linked_queue lq_queue;
 
 void lq_enqueue(lq_queue *queue, lq_item data);
 void lq_dequeue(lq_queue *queue);
