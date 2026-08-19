@@ -2,6 +2,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+struct array_stack {
+    as_item *data;
+    size_t capacity;
+    size_t count;
+};
+
 as_stack *as_create(size_t capacity)
 {
     if (capacity == 0) {

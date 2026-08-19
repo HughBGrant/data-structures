@@ -6,18 +6,7 @@
 #include <stddef.h>
 
 typedef int ld_item;
-
-typedef struct _ld_node {
-    ld_item data;
-    struct _ld_node *next;
-    struct _ld_node *prev;
-} ld_node;
-
-typedef struct {
-    ld_node *rear;
-    ld_node *front;
-} linked_deque;
-typedef linked_deque ld_deque;
+typedef struct linked_deque ld_deque;
 
 void ld_push_front(ld_deque *deque, ld_item data);
 void ld_push_back(ld_deque *deque, ld_item data);
@@ -30,7 +19,5 @@ bool ld_is_empty(ld_deque *deque);
 
 ld_deque *ld_create(void);
 void ld_destroy(ld_deque *deque);
-ld_node *ld_node_create(ld_item data);
-void ld_node_destroy(ld_node *node);
 
 #endif

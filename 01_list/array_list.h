@@ -4,14 +4,7 @@
 #include <stddef.h>
 
 typedef int al_item;
-
-typedef struct {
-    al_item *data;
-    size_t capacity;
-    size_t count;
-} array_list;
-
-typedef array_list al_list;
+typedef struct array_list al_list;
 
 void al_insert(al_list *list, size_t pos, al_item data);
 void al_remove(al_list *list, size_t pos);

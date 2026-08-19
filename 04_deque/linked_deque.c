@@ -2,6 +2,34 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef struct _ld_node {
+    ld_item data;
+    struct _ld_node *next;
+    struct _ld_node *prev;
+} ld_node;
+
+struct linked_deque {
+    ld_node *rear;
+    ld_node *front;
+};
+
+static ld_node *ld_node_create(ld_item data)
+{
+    ld_node *new_node = malloc(sizeof(ld_node));
+    if (new_node == NULL) {
+        return NULL;
+    }
+
+    new_node->data = data;
+    new_node->next = NULL;
+    new_node->prev = NULL;
+
+    return new_node;
+}
+static void ld_node_destroy(ld_node *node)
+{
+    free(node);
+}
 ld_deque *ld_create(void)
 {
     ld_deque *deque = malloc(sizeof(ld_deque));
@@ -23,23 +51,6 @@ void ld_destroy(ld_deque *deque)
         ld_pop_front(deque);
     }
     free(deque);
-}
-ld_node *ld_node_create(ld_item data)
-{
-    ld_node *new_node = malloc(sizeof(ld_node));
-    if (new_node == NULL) {
-        return NULL;
-    }
-
-    new_node->data = data;
-    new_node->next = NULL;
-    new_node->prev = NULL;
-
-    return new_node;
-}
-void ld_node_destroy(ld_node *node)
-{
-    free(node);
 }
 void ld_push_front(ld_deque *deque, ld_item data)
 {

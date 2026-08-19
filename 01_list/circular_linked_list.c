@@ -2,6 +2,32 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef struct _cll_node {
+    cll_item data;
+    struct _cll_node *next;
+} cll_node;
+
+struct circular_linked_list {
+    cll_node *tail;
+    size_t count;
+};
+
+static cll_node *cll_node_create(cll_item data)
+{
+    cll_node *new_node = malloc(sizeof(cll_node));
+    if (new_node == NULL) {
+        return NULL;
+    }
+
+    new_node->data = data;
+    new_node->next = NULL;
+
+    return new_node;
+}
+static void cll_node_destroy(cll_node *node)
+{
+    free(node);
+}
 cll_list *cll_create(void)
 {
     cll_list *list = malloc(sizeof(cll_list));
@@ -24,22 +50,6 @@ void cll_destroy(cll_list *list)
         cll_remove(list, 0);
     }
     free(list);
-}
-cll_node *cll_node_create(cll_item data)
-{
-    cll_node *new_node = malloc(sizeof(cll_node));
-    if (new_node == NULL) {
-        return NULL;
-    }
-
-    new_node->data = data;
-    new_node->next = NULL;
-
-    return new_node;
-}
-void cll_node_destroy(cll_node *node)
-{
-    free(node);
 }
 void cll_insert(cll_list *list, size_t pos, cll_item data)
 {

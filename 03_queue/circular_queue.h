@@ -5,14 +5,7 @@
 #include <stddef.h>
 
 typedef int cq_item;
-
-typedef struct {
-    cq_item *data;
-    size_t capacity;
-    size_t front;
-    size_t count;
-} circular_queue;
-typedef circular_queue cq_queue;
+typedef struct circular_queue cq_queue;
 
 void cq_enqueue(cq_queue *queue, cq_item data);
 void cq_dequeue(cq_queue *queue);

@@ -6,16 +6,7 @@
 #include <stddef.h>
 
 typedef int ls_item;
-
-typedef struct _ls_node {
-    ls_item data;
-    struct _ls_node *next;
-} ls_node;
-
-typedef struct {
-    ls_node *top;
-} linked_stack;
-typedef linked_stack ls_stack;
+typedef struct linked_stack ls_stack;
 
 void ls_push(ls_stack *stack, ls_item data);
 void ls_pop(ls_stack *stack);
@@ -25,7 +16,5 @@ bool ls_is_empty(ls_stack *stack);
 
 ls_stack *ls_create(void);
 void ls_destroy(ls_stack *stack);
-ls_node *ls_node_create(ls_item data);
-void ls_node_destroy(ls_node *node);
 
 #endif

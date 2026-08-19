@@ -2,6 +2,84 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef struct _sll_node {
+    sll_item data;
+    struct _sll_node *next;
+} sll_node;
+
+struct singly_linked_list {
+    sll_node *head;
+    size_t count;
+};
+
+static sll_node *sll_node_create(sll_item data)
+{
+    sll_node *new_node = malloc(sizeof(sll_node));
+    if (new_node == NULL) {
+        return NULL;
+    }
+
+    new_node->data = data;
+    new_node->next = NULL;
+
+    return new_node;
+}
+static void sll_node_destroy(sll_node *node)
+{
+    free(node);
+}
+static sll_node *sll_linear_search_move2front(sll_list *list, sll_item key)
+{
+    if (list == NULL) {
+        return NULL;
+    }
+    sll_node *prev_node = NULL;
+    sll_node *current_node = list->head;
+
+    while (current_node && current_node->data != key) {
+        prev_node = current_node;
+        current_node = current_node->next;
+    }
+
+    if (current_node == NULL) {
+        return NULL;
+    }
+    if (prev_node) {
+        prev_node->next = current_node->next;
+        current_node->next = list->head;
+        list->head = current_node;
+    }
+    return current_node;
+}
+static sll_node *sll_linear_search_transpose(sll_list *list, sll_item key)
+{
+    if (list == NULL) {
+        return NULL;
+    }
+    sll_node *prev_prev_node = NULL;
+    sll_node *prev_node = NULL;
+    sll_node *current_node = list->head;
+
+    while (current_node && current_node->data != key) {
+        prev_prev_node = prev_node;
+        prev_node = current_node;
+        current_node = current_node->next;
+    }
+    if (current_node == NULL) {
+        return NULL;
+    }
+    if (prev_node) {
+        prev_node->next = current_node->next;
+        current_node->next = prev_node;
+
+        if (prev_prev_node) {
+            prev_prev_node->next = current_node;
+        } else {
+            list->head = current_node;
+        }
+    }
+    return current_node;
+}
 sll_list *sll_create(void)
 {
     sll_list *list = malloc(sizeof(sll_list));
@@ -24,22 +102,6 @@ void sll_destroy(sll_list *list)
         sll_remove(list, 0);
     }
     free(list);
-}
-sll_node *sll_node_create(sll_item data)
-{
-    sll_node *new_node = malloc(sizeof(sll_node));
-    if (new_node == NULL) {
-        return NULL;
-    }
-
-    new_node->data = data;
-    new_node->next = NULL;
-
-    return new_node;
-}
-void sll_node_destroy(sll_node *node)
-{
-    free(node);
 }
 void sll_insert(sll_list *list, size_t pos, sll_item data)
 {
@@ -97,58 +159,6 @@ sll_item *sll_get(sll_list *list, size_t pos)
         target_node = target_node->next;
     }
     return &target_node->data;
-}
-sll_node *sll_linear_search_move2front(sll_list *list, sll_item key)
-{
-    if (list == NULL) {
-        return NULL;
-    }
-    sll_node *prev_node = NULL;
-    sll_node *current_node = list->head;
-
-    while (current_node && current_node->data != key) {
-        prev_node = current_node;
-        current_node = current_node->next;
-    }
-
-    if (current_node == NULL) {
-        return NULL;
-    }
-    if (prev_node) {
-        prev_node->next = current_node->next;
-        current_node->next = list->head;
-        list->head = current_node;
-    }
-    return current_node;
-}
-sll_node *sll_linear_search_transpose(sll_list *list, sll_item key)
-{
-    if (list == NULL) {
-        return NULL;
-    }
-    sll_node *prev_prev_node = NULL;
-    sll_node *prev_node = NULL;
-    sll_node *current_node = list->head;
-
-    while (current_node && current_node->data != key) {
-        prev_prev_node = prev_node;
-        prev_node = current_node;
-        current_node = current_node->next;
-    }
-    if (current_node == NULL) {
-        return NULL;
-    }
-    if (prev_node) {
-        prev_node->next = current_node->next;
-        current_node->next = prev_node;
-
-        if (prev_prev_node) {
-            prev_prev_node->next = current_node;
-        } else {
-            list->head = current_node;
-        }
-    }
-    return current_node;
 }
 void sll_print(sll_list *list)
 {

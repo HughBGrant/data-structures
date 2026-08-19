@@ -2,6 +2,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+struct circular_queue {
+    cq_item *data;
+    size_t capacity;
+    size_t front;
+    size_t count;
+};
+
 cq_queue *cq_create(size_t capacity)
 {
     if (capacity == 0) {

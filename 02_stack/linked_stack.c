@@ -2,6 +2,32 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef struct _ls_node {
+    ls_item data;
+    struct _ls_node *next;
+} ls_node;
+
+struct linked_stack {
+    ls_node *top;
+};
+
+static ls_node *ls_node_create(ls_item data)
+{
+    ls_node *new_node = malloc(sizeof(ls_node));
+
+    if (new_node == NULL) {
+        return NULL;
+    }
+
+    new_node->data = data;
+    new_node->next = NULL;
+
+    return new_node;
+}
+static void ls_node_destroy(ls_node *node)
+{
+    free(node);
+}
 ls_stack *ls_create(void)
 {
     ls_stack *stack = malloc(sizeof(ls_stack));
@@ -25,23 +51,6 @@ void ls_destroy(ls_stack *stack)
     }
 
     free(stack);
-}
-ls_node *ls_node_create(ls_item data)
-{
-    ls_node *new_node = malloc(sizeof(ls_node));
-
-    if (new_node == NULL) {
-        return NULL;
-    }
-
-    new_node->data = data;
-    new_node->next = NULL;
-
-    return new_node;
-}
-void ls_node_destroy(ls_node *node)
-{
-    free(node);
 }
 void ls_push(ls_stack *stack, ls_item data)
 {

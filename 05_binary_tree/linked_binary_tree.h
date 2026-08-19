@@ -11,6 +11,12 @@ typedef struct _lbt_node {
     struct _lbt_node *right;
 } lbt_node;
 
+struct linked_binary_tree {
+    lbt_node *root;
+};
+
+typedef struct linked_binary_tree lbt_binary_tree;
+
 lbt_node *lbt_insert_left(lbt_node *parent, lbt_item data);
 lbt_node *lbt_insert_right(lbt_node *parent, lbt_item data);
 void lbt_preorder(lbt_node *node);

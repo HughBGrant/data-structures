@@ -2,6 +2,59 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef struct _dll_node {
+    dll_item data;
+    struct _dll_node *next;
+    struct _dll_node *prev;
+} dll_node;
+
+struct doubly_linked_list {
+    dll_node *head_sentinel;
+    size_t count;
+};
+
+static dll_node *dll_node_create(dll_item data)
+{
+    dll_node *new_node = malloc(sizeof(dll_node));
+    if (new_node == NULL) {
+        return NULL;
+    }
+    new_node->data = data;
+    new_node->prev = NULL;
+    new_node->next = NULL;
+
+    return new_node;
+}
+static void dll_node_destroy(dll_node *node)
+{
+    free(node);
+}
+static dll_node *dll_node_get(dll_list *list, size_t pos)
+{
+    if (list == NULL || pos > list->count) {
+        return NULL;
+    }
+    if (pos == list->count) {
+        return list->head_sentinel; // 센티널 반환
+    }
+
+    dll_node *target_node = NULL;
+
+    if (pos < list->count / 2) {
+        target_node = list->head_sentinel->next;
+
+        for (size_t i = 0; i < pos; i++) {
+            target_node = target_node->next;
+        }
+    } else {
+        target_node = list->head_sentinel->prev;
+
+        for (size_t i = list->count - 1; i > pos; i--) {
+            target_node = target_node->prev;
+        }
+    }
+    return target_node;
+}
 dll_list *dll_create(void)
 {
     dll_list *list = malloc(sizeof(dll_list));
@@ -30,48 +83,6 @@ void dll_destroy(dll_list *list)
     }
     dll_node_destroy(list->head_sentinel);
     free(list);
-}
-dll_node *dll_node_create(dll_item data)
-{
-    dll_node *new_node = malloc(sizeof(dll_node));
-    if (new_node == NULL) {
-        return NULL;
-    }
-    new_node->data = data;
-    new_node->prev = NULL;
-    new_node->next = NULL;
-
-    return new_node;
-}
-void dll_node_destroy(dll_node *node)
-{
-    free(node);
-}
-dll_node *dll_node_get(dll_list *list, size_t pos)
-{
-    if (list == NULL || pos > list->count) {
-        return NULL;
-    }
-    if (pos == list->count) {
-        return list->head_sentinel; // 센티널 반환
-    }
-
-    dll_node *target_node = NULL;
-
-    if (pos < list->count / 2) {
-        target_node = list->head_sentinel->next;
-
-        for (size_t i = 0; i < pos; i++) {
-            target_node = target_node->next;
-        }
-    } else {
-        target_node = list->head_sentinel->prev;
-
-        for (size_t i = list->count - 1; i > pos; i--) {
-            target_node = target_node->prev;
-        }
-    }
-    return target_node;
 }
 void dll_insert(dll_list *list, size_t pos, dll_item data)
 {

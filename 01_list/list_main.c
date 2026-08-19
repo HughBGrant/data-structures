@@ -62,8 +62,6 @@ void cll_test(void)
 
     cll_print(list);
 
-    printf("tail->next: %d\n", list->tail->next->data);
-
     printf("\nDestroying List...\n");
     cll_destroy(list);
 }
@@ -84,8 +82,6 @@ void dll_test(void)
     dll_remove(list, 2);
 
     dll_print(list);
-
-    printf("head->prev: %d\n", list->head_sentinel->prev->data);
 
     printf("\nDestroying List...\n");
     dll_destroy(list);

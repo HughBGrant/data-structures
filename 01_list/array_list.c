@@ -2,6 +2,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+struct array_list {
+    al_item *data;
+    size_t capacity;
+    size_t count;
+};
+
 al_list *al_create(size_t capacity)
 {
     if (capacity == 0) {

@@ -5,13 +5,7 @@
 #include <stddef.h>
 
 typedef int as_item;
-
-typedef struct {
-    as_item *data;
-    size_t capacity;
-    size_t count;
-} array_stack;
-typedef array_stack as_stack;
+typedef struct array_stack as_stack;
 
 void as_push(as_stack *stack, as_item data);
 void as_pop(as_stack *stack);
@@ -21,4 +15,5 @@ size_t as_size(as_stack *stack);
 
 as_stack *as_create(size_t capacity);
 void as_destroy(as_stack *stack);
+
 #endif

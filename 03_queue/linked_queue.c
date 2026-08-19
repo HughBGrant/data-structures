@@ -2,6 +2,32 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef struct _lq_node {
+    lq_item data;
+    struct _lq_node *next;
+} lq_node;
+
+struct linked_queue {
+    lq_node *rear;
+    lq_node *front;
+};
+
+static lq_node *lq_node_create(lq_item data)
+{
+    lq_node *new_node = malloc(sizeof(lq_node));
+    if (new_node == NULL) {
+        return NULL;
+    }
+
+    new_node->data = data;
+    new_node->next = NULL;
+
+    return new_node;
+}
+static void lq_node_destroy(lq_node *node)
+{
+    free(node);
+}
 lq_queue *lq_create(void)
 {
     lq_queue *queue = malloc(sizeof(lq_queue));
@@ -22,22 +48,6 @@ void lq_destroy(lq_queue *queue)
         lq_dequeue(queue);
     }
     free(queue);
-}
-lq_node *lq_node_create(lq_item data)
-{
-    lq_node *new_node = malloc(sizeof(lq_node));
-    if (new_node == NULL) {
-        return NULL;
-    }
-
-    new_node->data = data;
-    new_node->next = NULL;
-
-    return new_node;
-}
-void lq_node_destroy(lq_node *node)
-{
-    free(node);
 }
 void lq_enqueue(lq_queue *queue, lq_item data)
 {

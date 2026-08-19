@@ -66,7 +66,7 @@ void calculator_test(void)
 
 int main(void)
 {
-    int stack_number = 2;
+    int stack_number = 1;
 
     switch (stack_number) {
     case 0:
