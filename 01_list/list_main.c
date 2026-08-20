@@ -6,7 +6,7 @@
 
 void al_test(void)
 {
-    al_list *list = al_create(2);
+    al_list *list = al_create();
 
     for (int i = 0; i < 5; i++) {
         al_insert(list, al_size(list), i);
@@ -87,7 +87,7 @@ void dll_test(void)
 }
 int main(void)
 {
-    int list_number = 3;
+    int list_number = 0;
 
     switch (list_number) {
     case 0:

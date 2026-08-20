@@ -1,6 +1,7 @@
 #include "array_list.h"
 #include <stdio.h>
 #include <stdlib.h>
+#define INITIAL_CAPACITY 8
 
 struct array_list {
     al_item *items;
@@ -8,21 +9,18 @@ struct array_list {
     size_t count;
 };
 
-al_list *al_create(size_t capacity)
+al_list *al_create(void)
 {
-    if (capacity == 0) {
-        capacity = 1;
-    }
     al_list *list = malloc(sizeof(al_list));
     if (list == NULL) {
         return NULL;
     }
-    list->items = malloc(sizeof(al_item) * capacity);
+    list->items = malloc(sizeof(al_item) * INITIAL_CAPACITY);
     if (list->items == NULL) {
         free(list);
         return NULL;
     }
-    list->capacity = capacity;
+    list->capacity = INITIAL_CAPACITY;
     list->count = 0;
 
     return list;
