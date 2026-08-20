@@ -6,26 +6,18 @@ void h_test(void)
 {
     h_priority_queue *pq = h_create();
 
-    h_node e1 = {10};
-    h_node e2 = {5};
-    h_node e3 = {30};
+    h_insert(pq, (h_item){30});
+    h_insert(pq, (h_item){10});
+    h_insert(pq, (h_item){50});
+    h_insert(pq, (h_item){20});
+    h_insert(pq, (h_item){40});
 
-    h_node e4, e5, e6;
+    printf("우선순위 큐에서 삭제:\n");
 
-    // 삽입
-    h_insert(pq, e1);
-    h_insert(pq, e2);
-    h_insert(pq, e3);
-
-    // 삭제
-    e4 = h_remove(pq);
-    printf("< %d > ", e4.priority);
-
-    e5 = h_remove(pq);
-    printf("< %d > ", e5.priority);
-
-    e6 = h_remove(pq);
-    printf("< %d >\n", e6.priority);
+    while (pq->count > 0) {
+        h_item item = h_remove(pq);
+        printf("%d\n", item.priority);
+    }
 
     free(pq);
 }

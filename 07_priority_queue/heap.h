@@ -4,11 +4,11 @@
 #define MAX_ELEMENT 200
 #include <stddef.h>
 
-typedef struct {
+struct h_node {
     int priority;
-} h_node;
+};
 
-typedef h_node h_item;
+typedef struct h_node h_item;
 
 struct heap {
     h_item data[MAX_ELEMENT];
