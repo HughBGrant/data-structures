@@ -1,5 +1,4 @@
 #include "array_binary_tree.h"
-#include "expression_tree.h"
 #include "linked_binary_tree.h"
 #include <stdio.h>
 
@@ -48,27 +47,6 @@ void lbt_test(void)
     lbt_postorder(root);
     printf("\n");
 }
-
-void et_test(void)
-{
-    char expression[32] = "71*52-/";
-    lbt_node *root = build(expression);
-
-    // 트리 출력
-    printf("Preorder ... \n");
-    lbt_preorder(root);
-    printf("\n\n");
-
-    printf("Inorder ... \n");
-    lbt_inorder(root);
-    printf("\n\n");
-
-    printf("Postorder ... \n");
-    lbt_postorder(root);
-    printf("\n");
-
-    printf("Evaluation Result : %f \n", evaluate(root));
-}
 int main(void)
 {
     int bt_number = 1;
@@ -79,9 +57,6 @@ int main(void)
         break;
     case 1:
         lbt_test();
-        break;
-    case 2:
-        et_test();
         break;
     }
     return 0;

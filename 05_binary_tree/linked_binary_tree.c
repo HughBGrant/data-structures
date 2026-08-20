@@ -4,8 +4,8 @@
 
 struct lbt_node {
     lbt_item data;
-    struct _lbt_node *left;
-    struct _lbt_node *right;
+    struct lbt_node *left;
+    struct lbt_node *right;
 };
 struct linked_binary_tree {
     lbt_node *root;
@@ -83,7 +83,7 @@ lbt_node *lbt_right(lbt_node *node)
     return node == NULL ? NULL : node->right;
 }
 
-lbt_item lbt_data(lbt_node *node)
+lbt_item *lbt_get(lbt_node *node)
 {
     return node == NULL ? NULL : &node->data;
 }
