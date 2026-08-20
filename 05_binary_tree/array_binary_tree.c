@@ -27,74 +27,74 @@ abt_binary_tree *abt_create(size_t capacity)
 
     return tree;
 }
-void abt_destroy(abt_binary_tree *tree)
+void abt_destroy(abt_binary_tree *bt)
 {
-    if (tree == NULL) {
+    if (bt == NULL) {
         return;
     }
-    free(tree->data);
-    free(tree);
+    free(bt->data);
+    free(bt);
 }
-void abt_insert(abt_binary_tree *tree, abt_item data)
+void abt_insert(abt_binary_tree *bt, abt_item data)
 {
-    if (tree == NULL) {
+    if (bt == NULL) {
         return;
     }
 
-    if (tree->count >= tree->capacity) {
+    if (bt->count >= bt->capacity) {
         printf("Tree is full.\n");
         return;
     }
 
-    tree->data[tree->count] = data;
-    tree->count++;
+    bt->data[bt->count] = data;
+    bt->count++;
 }
-abt_item *abt_get_parent(abt_binary_tree *tree, size_t child_pos)
+abt_item *abt_get_parent(abt_binary_tree *bt, size_t child_pos)
 {
-    if (abt_is_empty(tree) || child_pos == 0 || child_pos >= tree->count) {
+    if (abt_is_empty(bt) || child_pos == 0 || child_pos >= bt->count) {
         return NULL;
     }
     size_t parent_pos = (child_pos - 1) / 2;
 
-    return &tree->data[parent_pos];
+    return &bt->data[parent_pos];
 }
-abt_item *abt_get_left(abt_binary_tree *tree, size_t parent_pos)
+abt_item *abt_get_left(abt_binary_tree *bt, size_t parent_pos)
 {
-    if (abt_is_empty(tree) || parent_pos >= tree->count) {
+    if (abt_is_empty(bt) || parent_pos >= bt->count) {
         return NULL;
     }
     size_t left_pos = 2 * parent_pos + 1;
-    if (left_pos >= tree->count) {
+    if (left_pos >= bt->count) {
         return NULL;
     }
-    return &tree->data[left_pos];
+    return &bt->data[left_pos];
 }
-abt_item *abt_get_right(abt_binary_tree *tree, size_t parent_pos)
+abt_item *abt_get_right(abt_binary_tree *bt, size_t parent_pos)
 {
-    if (abt_is_empty(tree) || parent_pos >= tree->count) {
+    if (abt_is_empty(bt) || parent_pos >= bt->count) {
         return NULL;
     }
 
     size_t right_pos = 2 * parent_pos + 2;
-    if (right_pos >= tree->count) {
+    if (right_pos >= bt->count) {
         return NULL;
     }
-    return &tree->data[right_pos];
+    return &bt->data[right_pos];
 }
-void abt_print(abt_binary_tree *tree)
+void abt_print(abt_binary_tree *bt)
 {
-    if (tree == NULL) {
+    if (bt == NULL) {
         return;
     }
-    for (size_t i = 0; i < tree->count; i++) {
-        printf("index %zu : %d\n", i, tree->data[i]);
+    for (size_t i = 0; i < bt->count; i++) {
+        printf("index %zu : %d\n", i, bt->data[i]);
     }
 }
-bool abt_is_empty(abt_binary_tree *tree)
+bool abt_is_empty(abt_binary_tree *bt)
 {
-    return tree == NULL || tree->count == 0;
+    return bt == NULL || bt->count == 0;
 }
-size_t abt_size(abt_binary_tree *tree)
+size_t abt_size(abt_binary_tree *bt)
 {
-    return tree ? tree->count : 0;
+    return bt ? bt->count : 0;
 }

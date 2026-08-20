@@ -16,8 +16,8 @@ struct heap {
 };
 typedef struct heap h_priority_queue;
 
-void h_insert(h_priority_queue *queue, h_item data);
-h_item h_remove(h_priority_queue *queue);
+void h_insert(h_priority_queue *pq, h_item data);
+h_item h_remove(h_priority_queue *pq);
 
 h_priority_queue *h_create(void);
 
