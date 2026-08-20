@@ -5,7 +5,7 @@
 #include <stddef.h>
 
 typedef struct {
-    int value;
+    int priority;
 } h_node;
 
 typedef h_node h_item;

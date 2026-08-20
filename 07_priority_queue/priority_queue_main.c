@@ -1,5 +1,4 @@
 #include "heap.h"
-#include "max_binary_heap3.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -20,38 +19,15 @@ void h_test(void)
 
     // 삭제
     e4 = h_remove(pq);
-    printf("< %d > ", e4.value);
+    printf("< %d > ", e4.priority);
 
     e5 = h_remove(pq);
-    printf("< %d > ", e5.value);
+    printf("< %d > ", e5.priority);
 
     e6 = h_remove(pq);
-    printf("< %d >\n", e6.value);
+    printf("< %d >\n", e6.priority);
 
     free(pq);
-}
-void h1_test(void)
-{
-    int pq[CAP];
-    int count = 0;
-
-    int datas[] = {5, 3, 8, 1, 9, 2};
-
-    // Insert
-    for (size_t i = 0; i < 6; i++) {
-        push(pq, &count, datas[i]);
-    }
-
-    printf("Min: %d\n", pq[0]);
-
-    // Pop
-    printf("Popped in order: ");
-
-    while (count > 0) {
-        printf("%d ", pop(pq, &count));
-    }
-
-    printf("\n");
 }
 int main(void)
 {
@@ -60,9 +36,6 @@ int main(void)
     switch (pq_number) {
     case 0:
         h_test();
-        break;
-    case 3:
-        h1_test();
         break;
     }
     return 0;

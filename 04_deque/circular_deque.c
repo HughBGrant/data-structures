@@ -66,8 +66,8 @@ void cd_push_back(cd_deque *deque, cd_item data)
             return;
         }
     }
-    size_t rear = (deque->front + deque->count) % deque->capacity;
-    deque->data[rear] = data;
+    size_t back = (deque->front + deque->count) % deque->capacity;
+    deque->data[back] = data;
     deque->count++;
 }
 void cd_resize(cd_deque *deque)

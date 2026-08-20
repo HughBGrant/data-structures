@@ -15,20 +15,14 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="max_binary_heap3.c">
+    <ClCompile Include="heap.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="priority_queue_main.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="heap.c">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="max_binary_heap3.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="heap.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
