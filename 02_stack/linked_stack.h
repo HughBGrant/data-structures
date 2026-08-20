@@ -1,4 +1,3 @@
-#define _CRT_SECURE_NO_WARNINGS
 #ifndef LINKED_STACK_H
 #define LINKED_STACK_H
 

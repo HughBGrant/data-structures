@@ -2,6 +2,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+struct lbt_node {
+    lbt_item data;
+    struct _lbt_node *left;
+    struct _lbt_node *right;
+};
+struct linked_binary_tree {
+    lbt_node *root;
+};
 void lbt_subtree_destroy(lbt_node *node)
 {
     if (node == NULL) {
@@ -27,7 +35,7 @@ void lbt_node_destroy(lbt_node *node)
 {
     free(node);
 }
-lbt_node *lbt_insert_left(lbt_node *parent, lbt_item data)
+lbt_node *lbt_set_left(lbt_node *parent, lbt_item data)
 {
     if (parent == NULL) {
         return NULL;
@@ -38,15 +46,15 @@ lbt_node *lbt_insert_left(lbt_node *parent, lbt_item data)
         return NULL;
     }
 
-    if (parent->left != NULL) {
-        new_child->left = parent->left;
-    }
+    // if (parent->left != NULL) {
+    //     new_child->left = parent->left;
+    // }
 
     parent->left = new_child;
 
     return new_child;
 }
-lbt_node *lbt_insert_right(lbt_node *parent, lbt_item data)
+lbt_node *lbt_set_right(lbt_node *parent, lbt_item data)
 {
     if (parent == NULL) {
         return NULL;
@@ -57,13 +65,27 @@ lbt_node *lbt_insert_right(lbt_node *parent, lbt_item data)
         return NULL;
     }
 
-    if (parent->right != NULL) {
-        new_child->right = parent->right;
-    }
+    // if (parent->right != NULL) {
+    //     new_child->right = parent->right;
+    // }
 
     parent->right = new_child;
 
     return new_child;
+}
+lbt_node *lbt_left(lbt_node *node)
+{
+    return node == NULL ? NULL : node->left;
+}
+
+lbt_node *lbt_right(lbt_node *node)
+{
+    return node == NULL ? NULL : node->right;
+}
+
+lbt_item lbt_data(lbt_node *node)
+{
+    return node == NULL ? NULL : &node->data;
 }
 void lbt_preorder(lbt_node *node)
 {

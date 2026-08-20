@@ -28,12 +28,12 @@ void lbt_test(void)
 {
     lbt_node *root = lbt_node_create(1);
 
-    lbt_node *B = lbt_insert_left(root, 2);
-    lbt_node *C = lbt_insert_left(B, 3);
-    lbt_node *D = lbt_insert_right(B, 4);
-    lbt_node *E = lbt_insert_right(root, 5);
-    lbt_node *F = lbt_insert_left(E, 6);
-    lbt_node *G = lbt_insert_right(E, 7);
+    lbt_node *B = lbt_set_left(root, 2);
+    lbt_node *C = lbt_set_left(B, 3);
+    lbt_node *D = lbt_set_right(B, 4);
+    lbt_node *E = lbt_set_right(root, 5);
+    lbt_node *F = lbt_set_left(E, 6);
+    lbt_node *G = lbt_set_right(E, 7);
 
     // 트리 출력
     printf("Preorder ...\n");

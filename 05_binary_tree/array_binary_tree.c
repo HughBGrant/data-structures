@@ -41,8 +41,7 @@ void abt_insert(abt_binary_tree *bt, abt_item data)
         return;
     }
 
-    if (bt->count >= bt->capacity) {
-        printf("Tree is full.\n");
+    if (bt->count == bt->capacity) {
         return;
     }
 

@@ -51,8 +51,8 @@ lbt_node *build(char *expression)
         case '-':
         case '*':
         case '/':
-            new_node->right = stack[top--];
-            new_node->left = stack[top--];
+            lbt_set_right(new_node, stack[top--]);
+            lbt_set_left(new_node, stack[top--]);
             break;
         }
 
@@ -79,14 +79,14 @@ double evaluate(lbt_node *subtree)
         return 0;
     }
 
-    if (subtree->data >= '0' && subtree->data <= '9') {
-        return (double)(subtree->data - '0');
+    if (lbt_data(subtree) >= '0' && lbt_data(subtree) <= '9') {
+        return (double)(lbt_data(subtree) - '0');
     }
-    double left = evaluate(subtree->left);
-    double right = evaluate(subtree->right);
+    double left = evaluate(lbt_left(subtree));
+    double right = evaluate(lbt_right(subtree));
     double result = 0;
 
-    switch (subtree->data) {
+    switch (lbt_data(subtree)) {
     case '+':
         return left + right;
 
