@@ -17,8 +17,8 @@ as_stack *as_create(size_t capacity)
     if (stack == NULL) {
         return NULL;
     }
-    stack->data = malloc(sizeof(as_item) * capacity);
-    if (stack->data == NULL) {
+    stack->items = malloc(sizeof(as_item) * capacity);
+    if (stack->items == NULL) {
         free(stack);
         return NULL;
     }
@@ -32,7 +32,7 @@ void as_destroy(as_stack *stack)
     if (stack == NULL) {
         return;
     }
-    free(stack->data);
+    free(stack->items);
     free(stack);
 }
 void as_push(as_stack *stack, as_item data)
@@ -44,15 +44,15 @@ void as_push(as_stack *stack, as_item data)
     if (stack->count == stack->capacity) {
         size_t new_capacity = stack->capacity * 2;
 
-        as_item *new_items = realloc(stack->data, sizeof(as_item) * new_capacity);
+        as_item *new_items = realloc(stack->items, sizeof(as_item) * new_capacity);
         if (new_items == NULL) {
             return; // 메모리 부족
         }
 
-        stack->data = new_items;
+        stack->items = new_items;
         stack->capacity = new_capacity;
     }
-    stack->data[stack->count] = data;
+    stack->items[stack->count] = data;
     stack->count++;
 }
 void as_pop(as_stack *stack)
@@ -67,7 +67,7 @@ as_item *as_top(as_stack *stack)
     if (as_is_empty(stack)) {
         return NULL;
     }
-    return &stack->data[stack->count - 1];
+    return &stack->items[stack->count - 1];
 }
 size_t as_size(as_stack *stack)
 {

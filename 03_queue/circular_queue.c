@@ -19,8 +19,8 @@ cq_queue *cq_create(size_t capacity)
         return NULL;
     }
 
-    queue->data = malloc(sizeof(cq_item) * capacity);
-    if (queue->data == NULL) {
+    queue->items = malloc(sizeof(cq_item) * capacity);
+    if (queue->items == NULL) {
         free(queue);
         return NULL;
     }
@@ -36,7 +36,7 @@ void cq_destroy(cq_queue *queue)
     if (queue == NULL) {
         return;
     }
-    free(queue->data);
+    free(queue->items);
     free(queue);
 }
 void cq_enqueue(cq_queue *queue, cq_item data)
@@ -52,15 +52,15 @@ void cq_enqueue(cq_queue *queue, cq_item data)
         }
 
         for (size_t i = 0; i < queue->count; ++i) {
-            new_items[i] = queue->data[(queue->front + i) % queue->capacity];
+            new_items[i] = queue->items[(queue->front + i) % queue->capacity];
         }
-        free(queue->data);
-        queue->data = new_items;
+        free(queue->items);
+        queue->items = new_items;
         queue->front = 0;
         queue->capacity = new_capacity;
     }
     size_t rear = (queue->front + queue->count) % queue->capacity;
-    queue->data[rear] = data;
+    queue->items[rear] = data;
     queue->count++;
 }
 void cq_dequeue(cq_queue *queue)
@@ -76,7 +76,7 @@ cq_item *cq_peek(cq_queue *queue)
     if (cq_is_empty(queue)) {
         return NULL;
     }
-    return &queue->data[queue->front];
+    return &queue->items[queue->front];
 }
 bool cq_is_empty(cq_queue *queue)
 {

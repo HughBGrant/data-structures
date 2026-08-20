@@ -19,8 +19,8 @@ cd_deque *cd_create(size_t capacity)
         return NULL;
     }
 
-    deque->data = malloc(sizeof(cd_item) * capacity);
-    if (deque->data == NULL) {
+    deque->items = malloc(sizeof(cd_item) * capacity);
+    if (deque->items == NULL) {
         free(deque);
         return NULL;
     }
@@ -36,7 +36,7 @@ void cd_destroy(cd_deque *deque)
     if (deque == NULL) {
         return;
     }
-    free(deque->data);
+    free(deque->items);
     free(deque);
 }
 void cd_push_front(cd_deque *deque, cd_item data)
@@ -52,7 +52,7 @@ void cd_push_front(cd_deque *deque, cd_item data)
     }
 
     deque->front = (deque->capacity + deque->front - 1) % deque->capacity;
-    deque->data[deque->front] = data;
+    deque->items[deque->front] = data;
     deque->count++;
 }
 void cd_push_back(cd_deque *deque, cd_item data)
@@ -67,7 +67,7 @@ void cd_push_back(cd_deque *deque, cd_item data)
         }
     }
     size_t back = (deque->front + deque->count) % deque->capacity;
-    deque->data[back] = data;
+    deque->items[back] = data;
     deque->count++;
 }
 void cd_resize(cd_deque *deque)
@@ -79,10 +79,10 @@ void cd_resize(cd_deque *deque)
     }
 
     for (size_t i = 0; i < deque->count; ++i) {
-        new_items[i] = deque->data[(deque->front + i) % deque->capacity];
+        new_items[i] = deque->items[(deque->front + i) % deque->capacity];
     }
-    free(deque->data);
-    deque->data = new_items;
+    free(deque->items);
+    deque->items = new_items;
     deque->capacity = new_capacity;
     deque->front = 0;
 }
@@ -106,7 +106,7 @@ cd_item *cd_front(cd_deque *deque)
     if (cd_is_empty(deque)) {
         return NULL;
     }
-    return &deque->data[deque->front];
+    return &deque->items[deque->front];
 }
 cd_item *cd_back(cd_deque *deque)
 {
@@ -114,7 +114,7 @@ cd_item *cd_back(cd_deque *deque)
         return NULL;
     }
     size_t back_index = (deque->front + deque->count - 1) % deque->capacity;
-    return &deque->data[back_index];
+    return &deque->items[back_index];
 }
 bool cd_is_empty(cd_deque *deque)
 {
