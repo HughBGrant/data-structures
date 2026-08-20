@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 struct circular_deque {
-    cd_item *data;
+    cd_item *items;
     size_t capacity;
     size_t front;
     size_t count;

@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 struct array_binary_tree {
-    abt_item *data;
+    abt_item *items;
     size_t capacity;
     size_t count;
 };

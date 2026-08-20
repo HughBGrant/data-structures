@@ -5,9 +5,9 @@
 void bst_test(void)
 {
     bst_node *root = NULL;
-    bst_item keys[] = {10, 20, 30, 40, 50, 25};
+    bst_item items[] = {10, 20, 30, 40, 50, 25};
     for (int i = 0; i < 6; i++) {
-        root = bst_node_insert(root, keys[i]);
+        root = bst_node_insert(root, items[i]);
     }
 
     printf("inorder: ");
@@ -25,9 +25,9 @@ void bst_test(void)
 void avlt_test(void)
 {
     avlt_node *root = NULL;
-    avlt_item keys[] = {10, 20, 30, 40, 50, 25};
+    avlt_item items[] = {10, 20, 30, 40, 50, 25};
     for (int i = 0; i < 6; i++) {
-        root = avlt_node_insert(root, keys[i]);
+        root = avlt_node_insert(root, items[i]);
     }
     printf("Root after rebalancing: %d\n", root->key);
     printf("In-order: ");

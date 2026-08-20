@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 struct array_list {
-    al_item *data;
+    al_item *items;
     size_t capacity;
     size_t count;
 };

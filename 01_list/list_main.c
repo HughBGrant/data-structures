@@ -68,7 +68,6 @@ void cll_test(void)
 void dll_test(void)
 {
     dll_list *list = dll_create();
-    size_t i = 0;
 
     for (int i = 5; i > 0; i--) {
         dll_insert(list, dll_size(list), i);

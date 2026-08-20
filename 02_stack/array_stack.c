@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 struct array_stack {
-    as_item *data;
+    as_item *items;
     size_t capacity;
     size_t count;
 };

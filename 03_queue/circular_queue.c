@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 struct circular_queue {
-    cq_item *data;
+    cq_item *items;
     size_t capacity;
     size_t front;
     size_t count;
