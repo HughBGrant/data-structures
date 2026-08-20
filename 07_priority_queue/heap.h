@@ -11,7 +11,7 @@ struct h_node {
 typedef struct h_node h_item;
 
 struct heap {
-    h_item data[MAX_ELEMENT];
+    h_item items[MAX_ELEMENT];
     size_t count;
 };
 typedef struct heap h_priority_queue;

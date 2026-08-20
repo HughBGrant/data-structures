@@ -19,20 +19,20 @@ void h_insert(h_priority_queue *pq, h_item data)
     while (pos > 0) {
         size_t parent = (pos - 1) / 2;
 
-        if (pq->data[parent].priority >= data.priority) {
+        if (pq->items[parent].priority >= data.priority) {
             break;
         }
-        pq->data[pos] = pq->data[parent];
+        pq->items[pos] = pq->items[parent];
         pos = parent;
     }
-    pq->data[pos] = data;
+    pq->items[pos] = data;
     pq->count++;
 }
 h_item h_remove(h_priority_queue *pq)
 {
-    h_item top = pq->data[0];
+    h_item top = pq->items[0];
     pq->count--;
-    h_item data = pq->data[pq->count];
+    h_item data = pq->items[pq->count];
     size_t pos = 0;
 
     while (1) {
@@ -45,16 +45,16 @@ h_item h_remove(h_priority_queue *pq)
         size_t child = left;
 
         if (right < pq->count &&
-            (pq->data[right].priority > pq->data[left].priority)) {
+            (pq->items[right].priority > pq->items[left].priority)) {
             child = right;
         }
-        if (data.priority >= pq->data[child].priority) {
+        if (data.priority >= pq->items[child].priority) {
             break;
         }
-        pq->data[pos] = pq->data[child];
+        pq->items[pos] = pq->items[child];
         pos = child;
     }
-    pq->data[pos] = data;
+    pq->items[pos] = data;
 
     return top;
 }
