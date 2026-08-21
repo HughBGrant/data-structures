@@ -6,20 +6,20 @@ void h_test(void)
 {
     h_priority_queue *pq = h_create();
 
-    h_insert(pq, (h_item){30});
-    h_insert(pq, (h_item){10});
-    h_insert(pq, (h_item){50});
-    h_insert(pq, (h_item){20});
-    h_insert(pq, (h_item){40});
+    h_insert(pq, 30);
+    h_insert(pq, 10);
+    h_insert(pq, 50);
+    h_insert(pq, 20);
+    h_insert(pq, 40);
 
-    printf("우선순위 큐에서 삭제:\n");
+    printf("deleting:\n");
 
-    while (pq->count > 0) {
-        h_item item = h_remove(pq);
+    while (h_size(pq) > 0) {
+        h_item item = h_extract(pq);
         printf("%d\n", item.priority);
     }
 
-    free(pq);
+    h_destroy(pq);
 }
 int main(void)
 {
