@@ -63,7 +63,10 @@ void h_destroy(h_priority_queue *pq)
 }
 void h_insert(h_priority_queue *pq, int priority)
 {
-    h_item new_item = {priority};
+    if (pq == NULL) {
+        return;
+    }
+
     size_t index = pq->count;
 
     while (index > 0) {
@@ -75,11 +78,16 @@ void h_insert(h_priority_queue *pq, int priority)
         pq->items[index] = pq->items[parent];
         index = parent;
     }
-    pq->items[index] = new_item;
+    pq->items[index] = (h_item){priority};
     pq->count++;
 }
 h_item h_extract(h_priority_queue *pq)
 {
+    h_item top = {0};
+
+    if (pq == NULL || pq->count == 0) {
+        return top;
+    }
     h_item top = pq->items[0];
     pq->count--;
 
