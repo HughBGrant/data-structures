@@ -8,8 +8,8 @@
 typedef int cd_item;
 typedef struct circular_deque cd_deque;
 
-void cd_push_front(cd_deque *deque, cd_item data);
-void cd_push_back(cd_deque *deque, cd_item data);
+void cd_push_front(cd_deque *deque, cd_item value);
+void cd_push_back(cd_deque *deque, cd_item value);
 void cd_resize(cd_deque *deque);
 void cd_pop_front(cd_deque *deque);
 void cd_pop_back(cd_deque *deque);

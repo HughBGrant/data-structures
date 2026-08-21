@@ -7,7 +7,7 @@
 typedef int as_item;
 typedef struct array_stack as_stack;
 
-void as_push(as_stack *stack, as_item data);
+void as_push(as_stack *stack, as_item value);
 void as_pop(as_stack *stack);
 as_item *as_top(as_stack *stack);
 bool as_is_empty(as_stack *stack);

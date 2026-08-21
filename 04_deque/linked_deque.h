@@ -8,8 +8,8 @@
 typedef int ld_item;
 typedef struct linked_deque ld_deque;
 
-void ld_push_front(ld_deque *deque, ld_item data);
-void ld_push_back(ld_deque *deque, ld_item data);
+void ld_push_front(ld_deque *deque, ld_item value);
+void ld_push_back(ld_deque *deque, ld_item value);
 void ld_pop_front(ld_deque *deque);
 void ld_pop_back(ld_deque *deque);
 ld_item *ld_front(ld_deque *deque);

@@ -5,9 +5,9 @@
 void bst_test(void)
 {
     bst_ordered_set *os = bst_create();
-    bst_item items[] = {10, 20, 30, 40, 50, 25};
+    bst_item values[] = {10, 20, 30, 40, 50, 25};
     for (int i = 0; i < 6; i++) {
-        bst_insert(os, items[i]);
+        bst_insert(os, values[i]);
     }
 
     bst_print(os);
@@ -23,9 +23,9 @@ void bst_test(void)
 void avlt_test(void)
 {
     avlt_ordered_set *os = avlt_create();
-    avlt_item items[] = {10, 20, 30, 40, 50, 25};
+    avlt_item values[] = {10, 20, 30, 40, 50, 25};
     for (int i = 0; i < 6; i++) {
-        avlt_insert(os, items[i]);
+        avlt_insert(os, values[i]);
     }
 
     avlt_print(os);

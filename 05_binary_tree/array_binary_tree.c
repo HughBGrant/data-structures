@@ -35,7 +35,7 @@ void abt_destroy(abt_binary_tree *bt)
     free(bt->items);
     free(bt);
 }
-void abt_insert(abt_binary_tree *bt, abt_item data)
+void abt_insert(abt_binary_tree *bt, abt_item value)
 {
     if (bt == NULL) {
         return;
@@ -45,7 +45,7 @@ void abt_insert(abt_binary_tree *bt, abt_item data)
         return;
     }
 
-    bt->items[bt->count] = data;
+    bt->items[bt->count] = value;
     bt->count++;
 }
 abt_item *abt_get_parent(abt_binary_tree *bt, size_t child_pos)

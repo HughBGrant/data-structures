@@ -6,7 +6,7 @@
 typedef int al_item;
 typedef struct array_list al_list;
 
-void al_insert(al_list *list, size_t pos, al_item data);
+void al_insert(al_list *list, size_t pos, al_item value);
 void al_remove(al_list *list, size_t pos);
 al_item *al_get(al_list *list, size_t pos);
 size_t al_size(al_list *list);

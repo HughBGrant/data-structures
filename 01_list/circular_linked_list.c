@@ -12,18 +12,18 @@ struct circular_linked_list {
     size_t count;
 };
 
-static cll_node *cll_node_create(cll_item data);
+static cll_node *cll_node_create(cll_item value);
 
 static void cll_node_destroy(cll_node *node);
 
-static cll_node *cll_node_create(cll_item data)
+static cll_node *cll_node_create(cll_item value)
 {
     cll_node *new_node = malloc(sizeof(cll_node));
     if (new_node == NULL) {
         return NULL;
     }
 
-    new_node->data = data;
+    new_node->data = value;
     new_node->next = NULL;
 
     return new_node;
@@ -55,12 +55,12 @@ void cll_destroy(cll_list *list)
     }
     free(list);
 }
-void cll_insert(cll_list *list, size_t pos, cll_item data)
+void cll_insert(cll_list *list, size_t pos, cll_item value)
 {
     if (list == NULL || pos > list->count) {
         return;
     }
-    cll_node *new_node = cll_node_create(data);
+    cll_node *new_node = cll_node_create(value);
     if (new_node == NULL) {
         return;
     }

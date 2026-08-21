@@ -13,19 +13,19 @@ struct doubly_linked_list {
     size_t count;
 };
 
-static dll_node *dll_node_create(dll_item data);
+static dll_node *dll_node_create(dll_item value);
 
 static void dll_node_destroy(dll_node *node);
 
 static dll_node *dll_node_get(dll_list *list, size_t pos);
 
-static dll_node *dll_node_create(dll_item data)
+static dll_node *dll_node_create(dll_item value)
 {
     dll_node *new_node = malloc(sizeof(dll_node));
     if (new_node == NULL) {
         return NULL;
     }
-    new_node->data = data;
+    new_node->data = value;
     new_node->prev = NULL;
     new_node->next = NULL;
 
@@ -90,13 +90,13 @@ void dll_destroy(dll_list *list)
     dll_node_destroy(list->head_sentinel);
     free(list);
 }
-void dll_insert(dll_list *list, size_t pos, dll_item data)
+void dll_insert(dll_list *list, size_t pos, dll_item value)
 {
     if (list == NULL || pos > list->count) {
         return;
     }
 
-    dll_node *new_node = dll_node_create(data);
+    dll_node *new_node = dll_node_create(value);
     if (new_node == NULL) {
         return;
     }

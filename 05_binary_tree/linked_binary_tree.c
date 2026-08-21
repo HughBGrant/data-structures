@@ -19,13 +19,13 @@ void lbt_subtree_destroy(lbt_node *node)
     lbt_subtree_destroy(node->right);
     lbt_node_destroy(node);
 }
-lbt_node *lbt_node_create(lbt_item data)
+lbt_node *lbt_node_create(lbt_item value)
 {
     lbt_node *new_node = malloc(sizeof(lbt_node));
     if (new_node == NULL) {
         return NULL;
     }
-    new_node->data = data;
+    new_node->data = value;
     new_node->left = NULL;
     new_node->right = NULL;
 
@@ -35,13 +35,13 @@ void lbt_node_destroy(lbt_node *node)
 {
     free(node);
 }
-lbt_node *lbt_set_left(lbt_node *parent, lbt_item data)
+lbt_node *lbt_set_left(lbt_node *parent, lbt_item value)
 {
     if (parent == NULL) {
         return NULL;
     }
 
-    lbt_node *new_child = lbt_node_create(data);
+    lbt_node *new_child = lbt_node_create(value);
     if (new_child == NULL) {
         return NULL;
     }
@@ -54,13 +54,13 @@ lbt_node *lbt_set_left(lbt_node *parent, lbt_item data)
 
     return new_child;
 }
-lbt_node *lbt_set_right(lbt_node *parent, lbt_item data)
+lbt_node *lbt_set_right(lbt_node *parent, lbt_item value)
 {
     if (parent == NULL) {
         return NULL;
     }
 
-    lbt_node *new_child = lbt_node_create(data);
+    lbt_node *new_child = lbt_node_create(value);
     if (new_child == NULL) {
         return NULL;
     }

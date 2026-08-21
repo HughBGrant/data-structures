@@ -35,7 +35,7 @@ void as_destroy(as_stack *stack)
     free(stack->items);
     free(stack);
 }
-void as_push(as_stack *stack, as_item data)
+void as_push(as_stack *stack, as_item value)
 {
     if (stack == NULL) {
         return;
@@ -52,7 +52,7 @@ void as_push(as_stack *stack, as_item data)
         stack->items = new_items;
         stack->capacity = new_capacity;
     }
-    stack->items[stack->count] = data;
+    stack->items[stack->count] = value;
     stack->count++;
 }
 void as_pop(as_stack *stack)

@@ -7,7 +7,7 @@
 typedef int cq_item;
 typedef struct circular_queue cq_queue;
 
-void cq_enqueue(cq_queue *queue, cq_item data);
+void cq_enqueue(cq_queue *queue, cq_item value);
 void cq_dequeue(cq_queue *queue);
 cq_item *cq_peek(cq_queue *queue);
 bool cq_is_empty(cq_queue *queue);

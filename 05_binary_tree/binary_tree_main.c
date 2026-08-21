@@ -6,9 +6,9 @@ void abt_test(void)
 {
     abt_binary_tree *bt = abt_create();
 
-    abt_item items[] = {10, 20, 30, 40, 50, 60, 70};
+    abt_item values[] = {10, 20, 30, 40, 50, 60, 70};
     for (int i = 0; i < 7; i++) {
-        abt_insert(bt, items[i]);
+        abt_insert(bt, values[i]);
     }
 
     abt_print(bt);

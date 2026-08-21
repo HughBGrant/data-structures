@@ -13,18 +13,18 @@ struct linked_deque {
     ld_node *front;
 };
 
-static ld_node *ld_node_create(ld_item data);
+static ld_node *ld_node_create(ld_item value);
 
 static void ld_node_destroy(ld_node *node);
 
-static ld_node *ld_node_create(ld_item data)
+static ld_node *ld_node_create(ld_item value)
 {
     ld_node *new_node = malloc(sizeof(ld_node));
     if (new_node == NULL) {
         return NULL;
     }
 
-    new_node->data = data;
+    new_node->data = value;
     new_node->next = NULL;
     new_node->prev = NULL;
 
@@ -56,12 +56,12 @@ void ld_destroy(ld_deque *deque)
     }
     free(deque);
 }
-void ld_push_front(ld_deque *deque, ld_item data)
+void ld_push_front(ld_deque *deque, ld_item value)
 {
     if (deque == NULL) {
         return;
     }
-    ld_node *new_front = ld_node_create(data);
+    ld_node *new_front = ld_node_create(value);
     if (new_front == NULL) {
         return;
     }
@@ -73,12 +73,12 @@ void ld_push_front(ld_deque *deque, ld_item data)
     }
     deque->front = new_front;
 }
-void ld_push_back(ld_deque *deque, ld_item data)
+void ld_push_back(ld_deque *deque, ld_item value)
 {
     if (deque == NULL) {
         return;
     }
-    ld_node *new_rear = ld_node_create(data);
+    ld_node *new_rear = ld_node_create(value);
     if (new_rear == NULL) {
         return;
     }
