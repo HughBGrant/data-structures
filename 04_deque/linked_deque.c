@@ -13,6 +13,10 @@ struct linked_deque {
     ld_node *front;
 };
 
+static ld_node *ld_node_create(ld_item data);
+
+static void ld_node_destroy(ld_node *node);
+
 static ld_node *ld_node_create(ld_item data)
 {
     ld_node *new_node = malloc(sizeof(ld_node));

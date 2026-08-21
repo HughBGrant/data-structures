@@ -13,6 +13,12 @@ struct doubly_linked_list {
     size_t count;
 };
 
+static dll_node *dll_node_create(dll_item data);
+
+static void dll_node_destroy(dll_node *node);
+
+static dll_node *dll_node_get(dll_list *list, size_t pos);
+
 static dll_node *dll_node_create(dll_item data)
 {
     dll_node *new_node = malloc(sizeof(dll_node));

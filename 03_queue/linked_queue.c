@@ -12,6 +12,10 @@ struct linked_queue {
     lq_node *front;
 };
 
+static lq_node *lq_node_create(lq_item data);
+
+static void lq_node_destroy(lq_node *node);
+
 static lq_node *lq_node_create(lq_item data)
 {
     lq_node *new_node = malloc(sizeof(lq_node));

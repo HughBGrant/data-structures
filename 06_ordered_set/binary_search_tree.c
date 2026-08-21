@@ -12,6 +12,19 @@ struct binary_search_tree {
     bst_node *root;
 };
 
+static void bst_node_destroy(bst_node *node);
+
+static void bst_subtree_destroy(bst_node *subtree);
+
+static bst_node *bst_node_create(bst_item key);
+
+static bst_node *bst_node_insert(bst_node *node, bst_item key);
+
+static bst_node *bst_find_min(bst_node *node);
+
+static bst_node *bst_node_remove(bst_node *node, bst_item key);
+
+static void bst_inorder(bst_node *node);
 static void bst_node_destroy(bst_node *node)
 {
     free(node);

@@ -12,6 +12,10 @@ struct circular_linked_list {
     size_t count;
 };
 
+static cll_node *cll_node_create(cll_item data);
+
+static void cll_node_destroy(cll_node *node);
+
 static cll_node *cll_node_create(cll_item data)
 {
     cll_node *new_node = malloc(sizeof(cll_node));

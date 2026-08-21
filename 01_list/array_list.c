@@ -9,6 +9,12 @@ struct array_list {
     size_t count;
 };
 
+static int al_linear_search_transpose(al_list *list, al_item key);
+
+static int al_linear_search_move2front(al_list *list, al_item key);
+
+static int al_binary_search(al_list *list, al_item key);
+
 static int al_linear_search_transpose(al_list *list, al_item key)
 {
     if (list == NULL) {

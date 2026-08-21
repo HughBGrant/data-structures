@@ -12,6 +12,14 @@ struct singly_linked_list {
     size_t count;
 };
 
+static sll_node *sll_node_create(sll_item data);
+
+static void sll_node_destroy(sll_node *node);
+
+static sll_node *sll_linear_search_move2front(sll_list *list, sll_item key);
+
+static sll_node *sll_linear_search_transpose(sll_list *list, sll_item key);
+
 static sll_node *sll_node_create(sll_item data)
 {
     sll_node *new_node = malloc(sizeof(sll_node));

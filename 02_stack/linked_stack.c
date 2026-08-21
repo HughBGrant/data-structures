@@ -11,6 +11,10 @@ struct linked_stack {
     ls_node *top;
 };
 
+static ls_node *ls_node_create(ls_item data);
+
+static void ls_node_destroy(ls_node *node);
+
 static ls_node *ls_node_create(ls_item data)
 {
     ls_node *new_node = malloc(sizeof(ls_node));
