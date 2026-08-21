@@ -111,21 +111,21 @@ void sll_destroy(sll_list *list)
     }
     free(list);
 }
-void sll_insert(sll_list *list, size_t pos, sll_item value)
+void sll_insert(sll_list *list, size_t index, sll_item value)
 {
-    if (list == NULL || pos > list->count) {
+    if (list == NULL || index > list->count) {
         return;
     }
     sll_node *new_node = sll_node_create(value);
     if (new_node == NULL) {
         return;
     }
-    if (pos == 0) {
+    if (index == 0) {
         new_node->next = list->head;
         list->head = new_node;
     } else {
         sll_node *prev = list->head;
-        for (size_t i = 0; i < pos - 1; i++) {
+        for (size_t i = 0; i < index - 1; i++) {
             prev = prev->next;
         }
         new_node->next = prev->next;
@@ -134,20 +134,20 @@ void sll_insert(sll_list *list, size_t pos, sll_item value)
 
     list->count++;
 }
-void sll_remove(sll_list *list, size_t pos)
+void sll_remove(sll_list *list, size_t index)
 {
-    if (list == NULL || pos >= list->count) {
+    if (list == NULL || index >= list->count) {
         return;
     }
     sll_node *target_node = NULL;
 
-    if (pos == 0) {
+    if (index == 0) {
         target_node = list->head;
         list->head = target_node->next;
     } else {
         sll_node *prev_node = list->head;
 
-        for (size_t i = 0; i < pos - 1; i++) {
+        for (size_t i = 0; i < index - 1; i++) {
             prev_node = prev_node->next;
         }
         target_node = prev_node->next;
@@ -156,14 +156,14 @@ void sll_remove(sll_list *list, size_t pos)
     sll_node_destroy(target_node);
     list->count--;
 }
-sll_item *sll_get(sll_list *list, size_t pos)
+sll_item *sll_get(sll_list *list, size_t index)
 {
-    if (list == NULL || pos >= list->count) {
+    if (list == NULL || index >= list->count) {
         return NULL;
     }
     sll_node *target_node = list->head;
 
-    for (size_t i = 0; i < pos; i++) {
+    for (size_t i = 0; i < index; i++) {
         target_node = target_node->next;
     }
     return &target_node->data;

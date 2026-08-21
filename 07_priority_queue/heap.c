@@ -9,34 +9,31 @@ struct heap {
     size_t count;
 };
 
-static void h_sift_down(h_priority_queue *pq, size_t pos);
-static void h_sift_down(h_priority_queue *pq, size_t pos)
+void h_heapify(h_item arr[], int count, int root)
 {
-    h_item data = pq->items[pos];
+    int left = 2 * root + 1;
 
-    while (1) {
-        size_t left = 2 * pos + 1;
-
-        if (left >= pq->count) {
-            break;
-        }
-        size_t right = left + 1;
-        size_t child = left;
-
-        if (right < pq->count &&
-            (pq->items[right].priority > pq->items[left].priority)) {
-            child = right;
-        }
-        if (data.priority >= pq->items[child].priority) {
-            break;
-        }
-        pq->items[pos] = pq->items[child];
-        pos = child;
+    if (left >= count) {
+        return;
     }
-    pq->items[pos] = data;
-}
-void h_heapify(h_priority_queue *pq)
-{
+
+    int right = left + 1;
+    int child = left;
+
+    if (right < count &&
+        arr[right].priority > arr[left].priority) {
+        child = right;
+    }
+
+    if (arr[root].priority >= arr[child].priority) {
+        return;
+    }
+
+    h_item temp = arr[root];
+    arr[root] = arr[child];
+    arr[child] = temp;
+
+    h_heapify(arr, count, child);
 }
 h_priority_queue *h_create(void)
 {
@@ -67,30 +64,28 @@ void h_destroy(h_priority_queue *pq)
 void h_insert(h_priority_queue *pq, int priority)
 {
     h_item new_item = {priority};
-    size_t pos = pq->count;
+    size_t index = pq->count;
 
-    while (pos > 0) {
-        size_t parent = (pos - 1) / 2;
+    while (index > 0) {
+        size_t parent = (index - 1) / 2;
 
         if (pq->items[parent].priority >= priority) {
             break;
         }
-        pq->items[pos] = pq->items[parent];
-        pos = parent;
+        pq->items[index] = pq->items[parent];
+        index = parent;
     }
-    pq->items[pos] = new_item;
+    pq->items[index] = new_item;
     pq->count++;
 }
 h_item h_extract(h_priority_queue *pq)
 {
     h_item top = pq->items[0];
     pq->count--;
-    h_item data = pq->items[pq->count];
-    size_t pos = 0;
 
     if (pq->count > 0) {
-        pq->items[0] = data;
-        h_sift_down(pq, 0);
+        pq->items[0] = pq->items[pq->count];
+        h_heapify(pq->items, pq->count, 0);
     }
 
     return top;

@@ -20,42 +20,42 @@ static int al_linear_search_transpose(al_list *list, al_item key)
     if (list == NULL) {
         return -1;
     }
-    int pos = 0;
+    int index = 0;
 
-    while (pos < list->count && list->items[pos] != key) {
-        pos++;
+    while (index < list->count && list->items[index] != key) {
+        index++;
     }
-    if (pos == list->count) {
+    if (index == list->count) {
         return -1;
     }
-    if (pos > 0) {
-        al_item temp = list->items[pos - 1];
-        list->items[pos - 1] = list->items[pos];
-        list->items[pos] = temp;
-        pos--;
+    if (index > 0) {
+        al_item temp = list->items[index - 1];
+        list->items[index - 1] = list->items[index];
+        list->items[index] = temp;
+        index--;
     }
-    return pos;
+    return index;
 }
 static int al_linear_search_move2front(al_list *list, al_item key)
 {
     if (list == NULL) {
         return -1;
     }
-    int pos = 0;
+    int index = 0;
 
-    while (pos < list->count && list->items[pos] != key) {
-        pos++;
+    while (index < list->count && list->items[index] != key) {
+        index++;
     }
-    if (pos == list->count) {
+    if (index == list->count) {
         return -1;
     }
-    while (pos > 0) {
-        list->items[pos] = list->items[pos - 1];
-        pos--;
+    while (index > 0) {
+        list->items[index] = list->items[index - 1];
+        index--;
     }
     list->items[0] = key;
 
-    return pos;
+    return index;
 }
 static int al_binary_search(al_list *list, al_item key)
 {
@@ -107,9 +107,9 @@ void al_destroy(al_list *list)
     free(list);
 }
 
-void al_insert(al_list *list, size_t pos, al_item data)
+void al_insert(al_list *list, size_t index, al_item data)
 {
-    if (list == NULL || pos > list->count) {
+    if (list == NULL || index > list->count) {
         return;
     }
     if (list->count == list->capacity) {
@@ -124,28 +124,28 @@ void al_insert(al_list *list, size_t pos, al_item data)
         list->capacity = new_capacity;
     }
 
-    for (size_t i = list->count; i > pos; i--) {
+    for (size_t i = list->count; i > index; i--) {
         list->items[i] = list->items[i - 1];
     }
-    list->items[pos] = data;
+    list->items[index] = data;
     list->count++;
 }
-void al_remove(al_list *list, size_t pos)
+void al_remove(al_list *list, size_t index)
 {
-    if (list == NULL || pos >= list->count) {
+    if (list == NULL || index >= list->count) {
         return;
     }
-    for (size_t i = pos; i < list->count - 1; i++) {
+    for (size_t i = index; i < list->count - 1; i++) {
         list->items[i] = list->items[i + 1];
     }
     list->count--;
 }
-al_item *al_get(al_list *list, size_t pos)
+al_item *al_get(al_list *list, size_t index)
 {
-    if (list == NULL || pos >= list->count) {
+    if (list == NULL || index >= list->count) {
         return NULL;
     }
-    return &list->items[pos];
+    return &list->items[index];
 }
 void al_print(al_list *list)
 {
