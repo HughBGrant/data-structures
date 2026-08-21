@@ -12,25 +12,6 @@ struct binary_search_tree {
     bst_node *root;
 };
 
-static void bst_node_destroy(bst_node *node);
-static void bst_subtree_destroy(bst_node *subtree);
-static bst_node *bst_node_create(bst_item key);
-static bst_node *bst_node_insert(bst_node *node, bst_item key);
-static bst_node *bst_find_min(bst_node *node);
-static bst_node *bst_node_remove(bst_node *node, bst_item key);
-static void bst_inorder(bst_node *node);
-
-bst_ordered_set *bst_create(void)
-{
-    bst_ordered_set *os = malloc(sizeof(bst_ordered_set));
-    if (os == NULL) {
-        return NULL;
-    }
-
-    os->root = NULL;
-
-    return os;
-}
 static void bst_node_destroy(bst_node *node)
 {
     free(node);
@@ -43,15 +24,6 @@ static void bst_subtree_destroy(bst_node *subtree)
     bst_subtree_destroy(subtree->left);
     bst_subtree_destroy(subtree->right);
     bst_node_destroy(subtree);
-}
-void bst_destroy(bst_ordered_set *os)
-{
-    if (os == NULL) {
-        return;
-    }
-
-    bst_subtree_destroy(os->root);
-    free(os);
 }
 static bst_node *bst_node_create(bst_item key)
 {
@@ -77,13 +49,6 @@ static bst_node *bst_node_insert(bst_node *node, bst_item key)
         node->right = bst_node_insert(node->right, key);
     }
     return node;
-}
-void bst_insert(bst_ordered_set *os, bst_item key)
-{
-    if (os == NULL) {
-        return;
-    }
-    os->root = bst_node_insert(os->root, key);
 }
 static bst_node *bst_find_min(bst_node *node)
 {
@@ -124,6 +89,42 @@ static bst_node *bst_node_remove(bst_node *node, bst_item key)
     }
     return node;
 }
+static void bst_inorder(bst_node *node)
+{
+    if (node == NULL) {
+        return;
+    }
+    bst_inorder(node->left);
+    printf("%d ", node->key);
+    bst_inorder(node->right);
+}
+bst_ordered_set *bst_create(void)
+{
+    bst_ordered_set *os = malloc(sizeof(bst_ordered_set));
+    if (os == NULL) {
+        return NULL;
+    }
+
+    os->root = NULL;
+
+    return os;
+}
+void bst_destroy(bst_ordered_set *os)
+{
+    if (os == NULL) {
+        return;
+    }
+
+    bst_subtree_destroy(os->root);
+    free(os);
+}
+void bst_insert(bst_ordered_set *os, bst_item key)
+{
+    if (os == NULL) {
+        return;
+    }
+    os->root = bst_node_insert(os->root, key);
+}
 void bst_remove(bst_ordered_set *os, bst_item key)
 {
     if (os == NULL) {
@@ -147,15 +148,6 @@ bst_node *bst_search(bst_ordered_set *os, bst_item key)
         }
     }
     return NULL;
-}
-static void bst_inorder(bst_node *node)
-{
-    if (node == NULL) {
-        return;
-    }
-    bst_inorder(node->left);
-    printf("%d ", node->key);
-    bst_inorder(node->right);
 }
 void bst_print(bst_ordered_set *os)
 {

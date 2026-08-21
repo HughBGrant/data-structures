@@ -9,6 +9,71 @@ struct array_list {
     size_t count;
 };
 
+static int al_linear_search_transpose(al_list *list, al_item key)
+{
+    if (list == NULL) {
+        return -1;
+    }
+    int pos = 0;
+
+    while (pos < list->count && list->items[pos] != key) {
+        pos++;
+    }
+    if (pos == list->count) {
+        return -1;
+    }
+    if (pos > 0) {
+        al_item temp = list->items[pos - 1];
+        list->items[pos - 1] = list->items[pos];
+        list->items[pos] = temp;
+        pos--;
+    }
+    return pos;
+}
+static int al_linear_search_move2front(al_list *list, al_item key)
+{
+    if (list == NULL) {
+        return -1;
+    }
+    int pos = 0;
+
+    while (pos < list->count && list->items[pos] != key) {
+        pos++;
+    }
+    if (pos == list->count) {
+        return -1;
+    }
+    while (pos > 0) {
+        list->items[pos] = list->items[pos - 1];
+        pos--;
+    }
+    list->items[0] = key;
+
+    return pos;
+}
+static int al_binary_search(al_list *list, al_item key)
+{
+    if (list == NULL) {
+        return -1;
+    }
+    int left = 0;
+    int mid = 0;
+    int right = (int)list->count - 1;
+
+    while (left <= right) {
+        mid = (left + right) / 2;
+
+        if (key == list->items[mid]) {
+            return mid;
+        }
+        if (key < list->items[mid]) {
+            right = mid - 1;
+        } else {
+            left = mid + 1;
+        }
+    }
+    return -1;
+}
 al_list *al_create(void)
 {
     al_list *list = malloc(sizeof(al_list));
@@ -75,71 +140,6 @@ al_item *al_get(al_list *list, size_t pos)
         return NULL;
     }
     return &list->items[pos];
-}
-static int al_linear_search_transpose(al_list *list, al_item key)
-{
-    if (list == NULL) {
-        return -1;
-    }
-    int pos = 0;
-
-    while (pos < list->count && list->items[pos] != key) {
-        pos++;
-    }
-    if (pos == list->count) {
-        return -1;
-    }
-    if (pos > 0) {
-        al_item temp = list->items[pos - 1];
-        list->items[pos - 1] = list->items[pos];
-        list->items[pos] = temp;
-        pos--;
-    }
-    return pos;
-}
-static int al_linear_search_move2front(al_list *list, al_item key)
-{
-    if (list == NULL) {
-        return -1;
-    }
-    int pos = 0;
-
-    while (pos < list->count && list->items[pos] != key) {
-        pos++;
-    }
-    if (pos == list->count) {
-        return -1;
-    }
-    while (pos > 0) {
-        list->items[pos] = list->items[pos - 1];
-        pos--;
-    }
-    list->items[0] = key;
-
-    return pos;
-}
-static int al_binary_search(al_list *list, al_item key)
-{
-    if (list == NULL) {
-        return -1;
-    }
-    int left = 0;
-    int mid = 0;
-    int right = (int)list->count - 1;
-
-    while (left <= right) {
-        mid = (left + right) / 2;
-
-        if (key == list->items[mid]) {
-            return mid;
-        }
-        if (key < list->items[mid]) {
-            right = mid - 1;
-        } else {
-            left = mid + 1;
-        }
-    }
-    return -1;
 }
 void al_print(al_list *list)
 {
