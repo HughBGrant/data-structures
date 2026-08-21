@@ -1,6 +1,7 @@
 #include "array_stack.h"
 #include <stdio.h>
 #include <stdlib.h>
+#define INITIAL_CAPACITY 8
 
 struct array_stack {
     as_item *items;
@@ -8,15 +9,14 @@ struct array_stack {
     size_t count;
 };
 
-as_stack *as_create(size_t capacity)
+as_stack *as_create(void)
 {
-    if (capacity == 0) {
-        capacity = 1;
-    }
     as_stack *stack = malloc(sizeof(as_stack));
     if (stack == NULL) {
         return NULL;
     }
+
+    size_t capacity = INITIAL_CAPACITY;
     stack->items = malloc(sizeof(as_item) * capacity);
     if (stack->items == NULL) {
         free(stack);

@@ -6,7 +6,7 @@
 
 void as_test(void)
 {
-    as_stack *stack = as_create(2);
+    as_stack *stack = as_create();
 
     as_push(stack, 3);
     as_push(stack, 37);

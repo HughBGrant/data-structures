@@ -15,12 +15,14 @@ al_list *al_create(void)
     if (list == NULL) {
         return NULL;
     }
-    list->items = malloc(sizeof(al_item) * INITIAL_CAPACITY);
+
+    size_t capacity = INITIAL_CAPACITY;
+    list->items = malloc(sizeof(al_item) * capacity);
     if (list->items == NULL) {
         free(list);
         return NULL;
     }
-    list->capacity = INITIAL_CAPACITY;
+    list->capacity = capacity;
     list->count = 0;
 
     return list;

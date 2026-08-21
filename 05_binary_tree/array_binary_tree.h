@@ -15,7 +15,7 @@ void abt_print(abt_binary_tree *bt);
 bool abt_is_empty(abt_binary_tree *bt);
 size_t abt_size(abt_binary_tree *bt);
 
-abt_binary_tree *abt_create(size_t capacity);
+abt_binary_tree *abt_create(void);
 void abt_destroy(abt_binary_tree *bt);
 
 #endif

@@ -18,7 +18,7 @@ cd_item *cd_back(cd_deque *deque);
 bool cd_is_empty(cd_deque *deque);
 size_t cd_size(cd_deque *deque);
 
-cd_deque *cd_create(size_t capacity);
+cd_deque *cd_create(void);
 void cd_destroy(cd_deque *deque);
 
 #endif

@@ -13,7 +13,7 @@ as_item *as_top(as_stack *stack);
 bool as_is_empty(as_stack *stack);
 size_t as_size(as_stack *stack);
 
-as_stack *as_create(size_t capacity);
+as_stack *as_create(void);
 void as_destroy(as_stack *stack);
 
 #endif

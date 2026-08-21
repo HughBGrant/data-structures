@@ -1,6 +1,7 @@
 #include "circular_deque.h"
 #include <stdio.h>
 #include <stdlib.h>
+#define INITIAL_CAPACITY 8
 
 struct circular_deque {
     cd_item *items;
@@ -9,16 +10,14 @@ struct circular_deque {
     size_t count;
 };
 
-cd_deque *cd_create(size_t capacity)
+cd_deque *cd_create(void)
 {
-    if (capacity == 0) {
-        capacity = 1;
-    }
     cd_deque *deque = malloc(sizeof(cd_deque));
     if (deque == NULL) {
         return NULL;
     }
 
+    size_t capacity = INITIAL_CAPACITY;
     deque->items = malloc(sizeof(cd_item) * capacity);
     if (deque->items == NULL) {
         free(deque);

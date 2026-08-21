@@ -13,7 +13,7 @@ cq_item *cq_peek(cq_queue *queue);
 bool cq_is_empty(cq_queue *queue);
 size_t cq_size(cq_queue *queue);
 
-cq_queue *cq_create(size_t capacity);
+cq_queue *cq_create(void);
 void cq_destroy(cq_queue *queue);
 
 #endif

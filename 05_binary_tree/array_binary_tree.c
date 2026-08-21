@@ -1,6 +1,7 @@
 #include "array_binary_tree.h"
 #include <stdio.h>
 #include <stdlib.h>
+#define INITIAL_CAPACITY 32
 
 struct array_binary_tree {
     abt_item *items;
@@ -8,15 +9,14 @@ struct array_binary_tree {
     size_t count;
 };
 
-abt_binary_tree *abt_create(size_t capacity)
+abt_binary_tree *abt_create(void)
 {
-    if (capacity == 0) {
-        capacity = 1;
-    }
     abt_binary_tree *bt = malloc(sizeof(abt_binary_tree));
     if (bt == NULL) {
         return NULL;
     }
+
+    size_t capacity = INITIAL_CAPACITY;
     bt->items = malloc(sizeof(abt_item) * capacity);
     if (bt->items == NULL) {
         free(bt);

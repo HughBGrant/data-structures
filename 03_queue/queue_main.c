@@ -4,7 +4,7 @@
 
 void cq_test(void)
 {
-    cq_queue *queue = cq_create(2);
+    cq_queue *queue = cq_create();
 
     for (int i = 0; i < 16; i++) {
         cq_enqueue(queue, i);

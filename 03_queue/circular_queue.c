@@ -1,6 +1,7 @@
 #include "circular_queue.h"
 #include <stdio.h>
 #include <stdlib.h>
+#define INITIAL_CAPACITY 8
 
 struct circular_queue {
     cq_item *items;
@@ -9,16 +10,14 @@ struct circular_queue {
     size_t count;
 };
 
-cq_queue *cq_create(size_t capacity)
+cq_queue *cq_create(void)
 {
-    if (capacity == 0) {
-        capacity = 1;
-    }
     cq_queue *queue = malloc(sizeof(cq_queue));
     if (queue == NULL) {
         return NULL;
     }
 
+    size_t capacity = INITIAL_CAPACITY;
     queue->items = malloc(sizeof(cq_item) * capacity);
     if (queue->items == NULL) {
         free(queue);

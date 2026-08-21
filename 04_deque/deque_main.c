@@ -4,7 +4,7 @@
 
 void cd_test(void)
 {
-    cd_deque *deque = cd_create(2);
+    cd_deque *deque = cd_create();
 
     for (int i = 0; i < 8; i++) {
         cd_push_front(deque, i);

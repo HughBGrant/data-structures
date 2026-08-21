@@ -1,6 +1,7 @@
 #include "heap.h"
 #include <stdio.h>
 #include <stdlib.h>
+#define INITIAL_CAPACITY 32
 
 h_priority_queue *h_create(void)
 {
@@ -8,6 +9,14 @@ h_priority_queue *h_create(void)
     if (pq == NULL) {
         return NULL;
     }
+    size_t capacity = INITIAL_CAPACITY;
+
+    pq->items = malloc(sizeof(h_item) * capacity);
+    if (pq->items == NULL) {
+        free(pq);
+        return NULL;
+    }
+    pq->capacity = capacity;
     pq->count = 0;
 
     return pq;

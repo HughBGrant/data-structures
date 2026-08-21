@@ -4,7 +4,7 @@
 
 void abt_test(void)
 {
-    abt_binary_tree *bt = abt_create(32);
+    abt_binary_tree *bt = abt_create();
 
     abt_item items[] = {10, 20, 30, 40, 50, 60, 70};
     for (int i = 0; i < 7; i++) {

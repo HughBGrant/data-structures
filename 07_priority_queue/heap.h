@@ -1,7 +1,6 @@
 #ifndef HEAP_H
 #define HEAP_H
 
-#define MAX_ELEMENT 200
 #include <stddef.h>
 
 struct h_node {
@@ -11,7 +10,8 @@ struct h_node {
 typedef struct h_node h_item;
 
 struct heap {
-    h_item items[MAX_ELEMENT];
+    h_item *items;
+    size_t capacity;
     size_t count;
 };
 typedef struct heap h_priority_queue;
