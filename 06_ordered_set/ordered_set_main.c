@@ -22,26 +22,21 @@ void bst_test(void)
 }
 void avlt_test(void)
 {
-    avlt_node *root = NULL;
+    avlt_ordered_set *os = avlt_create();
     avlt_item items[] = {10, 20, 30, 40, 50, 25};
     for (int i = 0; i < 6; i++) {
-        root = avlt_node_insert(root, items[i]);
+        avlt_insert(os, items[i]);
     }
-    printf("Root after rebalancing: %d\n", root->key);
-    printf("In-order: ");
-    avlt_inorder(root);
-    printf("\n");
 
-    printf("remove 20\n");
-    root = avlt_node_remove(root, 20);
-    avlt_inorder(root);
-    printf("\n");
-
-    avlt_subtree_destroy(root);
+    avlt_print(os);
+    printf("after removing 30\n");
+    avlt_remove(os, 30);
+    avlt_print(os);
+    avlt_destroy(os);
 }
 int main(void)
 {
-    int os_number = 0;
+    int os_number = 1;
 
     switch (os_number) {
     case 0:
