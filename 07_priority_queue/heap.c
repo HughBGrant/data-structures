@@ -9,9 +9,9 @@ struct heap {
     size_t count;
 };
 
-void h_heapify(h_item arr[], int count, int root)
+void h_heapify(h_item *items, int count, int parent)
 {
-    int left = 2 * root + 1;
+    int left = 2 * parent + 1;
 
     if (left >= count) {
         return;
@@ -21,19 +21,19 @@ void h_heapify(h_item arr[], int count, int root)
     int child = left;
 
     if (right < count &&
-        arr[right].priority > arr[left].priority) {
+        items[right].priority > items[left].priority) {
         child = right;
     }
 
-    if (arr[root].priority >= arr[child].priority) {
+    if (items[parent].priority >= items[child].priority) {
         return;
     }
 
-    h_item temp = arr[root];
-    arr[root] = arr[child];
-    arr[child] = temp;
+    h_item temp = items[parent];
+    items[parent] = items[child];
+    items[child] = temp;
 
-    h_heapify(arr, count, child);
+    h_heapify(items, count, child);
 }
 h_priority_queue *h_create(void)
 {
@@ -83,7 +83,7 @@ void h_insert(h_priority_queue *pq, int priority)
 }
 h_item h_extract(h_priority_queue *pq)
 {
-    h_item top = {0};
+    h_item top = (h_item){0};
 
     if (pq == NULL || pq->count == 0) {
         return top;
