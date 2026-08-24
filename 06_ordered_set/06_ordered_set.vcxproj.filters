@@ -24,6 +24,9 @@
     <ClCompile Include="a_v_l_tree.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="sorted_array.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="binary_search_tree.h">
