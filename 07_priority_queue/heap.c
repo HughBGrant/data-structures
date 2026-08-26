@@ -72,7 +72,7 @@ void h_insert(h_priority_queue *pq, int priority)
     while (index > 0) {
         size_t parent = (index - 1) / 2;
 
-        if (pq->items[parent].priority >= priority) {
+        if (priority <= pq->items[parent].priority) {
             break;
         }
         pq->items[index] = pq->items[parent];
@@ -88,7 +88,7 @@ h_item h_extract(h_priority_queue *pq)
     if (pq == NULL || pq->count == 0) {
         return top;
     }
-    h_item top = pq->items[0];
+    top = pq->items[0];
     pq->count--;
 
     if (pq->count > 0) {
