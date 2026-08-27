@@ -55,19 +55,20 @@ void as_push(as_stack *stack, as_item value)
     stack->items[stack->count] = value;
     stack->count++;
 }
-void as_pop(as_stack *stack)
+as_item as_pop(as_stack *stack)
 {
     if (as_is_empty(stack)) {
-        return;
+        return 0;
     }
     stack->count--;
+    return stack->items[stack->count];
 }
-as_item *as_top(as_stack *stack)
+as_item as_top(as_stack *stack)
 {
     if (as_is_empty(stack)) {
-        return NULL;
+        return 0;
     }
-    return &stack->items[stack->count - 1];
+    return stack->items[stack->count - 1];
 }
 size_t as_size(as_stack *stack)
 {

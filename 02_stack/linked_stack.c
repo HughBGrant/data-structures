@@ -72,25 +72,27 @@ void ls_push(ls_stack *stack, ls_item value)
     stack->top = new_top;
 }
 
-void ls_pop(ls_stack *stack)
+ls_item ls_pop(ls_stack *stack)
 {
     if (ls_is_empty(stack)) {
-        return;
+        return 0;
     }
 
     ls_node *target_node = stack->top;
+    ls_item data = target_node->data;
     stack->top = target_node->next;
 
     ls_node_destroy(target_node);
+    return data;
 }
 
-ls_item *ls_top(ls_stack *stack)
+ls_item ls_top(ls_stack *stack)
 {
     if (ls_is_empty(stack)) {
-        return NULL;
+        return 0;
     }
 
-    return &stack->top->data;
+    return stack->top->data;
 }
 size_t ls_size(ls_stack *stack)
 {

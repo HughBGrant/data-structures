@@ -69,25 +69,27 @@ void lq_enqueue(lq_queue *queue, lq_item value)
     }
     queue->rear = new_rear;
 }
-void lq_dequeue(lq_queue *queue)
+lq_item lq_dequeue(lq_queue *queue)
 {
     if (lq_is_empty(queue)) {
-        return;
+        return 0;
     }
     lq_node *target_node = queue->front;
+    lq_item data = target_node->data;
     queue->front = target_node->next;
 
     if (queue->front == NULL) {
         queue->rear = NULL;
     }
     lq_node_destroy(target_node);
+    return data;
 }
-lq_item *lq_peek(lq_queue *queue)
+lq_item lq_peek(lq_queue *queue)
 {
     if (lq_is_empty(queue)) {
-        return NULL;
+        return 0;
     }
-    return &queue->front->data;
+    return queue->front->data;
 }
 size_t lq_size(lq_queue *queue)
 {

@@ -62,20 +62,22 @@ void cq_enqueue(cq_queue *queue, cq_item value)
     queue->items[rear] = value;
     queue->count++;
 }
-void cq_dequeue(cq_queue *queue)
+cq_item cq_dequeue(cq_queue *queue)
 {
     if (cq_is_empty(queue)) {
-        return;
+        return 0;
     }
+    cq_item data = queue->items[queue->front];
     queue->front = (queue->front + 1) % queue->capacity;
     queue->count--;
+    return data;
 }
-cq_item *cq_peek(cq_queue *queue)
+cq_item cq_peek(cq_queue *queue)
 {
     if (cq_is_empty(queue)) {
-        return NULL;
+        return 0;
     }
-    return &queue->items[queue->front];
+    return queue->items[queue->front];
 }
 bool cq_is_empty(cq_queue *queue)
 {

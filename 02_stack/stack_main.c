@@ -16,11 +16,10 @@ void as_test(void)
     printf(
         "Count: %zu, Top: %d\n",
         as_size(stack),
-        *as_top(stack));
+        as_top(stack));
 
     while (as_is_empty(stack) == false) {
-        printf("Popped: %d\n", *as_top(stack));
-        as_pop(stack);
+        printf("Popped: %d\n", as_pop(stack));
     }
 
     printf("stack Is Empty.\n");
@@ -40,11 +39,10 @@ void ls_test(void)
     printf(
         "Count: %zu, Top: %d\n\n",
         ls_size(stack),
-        *ls_top(stack));
+        ls_top(stack));
 
     while (ls_is_empty(stack) == false) {
-        printf("Popped: %d\n", *ls_top(stack));
-        ls_pop(stack);
+        printf("Popped: %d\n", ls_pop(stack));
     }
 
     printf("stack Is Empty.\n");

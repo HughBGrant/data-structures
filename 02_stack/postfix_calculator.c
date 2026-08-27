@@ -57,7 +57,7 @@ void convert(char *infix, char *postfix)
             continue;
         }
 
-        char operator_in_stack = (char)*ls_top(stack);
+        char operator_in_stack = (char)ls_top(stack);
 
         int input_priority = prioritize(symbol, false);
         int stack_priority = prioritize(operator_in_stack, true);
@@ -75,7 +75,7 @@ void convert(char *infix, char *postfix)
     }
 
     while (!ls_is_empty(stack)) {
-        postfix[output_pos++] = (char)*ls_top(stack);
+        postfix[output_pos++] = (char)ls_top(stack);
         ls_pop(stack);
     }
 
@@ -99,24 +99,24 @@ int evaluate(const char *postfix)
         if (is_operand(symbol)) {
             ls_push(stack, symbol - '0');
         } else {
-            int *top = ls_top(stack);
+            int top = ls_top(stack);
 
-            if (top == NULL) {
+            if (top == 0) {
                 ls_destroy(stack);
                 return 0;
             }
 
-            int operand2 = *top;
+            int operand2 = top;
             ls_pop(stack);
 
             top = ls_top(stack);
 
-            if (top == NULL) {
+            if (top == 0) {
                 ls_destroy(stack);
                 return 0;
             }
 
-            int operand1 = *top;
+            int operand1 = top;
             ls_pop(stack);
 
             int result = 0;
@@ -152,8 +152,8 @@ int evaluate(const char *postfix)
         }
     }
 
-    int *top = ls_top(stack);
-    int result = top == NULL ? 0 : *top;
+    int top = ls_top(stack);
+    int result = top == 0 ? 0 : top;
 
     ls_destroy(stack);
 

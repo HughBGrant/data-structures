@@ -8,8 +8,8 @@ typedef int ls_item;
 typedef struct linked_stack ls_stack;
 
 void ls_push(ls_stack *stack, ls_item value);
-void ls_pop(ls_stack *stack);
-ls_item *ls_top(ls_stack *stack);
+ls_item ls_pop(ls_stack *stack);
+ls_item ls_top(ls_stack *stack);
 size_t ls_size(ls_stack *stack);
 bool ls_is_empty(ls_stack *stack);
 
