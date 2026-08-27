@@ -75,12 +75,12 @@ lq_item lq_dequeue(lq_queue *queue)
         return 0;
     }
     lq_node *target_node = queue->front;
-    lq_item data = target_node->data;
     queue->front = target_node->next;
 
     if (queue->front == NULL) {
         queue->rear = NULL;
     }
+    lq_item data = target_node->data;
     lq_node_destroy(target_node);
     return data;
 }

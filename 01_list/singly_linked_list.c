@@ -134,10 +134,10 @@ void sll_insert(sll_list *list, size_t index, sll_item value)
 
     list->count++;
 }
-void sll_delete(sll_list *list, size_t index)
+sll_item sll_delete(sll_list *list, size_t index)
 {
     if (list == NULL || index >= list->count) {
-        return;
+        return 0;
     }
     sll_node *target_node = NULL;
 
@@ -153,20 +153,22 @@ void sll_delete(sll_list *list, size_t index)
         target_node = prev_node->next;
         prev_node->next = target_node->next;
     }
+    sll_item data = target_node->data;
     sll_node_destroy(target_node);
     list->count--;
+    return data;
 }
-sll_item *sll_get(sll_list *list, size_t index)
+sll_item sll_get(sll_list *list, size_t index)
 {
     if (list == NULL || index >= list->count) {
-        return NULL;
+        return 0;
     }
     sll_node *target_node = list->head;
 
     for (size_t i = 0; i < index; i++) {
         target_node = target_node->next;
     }
-    return &target_node->data;
+    return target_node->data;
 }
 void sll_print(sll_list *list)
 {

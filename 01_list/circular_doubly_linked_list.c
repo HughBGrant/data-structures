@@ -114,30 +114,32 @@ void cdll_insert(cdll_list *list, size_t index, cdll_item value)
 
     list->count++;
 }
-void cdll_delete(cdll_list *list, size_t index)
+cdll_item cdll_delete(cdll_list *list, size_t index)
 {
     if (list == NULL || index >= list->count) {
-        return;
+        return 0;
     }
     cdll_node *target_node = cdll_node_get(list, index);
     if (target_node == NULL) {
-        return;
+        return 0;
     }
     cdll_node *prev_node = target_node->prev;
     cdll_node *next_node = target_node->next;
 
     prev_node->next = next_node;
     next_node->prev = prev_node;
+    cdll_item data = target_node->data;
     cdll_node_destroy(target_node);
 
     list->count--;
+    return data;
 }
-cdll_item *cdll_get(cdll_list *list, size_t index)
+cdll_item cdll_get(cdll_list *list, size_t index)
 {
     if (list == NULL || index >= list->count) {
-        return NULL;
+        return 0;
     }
-    return &cdll_node_get(list, index)->data;
+    return cdll_node_get(list, index)->data;
 }
 void cdll_print(cdll_list *list)
 {

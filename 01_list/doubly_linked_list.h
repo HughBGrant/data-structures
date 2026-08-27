@@ -23,9 +23,9 @@ void dll_destroy(dll_list *list);
 dll_node *dll_node_create(dll_data data);
 void dll_node_destroy(dll_node *node);
 void dll_insert(dll_list *list, size_t pos, dll_data data);
-void dll_delete(dll_list *list, size_t pos);
+dll_data dll_delete(dll_list *list, size_t pos);
 dll_node *dll_node_get(dll_list *list, size_t pos);
-dll_data *dll_get(dll_list *list, size_t pos);
+dll_data dll_get(dll_list *list, size_t pos);
 
 size_t dll_size(dll_list *list);
 void dll_print(dll_list *list);

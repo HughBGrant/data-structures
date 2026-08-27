@@ -7,8 +7,8 @@ typedef int cll_item;
 typedef struct circular_linked_list cll_list;
 
 void cll_insert(cll_list *list, size_t index, cll_item value);
-void cll_delete(cll_list *list, size_t index);
-cll_item *cll_get(cll_list *list, size_t index);
+cll_item cll_delete(cll_list *list, size_t index);
+cll_item cll_get(cll_list *list, size_t index);
 size_t cll_size(cll_list *list);
 void cll_print(cll_list *list);
 

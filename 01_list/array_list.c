@@ -130,22 +130,24 @@ void al_insert(al_list *list, size_t index, al_item data)
     list->items[index] = data;
     list->count++;
 }
-void al_delete(al_list *list, size_t index)
+al_item al_delete(al_list *list, size_t index)
 {
     if (list == NULL || index >= list->count) {
-        return;
+        return 0;
     }
+    al_item data = list->items[index];
     for (size_t i = index; i < list->count - 1; i++) {
         list->items[i] = list->items[i + 1];
     }
     list->count--;
+    return data;
 }
-al_item *al_get(al_list *list, size_t index)
+al_item al_get(al_list *list, size_t index)
 {
     if (list == NULL || index >= list->count) {
-        return NULL;
+        return 0;
     }
-    return &list->items[index];
+    return list->items[index];
 }
 void al_print(al_list *list)
 {

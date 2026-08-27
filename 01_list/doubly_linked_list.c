@@ -103,30 +103,32 @@ void dll_insert(dll_list *list, size_t pos, dll_data data)
 
     list->count++;
 }
-void dll_delete(dll_list *list, size_t pos)
+dll_data dll_delete(dll_list *list, size_t pos)
 {
     if (list == NULL || pos >= list->count) {
-        return;
+        return 0;
     }
 
     dll_node *target_node = dll_node_get(list, pos);
     if (target_node == NULL) {
-        return;
+        return 0;
     }
 
     target_node->prev->next = target_node->next;
     target_node->next->prev = target_node->prev;
 
+    dll_data data = target_node->data;
     dll_node_destroy(target_node);
     list->count--;
+    return data;
 }
-dll_data *dll_get(dll_list *list, size_t pos)
+dll_data dll_get(dll_list *list, size_t pos)
 {
     if (list == NULL || pos >= list->count) {
-        return NULL;
+        return 0;
     }
 
-    return &dll_node_get(list, pos)->data;
+    return dll_node_get(list, pos)->data;
 }
 void dll_print(dll_list *list)
 {

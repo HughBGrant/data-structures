@@ -79,9 +79,9 @@ ls_item ls_pop(ls_stack *stack)
     }
 
     ls_node *target_node = stack->top;
-    ls_item data = target_node->data;
     stack->top = target_node->next;
 
+    ls_item data = target_node->data;
     ls_node_destroy(target_node);
     return data;
 }
