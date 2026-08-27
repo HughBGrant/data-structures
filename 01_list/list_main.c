@@ -1,4 +1,5 @@
 #include "array_list.h"
+#include "circular_doubly_linked_list.h"
 #include "circular_linked_list.h"
 #include "doubly_linked_list.h"
 #include "singly_linked_list.h"
@@ -45,6 +46,26 @@ void sll_test(void)
     printf("\nDestroying List...\n");
     sll_destroy(list);
 }
+void dll_test(void)
+{
+    dll_list *list = dll_create();
+
+    for (int i = 5; i > 0; i--) {
+        dll_insert(list, dll_size(list), i);
+    }
+    dll_insert(list, dll_size(list), -1);
+    dll_insert(list, dll_size(list), -2);
+
+    dll_print(list);
+
+    printf("\nInserting 3000 At [2]...\n\n");
+    dll_insert(list, 2, 3000);
+
+    dll_print(list);
+
+    printf("\nDestroying List...\n");
+    dll_destroy(list);
+}
 void cll_test(void)
 {
     cll_list *list = cll_create();
@@ -65,25 +86,25 @@ void cll_test(void)
     printf("\nDestroying List...\n");
     cll_destroy(list);
 }
-void dll_test(void)
+void cdll_test(void)
 {
-    dll_list *list = dll_create();
+    cdll_list *list = cdll_create();
 
     for (int i = 5; i > 0; i--) {
-        dll_insert(list, dll_size(list), i);
+        cdll_insert(list, cdll_size(list), i);
     }
-    dll_print(list);
+    cdll_print(list);
 
     printf("\nInserting 3000 At [3]...\n\n");
-    dll_insert(list, 3, 3000);
+    cdll_insert(list, 3, 3000);
 
     printf("\nRemoving Node at [2]...\n\n");
-    dll_remove(list, 2);
+    cdll_remove(list, 2);
 
-    dll_print(list);
+    cdll_print(list);
 
     printf("\nDestroying List...\n");
-    dll_destroy(list);
+    cdll_destroy(list);
 }
 int main(void)
 {
@@ -100,7 +121,7 @@ int main(void)
         cll_test();
         break;
     case 3:
-        dll_test();
+        cdll_test();
         break;
     }
     return 0;
