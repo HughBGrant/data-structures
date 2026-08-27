@@ -6,7 +6,7 @@
 struct array_list {
     al_item *items;
     size_t capacity;
-    size_t count;
+    size_t size;
 };
 
 static int al_linear_search_transpose(al_list *list, al_item key);
@@ -22,10 +22,10 @@ static int al_linear_search_transpose(al_list *list, al_item key)
     }
     int index = 0;
 
-    while (index < list->count && list->items[index] != key) {
+    while (index < list->size && list->items[index] != key) {
         index++;
     }
-    if (index == list->count) {
+    if (index == list->size) {
         return -1;
     }
     if (index > 0) {
@@ -43,10 +43,10 @@ static int al_linear_search_move2front(al_list *list, al_item key)
     }
     int index = 0;
 
-    while (index < list->count && list->items[index] != key) {
+    while (index < list->size && list->items[index] != key) {
         index++;
     }
-    if (index == list->count) {
+    if (index == list->size) {
         return -1;
     }
     while (index > 0) {
@@ -64,7 +64,7 @@ static int al_binary_search(al_list *list, al_item key)
     }
     int left = 0;
     int mid = 0;
-    int right = (int)list->count - 1;
+    int right = (int)list->size - 1;
 
     while (left <= right) {
         mid = (left + right) / 2;
@@ -94,7 +94,7 @@ al_list *al_create(void)
         return NULL;
     }
     list->capacity = capacity;
-    list->count = 0;
+    list->size = 0;
 
     return list;
 }
@@ -109,10 +109,10 @@ void al_destroy(al_list *list)
 
 void al_insert(al_list *list, size_t index, al_item data)
 {
-    if (list == NULL || index > list->count) {
+    if (list == NULL || index > list->size) {
         return;
     }
-    if (list->count == list->capacity) {
+    if (list->size == list->capacity) {
         size_t new_capacity = list->capacity * 2;
 
         al_item *new_items = realloc(list->items, sizeof(al_item) * new_capacity);
@@ -124,27 +124,27 @@ void al_insert(al_list *list, size_t index, al_item data)
         list->capacity = new_capacity;
     }
 
-    for (size_t i = list->count; i > index; i--) {
+    for (size_t i = list->size; i > index; i--) {
         list->items[i] = list->items[i - 1];
     }
     list->items[index] = data;
-    list->count++;
+    list->size++;
 }
 al_item al_delete(al_list *list, size_t index)
 {
-    if (list == NULL || index >= list->count) {
+    if (list == NULL || index >= list->size) {
         return 0;
     }
     al_item data = list->items[index];
-    for (size_t i = index; i < list->count - 1; i++) {
+    for (size_t i = index; i < list->size - 1; i++) {
         list->items[i] = list->items[i + 1];
     }
-    list->count--;
+    list->size--;
     return data;
 }
 al_item al_get(al_list *list, size_t index)
 {
-    if (list == NULL || index >= list->count) {
+    if (list == NULL || index >= list->size) {
         return 0;
     }
     return list->items[index];
@@ -155,11 +155,11 @@ void al_print(al_list *list)
         return;
     }
     printf("| ");
-    for (size_t index = 0; index < list->count; index++) {
+    for (size_t index = 0; index < list->size; index++) {
         printf("%d | ", list->items[index]);
     }
 }
 size_t al_size(al_list *list)
 {
-    return list ? list->count : 0;
+    return list ? list->size : 0;
 }

@@ -13,9 +13,9 @@ typedef struct _dll_node {
 } dll_node;
 
 typedef struct {
-    dll_node *head_sentinel;
-    dll_node *tail_sentinel;
-    size_t count;
+    dll_node *null_head;
+    dll_node *null_tail;
+    size_t size;
 } dll_list;
 
 dll_list *dll_create(void);

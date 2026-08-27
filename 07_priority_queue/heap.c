@@ -6,21 +6,21 @@
 struct heap {
     h_item *items;
     size_t capacity;
-    size_t count;
+    size_t size;
 };
 
-void h_heapify(h_item *items, int count, int parent)
+void h_heapify(h_item *items, int size, int parent)
 {
     int left = 2 * parent + 1;
 
-    if (left >= count) {
+    if (left >= size) {
         return;
     }
 
     int right = left + 1;
     int child = left;
 
-    if (right < count &&
+    if (right < size &&
         items[right].priority > items[left].priority) {
         child = right;
     }
@@ -33,7 +33,7 @@ void h_heapify(h_item *items, int count, int parent)
     items[parent] = items[child];
     items[child] = temp;
 
-    h_heapify(items, count, child);
+    h_heapify(items, size, child);
 }
 h_priority_queue *h_create(void)
 {
@@ -49,7 +49,7 @@ h_priority_queue *h_create(void)
         return NULL;
     }
     pq->capacity = capacity;
-    pq->count = 0;
+    pq->size = 0;
 
     return pq;
 }
@@ -67,7 +67,7 @@ void h_insert(h_priority_queue *pq, int priority)
         return;
     }
 
-    size_t index = pq->count;
+    size_t index = pq->size;
 
     while (index > 0) {
         size_t parent = (index - 1) / 2;
@@ -79,26 +79,26 @@ void h_insert(h_priority_queue *pq, int priority)
         index = parent;
     }
     pq->items[index] = (h_item){priority};
-    pq->count++;
+    pq->size++;
 }
 h_item h_extract(h_priority_queue *pq)
 {
     h_item top = (h_item){0};
 
-    if (pq == NULL || pq->count == 0) {
+    if (pq == NULL || pq->size == 0) {
         return top;
     }
     top = pq->items[0];
-    pq->count--;
+    pq->size--;
 
-    if (pq->count > 0) {
-        pq->items[0] = pq->items[pq->count];
-        h_heapify(pq->items, pq->count, 0);
+    if (pq->size > 0) {
+        pq->items[0] = pq->items[pq->size];
+        h_heapify(pq->items, pq->size, 0);
     }
 
     return top;
 }
 size_t h_size(h_priority_queue *pq)
 {
-    return pq ? pq->count : 0;
+    return pq ? pq->size : 0;
 }

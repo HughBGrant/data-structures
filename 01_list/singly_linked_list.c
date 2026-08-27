@@ -9,7 +9,7 @@ typedef struct _sll_node {
 
 struct singly_linked_list {
     sll_node *head;
-    size_t count;
+    size_t size;
 };
 
 static sll_node *sll_node_create(sll_item value);
@@ -95,7 +95,7 @@ sll_list *sll_create(void)
         return NULL;
     }
 
-    list->count = 0;
+    list->size = 0;
     list->head = NULL;
 
     return list;
@@ -113,7 +113,7 @@ void sll_destroy(sll_list *list)
 }
 void sll_insert(sll_list *list, size_t index, sll_item value)
 {
-    if (list == NULL || index > list->count) {
+    if (list == NULL || index > list->size) {
         return;
     }
     sll_node *new_node = sll_node_create(value);
@@ -132,11 +132,11 @@ void sll_insert(sll_list *list, size_t index, sll_item value)
         prev->next = new_node;
     }
 
-    list->count++;
+    list->size++;
 }
 sll_item sll_delete(sll_list *list, size_t index)
 {
-    if (list == NULL || index >= list->count) {
+    if (list == NULL || index >= list->size) {
         return 0;
     }
     sll_node *target_node = NULL;
@@ -155,12 +155,12 @@ sll_item sll_delete(sll_list *list, size_t index)
     }
     sll_item data = target_node->data;
     sll_node_destroy(target_node);
-    list->count--;
+    list->size--;
     return data;
 }
 sll_item sll_get(sll_list *list, size_t index)
 {
-    if (list == NULL || index >= list->count) {
+    if (list == NULL || index >= list->size) {
         return 0;
     }
     sll_node *target_node = list->head;
@@ -185,5 +185,5 @@ void sll_print(sll_list *list)
 }
 size_t sll_size(sll_list *list)
 {
-    return list ? list->count : 0;
+    return list ? list->size : 0;
 }

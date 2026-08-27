@@ -9,7 +9,7 @@ typedef struct _cll_node {
 
 struct circular_linked_list {
     cll_node *tail;
-    size_t count;
+    size_t size;
 };
 
 static cll_node *cll_node_create(cll_item value);
@@ -39,7 +39,7 @@ cll_list *cll_create(void)
         return NULL;
     }
 
-    list->count = 0;
+    list->size = 0;
     list->tail = NULL;
 
     return list;
@@ -57,7 +57,7 @@ void cll_destroy(cll_list *list)
 }
 void cll_insert(cll_list *list, size_t index, cll_item value)
 {
-    if (list == NULL || index > list->count) {
+    if (list == NULL || index > list->size) {
         return;
     }
     cll_node *new_node = cll_node_create(value);
@@ -80,11 +80,11 @@ void cll_insert(cll_list *list, size_t index, cll_item value)
             list->tail = new_node;
         }
     }
-    list->count++;
+    list->size++;
 }
 cll_item cll_delete(cll_list *list, size_t index)
 {
-    if (list == NULL || index >= list->count) {
+    if (list == NULL || index >= list->size) {
         return 0;
     }
     cll_node *prev_node = list->tail;
@@ -105,16 +105,16 @@ cll_item cll_delete(cll_list *list, size_t index)
     }
     cll_item data = target_node->data;
     cll_node_destroy(target_node);
-    list->count--;
+    list->size--;
     return data;
 }
 cll_item cll_get(cll_list *list, size_t index)
 {
-    if (list == NULL || index >= list->count) {
+    if (list == NULL || index >= list->size) {
         return 0;
     }
 
-    if (index == list->count - 1) {
+    if (index == list->size - 1) {
         return list->tail->data;
     }
 
@@ -140,5 +140,5 @@ void cll_print(cll_list *list)
 }
 size_t cll_size(cll_list *list)
 {
-    return list ? list->count : 0;
+    return list ? list->size : 0;
 }

@@ -109,15 +109,15 @@ size_t LCRST_GetSubTreeSize(LCRST_Node *SubTree) ////////
     if (SubTree == NULL)
         return 0;
 
-    size_t Count = 1;
+    size_t size = 1;
 
     LCRST_Node *Child = SubTree->Child;
 
     while (Child) {
-        Count += LCRST_GetSubTreeSize(Child);
+        size += LCRST_GetSubTreeSize(Child);
         Child = Child->Sibling;
     }
-    return Count;
+    return size;
 }
 void LCRST_PrintSubTree(LCRST_Node *SubTree, size_t Depth)
 {

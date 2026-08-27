@@ -6,7 +6,7 @@
 struct array_binary_tree {
     abt_item *items;
     size_t capacity;
-    size_t count;
+    size_t size;
 };
 
 abt_binary_tree *abt_create(void)
@@ -23,7 +23,7 @@ abt_binary_tree *abt_create(void)
         return NULL;
     }
     bt->capacity = capacity;
-    bt->count = 0;
+    bt->size = 0;
 
     return bt;
 }
@@ -41,16 +41,16 @@ void abt_insert(abt_binary_tree *bt, abt_item value)
         return;
     }
 
-    if (bt->count == bt->capacity) {
+    if (bt->size == bt->capacity) {
         return;
     }
 
-    bt->items[bt->count] = value;
-    bt->count++;
+    bt->items[bt->size] = value;
+    bt->size++;
 }
 abt_item *abt_get_parent(abt_binary_tree *bt, size_t child_pos)
 {
-    if (abt_is_empty(bt) || child_pos == 0 || child_pos >= bt->count) {
+    if (abt_is_empty(bt) || child_pos == 0 || child_pos >= bt->size) {
         return NULL;
     }
     size_t parent_pos = (child_pos - 1) / 2;
@@ -59,23 +59,23 @@ abt_item *abt_get_parent(abt_binary_tree *bt, size_t child_pos)
 }
 abt_item *abt_get_left(abt_binary_tree *bt, size_t parent_pos)
 {
-    if (abt_is_empty(bt) || parent_pos >= bt->count) {
+    if (abt_is_empty(bt) || parent_pos >= bt->size) {
         return NULL;
     }
     size_t left_pos = 2 * parent_pos + 1;
-    if (left_pos >= bt->count) {
+    if (left_pos >= bt->size) {
         return NULL;
     }
     return &bt->items[left_pos];
 }
 abt_item *abt_get_right(abt_binary_tree *bt, size_t parent_pos)
 {
-    if (abt_is_empty(bt) || parent_pos >= bt->count) {
+    if (abt_is_empty(bt) || parent_pos >= bt->size) {
         return NULL;
     }
 
     size_t right_pos = 2 * parent_pos + 2;
-    if (right_pos >= bt->count) {
+    if (right_pos >= bt->size) {
         return NULL;
     }
     return &bt->items[right_pos];
@@ -85,15 +85,15 @@ void abt_print(abt_binary_tree *bt)
     if (bt == NULL) {
         return;
     }
-    for (size_t i = 0; i < bt->count; i++) {
+    for (size_t i = 0; i < bt->size; i++) {
         printf("index %zu : %d\n", i, bt->items[i]);
     }
 }
 bool abt_is_empty(abt_binary_tree *bt)
 {
-    return bt == NULL || bt->count == 0;
+    return bt == NULL || bt->size == 0;
 }
 size_t abt_size(abt_binary_tree *bt)
 {
-    return bt ? bt->count : 0;
+    return bt ? bt->size : 0;
 }

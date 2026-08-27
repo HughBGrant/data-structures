@@ -7,21 +7,21 @@ dll_list *dll_create(void)
         return NULL;
     }
 
-    list->head_sentinel = dll_node_create(0);
-    if (list->head_sentinel == NULL) {
+    list->null_head = dll_node_create(0);
+    if (list->null_head == NULL) {
         free(list);
         return NULL;
     }
-    list->tail_sentinel = dll_node_create(0);
-    if (list->tail_sentinel == NULL) {
-        dll_node_destroy(list->head_sentinel);
+    list->null_tail = dll_node_create(0);
+    if (list->null_tail == NULL) {
+        dll_node_destroy(list->null_head);
         free(list);
         return NULL;
     }
 
-    list->count = 0;
-    list->head_sentinel->next = list->tail_sentinel;
-    list->tail_sentinel->prev = list->head_sentinel;
+    list->size = 0;
+    list->null_head->next = list->null_tail;
+    list->null_tail->prev = list->null_head;
 
     return list;
 }
@@ -31,12 +31,12 @@ void dll_destroy(dll_list *list)
         return;
     }
 
-    while (list->count > 0) {
+    while (list->size > 0) {
         dll_delete(list, 0);
     }
 
-    dll_node_destroy(list->head_sentinel);
-    dll_node_destroy(list->tail_sentinel);
+    dll_node_destroy(list->null_head);
+    dll_node_destroy(list->null_tail);
     free(list);
 }
 dll_node *dll_node_create(dll_data data)
@@ -58,24 +58,24 @@ void dll_node_destroy(dll_node *node)
 }
 dll_node *dll_node_get(dll_list *list, size_t pos)
 {
-    if (list == NULL || pos > list->count) {
+    if (list == NULL || pos > list->size) {
         return NULL;
     }
-    if (pos == list->count) {
-        return list->tail_sentinel;
+    if (pos == list->size) {
+        return list->null_tail;
     }
     dll_node *target_node = NULL;
 
-    if (pos < list->count / 2) {
-        target_node = list->head_sentinel->next;
+    if (pos < list->size / 2) {
+        target_node = list->null_head->next;
 
         for (size_t i = 0; i < pos; i++) {
             target_node = target_node->next;
         }
     } else {
-        target_node = list->tail_sentinel->prev;
+        target_node = list->null_tail->prev;
 
-        for (size_t i = list->count - 1; i > pos; i--) {
+        for (size_t i = list->size - 1; i > pos; i--) {
             target_node = target_node->prev;
         }
     }
@@ -84,7 +84,7 @@ dll_node *dll_node_get(dll_list *list, size_t pos)
 }
 void dll_insert(dll_list *list, size_t pos, dll_data data)
 {
-    if (list == NULL || pos > list->count) {
+    if (list == NULL || pos > list->size) {
         return;
     }
 
@@ -101,11 +101,11 @@ void dll_insert(dll_list *list, size_t pos, dll_data data)
     new_node->next = next_node;
     next_node->prev = new_node;
 
-    list->count++;
+    list->size++;
 }
 dll_data dll_delete(dll_list *list, size_t pos)
 {
-    if (list == NULL || pos >= list->count) {
+    if (list == NULL || pos >= list->size) {
         return 0;
     }
 
@@ -119,12 +119,12 @@ dll_data dll_delete(dll_list *list, size_t pos)
 
     dll_data data = target_node->data;
     dll_node_destroy(target_node);
-    list->count--;
+    list->size--;
     return data;
 }
 dll_data dll_get(dll_list *list, size_t pos)
 {
-    if (list == NULL || pos >= list->count) {
+    if (list == NULL || pos >= list->size) {
         return 0;
     }
 
@@ -132,12 +132,12 @@ dll_data dll_get(dll_list *list, size_t pos)
 }
 void dll_print(dll_list *list)
 {
-    if (list == NULL || list->head_sentinel == NULL) {
+    if (list == NULL || list->null_head == NULL) {
         return;
     }
-    dll_node *current_node = list->head_sentinel->next;
+    dll_node *current_node = list->null_head->next;
 
-    while (current_node != list->tail_sentinel) {
+    while (current_node != list->null_tail) {
         printf("<- %d ->", current_node->data);
         current_node = current_node->next;
     }
@@ -145,5 +145,5 @@ void dll_print(dll_list *list)
 }
 size_t dll_size(dll_list *list)
 {
-    return list ? list->count : 0;
+    return list ? list->size : 0;
 }

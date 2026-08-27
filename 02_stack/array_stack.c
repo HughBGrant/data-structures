@@ -6,7 +6,7 @@
 struct array_stack {
     as_item *items;
     size_t capacity;
-    size_t count;
+    size_t size;
 };
 
 as_stack *as_create(void)
@@ -23,7 +23,7 @@ as_stack *as_create(void)
         return NULL;
     }
     stack->capacity = capacity;
-    stack->count = 0;
+    stack->size = 0;
 
     return stack;
 }
@@ -41,7 +41,7 @@ void as_push(as_stack *stack, as_item value)
         return;
     }
 
-    if (stack->count == stack->capacity) {
+    if (stack->size == stack->capacity) {
         size_t new_capacity = stack->capacity * 2;
 
         as_item *new_items = realloc(stack->items, sizeof(as_item) * new_capacity);
@@ -52,29 +52,29 @@ void as_push(as_stack *stack, as_item value)
         stack->items = new_items;
         stack->capacity = new_capacity;
     }
-    stack->items[stack->count] = value;
-    stack->count++;
+    stack->items[stack->size] = value;
+    stack->size++;
 }
 as_item as_pop(as_stack *stack)
 {
     if (as_is_empty(stack)) {
         return 0;
     }
-    stack->count--;
-    return stack->items[stack->count];
+    stack->size--;
+    return stack->items[stack->size];
 }
 as_item as_top(as_stack *stack)
 {
     if (as_is_empty(stack)) {
         return 0;
     }
-    return stack->items[stack->count - 1];
+    return stack->items[stack->size - 1];
 }
 size_t as_size(as_stack *stack)
 {
-    return stack ? stack->count : 0;
+    return stack ? stack->size : 0;
 }
 bool as_is_empty(as_stack *stack)
 {
-    return stack == NULL || stack->count == 0;
+    return stack == NULL || stack->size == 0;
 }

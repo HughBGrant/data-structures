@@ -16,7 +16,7 @@ Entry *buckets[CAPACITY];
 
 unsigned int hash(const char *key)
 {
-    unsigned int h = 5381; // djb2, then modulo the bucket count
+    unsigned int h = 5381; // djb2, then modulo the bucket size
     for (; *key; key++)
         h = h * 33 + (unsigned char)*key;
     return h % CAPACITY;

@@ -7,7 +7,7 @@ struct circular_queue {
     cq_item *items;
     size_t capacity;
     size_t front;
-    size_t count;
+    size_t size;
 };
 
 cq_queue *cq_create(void)
@@ -26,7 +26,7 @@ cq_queue *cq_create(void)
 
     queue->capacity = capacity;
     queue->front = 0;
-    queue->count = 0;
+    queue->size = 0;
 
     return queue;
 }
@@ -43,14 +43,14 @@ void cq_enqueue(cq_queue *queue, cq_item value)
     if (queue == NULL) {
         return;
     }
-    if (queue->count == queue->capacity) {
+    if (queue->size == queue->capacity) {
         size_t new_capacity = queue->capacity * 2;
         cq_item *new_items = malloc(sizeof(cq_item) * new_capacity);
         if (new_items == NULL) {
             return;
         }
 
-        for (size_t i = 0; i < queue->count; ++i) {
+        for (size_t i = 0; i < queue->size; ++i) {
             new_items[i] = queue->items[(queue->front + i) % queue->capacity];
         }
         free(queue->items);
@@ -58,9 +58,9 @@ void cq_enqueue(cq_queue *queue, cq_item value)
         queue->front = 0;
         queue->capacity = new_capacity;
     }
-    size_t rear = (queue->front + queue->count) % queue->capacity;
+    size_t rear = (queue->front + queue->size) % queue->capacity;
     queue->items[rear] = value;
-    queue->count++;
+    queue->size++;
 }
 cq_item cq_dequeue(cq_queue *queue)
 {
@@ -69,7 +69,7 @@ cq_item cq_dequeue(cq_queue *queue)
     }
     cq_item data = queue->items[queue->front];
     queue->front = (queue->front + 1) % queue->capacity;
-    queue->count--;
+    queue->size--;
     return data;
 }
 cq_item cq_peek(cq_queue *queue)
@@ -81,9 +81,9 @@ cq_item cq_peek(cq_queue *queue)
 }
 bool cq_is_empty(cq_queue *queue)
 {
-    return queue == NULL || queue->count == 0;
+    return queue == NULL || queue->size == 0;
 }
 size_t cq_size(cq_queue *queue)
 {
-    return queue ? queue->count : 0;
+    return queue ? queue->size : 0;
 }

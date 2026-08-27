@@ -14,7 +14,7 @@ void as_test(void)
     as_push(stack, 12);
 
     printf(
-        "Count: %zu, Top: %d\n",
+        "size: %zu, Top: %d\n",
         as_size(stack),
         as_top(stack));
 
@@ -37,7 +37,7 @@ void ls_test(void)
     ls_push(stack, 40);
 
     printf(
-        "Count: %zu, Top: %d\n\n",
+        "size: %zu, Top: %d\n\n",
         ls_size(stack),
         ls_top(stack));
 
