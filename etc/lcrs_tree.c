@@ -68,7 +68,7 @@ void LCRST_AddChild(LCRST_Node *Parent, LCRST_Node *Child)
         Previous->Sibling = Child;
     }
 }
-void LCRST_RemoveSubTree(LCRST *Tree, LCRST_Node *Parent,
+void LCRST_deleteSubTree(LCRST *Tree, LCRST_Node *Parent,
                          LCRST_Node *SubTree) //////
 {
     if (Tree == NULL || SubTree == NULL) {

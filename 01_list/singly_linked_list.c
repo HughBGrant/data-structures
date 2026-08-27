@@ -107,7 +107,7 @@ void sll_destroy(sll_list *list)
     }
 
     while (list->head) {
-        sll_remove(list, 0);
+        sll_delete(list, 0);
     }
     free(list);
 }
@@ -134,7 +134,7 @@ void sll_insert(sll_list *list, size_t index, sll_item value)
 
     list->count++;
 }
-void sll_remove(sll_list *list, size_t index)
+void sll_delete(sll_list *list, size_t index)
 {
     if (list == NULL || index >= list->count) {
         return;

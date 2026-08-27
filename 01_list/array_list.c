@@ -130,7 +130,7 @@ void al_insert(al_list *list, size_t index, al_item data)
     list->items[index] = data;
     list->count++;
 }
-void al_remove(al_list *list, size_t index)
+void al_delete(al_list *list, size_t index)
 {
     if (list == NULL || index >= list->count) {
         return;

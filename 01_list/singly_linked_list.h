@@ -7,7 +7,7 @@ typedef int sll_item;
 typedef struct singly_linked_list sll_list;
 
 void sll_insert(sll_list *list, size_t index, sll_item value);
-void sll_remove(sll_list *list, size_t index);
+void sll_delete(sll_list *list, size_t index);
 sll_item *sll_get(sll_list *list, size_t index);
 void sll_print(sll_list *list);
 size_t sll_size(sll_list *list);

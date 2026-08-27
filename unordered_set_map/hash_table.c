@@ -47,7 +47,7 @@ int *get(const char *key)
     return NULL;
 }
 
-void removeKey(const char *key)
+void deleteKey(const char *key)
 {
     Entry **link = &buckets[hash(key)];
     while (*link != NULL) {
@@ -81,7 +81,7 @@ void printBuckets(void)
 //     printBuckets();
 //     int *value = get("apple");
 //     printf("get(apple): %d\n", value ? *value : -1);
-//     removeKey("banana");
-//     printf("banana after remove: %s\n", get("banana") ? "found" : "not found");
+//     deleteKey("banana");
+//     printf("banana after delete: %s\n", get("banana") ? "found" : "not found");
 //     return 0;
 // }

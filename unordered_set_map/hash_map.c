@@ -12,7 +12,7 @@ typedef struct Node {
     struct Node *next;
 } Node;
 
-// A small string -> int hash map with a reusable put/get/remove API
+// A small string -> int hash map with a reusable put/get/delete API
 typedef struct {
     Node *buckets[BUCKETS];
     int size;
@@ -54,7 +54,7 @@ bool mapGet(const HashMap *map, const char *key, int *out)
     return false;
 }
 
-void mapRemove(HashMap *map, const char *key)
+void mapdelete(HashMap *map, const char *key)
 {
     Node **link = &map->buckets[hashKey(key)];
     while (*link != NULL) {
@@ -80,7 +80,7 @@ int main(void)
     if (mapGet(&map, "bob", &age))
         printf("bob is %d\n", age);
     printf("has dave: %s\n", mapGet(&map, "dave", &age) ? "yes" : "no");
-    mapRemove(&map, "carol");
+    mapdelete(&map, "carol");
     printf("size: %d\n", map.size);
     return 0;
 }

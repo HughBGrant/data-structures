@@ -104,7 +104,7 @@ bool insert(OrderedSet *set, int value)
 }
 
 // 원소 삭제
-bool removeElement(OrderedSet *set, int value)
+bool deleteElement(OrderedSet *set, int value)
 {
 
     int index = lowerBound(set, value);
@@ -192,7 +192,7 @@ int main(void)
     printf("contains(50) = %s\n",
            contains(set, 50) ? "true" : "false");
 
-    removeElement(set, 20);
+    deleteElement(set, 20);
 
     printSet(set);
 

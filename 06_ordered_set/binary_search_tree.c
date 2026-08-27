@@ -22,7 +22,7 @@ static bst_node *bst_node_insert(bst_node *node, bst_item key);
 
 static bst_node *bst_find_min(bst_node *node);
 
-static bst_node *bst_node_remove(bst_node *node, bst_item key);
+static bst_node *bst_node_delete(bst_node *node, bst_item key);
 
 static void bst_inorder(bst_node *node);
 static void bst_node_destroy(bst_node *node)
@@ -73,16 +73,16 @@ static bst_node *bst_find_min(bst_node *node)
     }
     return node;
 }
-static bst_node *bst_node_remove(bst_node *node, bst_item key)
+static bst_node *bst_node_delete(bst_node *node, bst_item key)
 {
     if (node == NULL) {
         return NULL;
     }
 
     if (key < node->key) {
-        node->left = bst_node_remove(node->left, key);
+        node->left = bst_node_delete(node->left, key);
     } else if (key > node->key) {
-        node->right = bst_node_remove(node->right, key);
+        node->right = bst_node_delete(node->right, key);
     } else {
         if (node->left == NULL || node->right == NULL) {
             bst_node *child = NULL;
@@ -98,7 +98,7 @@ static bst_node *bst_node_remove(bst_node *node, bst_item key)
 
         bst_node *successor = bst_find_min(node->right);
         node->key = successor->key;
-        node->right = bst_node_remove(node->right, successor->key);
+        node->right = bst_node_delete(node->right, successor->key);
     }
     return node;
 }
@@ -138,12 +138,12 @@ void bst_insert(bst_ordered_set *os, bst_item key)
     }
     os->root = bst_node_insert(os->root, key);
 }
-void bst_remove(bst_ordered_set *os, bst_item key)
+void bst_delete(bst_ordered_set *os, bst_item key)
 {
     if (os == NULL) {
         return;
     }
-    os->root = bst_node_remove(os->root, key);
+    os->root = bst_node_delete(os->root, key);
 }
 bst_node *bst_search(bst_ordered_set *os, bst_item key)
 {

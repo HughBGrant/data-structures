@@ -51,7 +51,7 @@ void cll_destroy(cll_list *list)
     }
 
     while (list->tail) {
-        cll_remove(list, 0);
+        cll_delete(list, 0);
     }
     free(list);
 }
@@ -82,7 +82,7 @@ void cll_insert(cll_list *list, size_t index, cll_item value)
     }
     list->count++;
 }
-void cll_remove(cll_list *list, size_t index)
+void cll_delete(cll_list *list, size_t index)
 {
     if (list == NULL || index >= list->count) {
         return;

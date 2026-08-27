@@ -19,7 +19,7 @@ typedef struct {
 LCRST *LCRST_CreateTree(LCRST_DataType NewData);
 LCRST_Node *LCRST_CreateNode(LCRST_DataType NewData);
 void LCRST_AddChild(LCRST_Node *Parent, LCRST_Node *Child);
-void LCRST_RemoveSubTree(LCRST *Tree, LCRST_Node *Parent, LCRST_Node *SubTree);
+void LCRST_deleteSubTree(LCRST *Tree, LCRST_Node *Parent, LCRST_Node *SubTree);
 
 void LCRST_PrintSubTree(LCRST_Node *SubTree, size_t Depth);
 void LCRST_DestroyTree(LCRST *Tree);

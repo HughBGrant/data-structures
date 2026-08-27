@@ -32,7 +32,7 @@ void dll_destroy(dll_list *list)
     }
 
     while (list->count > 0) {
-        dll_remove(list, 0);
+        dll_delete(list, 0);
     }
 
     dll_node_destroy(list->head_sentinel);
@@ -103,7 +103,7 @@ void dll_insert(dll_list *list, size_t pos, dll_data data)
 
     list->count++;
 }
-void dll_remove(dll_list *list, size_t pos)
+void dll_delete(dll_list *list, size_t pos)
 {
     if (list == NULL || pos >= list->count) {
         return;

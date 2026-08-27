@@ -16,7 +16,7 @@ void bst_test(void)
         printf("result: %d\n", *bst_get(node));
     }
     printf("after removing 30: ");
-    bst_remove(os, 30);
+    bst_delete(os, 30);
     bst_print(os);
     bst_destroy(os);
 }
@@ -30,7 +30,7 @@ void avlt_test(void)
 
     avlt_print(os);
     printf("after removing 30\n");
-    avlt_remove(os, 30);
+    avlt_delete(os, 30);
     avlt_print(os);
     avlt_destroy(os);
 }

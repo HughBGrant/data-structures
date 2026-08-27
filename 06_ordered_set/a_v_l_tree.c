@@ -127,16 +127,16 @@ static avlt_node *avlt_find_min(avlt_node *node)
     }
     return node;
 }
-static avlt_node *avlt_node_remove(avlt_node *node, avlt_item key)
+static avlt_node *avlt_node_delete(avlt_node *node, avlt_item key)
 {
     if (node == NULL) {
         return NULL;
     }
 
     if (key < node->key) {
-        node->left = avlt_node_remove(node->left, key);
+        node->left = avlt_node_delete(node->left, key);
     } else if (key > node->key) {
-        node->right = avlt_node_remove(node->right, key);
+        node->right = avlt_node_delete(node->right, key);
     } else {
         if (node->left == NULL || node->right == NULL) {
             avlt_node *child = NULL;
@@ -150,7 +150,7 @@ static avlt_node *avlt_node_remove(avlt_node *node, avlt_item key)
         }
         avlt_node *successor = avlt_find_min(node->right);
         node->key = successor->key;
-        node->right = avlt_node_remove(node->right, successor->key);
+        node->right = avlt_node_delete(node->right, successor->key);
     }
 
     return avlt_rebalance(node);
@@ -191,12 +191,12 @@ void avlt_insert(avlt_ordered_set *os, avlt_item key)
     }
     os->root = avlt_node_insert(os->root, key);
 }
-void avlt_remove(avlt_ordered_set *os, avlt_item key)
+void avlt_delete(avlt_ordered_set *os, avlt_item key)
 {
     if (os == NULL) {
         return;
     }
-    os->root = avlt_node_remove(os->root, key);
+    os->root = avlt_node_delete(os->root, key);
 }
 avlt_node *avlt_search(avlt_ordered_set *os, avlt_item key)
 {

@@ -32,7 +32,7 @@ void TestLCRST(void)
     // 트리 출력
     LCRST_PrintSubTree(A, 0);
 
-    LCRST_RemoveSubTree(Tree, B, C);
+    LCRST_deleteSubTree(Tree, B, C);
 
     LCRST_PrintSubTree(A, 0);
 
