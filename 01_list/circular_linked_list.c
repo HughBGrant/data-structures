@@ -13,7 +13,6 @@ struct circular_linked_list {
 };
 
 static cll_node *cll_node_create(cll_item value);
-
 static void cll_node_destroy(cll_node *node);
 
 static cll_node *cll_node_create(cll_item value)

@@ -1,5 +1,66 @@
 #include "doubly_linked_list.h"
+#include <stdio.h>
+#include <stdlib.h>
 
+typedef struct _dll_node {
+    dll_item data;
+    struct _dll_node *next;
+    struct _dll_node *prev;
+} dll_node;
+
+struct doubly_linked_list {
+    dll_node *null_head;
+    dll_node *null_tail;
+    size_t size;
+};
+
+static dll_node *dll_node_create(dll_item data);
+static void dll_node_destroy(dll_node *node);
+static dll_node *dll_node_get(dll_list *list, size_t pos);
+
+static dll_node *dll_node_create(dll_item data)
+{
+    dll_node *new_node = malloc(sizeof(dll_node));
+    if (new_node == NULL) {
+        return NULL;
+    }
+
+    new_node->data = data;
+    new_node->prev = NULL;
+    new_node->next = NULL;
+
+    return new_node;
+}
+static void dll_node_destroy(dll_node *node)
+{
+    free(node);
+}
+static dll_node *dll_node_get(dll_list *list, size_t pos)
+{
+    if (list == NULL || pos > list->size) {
+        return NULL;
+    }
+    if (pos == list->size) {
+        return list->null_tail;
+    }
+    dll_node *target_node = NULL;
+
+    if (pos < list->size / 2) {
+        target_node = list->null_head->next;
+
+        for (size_t i = 0; i < pos; i++) {
+            target_node = target_node->next;
+        }
+    } else {
+        target_node = list->null_tail->prev;
+
+        for (size_t i = list->size - 1; i > pos; i--) {
+            target_node = target_node->prev;
+        }
+    }
+
+    return target_node;
+}
 dll_list *dll_create(void)
 {
     dll_list *list = malloc(sizeof(dll_list));
@@ -39,50 +100,7 @@ void dll_destroy(dll_list *list)
     dll_node_destroy(list->null_tail);
     free(list);
 }
-dll_node *dll_node_create(dll_data data)
-{
-    dll_node *new_node = malloc(sizeof(dll_node));
-    if (new_node == NULL) {
-        return NULL;
-    }
-
-    new_node->data = data;
-    new_node->prev = NULL;
-    new_node->next = NULL;
-
-    return new_node;
-}
-void dll_node_destroy(dll_node *node)
-{
-    free(node);
-}
-dll_node *dll_node_get(dll_list *list, size_t pos)
-{
-    if (list == NULL || pos > list->size) {
-        return NULL;
-    }
-    if (pos == list->size) {
-        return list->null_tail;
-    }
-    dll_node *target_node = NULL;
-
-    if (pos < list->size / 2) {
-        target_node = list->null_head->next;
-
-        for (size_t i = 0; i < pos; i++) {
-            target_node = target_node->next;
-        }
-    } else {
-        target_node = list->null_tail->prev;
-
-        for (size_t i = list->size - 1; i > pos; i--) {
-            target_node = target_node->prev;
-        }
-    }
-
-    return target_node;
-}
-void dll_insert(dll_list *list, size_t pos, dll_data data)
+void dll_insert(dll_list *list, size_t pos, dll_item data)
 {
     if (list == NULL || pos > list->size) {
         return;
@@ -103,7 +121,7 @@ void dll_insert(dll_list *list, size_t pos, dll_data data)
 
     list->size++;
 }
-dll_data dll_delete(dll_list *list, size_t pos)
+dll_item dll_delete(dll_list *list, size_t pos)
 {
     if (list == NULL || pos >= list->size) {
         return 0;
@@ -117,12 +135,12 @@ dll_data dll_delete(dll_list *list, size_t pos)
     target_node->prev->next = target_node->next;
     target_node->next->prev = target_node->prev;
 
-    dll_data data = target_node->data;
+    dll_item data = target_node->data;
     dll_node_destroy(target_node);
     list->size--;
     return data;
 }
-dll_data dll_get(dll_list *list, size_t pos)
+dll_item dll_get(dll_list *list, size_t pos)
 {
     if (list == NULL || pos >= list->size) {
         return 0;

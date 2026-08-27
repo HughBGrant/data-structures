@@ -108,7 +108,7 @@ void cdll_test(void)
 }
 int main(void)
 {
-    int list_number = 0;
+    int list_number = 2;
 
     switch (list_number) {
     case 0:
@@ -118,9 +118,12 @@ int main(void)
         sll_test();
         break;
     case 2:
-        cll_test();
+        dll_test();
         break;
     case 3:
+        cll_test();
+        break;
+    case 4:
         cdll_test();
         break;
     }
