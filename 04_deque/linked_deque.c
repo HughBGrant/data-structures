@@ -91,10 +91,10 @@ void ld_push_back(ld_deque *deque, ld_item value)
     }
     deque->rear = new_rear;
 }
-void ld_pop_front(ld_deque *deque)
+ld_item ld_pop_front(ld_deque *deque)
 {
     if (ld_is_empty(deque)) {
-        return;
+        return 0;
     }
     ld_node *target_node = deque->front;
     deque->front = target_node->next;
@@ -104,13 +104,14 @@ void ld_pop_front(ld_deque *deque)
     } else {
         deque->front->prev = NULL;
     }
-
+    ld_item data = target_node->data;
     ld_node_destroy(target_node);
+    return data;
 }
-void ld_pop_back(ld_deque *deque)
+ld_item ld_pop_back(ld_deque *deque)
 {
     if (ld_is_empty(deque)) {
-        return;
+        return 0;
     }
     ld_node *target_node = deque->rear;
     deque->rear = target_node->prev;
@@ -120,22 +121,23 @@ void ld_pop_back(ld_deque *deque)
     } else {
         deque->rear->next = NULL;
     }
-
+    ld_item data = target_node->data;
     ld_node_destroy(target_node);
+    return data;
 }
-ld_item *ld_front(ld_deque *deque)
+ld_item ld_front(ld_deque *deque)
 {
     if (ld_is_empty(deque)) {
-        return NULL;
+        return 0;
     }
-    return &deque->front->data;
+    return deque->front->data;
 }
-ld_item *ld_back(ld_deque *deque)
+ld_item ld_back(ld_deque *deque)
 {
     if (ld_is_empty(deque)) {
-        return NULL;
+        return 0;
     }
-    return &deque->rear->data;
+    return deque->rear->data;
 }
 size_t ld_size(ld_deque *deque)
 {

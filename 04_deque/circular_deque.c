@@ -85,35 +85,40 @@ void cd_resize(cd_deque *deque)
     deque->capacity = new_capacity;
     deque->front = 0;
 }
-void cd_pop_front(cd_deque *deque)
+cd_item cd_pop_front(cd_deque *deque)
 {
     if (cd_is_empty(deque)) {
-        return;
+        return 0;
     }
+    cd_item data = deque->items[deque->front];
     deque->front = (deque->front + 1) % deque->capacity;
     deque->size--;
+    return data;
 }
-void cd_pop_back(cd_deque *deque)
+cd_item cd_pop_back(cd_deque *deque)
 {
     if (cd_is_empty(deque)) {
-        return;
+        return 0;
     }
+    size_t back = (deque->front + deque->size - 1) % deque->capacity;
+    cd_item data = deque->items[back];
     deque->size--;
+    return data;
 }
-cd_item *cd_front(cd_deque *deque)
+cd_item cd_front(cd_deque *deque)
 {
     if (cd_is_empty(deque)) {
-        return NULL;
+        return 0;
     }
-    return &deque->items[deque->front];
+    return deque->items[deque->front];
 }
-cd_item *cd_back(cd_deque *deque)
+cd_item cd_back(cd_deque *deque)
 {
     if (cd_is_empty(deque)) {
-        return NULL;
+        return 0;
     }
     size_t back_index = (deque->front + deque->size - 1) % deque->capacity;
-    return &deque->items[back_index];
+    return deque->items[back_index];
 }
 bool cd_is_empty(cd_deque *deque)
 {

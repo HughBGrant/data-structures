@@ -10,22 +10,20 @@ void cd_test(void)
         cd_push_front(deque, i);
     }
     printf("size: %zu, Front: %d\n",
-           cd_size(deque), *cd_front(deque));
+           cd_size(deque), cd_front(deque));
 
     for (int i = 8; i < 16; i++) {
         cd_push_back(deque, i);
     }
     printf("size: %zu, back: %d\n",
-           cd_size(deque), *cd_back(deque));
+           cd_size(deque), cd_back(deque));
     for (size_t i = 0; i < 8; i++) {
-        printf("popped front: %d\n", *cd_front(deque));
-        cd_pop_front(deque);
+        printf("popped front: %d\n", cd_pop_front(deque));
     }
     printf("size: %zu, back: %d\n",
-           cd_size(deque), *cd_back(deque));
+           cd_size(deque), cd_back(deque));
     for (size_t i = 0; i < 8; i++) {
-        printf("popped back: %d\n", *cd_back(deque));
-        cd_pop_back(deque);
+        printf("popped back: %d\n", cd_pop_back(deque));
     }
     cd_destroy(deque);
 }
@@ -37,22 +35,20 @@ void ld_test(void)
         ld_push_front(deque, i);
     }
     printf("size: %zu, Front: %d\n",
-           ld_size(deque), *ld_front(deque));
+           ld_size(deque), ld_front(deque));
 
     for (int i = 8; i < 16; i++) {
         ld_push_back(deque, i);
     }
     printf("size: %zu, back: %d\n",
-           ld_size(deque), *ld_back(deque));
+           ld_size(deque), ld_back(deque));
     for (size_t i = 0; i < 8; i++) {
-        printf("popped front: %d\n", *ld_front(deque));
-        ld_pop_front(deque);
+        printf("popped front: %d\n", ld_pop_front(deque));
     }
     printf("size: %zu, back: %d\n",
-           ld_size(deque), *ld_back(deque));
+           ld_size(deque), ld_back(deque));
     for (size_t i = 0; i < 8; i++) {
-        printf("popped back: %d\n", *ld_back(deque));
-        ld_pop_back(deque);
+        printf("popped back: %d\n", ld_pop_back(deque));
     }
     ld_destroy(deque);
 }

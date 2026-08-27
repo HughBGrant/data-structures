@@ -10,10 +10,10 @@ typedef struct linked_deque ld_deque;
 
 void ld_push_front(ld_deque *deque, ld_item value);
 void ld_push_back(ld_deque *deque, ld_item value);
-void ld_pop_front(ld_deque *deque);
-void ld_pop_back(ld_deque *deque);
-ld_item *ld_front(ld_deque *deque);
-ld_item *ld_back(ld_deque *deque);
+ld_item ld_pop_front(ld_deque *deque);
+ld_item ld_pop_back(ld_deque *deque);
+ld_item ld_front(ld_deque *deque);
+ld_item ld_back(ld_deque *deque);
 size_t ld_size(ld_deque *deque);
 bool ld_is_empty(ld_deque *deque);
 
