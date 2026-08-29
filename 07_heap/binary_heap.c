@@ -9,16 +9,16 @@ struct heap {
     size_t size;
 };
 
-void bh_heapify(bh_item *items, int size, int parent)
+void bh_heapify(bh_item *items, size_t size, size_t parent)
 {
-    int left = 2 * parent + 1;
+    size_t left = 2 * parent + 1;
 
     if (left >= size) {
         return;
     }
 
-    int right = left + 1;
-    int child = left;
+    size_t right = left + 1;
+    size_t child = left;
 
     if (right < size &&
         items[right].priority > items[left].priority) {

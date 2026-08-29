@@ -15,6 +15,6 @@ void bh_insert(bh_priority_queue *pq, int priority);
 bh_item bh_extract(bh_priority_queue *pq);
 size_t bh_size(bh_priority_queue *pq);
 
-void bh_heapify(bh_item *arr, int size, int root);
+void bh_heapify(bh_item *arr, size_t size, size_t root);
 
 #endif
