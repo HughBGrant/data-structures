@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="heap.c">
+    <ClCompile Include="binary_heap.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="priority_queue_main.c">
@@ -23,7 +23,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="heap.h">
+    <ClInclude Include="binary_heap.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

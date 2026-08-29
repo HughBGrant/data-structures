@@ -140,11 +140,11 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="heap.c" />
+    <ClCompile Include="binary_heap.c" />
     <ClCompile Include="priority_queue_main.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="heap.h" />
+    <ClInclude Include="binary_heap.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

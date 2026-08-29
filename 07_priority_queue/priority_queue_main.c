@@ -1,25 +1,25 @@
-#include "heap.h"
+#include "binary_heap.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-void h_test(void)
+void bh_test(void)
 {
-    h_priority_queue *pq = h_create();
+    bh_priority_queue *pq = bh_create();
 
-    h_insert(pq, 30);
-    h_insert(pq, 10);
-    h_insert(pq, 50);
-    h_insert(pq, 20);
-    h_insert(pq, 40);
+    bh_insert(pq, 30);
+    bh_insert(pq, 10);
+    bh_insert(pq, 50);
+    bh_insert(pq, 20);
+    bh_insert(pq, 40);
 
     printf("deleting:\n");
 
-    while (h_size(pq) > 0) {
-        h_item item = h_extract(pq);
+    while (bh_size(pq) > 0) {
+        bh_item item = bh_extract(pq);
         printf("%d\n", item.priority);
     }
 
-    h_destroy(pq);
+    bh_destroy(pq);
 }
 int main(void)
 {
@@ -27,7 +27,7 @@ int main(void)
 
     switch (pq_number) {
     case 0:
-        h_test();
+        bh_test();
         break;
     }
     return 0;

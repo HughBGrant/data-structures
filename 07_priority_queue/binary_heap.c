@@ -1,15 +1,15 @@
-#include "heap.h"
+#include "binary_heap.h"
 #include <stdio.h>
 #include <stdlib.h>
 #define INITIAL_CAPACITY 32
 
 struct heap {
-    h_item *items;
+    bh_item *items;
     size_t capacity;
     size_t size;
 };
 
-void h_heapify(h_item *items, int size, int parent)
+void bh_heapify(bh_item *items, int size, int parent)
 {
     int left = 2 * parent + 1;
 
@@ -29,21 +29,21 @@ void h_heapify(h_item *items, int size, int parent)
         return;
     }
 
-    h_item temp = items[parent];
+    bh_item temp = items[parent];
     items[parent] = items[child];
     items[child] = temp;
 
-    h_heapify(items, size, child);
+    bh_heapify(items, size, child);
 }
-h_priority_queue *h_create(void)
+bh_priority_queue *bh_create(void)
 {
-    h_priority_queue *pq = malloc(sizeof(h_priority_queue));
+    bh_priority_queue *pq = malloc(sizeof(bh_priority_queue));
     if (pq == NULL) {
         return NULL;
     }
     size_t capacity = INITIAL_CAPACITY;
 
-    pq->items = malloc(sizeof(h_item) * capacity);
+    pq->items = malloc(sizeof(bh_item) * capacity);
     if (pq->items == NULL) {
         free(pq);
         return NULL;
@@ -53,7 +53,7 @@ h_priority_queue *h_create(void)
 
     return pq;
 }
-void h_destroy(h_priority_queue *pq)
+void bh_destroy(bh_priority_queue *pq)
 {
     if (pq == NULL) {
         return;
@@ -61,7 +61,7 @@ void h_destroy(h_priority_queue *pq)
     free(pq->items);
     free(pq);
 }
-void h_insert(h_priority_queue *pq, int priority)
+void bh_insert(bh_priority_queue *pq, int priority)
 {
     if (pq == NULL) {
         return;
@@ -78,12 +78,12 @@ void h_insert(h_priority_queue *pq, int priority)
         pq->items[index] = pq->items[parent];
         index = parent;
     }
-    pq->items[index] = (h_item){priority};
+    pq->items[index] = (bh_item){priority};
     pq->size++;
 }
-h_item h_extract(h_priority_queue *pq)
+bh_item bh_extract(bh_priority_queue *pq)
 {
-    h_item top = (h_item){0};
+    bh_item top = (bh_item){0};
 
     if (pq == NULL || pq->size == 0) {
         return top;
@@ -93,12 +93,12 @@ h_item h_extract(h_priority_queue *pq)
 
     if (pq->size > 0) {
         pq->items[0] = pq->items[pq->size];
-        h_heapify(pq->items, pq->size, 0);
+        bh_heapify(pq->items, pq->size, 0);
     }
 
     return top;
 }
-size_t h_size(h_priority_queue *pq)
+size_t bh_size(bh_priority_queue *pq)
 {
     return pq ? pq->size : 0;
 }
