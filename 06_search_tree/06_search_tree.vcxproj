@@ -126,7 +126,7 @@
   <ItemGroup>
     <ClCompile Include="a_v_l_tree.c" />
     <ClCompile Include="binary_search_tree.c" />
-    <ClCompile Include="ordered_set_main.c" />
+    <ClCompile Include="search_tree_main.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="a_v_l_tree.h" />
