@@ -17,7 +17,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "05_binary_tree", "05_binary
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "06_search_tree", "06_search_tree\06_search_tree.vcxproj", "{3D0984C9-F28D-4173-A080-F9BBB697E28A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "07_priority_queue", "07_priority_queue\07_priority_queue.vcxproj", "{9E2E1575-AB57-4B63-B493-97772135DB65}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "07_heap", "07_heap\07_heap.vcxproj", "{9E2E1575-AB57-4B63-B493-97772135DB65}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "etc", "etc\etc.vcxproj", "{7BB69846-D080-471D-83B9-0FEB25C6FC17}"
 EndProject

@@ -141,7 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="binary_heap.c" />
-    <ClCompile Include="priority_queue_main.c" />
+    <ClCompile Include="heap_main.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="binary_heap.h" />
