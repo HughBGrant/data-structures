@@ -18,5 +18,8 @@
     <ClCompile Include="sorted_array.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="unsorted_array.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
