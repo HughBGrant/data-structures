@@ -8,11 +8,44 @@ struct avlt_node {
     struct avlt_node *left;
     struct avlt_node *right;
 };
-
 struct a_v_l_tree {
     avlt_node *root;
 };
+static avlt_node *avlt_node_create(avlt_item key);
+static void avlt_node_destroy(avlt_node *node);
+static void avlt_subtree_destroy(avlt_node *subtree);
+static size_t avlt_height(avlt_node *node);
+static size_t avlt_max(size_t a, size_t b);
+static void avlt_update_height(avlt_node *node);
+static avlt_node *avlt_rotate_left(avlt_node *x);
+static avlt_node *avlt_rotate_right(avlt_node *y);
+static int avlt_balancefactor(avlt_node *node);
+static avlt_node *avlt_rebalance(avlt_node *node);
+static avlt_node *avlt_node_insert(avlt_node *node, avlt_item key);
+static avlt_node *avlt_find_min(avlt_node *node);
+static avlt_node *avlt_node_delete(avlt_node *node, avlt_item key);
+static void avlt_inorder(avlt_node *node);
 
+avlt_ordered_set *avlt_create(void)
+{
+    avlt_ordered_set *os = malloc(sizeof(avlt_ordered_set));
+    if (os == NULL) {
+        return NULL;
+    }
+
+    os->root = NULL;
+
+    return os;
+}
+void avlt_destroy(avlt_ordered_set *os)
+{
+    if (os == NULL) {
+        return;
+    }
+
+    avlt_subtree_destroy(os->root);
+    free(os);
+}
 static avlt_node *avlt_node_create(avlt_item key)
 {
     avlt_node *new_node = malloc(sizeof(avlt_node));
@@ -40,8 +73,14 @@ static void avlt_subtree_destroy(avlt_node *subtree)
     avlt_subtree_destroy(subtree->right);
     avlt_node_destroy(subtree);
 }
-static size_t avlt_height(avlt_node *node) { return node ? node->height : 0; }
-static size_t avlt_max(size_t a, size_t b) { return a > b ? a : b; }
+static size_t avlt_height(avlt_node *node)
+{
+    return node ? node->height : 0;
+}
+static size_t avlt_max(size_t a, size_t b)
+{
+    return a > b ? a : b;
+}
 static void avlt_update_height(avlt_node *node)
 {
     if (node == NULL) {
@@ -163,26 +202,6 @@ static void avlt_inorder(avlt_node *node)
     avlt_inorder(node->left);
     printf("%d ", node->key);
     avlt_inorder(node->right);
-}
-avlt_ordered_set *avlt_create(void)
-{
-    avlt_ordered_set *os = malloc(sizeof(avlt_ordered_set));
-    if (os == NULL) {
-        return NULL;
-    }
-
-    os->root = NULL;
-
-    return os;
-}
-void avlt_destroy(avlt_ordered_set *os)
-{
-    if (os == NULL) {
-        return;
-    }
-
-    avlt_subtree_destroy(os->root);
-    free(os);
 }
 void avlt_insert(avlt_ordered_set *os, avlt_item key)
 {

@@ -9,7 +9,7 @@ typedef struct _cdll_node {
 } cdll_node;
 
 struct doubly_linked_list {
-    cdll_node *null;
+    cdll_node *sentinel;
     size_t size;
 };
 
@@ -41,19 +41,19 @@ static cdll_node *cdll_node_get(cdll_list *list, size_t index)
         return NULL;
     }
     if (index == list->size) {
-        return list->null; // 센티널 반환
+        return list->sentinel; // 센티널 반환
     }
 
     cdll_node *target_node = NULL;
 
     if (index < list->size / 2) {
-        target_node = list->null->next;
+        target_node = list->sentinel->next;
 
         for (size_t i = 0; i < index; i++) {
             target_node = target_node->next;
         }
     } else {
-        target_node = list->null->prev;
+        target_node = list->sentinel->prev;
 
         for (size_t i = list->size - 1; i > index; i--) {
             target_node = target_node->prev;
@@ -67,14 +67,14 @@ cdll_list *cdll_create(void)
     if (list == NULL) {
         return NULL;
     }
-    list->null = cdll_node_create(0);
-    if (list->null == NULL) {
+    list->sentinel = cdll_node_create(0);
+    if (list->sentinel == NULL) {
         free(list);
         return NULL;
     }
 
-    list->null->next = list->null;
-    list->null->prev = list->null;
+    list->sentinel->next = list->sentinel;
+    list->sentinel->prev = list->sentinel;
     list->size = 0;
 
     return list;
@@ -87,7 +87,7 @@ void cdll_destroy(cdll_list *list)
     while (list->size > 0) {
         cdll_delete(list, 0);
     }
-    cdll_node_destroy(list->null);
+    cdll_node_destroy(list->sentinel);
     free(list);
 }
 void cdll_insert(cdll_list *list, size_t index, cdll_item value)
@@ -143,12 +143,12 @@ cdll_item cdll_get(cdll_list *list, size_t index)
 }
 void cdll_print(cdll_list *list)
 {
-    if (list == NULL || list->null == NULL) {
+    if (list == NULL || list->sentinel == NULL) {
         return;
     }
-    cdll_node *current_node = list->null->next;
+    cdll_node *current_node = list->sentinel->next;
 
-    while (current_node != list->null) {
+    while (current_node != list->sentinel) {
         printf("<- %d ->", current_node->data);
         current_node = current_node->next;
     }

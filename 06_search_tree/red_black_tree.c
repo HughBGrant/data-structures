@@ -1,327 +1,433 @@
 #include "red_black_tree.h"
-#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-extern rbt_node *Nil;
+struct rbt_node {
+    rbt_item key;
+    Color color;
+    struct rbt_node *parent;
+    struct rbt_node *left;
+    struct rbt_node *right;
+};
+struct rbt_tree {
+    rbt_node *root;
+    rbt_node *nil;
+};
+static void rbt_node_destroy(rbt_node *node);
+static void rbt_subtree_destroy(rbt_ordered_set *tree, rbt_node *node);
+static rbt_node *rbt_node_search(rbt_ordered_set *tree, rbt_node *node, rbt_item key);
+static void rbt_transplant(rbt_ordered_set *tree, rbt_node *old_node, rbt_node *new_node);
+static void rbt_fix_delete(rbt_ordered_set *tree, rbt_node *node);
+static void rbt_print_node(rbt_ordered_set *tree, rbt_node *node, int depth, int black_count);
+static rbt_node *rbt_node_search_min(rbt_ordered_set *tree, rbt_node *node);
+static void rbt_node_insert(rbt_ordered_set *tree, rbt_node *node);
+static void rbt_rotate_left(rbt_ordered_set *tree, rbt_node *node);
+static void rbt_rotate_right(rbt_ordered_set *tree, rbt_node *node);
+static void rbt_fix_insert(rbt_ordered_set *tree, rbt_node *node);
 
-rbt_node *rbt_node_create(rbt_item NewData)
+rbt_ordered_set *rbt_create(void)
 {
-    rbt_node *NewNode = (rbt_node *)malloc(sizeof(rbt_node));
-    NewNode->parent = NULL;
-    NewNode->left = NULL;
-    NewNode->right = NULL;
-    NewNode->data = NewData;
-    NewNode->Color = BLACK;
-
-    return NewNode;
-}
-
-void rbt_node_destroy(rbt_node *Node)
-{
-    free(Node);
-}
-
-void rbt_destroy(rbt_node *Tree)
-{
-    if (Tree->right != Nil)
-        rbt_destroy(Tree->right);
-
-    if (Tree->left != Nil)
-        rbt_destroy(Tree->left);
-
-    Tree->left = Nil;
-    Tree->right = Nil;
-
-    rbt_node_destroy(Tree);
-}
-
-rbt_node *rbt_node_search(rbt_node *Tree, rbt_item Target)
-{
-    if (Tree == Nil)
+    rbt_ordered_set *tree = malloc(sizeof(rbt_ordered_set));
+    if (tree == NULL) {
         return NULL;
-
-    if (Tree->data > Target)
-        return rbt_node_search(Tree->left, Target);
-    else if (Tree->data < Target)
-        return rbt_node_search(Tree->right, Target);
-    else
-        return Tree;
-}
-
-rbt_node *rbt_node_search_min(rbt_node *Tree)
-{
-    if (Tree == Nil)
-        return Nil;
-
-    if (Tree->left == Nil)
-        return Tree;
-    else
-        return rbt_node_search_min(Tree->left);
-}
-
-void rbt_node_insert(rbt_node **Tree, rbt_node *NewNode)
-{
-    rbt_node_insert_helper(Tree, NewNode);
-
-    NewNode->Color = RED;
-    NewNode->left = Nil;
-    NewNode->right = Nil;
-
-    rbt_rebuild_after_insert(Tree, NewNode);
-}
-
-void rbt_node_insert_helper(rbt_node **Tree, rbt_node *NewNode)
-{
-    if ((*Tree) == NULL)
-        (*Tree) = NewNode;
-
-    if ((*Tree)->data < NewNode->data) {
-        if ((*Tree)->right == Nil) {
-            (*Tree)->right = NewNode;
-            NewNode->parent = (*Tree);
-        } else
-            rbt_node_insert_helper(&(*Tree)->right, NewNode);
-
-    } else if ((*Tree)->data > NewNode->data) {
-        if ((*Tree)->left == Nil) {
-            (*Tree)->left = NewNode;
-            NewNode->parent = (*Tree);
-        } else
-            rbt_node_insert_helper(&(*Tree)->left, NewNode);
     }
-}
-
-void rbt_rotate_right(rbt_node **Root, rbt_node *Parent)
-{
-    rbt_node *LeftChild = Parent->left;
-
-    Parent->left = LeftChild->right;
-
-    if (LeftChild->right != Nil)
-        LeftChild->right->parent = Parent;
-
-    LeftChild->parent = Parent->parent;
-
-    if (Parent->parent == NULL)
-        (*Root) = LeftChild;
-    else {
-        if (Parent == Parent->parent->left)
-            Parent->parent->left = LeftChild;
-        else
-            Parent->parent->right = LeftChild;
-    }
-
-    LeftChild->right = Parent;
-    Parent->parent = LeftChild;
-}
-
-void rbt_rotate_left(rbt_node **Root, rbt_node *Parent)
-{
-    rbt_node *RightChild = Parent->right;
-
-    Parent->right = RightChild->left;
-
-    if (RightChild->left != Nil)
-        RightChild->left->parent = Parent;
-
-    RightChild->parent = Parent->parent;
-
-    if (Parent->parent == NULL)
-        (*Root) = RightChild;
-    else {
-        if (Parent == Parent->parent->left)
-            Parent->parent->left = RightChild;
-        else
-            Parent->parent->right = RightChild;
-    }
-
-    RightChild->left = Parent;
-    Parent->parent = RightChild;
-}
-
-void rbt_rebuild_after_insert(rbt_node **Root, rbt_node *X)
-{
-    while (X != (*Root) && X->parent->Color == RED) {
-        if (X->parent == X->parent->parent->left) {
-            rbt_node *Uncle = X->parent->parent->right;
-            if (Uncle->Color == RED) {
-                X->parent->Color = BLACK;
-                Uncle->Color = BLACK;
-                X->parent->parent->Color = RED;
-
-                X = X->parent->parent;
-            } else {
-                if (X == X->parent->right) {
-                    X = X->parent;
-                    rbt_rotate_left(Root, X);
-                }
-
-                X->parent->Color = BLACK;
-                X->parent->parent->Color = RED;
-
-                rbt_rotate_right(Root, X->parent->parent);
-            }
-        } else {
-            rbt_node *Uncle = X->parent->parent->left;
-            if (Uncle->Color == RED) {
-                X->parent->Color = BLACK;
-                Uncle->Color = BLACK;
-                X->parent->parent->Color = RED;
-
-                X = X->parent->parent;
-            } else {
-                if (X == X->parent->left) {
-                    X = X->parent;
-                    rbt_rotate_right(Root, X);
-                }
-
-                X->parent->Color = BLACK;
-                X->parent->parent->Color = RED;
-                rbt_rotate_left(Root, X->parent->parent);
-            }
-        }
-    }
-
-    (*Root)->Color = BLACK;
-}
-
-rbt_node *rbt_node_delete(rbt_node **Root, rbt_item Data)
-{
-    rbt_node *Removed = NULL;
-    rbt_node *Successor = NULL;
-    rbt_node *Target = rbt_node_search((*Root), Data);
-
-    if (Target == NULL)
+    tree->nil = rbt_node_create(0);
+    if (tree->nil == NULL) {
+        free(tree);
         return NULL;
-
-    if (Target->left == Nil || Target->right == Nil) {
-        Removed = Target;
-    } else {
-        Removed = rbt_node_search_min(Target->right);
-        Target->data = Removed->data;
     }
+    tree->nil->color = BLACK;
+    tree->nil->parent = tree->nil;
+    tree->nil->left = tree->nil;
+    tree->nil->right = tree->nil;
+    tree->root = tree->nil;
 
-    if (Removed->left != Nil)
-        Successor = Removed->left;
-    else
-        Successor = Removed->right;
-
-    Successor->parent = Removed->parent;
-
-    if (Removed->parent == NULL)
-        (*Root) = Successor;
-    else {
-        if (Removed == Removed->parent->left)
-            Removed->parent->left = Successor;
-        else
-            Removed->parent->right = Successor;
-    }
-
-    if (Removed->Color == BLACK)
-        rbt_rebuild_after_delete(Root, Successor);
-
-    return Removed;
+    return tree;
 }
-
-void rbt_rebuild_after_delete(rbt_node **Root, rbt_node *Successor)
+void rbt_destroy(rbt_ordered_set *tree)
 {
-    rbt_node *Sibling = NULL;
-
-    while (Successor->parent != NULL && Successor->Color == BLACK) {
-        if (Successor == Successor->parent->left) {
-            Sibling = Successor->parent->right;
-
-            if (Sibling->Color == RED) {
-                Sibling->Color = BLACK;
-                Successor->parent->Color = RED;
-                rbt_rotate_left(Root, Successor->parent);
-            } else {
-                if (Sibling->left->Color == BLACK &&
-                    Sibling->right->Color == BLACK) {
-                    Sibling->Color = RED;
-                    Successor = Successor->parent;
-                } else {
-                    if (Sibling->left->Color == RED) {
-                        Sibling->left->Color = BLACK;
-                        Sibling->Color = RED;
-
-                        rbt_rotate_right(Root, Sibling);
-                        Sibling = Successor->parent->right;
-                    }
-
-                    Sibling->Color = Successor->parent->Color;
-                    Successor->parent->Color = BLACK;
-                    Sibling->right->Color = BLACK;
-                    rbt_rotate_left(Root, Successor->parent);
-                    Successor = (*Root);
-                }
-            }
-        } else {
-            Sibling = Successor->parent->left;
-
-            if (Sibling->Color == RED) {
-                Sibling->Color = BLACK;
-                Successor->parent->Color = RED;
-                rbt_rotate_right(Root, Successor->parent);
-            } else {
-                if (Sibling->right->Color == BLACK &&
-                    Sibling->left->Color == BLACK) {
-                    Sibling->Color = RED;
-                    Successor = Successor->parent;
-                } else {
-                    if (Sibling->right->Color == RED) {
-                        Sibling->right->Color = BLACK;
-                        Sibling->Color = RED;
-
-                        rbt_rotate_left(Root, Sibling);
-                        Sibling = Successor->parent->left;
-                    }
-
-                    Sibling->Color = Successor->parent->Color;
-                    Successor->parent->Color = BLACK;
-                    Sibling->left->Color = BLACK;
-                    rbt_rotate_right(Root, Successor->parent);
-                    Successor = (*Root);
-                }
-            }
-        }
-    }
-
-    Successor->Color = BLACK;
-}
-
-void rbt_node_print(rbt_node *Node, int Depth, int BlackCount)
-{
-    int i = 0;
-    char c = 'X';
-    int v = -1;
-    char cnt[100];
-
-    if (Node == NULL || Node == Nil)
+    if (tree == NULL) {
         return;
-
-    if (Node->Color == BLACK)
-        BlackCount++;
-
-    if (Node->parent != NULL) {
-        v = Node->parent->data;
-
-        if (Node->parent->left == Node)
-            c = 'L';
-        else
-            c = 'R';
     }
 
-    if (Node->left == Nil && Node->right == Nil)
-        sprintf(cnt, "--------- %d", BlackCount);
-    else
-        strncpy(cnt, "", sizeof(cnt));
+    rbt_subtree_destroy(tree, tree->root);
+    rbt_node_destroy(tree->nil);
+    free(tree);
+}
+static rbt_node *rbt_node_create(rbt_item key)
+{
+    rbt_node *node = malloc(sizeof(rbt_node));
+    if (node == NULL) {
+        return NULL;
+    }
 
-    for (i = 0; i < Depth; i++)
+    node->key = key;
+    node->color = BLACK;
+    node->parent = NULL;
+    node->left = NULL;
+    node->right = NULL;
+
+    return node;
+}
+static void rbt_node_destroy(rbt_node *node)
+{
+    free(node);
+}
+static void rbt_subtree_destroy(rbt_ordered_set *tree, rbt_node *node)
+{
+    if (node == tree->nil) {
+        return;
+    }
+    rbt_subtree_destroy(tree, node->left);
+    rbt_subtree_destroy(tree, node->right);
+    rbt_node_destroy(node);
+}
+rbt_node *rbt_search(rbt_ordered_set *tree, rbt_item key)
+{
+    if (tree == NULL) {
+        return NULL;
+    }
+    return rbt_node_search(tree, tree->root, key);
+}
+static rbt_node *rbt_node_search(
+    rbt_ordered_set *tree,
+    rbt_node *node,
+    rbt_item key)
+{
+    if (node == tree->nil || node->key == key) {
+        return node == tree->nil ? NULL : node;
+    }
+    if (key < node->key) {
+        return rbt_node_search(tree, node->left, key);
+    }
+    return rbt_node_search(tree, node->right, key);
+}
+static rbt_node *rbt_node_search_min(rbt_ordered_set *tree, rbt_node *node)
+{
+    if (node == tree->nil) {
+        return tree->nil;
+    }
+
+    if (node->left == tree->nil) {
+        return node;
+    }
+
+    return rbt_node_search_min(tree, node->left);
+}
+
+static void rbt_node_insert(rbt_ordered_set *tree, rbt_node *node)
+{
+    rbt_node *parent = tree->nil;
+    rbt_node *current = tree->root;
+
+    while (current != tree->nil) {
+        parent = current;
+
+        if (node->key < current->key) {
+            current = current->left;
+        } else {
+            current = current->right;
+        }
+    }
+
+    node->parent = parent;
+
+    if (parent == tree->nil) {
+        tree->root = node;
+    } else if (node->key < parent->key) {
+        parent->left = node;
+    } else {
+        parent->right = node;
+    }
+
+    node->left = tree->nil;
+    node->right = tree->nil;
+    node->color = RED;
+}
+
+static void rbt_rotate_left(rbt_ordered_set *tree, rbt_node *node)
+{
+    rbt_node *child = node->right;
+
+    node->right = child->left;
+
+    if (child->left != tree->nil) {
+        child->left->parent = node;
+    }
+
+    child->parent = node->parent;
+
+    if (node->parent == tree->nil) {
+        tree->root = child;
+    } else if (node == node->parent->left) {
+        node->parent->left = child;
+    } else {
+        node->parent->right = child;
+    }
+
+    child->left = node;
+    node->parent = child;
+}
+
+static void rbt_rotate_right(rbt_ordered_set *tree, rbt_node *node)
+{
+    rbt_node *child = node->left;
+
+    node->left = child->right;
+
+    if (child->right != tree->nil) {
+        child->right->parent = node;
+    }
+
+    child->parent = node->parent;
+
+    if (node->parent == tree->nil) {
+        tree->root = child;
+    } else if (node == node->parent->left) {
+        node->parent->left = child;
+    } else {
+        node->parent->right = child;
+    }
+
+    child->right = node;
+    node->parent = child;
+}
+
+static void rbt_fix_insert(rbt_ordered_set *tree, rbt_node *node)
+{
+    while (node->parent->color == RED) {
+        rbt_node *parent = node->parent;
+        rbt_node *grand = parent->parent;
+
+        if (parent == grand->left) {
+            rbt_node *uncle = grand->right;
+
+            if (uncle->color == RED) {
+                parent->color = BLACK;
+                uncle->color = BLACK;
+                grand->color = RED;
+                node = grand;
+            } else {
+                if (node == parent->right) {
+                    node = parent;
+                    rbt_rotate_left(tree, node);
+                    parent = node->parent;
+                    grand = parent->parent;
+                }
+
+                parent->color = BLACK;
+                grand->color = RED;
+                rbt_rotate_right(tree, grand);
+            }
+        } else {
+            rbt_node *uncle = grand->left;
+
+            if (uncle->color == RED) {
+                parent->color = BLACK;
+                uncle->color = BLACK;
+                grand->color = RED;
+                node = grand;
+            } else {
+                if (node == parent->left) {
+                    node = parent;
+                    rbt_rotate_right(tree, node);
+                    parent = node->parent;
+                    grand = parent->parent;
+                }
+
+                parent->color = BLACK;
+                grand->color = RED;
+                rbt_rotate_left(tree, grand);
+            }
+        }
+    }
+
+    tree->root->color = BLACK;
+}
+
+void rbt_insert(rbt_ordered_set *tree, rbt_item key)
+{
+    rbt_node *node;
+
+    if (tree == NULL) {
+        return;
+    }
+
+    node = rbt_node_create(key);
+
+    if (node == NULL) {
+        return;
+    }
+
+    rbt_node_insert(tree, node);
+    rbt_fix_insert(tree, node);
+}
+
+static void rbt_transplant(rbt_ordered_set *tree, rbt_node *old_node, rbt_node *new_node)
+{
+    if (old_node->parent == tree->nil) {
+        tree->root = new_node;
+    } else if (old_node == old_node->parent->left) {
+        old_node->parent->left = new_node;
+    } else {
+        old_node->parent->right = new_node;
+    }
+
+    new_node->parent = old_node->parent;
+}
+
+static void rbt_fix_delete(rbt_ordered_set *tree, rbt_node *node)
+{
+    while (node != tree->root && node->color == BLACK) {
+        if (node == node->parent->left) {
+            rbt_node *sibling = node->parent->right;
+
+            if (sibling->color == RED) {
+                sibling->color = BLACK;
+                node->parent->color = RED;
+                rbt_rotate_left(tree, node->parent);
+                sibling = node->parent->right;
+            }
+
+            if (sibling->left->color == BLACK &&
+                sibling->right->color == BLACK) {
+                sibling->color = RED;
+                node = node->parent;
+            } else {
+                if (sibling->right->color == BLACK) {
+                    sibling->left->color = BLACK;
+                    sibling->color = RED;
+                    rbt_rotate_right(tree, sibling);
+                    sibling = node->parent->right;
+                }
+
+                sibling->color = node->parent->color;
+                node->parent->color = BLACK;
+                sibling->right->color = BLACK;
+                rbt_rotate_left(tree, node->parent);
+                node = tree->root;
+            }
+        } else {
+            rbt_node *sibling = node->parent->left;
+
+            if (sibling->color == RED) {
+                sibling->color = BLACK;
+                node->parent->color = RED;
+                rbt_rotate_right(tree, node->parent);
+                sibling = node->parent->left;
+            }
+
+            if (sibling->right->color == BLACK &&
+                sibling->left->color == BLACK) {
+                sibling->color = RED;
+                node = node->parent;
+            } else {
+                if (sibling->left->color == BLACK) {
+                    sibling->right->color = BLACK;
+                    sibling->color = RED;
+                    rbt_rotate_left(tree, sibling);
+                    sibling = node->parent->left;
+                }
+
+                sibling->color = node->parent->color;
+                node->parent->color = BLACK;
+                sibling->left->color = BLACK;
+                rbt_rotate_right(tree, node->parent);
+                node = tree->root;
+            }
+        }
+    }
+    node->color = BLACK;
+}
+int rbt_delete(rbt_ordered_set *tree, rbt_item key)
+{
+    rbt_node *target;
+    rbt_node *removed;
+    rbt_node *child;
+    Color removed_color;
+
+    if (tree == NULL) {
+        return 0;
+    }
+
+    target = rbt_search(tree, key);
+
+    if (target == NULL) {
+        return 0;
+    }
+
+    removed = target;
+
+    if (target->left != tree->nil &&
+        target->right != tree->nil) {
+        removed = rbt_node_search_min(tree, target->right);
+        target->key = removed->key;
+    }
+
+    removed_color = removed->color;
+
+    if (removed->left != tree->nil) {
+        child = removed->left;
+    } else {
+        child = removed->right;
+    }
+
+    rbt_transplant(tree, removed, child);
+
+    if (removed_color == BLACK) {
+        rbt_fix_delete(tree, child);
+    }
+
+    rbt_node_destroy(removed);
+
+    return 1;
+}
+
+static void rbt_print_node(rbt_ordered_set *tree, rbt_node *node, int depth, int black_count)
+{
+    int i;
+    int parent_key = -1;
+    char position = 'X';
+
+    if (node == tree->nil) {
+        return;
+    }
+
+    if (node->color == BLACK) {
+        black_count++;
+    }
+
+    if (node->parent != tree->nil) {
+        parent_key = node->parent->key;
+
+        if (node == node->parent->left)
+            position = 'L';
+        else
+            position = 'R';
+    }
+
+    for (i = 0; i < depth; i++) {
         printf("  ");
+    }
 
-    printf("%d %s [%c,%d] %s\n", Node->data,
-           (Node->Color == RED) ? "RED" : "BLACK", c, v, cnt);
+    printf("%d %s [%c,%d]", node->key, node->color == RED ? "RED" : "BLACK", position, parent_key);
 
-    rbt_node_print(Node->left, Depth + 1, BlackCount);
-    rbt_node_print(Node->right, Depth + 1, BlackCount);
+    if (node->left == tree->nil && node->right == tree->nil) {
+        printf(" --------- %d", black_count);
+    }
+
+    printf("\n");
+
+    rbt_print_node(tree, node->left, depth + 1, black_count);
+
+    rbt_print_node(tree, node->right, depth + 1, black_count);
+}
+
+void rbt_print(rbt_ordered_set *tree)
+{
+    if (tree == NULL) {
+        return;
+    }
+
+    rbt_print_node(tree, tree->root, 0, 0);
 }
