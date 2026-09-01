@@ -24,18 +24,12 @@
     <ClCompile Include="stack_main.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="postfix_calculator.c">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="array_stack.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="linked_stack.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="postfix_calculator.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
