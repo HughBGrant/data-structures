@@ -9,54 +9,8 @@ struct array_list {
     size_t size;
 };
 
-static int al_linear_search_transpose(al_list *list, al_item key);
-
-static int al_linear_search_move2front(al_list *list, al_item key);
-
 static int al_binary_search(al_list *list, al_item key);
 
-static int al_linear_search_transpose(al_list *list, al_item key)
-{
-    if (list == NULL) {
-        return -1;
-    }
-    int index = 0;
-
-    while (index < list->size && list->items[index] != key) {
-        index++;
-    }
-    if (index == list->size) {
-        return -1;
-    }
-    if (index > 0) {
-        al_item temp = list->items[index - 1];
-        list->items[index - 1] = list->items[index];
-        list->items[index] = temp;
-        index--;
-    }
-    return index;
-}
-static int al_linear_search_move2front(al_list *list, al_item key)
-{
-    if (list == NULL) {
-        return -1;
-    }
-    int index = 0;
-
-    while (index < list->size && list->items[index] != key) {
-        index++;
-    }
-    if (index == list->size) {
-        return -1;
-    }
-    while (index > 0) {
-        list->items[index] = list->items[index - 1];
-        index--;
-    }
-    list->items[0] = key;
-
-    return index;
-}
 static int al_binary_search(al_list *list, al_item key)
 {
     if (list == NULL) {

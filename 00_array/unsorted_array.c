@@ -1,36 +1,88 @@
 #include <stdio.h>
 #include <stdlib.h>
+//
+// static int al_linear_search_transpose(al_list *list, al_item key);
+//
+// static int al_linear_search_move2front(al_list *list, al_item key);
 void swap(int *x, int *y)
 {
     int temp = *x;
     *x = *y;
     *y = temp;
 }
-void Bubble(int A[], int n)
+void sort_bubble(int array[], int size)
 {
-    int i, j, flag = 0;
+    for (size_t i = 0; i < size - 1; i++) {
+        int flag = 0;
 
-    for (i = 0; i < n - 1; i++) {
-        flag = 0;
-        for (j = 0; j < n - i - 1; j++) {
-            if (A[j] > A[j + 1]) {
-                swap(&A[j], &A[j + 1]);
+        for (size_t j = 0; j < size - i - 1; j++) {
+            if (array[j] > array[j + 1]) {
+                swap(&array[j], &array[j + 1]);
                 flag = 1;
             }
         }
-        if (flag == 0)
+        if (flag == 0) {
             break;
+        }
     }
 }
+void print(int array[], size_t size)
+{
+    for (size_t i = 0; i < size; i++) {
+        printf("%d ", array[i]);
+    }
+    printf("\n");
+}
+// static int al_linear_search_transpose(al_list *list, al_item key)
+//{
+//     if (list == NULL) {
+//         return -1;
+//     }
+//     int index = 0;
+//
+//     while (index < list->size && list->items[index] != key) {
+//         index++;
+//     }
+//     if (index == list->size) {
+//         return -1;
+//     }
+//     if (index > 0) {
+//         al_item temp = list->items[index - 1];
+//         list->items[index - 1] = list->items[index];
+//         list->items[index] = temp;
+//         index--;
+//     }
+//     return index;
+// }
+// static int al_linear_search_move2front(al_list *list, al_item key)
+//{
+//     if (list == NULL) {
+//         return -1;
+//     }
+//     int index = 0;
+//
+//     while (index < list->size && list->items[index] != key) {
+//         index++;
+//     }
+//     if (index == list->size) {
+//         return -1;
+//     }
+//     while (index > 0) {
+//         list->items[index] = list->items[index - 1];
+//         index--;
+//     }
+//     list->items[0] = key;
+//
+//     return index;
+// }
 int main()
 {
-    int A[] = {11, 13, 7, 12, 16, 9, 24, 5, 10, 3}, n = 10, i;
+    int array[] = {11, 13, 7, 12, 16, 9, 24, 5, 10, 3};
 
-    Bubble(A, n);
+    size_t size = 10;
 
-    for (i = 0; i < 10; i++)
-        printf("%d ", A[i]);
-    printf("\n");
+    sort_bubble(array, size);
+    print(array, size);
 
     return 0;
 }

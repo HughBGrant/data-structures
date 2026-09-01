@@ -166,47 +166,47 @@ void printSet(OrderedSet *set)
    Test
    ========================= */
 
-int main(void)
-{
-
-    OrderedSet *set = createSet();
-
-    if (set == NULL) {
-        printf("Memory allocation failed.\n");
-        return 1;
-    }
-
-    insert(set, 30);
-    insert(set, 10);
-    insert(set, 20);
-    insert(set, 40);
-    insert(set, 20); // 중복 -> 삽입되지 않음
-
-    printSet(set);
-
-    printf("size = %d\n", size(set));
-
-    printf("contains(20) = %s\n",
-           contains(set, 20) ? "true" : "false");
-
-    printf("contains(50) = %s\n",
-           contains(set, 50) ? "true" : "false");
-
-    deleteElement(set, 20);
-
-    printSet(set);
-
-    int min, max;
-
-    if (getMin(set, &min)) {
-        printf("min = %d\n", min);
-    }
-
-    if (getMax(set, &max)) {
-        printf("max = %d\n", max);
-    }
-
-    destroySet(set);
-
-    return 0;
-}
+// int main(void)
+//{
+//
+//     OrderedSet *set = createSet();
+//
+//     if (set == NULL) {
+//         printf("Memory allocation failed.\n");
+//         return 1;
+//     }
+//
+//     insert(set, 30);
+//     insert(set, 10);
+//     insert(set, 20);
+//     insert(set, 40);
+//     insert(set, 20); // 중복 -> 삽입되지 않음
+//
+//     printSet(set);
+//
+//     printf("size = %d\n", size(set));
+//
+//     printf("contains(20) = %s\n",
+//            contains(set, 20) ? "true" : "false");
+//
+//     printf("contains(50) = %s\n",
+//            contains(set, 50) ? "true" : "false");
+//
+//     deleteElement(set, 20);
+//
+//     printSet(set);
+//
+//     int min, max;
+//
+//     if (getMin(set, &min)) {
+//         printf("min = %d\n", min);
+//     }
+//
+//     if (getMax(set, &max)) {
+//         printf("max = %d\n", max);
+//     }
+//
+//     destroySet(set);
+//
+//     return 0;
+// }
