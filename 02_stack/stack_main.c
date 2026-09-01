@@ -49,18 +49,6 @@ void ls_test(void)
     ls_destroy(stack);
 }
 
-void calculator_test(void)
-{
-    char infix[] = "1+3/(4*(8-7))";
-    char postfix[64] = {0};
-
-    convert(infix, postfix);
-
-    printf("infix  : %s\n", infix);
-    printf("postfix: %s\n", postfix);
-    printf("result : %d\n", evaluate(postfix));
-}
-
 int main(void)
 {
     int stack_number = 1;
@@ -72,10 +60,6 @@ int main(void)
 
     case 1:
         ls_test();
-        break;
-
-    case 2:
-        calculator_test();
         break;
     }
 

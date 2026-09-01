@@ -6,7 +6,7 @@
 typedef int CLItem;
 typedef struct CircularLinkedList CLList;
 
-void cll_insert(CLList *list, size_t index, CLItem value);
+void cll_insert(CLList *list, size_t index, CLItem data);
 CLItem cll_delete(CLList *list, size_t index);
 CLItem cll_get(CLList *list, size_t index);
 size_t cll_size(CLList *list);

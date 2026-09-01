@@ -38,7 +38,7 @@ void cd_destroy(CDeque *deque)
     free(deque->items);
     free(deque);
 }
-void cd_push_front(CDeque *deque, CItem value)
+void cd_push_front(CDeque *deque, CItem data)
 {
     if (deque == NULL) {
         return;
@@ -51,10 +51,10 @@ void cd_push_front(CDeque *deque, CItem value)
     }
 
     deque->front = (deque->capacity + deque->front - 1) % deque->capacity;
-    deque->items[deque->front] = value;
+    deque->items[deque->front] = data;
     deque->size++;
 }
-void cd_push_back(CDeque *deque, CItem value)
+void cd_push_back(CDeque *deque, CItem data)
 {
     if (deque == NULL) {
         return;
@@ -66,7 +66,7 @@ void cd_push_back(CDeque *deque, CItem value)
         }
     }
     size_t back = (deque->front + deque->size) % deque->capacity;
-    deque->items[back] = value;
+    deque->items[back] = data;
     deque->size++;
 }
 void cd_resize(CDeque *deque)

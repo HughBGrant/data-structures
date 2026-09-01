@@ -8,8 +8,8 @@
 typedef int CItem;
 typedef struct CircularDeque CDeque;
 
-void cd_push_front(CDeque *deque, CItem value);
-void cd_push_back(CDeque *deque, CItem value);
+void cd_push_front(CDeque *deque, CItem data);
+void cd_push_back(CDeque *deque, CItem data);
 void cd_resize(CDeque *deque);
 CItem cd_pop_front(CDeque *deque);
 CItem cd_pop_back(CDeque *deque);

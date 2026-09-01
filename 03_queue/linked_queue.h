@@ -7,7 +7,7 @@
 typedef int LItem;
 typedef struct LinkedQueue LQueue;
 
-void lq_enqueue(LQueue *queue, LItem value);
+void lq_enqueue(LQueue *queue, LItem data);
 LItem lq_dequeue(LQueue *queue);
 LItem lq_peek(LQueue *queue);
 bool lq_is_empty(LQueue *queue);

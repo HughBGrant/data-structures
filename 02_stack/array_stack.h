@@ -7,7 +7,7 @@
 typedef int AItem;
 typedef struct ArrayStack AStack;
 
-void as_push(AStack *stack, AItem value);
+void as_push(AStack *stack, AItem data);
 AItem as_pop(AStack *stack);
 AItem as_top(AStack *stack);
 bool as_is_empty(AStack *stack);

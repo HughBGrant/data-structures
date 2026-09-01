@@ -9,11 +9,6 @@ typedef struct {
     int size;
 } OrderedSet;
 
-/* =========================
-   ADT Operations
-   ========================= */
-
-// Set 생성
 OrderedSet *createSet(void)
 {
     OrderedSet *set = (OrderedSet *)malloc(sizeof(OrderedSet));
@@ -43,11 +38,7 @@ bool isEmpty(OrderedSet *set)
 {
     return set->size == 0;
 }
-
-// 특정 원소의 위치 찾기
-// 존재하면 해당 index
-// 존재하지 않으면 삽입되어야 할 위치를 반환
-int lowerBound(OrderedSet *set, int value)
+int lowerBound(OrderedSet *set, int data)
 {
     int left = 0;
     int right = set->size;
@@ -55,7 +46,7 @@ int lowerBound(OrderedSet *set, int value)
     while (left < right) {
         int mid = left + (right - left) / 2;
 
-        if (set->data[mid] < value) {
+        if (set->data[mid] < data) {
             left = mid + 1;
         } else {
             right = mid;
@@ -66,16 +57,16 @@ int lowerBound(OrderedSet *set, int value)
 }
 
 // 원소 존재 여부
-bool contains(OrderedSet *set, int value)
+bool contains(OrderedSet *set, int data)
 {
-    int index = lowerBound(set, value);
+    int index = lowerBound(set, data);
 
     return index < set->size &&
-           set->data[index] == value;
+           set->data[index] == data;
 }
 
 // 원소 삽입
-bool insert(OrderedSet *set, int value)
+bool insert(OrderedSet *set, int data)
 {
 
     if (set->size == MAX_SIZE) {
@@ -83,11 +74,11 @@ bool insert(OrderedSet *set, int value)
     }
 
     // 삽입 위치 찾기
-    int index = lowerBound(set, value);
+    int index = lowerBound(set, data);
 
     // 이미 존재하면 삽입하지 않음
     if (index < set->size &&
-        set->data[index] == value) {
+        set->data[index] == data) {
         return false;
     }
 
@@ -97,21 +88,21 @@ bool insert(OrderedSet *set, int value)
     }
 
     // 삽입
-    set->data[index] = value;
+    set->data[index] = data;
     set->size++;
 
     return true;
 }
 
 // 원소 삭제
-bool deleteElement(OrderedSet *set, int value)
+bool deleteElement(OrderedSet *set, int data)
 {
 
-    int index = lowerBound(set, value);
+    int index = lowerBound(set, data);
 
     // 원소가 없으면 삭제 실패
     if (index == set->size ||
-        set->data[index] != value) {
+        set->data[index] != data) {
         return false;
     }
 
@@ -161,10 +152,6 @@ void printSet(OrderedSet *set)
 
     printf("}\n");
 }
-
-/* =========================
-   Test
-   ========================= */
 
 // int main(void)
 //{

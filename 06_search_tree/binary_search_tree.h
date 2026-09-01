@@ -8,11 +8,11 @@ typedef struct BSNode BSNode;
 typedef struct BinarySearchTree BSDictionary;
 
 BSDictionary *bst_create(void);
-void bst_destroy(BSDictionary *os);
-void bst_insert(BSDictionary *os, BSItem key);
-void bst_delete(BSDictionary *os, BSItem key);
-BSNode *bst_search(BSDictionary *os, BSItem key);
+void bst_destroy(BSDictionary *st);
+void bst_insert(BSDictionary *st, BSItem key);
+void bst_delete(BSDictionary *st, BSItem key);
+BSNode *bst_search(BSDictionary *st, BSItem key);
 BSItem *bst_get(BSNode *node);
-void bst_print(BSDictionary *os);
+void bst_print(BSDictionary *st);
 
 #endif

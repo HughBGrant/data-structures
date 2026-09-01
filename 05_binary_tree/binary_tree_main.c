@@ -6,9 +6,9 @@ void abt_test(void)
 {
     ABinaryTree *bt = abt_create();
 
-    AItem values[] = {10, 20, 30, 40, 50, 60, 70};
+    AItem datas[] = {10, 20, 30, 40, 50, 60, 70};
     for (int i = 0; i < 7; i++) {
-        abt_insert(bt, values[i]);
+        abt_insert(bt, datas[i]);
     }
 
     abt_print(bt);

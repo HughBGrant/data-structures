@@ -6,7 +6,7 @@
 typedef int CDLItem;
 typedef struct CircularDoublyLinkedList CDLList;
 
-void cdll_insert(CDLList *list, size_t index, CDLItem value);
+void cdll_insert(CDLList *list, size_t index, CDLItem data);
 CDLItem cdll_delete(CDLList *list, size_t index);
 CDLItem cdll_get(CDLList *list, size_t index);
 size_t cdll_size(CDLList *list);

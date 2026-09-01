@@ -13,19 +13,19 @@ struct CircularDoublyLinkedList {
     size_t size;
 };
 
-static cdll_node *cdll_node_create(CDLItem value);
+static cdll_node *cdll_node_create(CDLItem data);
 
 static void cdll_node_destroy(cdll_node *node);
 
 static cdll_node *cdll_node_get(CDLList *list, size_t index);
 
-static cdll_node *cdll_node_create(CDLItem value)
+static cdll_node *cdll_node_create(CDLItem data)
 {
     cdll_node *new_node = malloc(sizeof(cdll_node));
     if (new_node == NULL) {
         return NULL;
     }
-    new_node->data = value;
+    new_node->data = data;
     new_node->prev = NULL;
     new_node->next = NULL;
 
@@ -90,13 +90,13 @@ void cdll_destroy(CDLList *list)
     cdll_node_destroy(list->sentinel);
     free(list);
 }
-void cdll_insert(CDLList *list, size_t index, CDLItem value)
+void cdll_insert(CDLList *list, size_t index, CDLItem data)
 {
     if (list == NULL || index > list->size) {
         return;
     }
 
-    cdll_node *new_node = cdll_node_create(value);
+    cdll_node *new_node = cdll_node_create(data);
     if (new_node == NULL) {
         return;
     }

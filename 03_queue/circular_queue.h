@@ -7,7 +7,7 @@
 typedef int CItem;
 typedef struct CircularQueue CQueue;
 
-void cq_enqueue(CQueue *queue, CItem value);
+void cq_enqueue(CQueue *queue, CItem data);
 CItem cq_dequeue(CQueue *queue);
 CItem cq_peek(CQueue *queue);
 bool cq_is_empty(CQueue *queue);

@@ -6,10 +6,10 @@
 void bst_test(void)
 {
     BSDictionary *os = bst_create();
-    BSItem values[] = {10, 20, 30, 40, 50, 25};
+    BSItem datas[] = {10, 20, 30, 40, 50, 25};
 
     for (int i = 0; i < 6; i++)
-        bst_insert(os, values[i]);
+        bst_insert(os, datas[i]);
 
     bst_print(os);
 
@@ -28,10 +28,10 @@ void bst_test(void)
 void avlt_test(void)
 {
     AVLDictionary *os = avlt_create();
-    AVLItem values[] = {10, 20, 30, 40, 50, 25};
+    AVLItem datas[] = {10, 20, 30, 40, 50, 25};
 
     for (int i = 0; i < 6; i++)
-        avlt_insert(os, values[i]);
+        avlt_insert(os, datas[i]);
 
     avlt_print(os);
 

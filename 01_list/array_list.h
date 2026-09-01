@@ -6,7 +6,7 @@
 typedef int AItem;
 typedef struct ArrayList AList;
 
-void al_insert(AList *list, size_t index, AItem value);
+void al_insert(AList *list, size_t index, AItem data);
 AItem al_delete(AList *list, size_t index);
 AItem al_get(AList *list, size_t index);
 size_t al_size(AList *list);

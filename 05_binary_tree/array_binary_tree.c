@@ -35,7 +35,7 @@ void abt_destroy(ABinaryTree *bt)
     free(bt->items);
     free(bt);
 }
-void abt_insert(ABinaryTree *bt, AItem value)
+void abt_insert(ABinaryTree *bt, AItem data)
 {
     if (bt == NULL) {
         return;
@@ -45,7 +45,7 @@ void abt_insert(ABinaryTree *bt, AItem value)
         return;
     }
 
-    bt->items[bt->size] = value;
+    bt->items[bt->size] = data;
     bt->size++;
 }
 AItem *abt_get_parent(ABinaryTree *bt, size_t child_pos)

@@ -8,8 +8,8 @@
 typedef int LItem;
 typedef struct LinkedDeque LDeque;
 
-void ld_push_front(LDeque *deque, LItem value);
-void ld_push_back(LDeque *deque, LItem value);
+void ld_push_front(LDeque *deque, LItem data);
+void ld_push_back(LDeque *deque, LItem data);
 LItem ld_pop_front(LDeque *deque);
 LItem ld_pop_back(LDeque *deque);
 LItem ld_front(LDeque *deque);

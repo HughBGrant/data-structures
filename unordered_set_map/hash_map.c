@@ -8,7 +8,7 @@
 
 typedef struct Node {
     char key[24];
-    int value;
+    int data;
     struct Node *next;
 } Node;
 
@@ -26,18 +26,18 @@ unsigned int hashKey(const char *key)
     return h % BUCKETS;
 }
 
-void mapPut(HashMap *map, const char *key, int value)
+void mapPut(HashMap *map, const char *key, int data)
 {
     unsigned int i = hashKey(key);
     for (Node *n = map->buckets[i]; n != NULL; n = n->next) {
         if (strcmp(n->key, key) == 0) {
-            n->value = value;
+            n->data = data;
             return;
         }
     }
     Node *n = malloc(sizeof(Node));
     strcpy(n->key, key);
-    n->value = value;
+    n->data = data;
     n->next = map->buckets[i];
     map->buckets[i] = n;
     map->size++;
@@ -47,7 +47,7 @@ bool mapGet(const HashMap *map, const char *key, int *out)
 {
     for (Node *n = map->buckets[hashKey(key)]; n != NULL; n = n->next) {
         if (strcmp(n->key, key) == 0) {
-            *out = n->value;
+            *out = n->data;
             return true;
         }
     }

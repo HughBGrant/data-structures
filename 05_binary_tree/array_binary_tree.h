@@ -7,7 +7,7 @@
 typedef int AItem;
 typedef struct ArrayBinaryTree ABinaryTree;
 
-void abt_insert(ABinaryTree *bt, AItem value);
+void abt_insert(ABinaryTree *bt, AItem data);
 AItem *abt_get_parent(ABinaryTree *bt, size_t child_pos);
 AItem *abt_get_left(ABinaryTree *bt, size_t parent_pos);
 AItem *abt_get_right(ABinaryTree *bt, size_t parent_pos);

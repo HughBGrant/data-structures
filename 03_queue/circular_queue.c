@@ -38,7 +38,7 @@ void cq_destroy(CQueue *queue)
     free(queue->items);
     free(queue);
 }
-void cq_enqueue(CQueue *queue, CItem value)
+void cq_enqueue(CQueue *queue, CItem data)
 {
     if (queue == NULL) {
         return;
@@ -59,7 +59,7 @@ void cq_enqueue(CQueue *queue, CItem value)
         queue->capacity = new_capacity;
     }
     size_t rear = (queue->front + queue->size) % queue->capacity;
-    queue->items[rear] = value;
+    queue->items[rear] = data;
     queue->size++;
 }
 CItem cq_dequeue(CQueue *queue)

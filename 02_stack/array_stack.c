@@ -35,7 +35,7 @@ void as_destroy(AStack *stack)
     free(stack->items);
     free(stack);
 }
-void as_push(AStack *stack, AItem value)
+void as_push(AStack *stack, AItem data)
 {
     if (stack == NULL) {
         return;
@@ -52,7 +52,7 @@ void as_push(AStack *stack, AItem value)
         stack->items = new_items;
         stack->capacity = new_capacity;
     }
-    stack->items[stack->size] = value;
+    stack->items[stack->size] = data;
     stack->size++;
 }
 AItem as_pop(AStack *stack)

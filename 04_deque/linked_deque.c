@@ -13,18 +13,18 @@ struct LinkedDeque {
     ld_node *front;
 };
 
-static ld_node *ld_node_create(LItem value);
+static ld_node *ld_node_create(LItem data);
 
 static void ld_node_destroy(ld_node *node);
 
-static ld_node *ld_node_create(LItem value)
+static ld_node *ld_node_create(LItem data)
 {
     ld_node *new_node = malloc(sizeof(ld_node));
     if (new_node == NULL) {
         return NULL;
     }
 
-    new_node->data = value;
+    new_node->data = data;
     new_node->next = NULL;
     new_node->prev = NULL;
 
@@ -56,12 +56,12 @@ void ld_destroy(LDeque *deque)
     }
     free(deque);
 }
-void ld_push_front(LDeque *deque, LItem value)
+void ld_push_front(LDeque *deque, LItem data)
 {
     if (deque == NULL) {
         return;
     }
-    ld_node *new_front = ld_node_create(value);
+    ld_node *new_front = ld_node_create(data);
     if (new_front == NULL) {
         return;
     }
@@ -73,12 +73,12 @@ void ld_push_front(LDeque *deque, LItem value)
     }
     deque->front = new_front;
 }
-void ld_push_back(LDeque *deque, LItem value)
+void ld_push_back(LDeque *deque, LItem data)
 {
     if (deque == NULL) {
         return;
     }
-    ld_node *new_rear = ld_node_create(value);
+    ld_node *new_rear = ld_node_create(data);
     if (new_rear == NULL) {
         return;
     }

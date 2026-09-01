@@ -8,7 +8,7 @@
 // Separate chaining: each bucket is a linked list of entries
 typedef struct Entry {
     char key[16];
-    int value;
+    int data;
     struct Entry *next;
 } Entry;
 
@@ -22,18 +22,18 @@ unsigned int hash(const char *key)
     return h % CAPACITY;
 }
 
-void set(const char *key, int value)
+void set(const char *key, int data)
 {
     unsigned int i = hash(key);
     for (Entry *e = buckets[i]; e != NULL; e = e->next) {
         if (strcmp(e->key, key) == 0) {
-            e->value = value; // update existing key
+            e->data = data; // update existing key
             return;
         }
     }
     Entry *e = malloc(sizeof(Entry));
     strcpy(e->key, key);
-    e->value = value;
+    e->data = data;
     e->next = buckets[i];
     buckets[i] = e;
 }
@@ -42,7 +42,7 @@ int *get(const char *key)
 {
     for (Entry *e = buckets[hash(key)]; e != NULL; e = e->next) {
         if (strcmp(e->key, key) == 0)
-            return &e->value;
+            return &e->data;
     }
     return NULL;
 }
@@ -66,7 +66,7 @@ void printBuckets(void)
     for (int i = 0; i < CAPACITY; i++) {
         printf("bucket %d:", i);
         for (Entry *e = buckets[i]; e != NULL; e = e->next) {
-            printf(" (%s=%d)", e->key, e->value);
+            printf(" (%s=%d)", e->key, e->data);
         }
         printf("\n");
     }
@@ -76,11 +76,11 @@ void printBuckets(void)
 //{
 //     set("apple", 3);
 //     set("banana", 7);
-//     set("apple", 4); // overwrites the old value
+//     set("apple", 4); // overwrites the old data
 //     set("grape", 9);
 //     printBuckets();
-//     int *value = get("apple");
-//     printf("get(apple): %d\n", value ? *value : -1);
+//     int *data = get("apple");
+//     printf("get(apple): %d\n", data ? *data : -1);
 //     deleteKey("banana");
 //     printf("banana after delete: %s\n", get("banana") ? "found" : "not found");
 //     return 0;

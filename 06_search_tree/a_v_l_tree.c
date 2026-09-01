@@ -28,23 +28,23 @@ static void avlt_inorder(AVLNode *node);
 
 AVLDictionary *avlt_create(void)
 {
-    AVLDictionary *os = malloc(sizeof(AVLDictionary));
-    if (os == NULL) {
+    AVLDictionary *st = malloc(sizeof(AVLDictionary));
+    if (st == NULL) {
         return NULL;
     }
 
-    os->root = NULL;
+    st->root = NULL;
 
-    return os;
+    return st;
 }
-void avlt_destroy(AVLDictionary *os)
+void avlt_destroy(AVLDictionary *st)
 {
-    if (os == NULL) {
+    if (st == NULL) {
         return;
     }
 
-    avlt_subtree_destroy(os->root);
-    free(os);
+    avlt_subtree_destroy(st->root);
+    free(st);
 }
 static AVLNode *avlt_node_create(AVLItem key)
 {
@@ -203,26 +203,26 @@ static void avlt_inorder(AVLNode *node)
     printf("%d ", node->key);
     avlt_inorder(node->right);
 }
-void avlt_insert(AVLDictionary *os, AVLItem key)
+void avlt_insert(AVLDictionary *st, AVLItem key)
 {
-    if (os == NULL) {
+    if (st == NULL) {
         return;
     }
-    os->root = avlt_node_insert(os->root, key);
+    st->root = avlt_node_insert(st->root, key);
 }
-void avlt_delete(AVLDictionary *os, AVLItem key)
+void avlt_delete(AVLDictionary *st, AVLItem key)
 {
-    if (os == NULL) {
+    if (st == NULL) {
         return;
     }
-    os->root = avlt_node_delete(os->root, key);
+    st->root = avlt_node_delete(st->root, key);
 }
-AVLNode *avlt_search(AVLDictionary *os, AVLItem key)
+AVLNode *avlt_search(AVLDictionary *st, AVLItem key)
 {
-    if (os == NULL) {
+    if (st == NULL) {
         return NULL;
     }
-    AVLNode *current_node = os->root;
+    AVLNode *current_node = st->root;
     while (current_node != NULL) {
         if (key == current_node->key) {
             return current_node;
@@ -235,12 +235,12 @@ AVLNode *avlt_search(AVLDictionary *os, AVLItem key)
     return NULL;
 }
 
-void avlt_print(AVLDictionary *os)
+void avlt_print(AVLDictionary *st)
 {
-    if (os == NULL || os->root == NULL) {
+    if (st == NULL || st->root == NULL) {
         return;
     }
-    avlt_inorder(os->root);
+    avlt_inorder(st->root);
     printf("\n");
 }
 AVLItem *avlt_get(AVLNode *node)

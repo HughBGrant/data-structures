@@ -12,7 +12,7 @@ struct SinglyLinkedList {
     size_t size;
 };
 
-static sll_node *sll_node_create(SLItem value);
+static sll_node *sll_node_create(SLItem data);
 
 static void sll_node_destroy(sll_node *node);
 
@@ -20,14 +20,14 @@ static sll_node *sll_linear_search_move2front(SLList *list, SLItem key);
 
 static sll_node *sll_linear_search_transpose(SLList *list, SLItem key);
 
-static sll_node *sll_node_create(SLItem value)
+static sll_node *sll_node_create(SLItem data)
 {
     sll_node *new_node = malloc(sizeof(sll_node));
     if (new_node == NULL) {
         return NULL;
     }
 
-    new_node->data = value;
+    new_node->data = data;
     new_node->next = NULL;
 
     return new_node;
@@ -111,12 +111,12 @@ void sll_destroy(SLList *list)
     }
     free(list);
 }
-void sll_insert(SLList *list, size_t index, SLItem value)
+void sll_insert(SLList *list, size_t index, SLItem data)
 {
     if (list == NULL || index > list->size) {
         return;
     }
-    sll_node *new_node = sll_node_create(value);
+    sll_node *new_node = sll_node_create(data);
     if (new_node == NULL) {
         return;
     }

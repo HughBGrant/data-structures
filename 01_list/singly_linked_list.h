@@ -6,7 +6,7 @@
 typedef int SLItem;
 typedef struct SinglyLinkedList SLList;
 
-void sll_insert(SLList *list, size_t index, SLItem value);
+void sll_insert(SLList *list, size_t index, SLItem data);
 SLItem sll_delete(SLList *list, size_t index);
 SLItem sll_get(SLList *list, size_t index);
 void sll_print(SLList *list);
