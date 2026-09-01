@@ -24,7 +24,7 @@
     <ClCompile Include="a_v_l_tree.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="RedBlackTree.c">
+    <ClCompile Include="red_black_tree.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -35,7 +35,7 @@
     <ClInclude Include="a_v_l_tree.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="RedBlackTree.h">
+    <ClInclude Include="red_black_tree.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

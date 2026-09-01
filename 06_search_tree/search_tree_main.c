@@ -1,6 +1,6 @@
-#include "RedBlackTree.h"
 #include "a_v_l_tree.h"
 #include "binary_search_tree.h"
+#include "red_black_tree.h"
 #include <stdio.h>
 
 void bst_test(void)

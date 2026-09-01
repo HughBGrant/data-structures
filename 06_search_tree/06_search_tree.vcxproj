@@ -126,13 +126,13 @@
   <ItemGroup>
     <ClCompile Include="a_v_l_tree.c" />
     <ClCompile Include="binary_search_tree.c" />
-    <ClCompile Include="RedBlackTree.c" />
+    <ClCompile Include="red_black_tree.c" />
     <ClCompile Include="search_tree_main.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="a_v_l_tree.h" />
     <ClInclude Include="binary_search_tree.h" />
-    <ClInclude Include="RedBlackTree.h" />
+    <ClInclude Include="red_black_tree.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
