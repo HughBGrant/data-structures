@@ -5,19 +5,19 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-typedef int ld_item;
-typedef struct linked_deque ld_deque;
+typedef int LItem;
+typedef struct LinkedDeque LDeque;
 
-void ld_push_front(ld_deque *deque, ld_item value);
-void ld_push_back(ld_deque *deque, ld_item value);
-ld_item ld_pop_front(ld_deque *deque);
-ld_item ld_pop_back(ld_deque *deque);
-ld_item ld_front(ld_deque *deque);
-ld_item ld_back(ld_deque *deque);
-size_t ld_size(ld_deque *deque);
-bool ld_is_empty(ld_deque *deque);
+void ld_push_front(LDeque *deque, LItem value);
+void ld_push_back(LDeque *deque, LItem value);
+LItem ld_pop_front(LDeque *deque);
+LItem ld_pop_back(LDeque *deque);
+LItem ld_front(LDeque *deque);
+LItem ld_back(LDeque *deque);
+size_t ld_size(LDeque *deque);
+bool ld_is_empty(LDeque *deque);
 
-ld_deque *ld_create(void);
-void ld_destroy(ld_deque *deque);
+LDeque *ld_create(void);
+void ld_destroy(LDeque *deque);
 
 #endif

@@ -3,21 +3,21 @@
 #include <stdlib.h>
 #define INITIAL_CAPACITY 8
 
-struct array_stack {
-    as_item *items;
+struct ArrayStack {
+    AItem *items;
     size_t capacity;
     size_t size;
 };
 
-as_stack *as_create(void)
+AStack *as_create(void)
 {
-    as_stack *stack = malloc(sizeof(as_stack));
+    AStack *stack = malloc(sizeof(AStack));
     if (stack == NULL) {
         return NULL;
     }
 
     size_t capacity = INITIAL_CAPACITY;
-    stack->items = malloc(sizeof(as_item) * capacity);
+    stack->items = malloc(sizeof(AItem) * capacity);
     if (stack->items == NULL) {
         free(stack);
         return NULL;
@@ -27,7 +27,7 @@ as_stack *as_create(void)
 
     return stack;
 }
-void as_destroy(as_stack *stack)
+void as_destroy(AStack *stack)
 {
     if (stack == NULL) {
         return;
@@ -35,7 +35,7 @@ void as_destroy(as_stack *stack)
     free(stack->items);
     free(stack);
 }
-void as_push(as_stack *stack, as_item value)
+void as_push(AStack *stack, AItem value)
 {
     if (stack == NULL) {
         return;
@@ -44,7 +44,7 @@ void as_push(as_stack *stack, as_item value)
     if (stack->size == stack->capacity) {
         size_t new_capacity = stack->capacity * 2;
 
-        as_item *new_items = realloc(stack->items, sizeof(as_item) * new_capacity);
+        AItem *new_items = realloc(stack->items, sizeof(AItem) * new_capacity);
         if (new_items == NULL) {
             return; // 메모리 부족
         }
@@ -55,7 +55,7 @@ void as_push(as_stack *stack, as_item value)
     stack->items[stack->size] = value;
     stack->size++;
 }
-as_item as_pop(as_stack *stack)
+AItem as_pop(AStack *stack)
 {
     if (as_is_empty(stack)) {
         return 0;
@@ -63,18 +63,18 @@ as_item as_pop(as_stack *stack)
     stack->size--;
     return stack->items[stack->size];
 }
-as_item as_top(as_stack *stack)
+AItem as_top(AStack *stack)
 {
     if (as_is_empty(stack)) {
         return 0;
     }
     return stack->items[stack->size - 1];
 }
-size_t as_size(as_stack *stack)
+size_t as_size(AStack *stack)
 {
     return stack ? stack->size : 0;
 }
-bool as_is_empty(as_stack *stack)
+bool as_is_empty(AStack *stack)
 {
     return stack == NULL || stack->size == 0;
 }

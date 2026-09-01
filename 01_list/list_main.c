@@ -7,7 +7,7 @@
 
 void al_test(void)
 {
-    al_list *list = al_create();
+    AList *list = al_create();
 
     for (int i = 0; i < 5; i++) {
         al_insert(list, al_size(list), i);
@@ -28,7 +28,7 @@ void al_test(void)
 }
 void sll_test(void)
 {
-    sll_list *list = sll_create();
+    SLList *list = sll_create();
 
     for (int i = 5; i > 0; i--) {
         sll_insert(list, sll_size(list), i);
@@ -48,7 +48,7 @@ void sll_test(void)
 }
 void dll_test(void)
 {
-    dll_list *list = dll_create();
+    DLList *list = dll_create();
 
     for (int i = 5; i > 0; i--) {
         dll_insert(list, dll_size(list), i);
@@ -68,7 +68,7 @@ void dll_test(void)
 }
 void cll_test(void)
 {
-    cll_list *list = cll_create();
+    CLList *list = cll_create();
 
     for (int i = 5; i > 0; i--) {
         cll_insert(list, cll_size(list), i);
@@ -88,7 +88,7 @@ void cll_test(void)
 }
 void cdll_test(void)
 {
-    cdll_list *list = cdll_create();
+    CDLList *list = cdll_create();
 
     for (int i = 5; i > 0; i--) {
         cdll_insert(list, cdll_size(list), i);

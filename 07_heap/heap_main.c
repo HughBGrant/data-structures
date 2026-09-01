@@ -4,7 +4,7 @@
 
 void bh_test(void)
 {
-    bh_priority_queue *pq = bh_create();
+    BPriorityQueue *pq = bh_create();
 
     bh_insert(pq, 30);
     bh_insert(pq, 10);
@@ -15,7 +15,7 @@ void bh_test(void)
     printf("deleting:\n");
 
     while (bh_size(pq) > 0) {
-        bh_item item = bh_extract(pq);
+        BItem item = bh_extract(pq);
         printf("%d\n", item.priority);
     }
 

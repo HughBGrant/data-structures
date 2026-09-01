@@ -3,16 +3,16 @@
 
 #include <stddef.h>
 
-typedef int avlt_item;
-typedef struct avlt_node avlt_node;
-typedef struct a_v_l_tree avlt_ordered_set;
+typedef int AVLItem;
+typedef struct AVLNode AVLNode;
+typedef struct AVLree AVLDictionary;
 
-avlt_ordered_set *avlt_create(void);
-void avlt_destroy(avlt_ordered_set *os);
-void avlt_insert(avlt_ordered_set *os, avlt_item key);
-void avlt_delete(avlt_ordered_set *os, avlt_item key);
-avlt_node *avlt_search(avlt_ordered_set *os, avlt_item key);
-avlt_item *avlt_get(avlt_node *node);
-void avlt_print(avlt_ordered_set *os);
+AVLDictionary *avlt_create(void);
+void avlt_destroy(AVLDictionary *os);
+void avlt_insert(AVLDictionary *os, AVLItem key);
+void avlt_delete(AVLDictionary *os, AVLItem key);
+AVLNode *avlt_search(AVLDictionary *os, AVLItem key);
+AVLItem *avlt_get(AVLNode *node);
+void avlt_print(AVLDictionary *os);
 
 #endif

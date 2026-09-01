@@ -3,18 +3,18 @@
 
 #include <stddef.h>
 
-struct bh_node {
+struct BNode {
     int priority;
 };
-typedef struct bh_node bh_item;
-typedef struct heap bh_priority_queue;
+typedef struct BNode BItem;
+typedef struct BinaryHeap BPriorityQueue;
 
-bh_priority_queue *bh_create(void);
-void bh_destroy(bh_priority_queue *pq);
-void bh_insert(bh_priority_queue *pq, int priority);
-bh_item bh_extract(bh_priority_queue *pq);
-size_t bh_size(bh_priority_queue *pq);
+BPriorityQueue *bh_create(void);
+void bh_destroy(BPriorityQueue *pq);
+void bh_insert(BPriorityQueue *pq, int priority);
+BItem bh_extract(BPriorityQueue *pq);
+size_t bh_size(BPriorityQueue *pq);
 
-void bh_heapify(bh_item *arr, size_t size, size_t root);
+void bh_heapify(BItem *arr, size_t size, size_t root);
 
 #endif

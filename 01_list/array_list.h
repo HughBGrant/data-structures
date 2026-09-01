@@ -3,16 +3,16 @@
 
 #include <stddef.h>
 
-typedef int al_item;
-typedef struct array_list al_list;
+typedef int AItem;
+typedef struct ArrayList AList;
 
-void al_insert(al_list *list, size_t index, al_item value);
-al_item al_delete(al_list *list, size_t index);
-al_item al_get(al_list *list, size_t index);
-size_t al_size(al_list *list);
-void al_print(al_list *list);
+void al_insert(AList *list, size_t index, AItem value);
+AItem al_delete(AList *list, size_t index);
+AItem al_get(AList *list, size_t index);
+size_t al_size(AList *list);
+void al_print(AList *list);
 
-al_list *al_create(void);
-void al_destroy(al_list *list);
+AList *al_create(void);
+void al_destroy(AList *list);
 
 #endif

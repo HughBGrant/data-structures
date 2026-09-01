@@ -3,15 +3,15 @@
 #include <stdlib.h>
 #define INITIAL_CAPACITY 8
 
-struct array_list {
-    al_item *items;
+struct ArrayList {
+    AItem *items;
     size_t capacity;
     size_t size;
 };
 
-static int al_binary_search(al_list *list, al_item key);
+static int al_binary_search(AList *list, AItem key);
 
-static int al_binary_search(al_list *list, al_item key)
+static int al_binary_search(AList *list, AItem key)
 {
     if (list == NULL) {
         return -1;
@@ -34,15 +34,15 @@ static int al_binary_search(al_list *list, al_item key)
     }
     return -1;
 }
-al_list *al_create(void)
+AList *al_create(void)
 {
-    al_list *list = malloc(sizeof(al_list));
+    AList *list = malloc(sizeof(AList));
     if (list == NULL) {
         return NULL;
     }
 
     size_t capacity = INITIAL_CAPACITY;
-    list->items = malloc(sizeof(al_item) * capacity);
+    list->items = malloc(sizeof(AItem) * capacity);
     if (list->items == NULL) {
         free(list);
         return NULL;
@@ -52,7 +52,7 @@ al_list *al_create(void)
 
     return list;
 }
-void al_destroy(al_list *list)
+void al_destroy(AList *list)
 {
     if (list == NULL) {
         return;
@@ -61,7 +61,7 @@ void al_destroy(al_list *list)
     free(list);
 }
 
-void al_insert(al_list *list, size_t index, al_item data)
+void al_insert(AList *list, size_t index, AItem data)
 {
     if (list == NULL || index > list->size) {
         return;
@@ -69,7 +69,7 @@ void al_insert(al_list *list, size_t index, al_item data)
     if (list->size == list->capacity) {
         size_t new_capacity = list->capacity * 2;
 
-        al_item *new_items = realloc(list->items, sizeof(al_item) * new_capacity);
+        AItem *new_items = realloc(list->items, sizeof(AItem) * new_capacity);
         if (new_items == NULL) {
             return; // 메모리 부족
         }
@@ -84,26 +84,26 @@ void al_insert(al_list *list, size_t index, al_item data)
     list->items[index] = data;
     list->size++;
 }
-al_item al_delete(al_list *list, size_t index)
+AItem al_delete(AList *list, size_t index)
 {
     if (list == NULL || index >= list->size) {
         return 0;
     }
-    al_item data = list->items[index];
+    AItem data = list->items[index];
     for (size_t i = index; i < list->size - 1; i++) {
         list->items[i] = list->items[i + 1];
     }
     list->size--;
     return data;
 }
-al_item al_get(al_list *list, size_t index)
+AItem al_get(AList *list, size_t index)
 {
     if (list == NULL || index >= list->size) {
         return 0;
     }
     return list->items[index];
 }
-void al_print(al_list *list)
+void al_print(AList *list)
 {
     if (list == NULL) {
         return;
@@ -113,7 +113,7 @@ void al_print(al_list *list)
         printf("%d | ", list->items[index]);
     }
 }
-size_t al_size(al_list *list)
+size_t al_size(AList *list)
 {
     return list ? list->size : 0;
 }

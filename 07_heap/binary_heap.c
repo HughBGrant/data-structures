@@ -3,13 +3,13 @@
 #include <stdlib.h>
 #define INITIAL_CAPACITY 32
 
-struct heap {
-    bh_item *items;
+struct BinaryHeap {
+    BItem *items;
     size_t capacity;
     size_t size;
 };
 
-void bh_heapify(bh_item *items, size_t size, size_t parent)
+void bh_heapify(BItem *items, size_t size, size_t parent)
 {
     size_t left = 2 * parent + 1;
 
@@ -29,21 +29,21 @@ void bh_heapify(bh_item *items, size_t size, size_t parent)
         return;
     }
 
-    bh_item temp = items[parent];
+    BItem temp = items[parent];
     items[parent] = items[child];
     items[child] = temp;
 
     bh_heapify(items, size, child);
 }
-bh_priority_queue *bh_create(void)
+BPriorityQueue *bh_create(void)
 {
-    bh_priority_queue *pq = malloc(sizeof(bh_priority_queue));
+    BPriorityQueue *pq = malloc(sizeof(BPriorityQueue));
     if (pq == NULL) {
         return NULL;
     }
     size_t capacity = INITIAL_CAPACITY;
 
-    pq->items = malloc(sizeof(bh_item) * capacity);
+    pq->items = malloc(sizeof(BItem) * capacity);
     if (pq->items == NULL) {
         free(pq);
         return NULL;
@@ -53,7 +53,7 @@ bh_priority_queue *bh_create(void)
 
     return pq;
 }
-void bh_destroy(bh_priority_queue *pq)
+void bh_destroy(BPriorityQueue *pq)
 {
     if (pq == NULL) {
         return;
@@ -61,7 +61,7 @@ void bh_destroy(bh_priority_queue *pq)
     free(pq->items);
     free(pq);
 }
-void bh_insert(bh_priority_queue *pq, int priority)
+void bh_insert(BPriorityQueue *pq, int priority)
 {
     if (pq == NULL) {
         return;
@@ -78,12 +78,12 @@ void bh_insert(bh_priority_queue *pq, int priority)
         pq->items[index] = pq->items[parent];
         index = parent;
     }
-    pq->items[index] = (bh_item){priority};
+    pq->items[index] = (BItem){priority};
     pq->size++;
 }
-bh_item bh_extract(bh_priority_queue *pq)
+BItem bh_extract(BPriorityQueue *pq)
 {
-    bh_item top = (bh_item){0};
+    BItem top = (BItem){0};
 
     if (pq == NULL || pq->size == 0) {
         return top;
@@ -98,7 +98,7 @@ bh_item bh_extract(bh_priority_queue *pq)
 
     return top;
 }
-size_t bh_size(bh_priority_queue *pq)
+size_t bh_size(BPriorityQueue *pq)
 {
     return pq ? pq->size : 0;
 }

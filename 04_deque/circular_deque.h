@@ -5,20 +5,20 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-typedef int cd_item;
-typedef struct circular_deque cd_deque;
+typedef int CItem;
+typedef struct CircularDeque CDeque;
 
-void cd_push_front(cd_deque *deque, cd_item value);
-void cd_push_back(cd_deque *deque, cd_item value);
-void cd_resize(cd_deque *deque);
-cd_item cd_pop_front(cd_deque *deque);
-cd_item cd_pop_back(cd_deque *deque);
-cd_item cd_front(cd_deque *deque);
-cd_item cd_back(cd_deque *deque);
-bool cd_is_empty(cd_deque *deque);
-size_t cd_size(cd_deque *deque);
+void cd_push_front(CDeque *deque, CItem value);
+void cd_push_back(CDeque *deque, CItem value);
+void cd_resize(CDeque *deque);
+CItem cd_pop_front(CDeque *deque);
+CItem cd_pop_back(CDeque *deque);
+CItem cd_front(CDeque *deque);
+CItem cd_back(CDeque *deque);
+bool cd_is_empty(CDeque *deque);
+size_t cd_size(CDeque *deque);
 
-cd_deque *cd_create(void);
-void cd_destroy(cd_deque *deque);
+CDeque *cd_create(void);
+void cd_destroy(CDeque *deque);
 
 #endif

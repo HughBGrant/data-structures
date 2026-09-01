@@ -4,7 +4,7 @@
 
 void cq_test(void)
 {
-    cq_queue *queue = cq_create();
+    CQueue *queue = cq_create();
 
     for (int i = 0; i < 16; i++) {
         cq_enqueue(queue, i);
@@ -18,7 +18,7 @@ void cq_test(void)
 }
 void lq_test(void)
 {
-    lq_queue *queue = lq_create();
+    LQueue *queue = lq_create();
 
     for (int i = 0; i < 16; i++) {
         lq_enqueue(queue, i);

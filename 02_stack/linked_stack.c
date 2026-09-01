@@ -3,19 +3,19 @@
 #include <stdlib.h>
 
 typedef struct _ls_node {
-    ls_item data;
+    LItem data;
     struct _ls_node *next;
 } ls_node;
 
-struct linked_stack {
+struct LinkedStack {
     ls_node *top;
 };
 
-static ls_node *ls_node_create(ls_item value);
+static ls_node *ls_node_create(LItem value);
 
 static void ls_node_destroy(ls_node *node);
 
-static ls_node *ls_node_create(ls_item value)
+static ls_node *ls_node_create(LItem value)
 {
     ls_node *new_node = malloc(sizeof(ls_node));
 
@@ -32,9 +32,9 @@ static void ls_node_destroy(ls_node *node)
 {
     free(node);
 }
-ls_stack *ls_create(void)
+LStack *ls_create(void)
 {
-    ls_stack *stack = malloc(sizeof(ls_stack));
+    LStack *stack = malloc(sizeof(LStack));
 
     if (stack == NULL) {
         return NULL;
@@ -44,7 +44,7 @@ ls_stack *ls_create(void)
 
     return stack;
 }
-void ls_destroy(ls_stack *stack)
+void ls_destroy(LStack *stack)
 {
     if (stack == NULL) {
         return;
@@ -56,7 +56,7 @@ void ls_destroy(ls_stack *stack)
 
     free(stack);
 }
-void ls_push(ls_stack *stack, ls_item value)
+void ls_push(LStack *stack, LItem value)
 {
     if (stack == NULL) {
         return;
@@ -72,7 +72,7 @@ void ls_push(ls_stack *stack, ls_item value)
     stack->top = new_top;
 }
 
-ls_item ls_pop(ls_stack *stack)
+LItem ls_pop(LStack *stack)
 {
     if (ls_is_empty(stack)) {
         return 0;
@@ -81,12 +81,12 @@ ls_item ls_pop(ls_stack *stack)
     ls_node *target_node = stack->top;
     stack->top = target_node->next;
 
-    ls_item data = target_node->data;
+    LItem data = target_node->data;
     ls_node_destroy(target_node);
     return data;
 }
 
-ls_item ls_top(ls_stack *stack)
+LItem ls_top(LStack *stack)
 {
     if (ls_is_empty(stack)) {
         return 0;
@@ -94,7 +94,7 @@ ls_item ls_top(ls_stack *stack)
 
     return stack->top->data;
 }
-size_t ls_size(ls_stack *stack)
+size_t ls_size(LStack *stack)
 {
     if (stack == NULL) {
         return 0;
@@ -110,7 +110,7 @@ size_t ls_size(ls_stack *stack)
 
     return size;
 }
-bool ls_is_empty(ls_stack *stack)
+bool ls_is_empty(LStack *stack)
 {
     return stack == NULL || stack->top == NULL;
 }

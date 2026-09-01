@@ -3,16 +3,16 @@
 
 #include <stddef.h>
 
-typedef int sll_item;
-typedef struct singly_linked_list sll_list;
+typedef int SLItem;
+typedef struct SinglyLinkedList SLList;
 
-void sll_insert(sll_list *list, size_t index, sll_item value);
-sll_item sll_delete(sll_list *list, size_t index);
-sll_item sll_get(sll_list *list, size_t index);
-void sll_print(sll_list *list);
-size_t sll_size(sll_list *list);
+void sll_insert(SLList *list, size_t index, SLItem value);
+SLItem sll_delete(SLList *list, size_t index);
+SLItem sll_get(SLList *list, size_t index);
+void sll_print(SLList *list);
+size_t sll_size(SLList *list);
 
-sll_list *sll_create(void);
-void sll_destroy(sll_list *list);
+SLList *sll_create(void);
+void sll_destroy(SLList *list);
 
 #endif

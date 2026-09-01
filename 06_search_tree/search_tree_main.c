@@ -5,15 +5,15 @@
 
 void bst_test(void)
 {
-    bst_ordered_set *os = bst_create();
-    bst_item values[] = {10, 20, 30, 40, 50, 25};
+    BSDictionary *os = bst_create();
+    BSItem values[] = {10, 20, 30, 40, 50, 25};
 
     for (int i = 0; i < 6; i++)
         bst_insert(os, values[i]);
 
     bst_print(os);
 
-    bst_node *node = bst_search(os, 40);
+    BSNode *node = bst_search(os, 40);
 
     if (node != NULL)
         printf("result: %d\n", *bst_get(node));
@@ -27,8 +27,8 @@ void bst_test(void)
 
 void avlt_test(void)
 {
-    avlt_ordered_set *os = avlt_create();
-    avlt_item values[] = {10, 20, 30, 40, 50, 25};
+    AVLDictionary *os = avlt_create();
+    AVLItem values[] = {10, 20, 30, 40, 50, 25};
 
     for (int i = 0; i < 6; i++)
         avlt_insert(os, values[i]);
@@ -44,7 +44,7 @@ void avlt_test(void)
 
 void rbt_test(void)
 {
-    rbt_ordered_set *os = rbt_create();
+    RBDictionary *os = rbt_create();
 
     if (os == NULL)
         return;

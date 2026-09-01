@@ -3,21 +3,21 @@
 #include <stdlib.h>
 
 typedef struct _ld_node {
-    ld_item data;
+    LItem data;
     struct _ld_node *next;
     struct _ld_node *prev;
 } ld_node;
 
-struct linked_deque {
+struct LinkedDeque {
     ld_node *rear;
     ld_node *front;
 };
 
-static ld_node *ld_node_create(ld_item value);
+static ld_node *ld_node_create(LItem value);
 
 static void ld_node_destroy(ld_node *node);
 
-static ld_node *ld_node_create(ld_item value)
+static ld_node *ld_node_create(LItem value)
 {
     ld_node *new_node = malloc(sizeof(ld_node));
     if (new_node == NULL) {
@@ -34,9 +34,9 @@ static void ld_node_destroy(ld_node *node)
 {
     free(node);
 }
-ld_deque *ld_create(void)
+LDeque *ld_create(void)
 {
-    ld_deque *deque = malloc(sizeof(ld_deque));
+    LDeque *deque = malloc(sizeof(LDeque));
     if (deque == NULL) {
         return NULL;
     }
@@ -46,7 +46,7 @@ ld_deque *ld_create(void)
 
     return deque;
 }
-void ld_destroy(ld_deque *deque)
+void ld_destroy(LDeque *deque)
 {
     if (deque == NULL) {
         return;
@@ -56,7 +56,7 @@ void ld_destroy(ld_deque *deque)
     }
     free(deque);
 }
-void ld_push_front(ld_deque *deque, ld_item value)
+void ld_push_front(LDeque *deque, LItem value)
 {
     if (deque == NULL) {
         return;
@@ -73,7 +73,7 @@ void ld_push_front(ld_deque *deque, ld_item value)
     }
     deque->front = new_front;
 }
-void ld_push_back(ld_deque *deque, ld_item value)
+void ld_push_back(LDeque *deque, LItem value)
 {
     if (deque == NULL) {
         return;
@@ -91,7 +91,7 @@ void ld_push_back(ld_deque *deque, ld_item value)
     }
     deque->rear = new_rear;
 }
-ld_item ld_pop_front(ld_deque *deque)
+LItem ld_pop_front(LDeque *deque)
 {
     if (ld_is_empty(deque)) {
         return 0;
@@ -104,11 +104,11 @@ ld_item ld_pop_front(ld_deque *deque)
     } else {
         deque->front->prev = NULL;
     }
-    ld_item data = target_node->data;
+    LItem data = target_node->data;
     ld_node_destroy(target_node);
     return data;
 }
-ld_item ld_pop_back(ld_deque *deque)
+LItem ld_pop_back(LDeque *deque)
 {
     if (ld_is_empty(deque)) {
         return 0;
@@ -121,25 +121,25 @@ ld_item ld_pop_back(ld_deque *deque)
     } else {
         deque->rear->next = NULL;
     }
-    ld_item data = target_node->data;
+    LItem data = target_node->data;
     ld_node_destroy(target_node);
     return data;
 }
-ld_item ld_front(ld_deque *deque)
+LItem ld_front(LDeque *deque)
 {
     if (ld_is_empty(deque)) {
         return 0;
     }
     return deque->front->data;
 }
-ld_item ld_back(ld_deque *deque)
+LItem ld_back(LDeque *deque)
 {
     if (ld_is_empty(deque)) {
         return 0;
     }
     return deque->rear->data;
 }
-size_t ld_size(ld_deque *deque)
+size_t ld_size(LDeque *deque)
 {
     if (deque == NULL) {
         return 0;
@@ -153,7 +153,7 @@ size_t ld_size(ld_deque *deque)
     }
     return size;
 }
-bool ld_is_empty(ld_deque *deque)
+bool ld_is_empty(LDeque *deque)
 {
     return deque == NULL || deque->front == NULL;
 }

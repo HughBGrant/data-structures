@@ -2,15 +2,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct lbt_node {
-    lbt_item data;
-    struct lbt_node *left;
-    struct lbt_node *right;
+struct LNode {
+    LItem data;
+    struct LNode *left;
+    struct LNode *right;
 };
-struct linked_binary_tree {
-    lbt_node *root;
+struct LinkedBinaryTree {
+    LNode *root;
 };
-void lbt_subtree_destroy(lbt_node *node)
+void lbt_subtree_destroy(LNode *node)
 {
     if (node == NULL) {
         return;
@@ -19,9 +19,9 @@ void lbt_subtree_destroy(lbt_node *node)
     lbt_subtree_destroy(node->right);
     lbt_node_destroy(node);
 }
-lbt_node *lbt_node_create(lbt_item value)
+LNode *lbt_node_create(LItem value)
 {
-    lbt_node *new_node = malloc(sizeof(lbt_node));
+    LNode *new_node = malloc(sizeof(LNode));
     if (new_node == NULL) {
         return NULL;
     }
@@ -31,17 +31,17 @@ lbt_node *lbt_node_create(lbt_item value)
 
     return new_node;
 }
-void lbt_node_destroy(lbt_node *node)
+void lbt_node_destroy(LNode *node)
 {
     free(node);
 }
-lbt_node *lbt_set_left(lbt_node *parent, lbt_item value)
+LNode *lbt_set_left(LNode *parent, LItem value)
 {
     if (parent == NULL) {
         return NULL;
     }
 
-    lbt_node *new_child = lbt_node_create(value);
+    LNode *new_child = lbt_node_create(value);
     if (new_child == NULL) {
         return NULL;
     }
@@ -54,13 +54,13 @@ lbt_node *lbt_set_left(lbt_node *parent, lbt_item value)
 
     return new_child;
 }
-lbt_node *lbt_set_right(lbt_node *parent, lbt_item value)
+LNode *lbt_set_right(LNode *parent, LItem value)
 {
     if (parent == NULL) {
         return NULL;
     }
 
-    lbt_node *new_child = lbt_node_create(value);
+    LNode *new_child = lbt_node_create(value);
     if (new_child == NULL) {
         return NULL;
     }
@@ -73,21 +73,21 @@ lbt_node *lbt_set_right(lbt_node *parent, lbt_item value)
 
     return new_child;
 }
-lbt_node *lbt_left(lbt_node *node)
+LNode *lbt_left(LNode *node)
 {
     return node == NULL ? NULL : node->left;
 }
 
-lbt_node *lbt_right(lbt_node *node)
+LNode *lbt_right(LNode *node)
 {
     return node == NULL ? NULL : node->right;
 }
 
-lbt_item *lbt_get(lbt_node *node)
+LItem *lbt_get(LNode *node)
 {
     return node == NULL ? NULL : &node->data;
 }
-void lbt_preorder(lbt_node *node)
+void lbt_preorder(LNode *node)
 {
     if (node == NULL) {
         return;
@@ -96,7 +96,7 @@ void lbt_preorder(lbt_node *node)
     lbt_preorder(node->left);
     lbt_preorder(node->right);
 }
-void lbt_inorder(lbt_node *node)
+void lbt_inorder(LNode *node)
 {
     if (node == NULL) {
         return;
@@ -105,7 +105,7 @@ void lbt_inorder(lbt_node *node)
     printf("%d ", node->data);
     lbt_inorder(node->right);
 }
-void lbt_postorder(lbt_node *node)
+void lbt_postorder(LNode *node)
 {
     if (node == NULL) {
         return;

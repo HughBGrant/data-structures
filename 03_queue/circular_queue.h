@@ -4,16 +4,16 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-typedef int cq_item;
-typedef struct circular_queue cq_queue;
+typedef int CItem;
+typedef struct CircularQueue CQueue;
 
-void cq_enqueue(cq_queue *queue, cq_item value);
-cq_item cq_dequeue(cq_queue *queue);
-cq_item cq_peek(cq_queue *queue);
-bool cq_is_empty(cq_queue *queue);
-size_t cq_size(cq_queue *queue);
+void cq_enqueue(CQueue *queue, CItem value);
+CItem cq_dequeue(CQueue *queue);
+CItem cq_peek(CQueue *queue);
+bool cq_is_empty(CQueue *queue);
+size_t cq_size(CQueue *queue);
 
-cq_queue *cq_create(void);
-void cq_destroy(cq_queue *queue);
+CQueue *cq_create(void);
+void cq_destroy(CQueue *queue);
 
 #endif

@@ -3,22 +3,22 @@
 #include <stdlib.h>
 #define INITIAL_CAPACITY 8
 
-struct circular_queue {
-    cq_item *items;
+struct CircularQueue {
+    CItem *items;
     size_t capacity;
     size_t front;
     size_t size;
 };
 
-cq_queue *cq_create(void)
+CQueue *cq_create(void)
 {
-    cq_queue *queue = malloc(sizeof(cq_queue));
+    CQueue *queue = malloc(sizeof(CQueue));
     if (queue == NULL) {
         return NULL;
     }
 
     size_t capacity = INITIAL_CAPACITY;
-    queue->items = malloc(sizeof(cq_item) * capacity);
+    queue->items = malloc(sizeof(CItem) * capacity);
     if (queue->items == NULL) {
         free(queue);
         return NULL;
@@ -30,7 +30,7 @@ cq_queue *cq_create(void)
 
     return queue;
 }
-void cq_destroy(cq_queue *queue)
+void cq_destroy(CQueue *queue)
 {
     if (queue == NULL) {
         return;
@@ -38,14 +38,14 @@ void cq_destroy(cq_queue *queue)
     free(queue->items);
     free(queue);
 }
-void cq_enqueue(cq_queue *queue, cq_item value)
+void cq_enqueue(CQueue *queue, CItem value)
 {
     if (queue == NULL) {
         return;
     }
     if (queue->size == queue->capacity) {
         size_t new_capacity = queue->capacity * 2;
-        cq_item *new_items = malloc(sizeof(cq_item) * new_capacity);
+        CItem *new_items = malloc(sizeof(CItem) * new_capacity);
         if (new_items == NULL) {
             return;
         }
@@ -62,28 +62,28 @@ void cq_enqueue(cq_queue *queue, cq_item value)
     queue->items[rear] = value;
     queue->size++;
 }
-cq_item cq_dequeue(cq_queue *queue)
+CItem cq_dequeue(CQueue *queue)
 {
     if (cq_is_empty(queue)) {
         return 0;
     }
-    cq_item data = queue->items[queue->front];
+    CItem data = queue->items[queue->front];
     queue->front = (queue->front + 1) % queue->capacity;
     queue->size--;
     return data;
 }
-cq_item cq_peek(cq_queue *queue)
+CItem cq_peek(CQueue *queue)
 {
     if (cq_is_empty(queue)) {
         return 0;
     }
     return queue->items[queue->front];
 }
-bool cq_is_empty(cq_queue *queue)
+bool cq_is_empty(CQueue *queue)
 {
     return queue == NULL || queue->size == 0;
 }
-size_t cq_size(cq_queue *queue)
+size_t cq_size(CQueue *queue)
 {
     return queue ? queue->size : 0;
 }

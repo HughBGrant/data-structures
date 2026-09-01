@@ -3,22 +3,22 @@
 #include <stdlib.h>
 
 typedef struct _dll_node {
-    dll_item data;
+    DLItem data;
     struct _dll_node *next;
     struct _dll_node *prev;
 } dll_node;
 
-struct doubly_linked_list {
+struct DoublyLinkedList {
     dll_node *head_sentinel;
     dll_node *tail_sentinel;
     size_t size;
 };
 
-static dll_node *dll_node_create(dll_item data);
+static dll_node *dll_node_create(DLItem data);
 static void dll_node_destroy(dll_node *node);
-static dll_node *dll_node_get(dll_list *list, size_t pos);
+static dll_node *dll_node_get(DLList *list, size_t pos);
 
-static dll_node *dll_node_create(dll_item data)
+static dll_node *dll_node_create(DLItem data)
 {
     dll_node *new_node = malloc(sizeof(dll_node));
     if (new_node == NULL) {
@@ -35,7 +35,7 @@ static void dll_node_destroy(dll_node *node)
 {
     free(node);
 }
-static dll_node *dll_node_get(dll_list *list, size_t pos)
+static dll_node *dll_node_get(DLList *list, size_t pos)
 {
     if (list == NULL || pos > list->size) {
         return NULL;
@@ -61,9 +61,9 @@ static dll_node *dll_node_get(dll_list *list, size_t pos)
 
     return target_node;
 }
-dll_list *dll_create(void)
+DLList *dll_create(void)
 {
-    dll_list *list = malloc(sizeof(dll_list));
+    DLList *list = malloc(sizeof(DLList));
     if (list == NULL) {
         return NULL;
     }
@@ -86,7 +86,7 @@ dll_list *dll_create(void)
 
     return list;
 }
-void dll_destroy(dll_list *list)
+void dll_destroy(DLList *list)
 {
     if (list == NULL) {
         return;
@@ -100,7 +100,7 @@ void dll_destroy(dll_list *list)
     dll_node_destroy(list->tail_sentinel);
     free(list);
 }
-void dll_insert(dll_list *list, size_t pos, dll_item data)
+void dll_insert(DLList *list, size_t pos, DLItem data)
 {
     if (list == NULL || pos > list->size) {
         return;
@@ -121,7 +121,7 @@ void dll_insert(dll_list *list, size_t pos, dll_item data)
 
     list->size++;
 }
-dll_item dll_delete(dll_list *list, size_t pos)
+DLItem dll_delete(DLList *list, size_t pos)
 {
     if (list == NULL || pos >= list->size) {
         return 0;
@@ -135,12 +135,12 @@ dll_item dll_delete(dll_list *list, size_t pos)
     target_node->prev->next = target_node->next;
     target_node->next->prev = target_node->prev;
 
-    dll_item data = target_node->data;
+    DLItem data = target_node->data;
     dll_node_destroy(target_node);
     list->size--;
     return data;
 }
-dll_item dll_get(dll_list *list, size_t pos)
+DLItem dll_get(DLList *list, size_t pos)
 {
     if (list == NULL || pos >= list->size) {
         return 0;
@@ -148,7 +148,7 @@ dll_item dll_get(dll_list *list, size_t pos)
 
     return dll_node_get(list, pos)->data;
 }
-void dll_print(dll_list *list)
+void dll_print(DLList *list)
 {
     if (list == NULL || list->head_sentinel == NULL) {
         return;
@@ -161,7 +161,7 @@ void dll_print(dll_list *list)
     }
     printf("\n");
 }
-size_t dll_size(dll_list *list)
+size_t dll_size(DLList *list)
 {
     return list ? list->size : 0;
 }

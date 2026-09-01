@@ -2,32 +2,32 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct rbt_node {
-    rbt_item key;
+struct RBNode {
+    RBItem key;
     Color color;
-    struct rbt_node *parent;
-    struct rbt_node *left;
-    struct rbt_node *right;
+    struct RBNode *parent;
+    struct RBNode *left;
+    struct RBNode *right;
 };
-struct rbt_tree {
-    rbt_node *root;
-    rbt_node *nil;
+struct RBTree {
+    RBNode *root;
+    RBNode *nil;
 };
-static void rbt_node_destroy(rbt_node *node);
-static void rbt_subtree_destroy(rbt_ordered_set *tree, rbt_node *node);
-static rbt_node *rbt_node_search(rbt_ordered_set *tree, rbt_node *node, rbt_item key);
-static void rbt_transplant(rbt_ordered_set *tree, rbt_node *old_node, rbt_node *new_node);
-static void rbt_fix_delete(rbt_ordered_set *tree, rbt_node *node);
-static void rbt_print_node(rbt_ordered_set *tree, rbt_node *node, int depth, int black_count);
-static rbt_node *rbt_node_search_min(rbt_ordered_set *tree, rbt_node *node);
-static void rbt_node_insert(rbt_ordered_set *tree, rbt_node *node);
-static void rbt_rotate_left(rbt_ordered_set *tree, rbt_node *node);
-static void rbt_rotate_right(rbt_ordered_set *tree, rbt_node *node);
-static void rbt_fix_insert(rbt_ordered_set *tree, rbt_node *node);
+static void rbt_node_destroy(RBNode *node);
+static void rbt_subtree_destroy(RBDictionary *tree, RBNode *node);
+static RBNode *rbt_node_search(RBDictionary *tree, RBNode *node, RBItem key);
+static void rbt_transplant(RBDictionary *tree, RBNode *old_node, RBNode *new_node);
+static void rbt_fix_delete(RBDictionary *tree, RBNode *node);
+static void rbt_print_node(RBDictionary *tree, RBNode *node, int depth, int black_count);
+static RBNode *rbt_node_search_min(RBDictionary *tree, RBNode *node);
+static void rbt_node_insert(RBDictionary *tree, RBNode *node);
+static void rbt_rotate_left(RBDictionary *tree, RBNode *node);
+static void rbt_rotate_right(RBDictionary *tree, RBNode *node);
+static void rbt_fix_insert(RBDictionary *tree, RBNode *node);
 
-rbt_ordered_set *rbt_create(void)
+RBDictionary *rbt_create(void)
 {
-    rbt_ordered_set *tree = malloc(sizeof(rbt_ordered_set));
+    RBDictionary *tree = malloc(sizeof(RBDictionary));
     if (tree == NULL) {
         return NULL;
     }
@@ -44,7 +44,7 @@ rbt_ordered_set *rbt_create(void)
 
     return tree;
 }
-void rbt_destroy(rbt_ordered_set *tree)
+void rbt_destroy(RBDictionary *tree)
 {
     if (tree == NULL) {
         return;
@@ -54,9 +54,9 @@ void rbt_destroy(rbt_ordered_set *tree)
     rbt_node_destroy(tree->nil);
     free(tree);
 }
-static rbt_node *rbt_node_create(rbt_item key)
+static RBNode *rbt_node_create(RBItem key)
 {
-    rbt_node *node = malloc(sizeof(rbt_node));
+    RBNode *node = malloc(sizeof(RBNode));
     if (node == NULL) {
         return NULL;
     }
@@ -69,11 +69,11 @@ static rbt_node *rbt_node_create(rbt_item key)
 
     return node;
 }
-static void rbt_node_destroy(rbt_node *node)
+static void rbt_node_destroy(RBNode *node)
 {
     free(node);
 }
-static void rbt_subtree_destroy(rbt_ordered_set *tree, rbt_node *node)
+static void rbt_subtree_destroy(RBDictionary *tree, RBNode *node)
 {
     if (node == tree->nil) {
         return;
@@ -82,17 +82,17 @@ static void rbt_subtree_destroy(rbt_ordered_set *tree, rbt_node *node)
     rbt_subtree_destroy(tree, node->right);
     rbt_node_destroy(node);
 }
-rbt_node *rbt_search(rbt_ordered_set *tree, rbt_item key)
+RBNode *rbt_search(RBDictionary *tree, RBItem key)
 {
     if (tree == NULL) {
         return NULL;
     }
     return rbt_node_search(tree, tree->root, key);
 }
-static rbt_node *rbt_node_search(
-    rbt_ordered_set *tree,
-    rbt_node *node,
-    rbt_item key)
+static RBNode *rbt_node_search(
+    RBDictionary *tree,
+    RBNode *node,
+    RBItem key)
 {
     if (node == tree->nil || node->key == key) {
         return node == tree->nil ? NULL : node;
@@ -102,7 +102,7 @@ static rbt_node *rbt_node_search(
     }
     return rbt_node_search(tree, node->right, key);
 }
-static rbt_node *rbt_node_search_min(rbt_ordered_set *tree, rbt_node *node)
+static RBNode *rbt_node_search_min(RBDictionary *tree, RBNode *node)
 {
     if (node == tree->nil) {
         return tree->nil;
@@ -115,10 +115,10 @@ static rbt_node *rbt_node_search_min(rbt_ordered_set *tree, rbt_node *node)
     return rbt_node_search_min(tree, node->left);
 }
 
-static void rbt_node_insert(rbt_ordered_set *tree, rbt_node *node)
+static void rbt_node_insert(RBDictionary *tree, RBNode *node)
 {
-    rbt_node *parent = tree->nil;
-    rbt_node *current = tree->root;
+    RBNode *parent = tree->nil;
+    RBNode *current = tree->root;
 
     while (current != tree->nil) {
         parent = current;
@@ -145,9 +145,9 @@ static void rbt_node_insert(rbt_ordered_set *tree, rbt_node *node)
     node->color = RED;
 }
 
-static void rbt_rotate_left(rbt_ordered_set *tree, rbt_node *node)
+static void rbt_rotate_left(RBDictionary *tree, RBNode *node)
 {
-    rbt_node *child = node->right;
+    RBNode *child = node->right;
 
     node->right = child->left;
 
@@ -169,9 +169,9 @@ static void rbt_rotate_left(rbt_ordered_set *tree, rbt_node *node)
     node->parent = child;
 }
 
-static void rbt_rotate_right(rbt_ordered_set *tree, rbt_node *node)
+static void rbt_rotate_right(RBDictionary *tree, RBNode *node)
 {
-    rbt_node *child = node->left;
+    RBNode *child = node->left;
 
     node->left = child->right;
 
@@ -193,14 +193,14 @@ static void rbt_rotate_right(rbt_ordered_set *tree, rbt_node *node)
     node->parent = child;
 }
 
-static void rbt_fix_insert(rbt_ordered_set *tree, rbt_node *node)
+static void rbt_fix_insert(RBDictionary *tree, RBNode *node)
 {
     while (node->parent->color == RED) {
-        rbt_node *parent = node->parent;
-        rbt_node *grand = parent->parent;
+        RBNode *parent = node->parent;
+        RBNode *grand = parent->parent;
 
         if (parent == grand->left) {
-            rbt_node *uncle = grand->right;
+            RBNode *uncle = grand->right;
 
             if (uncle->color == RED) {
                 parent->color = BLACK;
@@ -220,7 +220,7 @@ static void rbt_fix_insert(rbt_ordered_set *tree, rbt_node *node)
                 rbt_rotate_right(tree, grand);
             }
         } else {
-            rbt_node *uncle = grand->left;
+            RBNode *uncle = grand->left;
 
             if (uncle->color == RED) {
                 parent->color = BLACK;
@@ -245,9 +245,9 @@ static void rbt_fix_insert(rbt_ordered_set *tree, rbt_node *node)
     tree->root->color = BLACK;
 }
 
-void rbt_insert(rbt_ordered_set *tree, rbt_item key)
+void rbt_insert(RBDictionary *tree, RBItem key)
 {
-    rbt_node *node;
+    RBNode *node;
 
     if (tree == NULL) {
         return;
@@ -263,7 +263,7 @@ void rbt_insert(rbt_ordered_set *tree, rbt_item key)
     rbt_fix_insert(tree, node);
 }
 
-static void rbt_transplant(rbt_ordered_set *tree, rbt_node *old_node, rbt_node *new_node)
+static void rbt_transplant(RBDictionary *tree, RBNode *old_node, RBNode *new_node)
 {
     if (old_node->parent == tree->nil) {
         tree->root = new_node;
@@ -276,11 +276,11 @@ static void rbt_transplant(rbt_ordered_set *tree, rbt_node *old_node, rbt_node *
     new_node->parent = old_node->parent;
 }
 
-static void rbt_fix_delete(rbt_ordered_set *tree, rbt_node *node)
+static void rbt_fix_delete(RBDictionary *tree, RBNode *node)
 {
     while (node != tree->root && node->color == BLACK) {
         if (node == node->parent->left) {
-            rbt_node *sibling = node->parent->right;
+            RBNode *sibling = node->parent->right;
 
             if (sibling->color == RED) {
                 sibling->color = BLACK;
@@ -308,7 +308,7 @@ static void rbt_fix_delete(rbt_ordered_set *tree, rbt_node *node)
                 node = tree->root;
             }
         } else {
-            rbt_node *sibling = node->parent->left;
+            RBNode *sibling = node->parent->left;
 
             if (sibling->color == RED) {
                 sibling->color = BLACK;
@@ -339,11 +339,11 @@ static void rbt_fix_delete(rbt_ordered_set *tree, rbt_node *node)
     }
     node->color = BLACK;
 }
-int rbt_delete(rbt_ordered_set *tree, rbt_item key)
+int rbt_delete(RBDictionary *tree, RBItem key)
 {
-    rbt_node *target;
-    rbt_node *removed;
-    rbt_node *child;
+    RBNode *target;
+    RBNode *removed;
+    RBNode *child;
     Color removed_color;
 
     if (tree == NULL) {
@@ -383,7 +383,7 @@ int rbt_delete(rbt_ordered_set *tree, rbt_item key)
     return 1;
 }
 
-static void rbt_print_node(rbt_ordered_set *tree, rbt_node *node, int depth, int black_count)
+static void rbt_print_node(RBDictionary *tree, RBNode *node, int depth, int black_count)
 {
     int i;
     int parent_key = -1;
@@ -423,7 +423,7 @@ static void rbt_print_node(rbt_ordered_set *tree, rbt_node *node, int depth, int
     rbt_print_node(tree, node->right, depth + 1, black_count);
 }
 
-void rbt_print(rbt_ordered_set *tree)
+void rbt_print(RBDictionary *tree)
 {
     if (tree == NULL) {
         return;

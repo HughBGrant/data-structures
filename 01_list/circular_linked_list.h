@@ -3,16 +3,16 @@
 
 #include <stddef.h>
 
-typedef int cll_item;
-typedef struct circular_linked_list cll_list;
+typedef int CLItem;
+typedef struct CircularLinkedList CLList;
 
-void cll_insert(cll_list *list, size_t index, cll_item value);
-cll_item cll_delete(cll_list *list, size_t index);
-cll_item cll_get(cll_list *list, size_t index);
-size_t cll_size(cll_list *list);
-void cll_print(cll_list *list);
+void cll_insert(CLList *list, size_t index, CLItem value);
+CLItem cll_delete(CLList *list, size_t index);
+CLItem cll_get(CLList *list, size_t index);
+size_t cll_size(CLList *list);
+void cll_print(CLList *list);
 
-cll_list *cll_create(void);
-void cll_destroy(cll_list *list);
+CLList *cll_create(void);
+void cll_destroy(CLList *list);
 
 #endif

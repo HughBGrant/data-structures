@@ -3,24 +3,24 @@
 #include <stdlib.h>
 
 typedef struct _sll_node {
-    sll_item data;
+    SLItem data;
     struct _sll_node *next;
 } sll_node;
 
-struct singly_linked_list {
+struct SinglyLinkedList {
     sll_node *head;
     size_t size;
 };
 
-static sll_node *sll_node_create(sll_item value);
+static sll_node *sll_node_create(SLItem value);
 
 static void sll_node_destroy(sll_node *node);
 
-static sll_node *sll_linear_search_move2front(sll_list *list, sll_item key);
+static sll_node *sll_linear_search_move2front(SLList *list, SLItem key);
 
-static sll_node *sll_linear_search_transpose(sll_list *list, sll_item key);
+static sll_node *sll_linear_search_transpose(SLList *list, SLItem key);
 
-static sll_node *sll_node_create(sll_item value)
+static sll_node *sll_node_create(SLItem value)
 {
     sll_node *new_node = malloc(sizeof(sll_node));
     if (new_node == NULL) {
@@ -36,7 +36,7 @@ static void sll_node_destroy(sll_node *node)
 {
     free(node);
 }
-static sll_node *sll_linear_search_move2front(sll_list *list, sll_item key)
+static sll_node *sll_linear_search_move2front(SLList *list, SLItem key)
 {
     if (list == NULL) {
         return NULL;
@@ -59,7 +59,7 @@ static sll_node *sll_linear_search_move2front(sll_list *list, sll_item key)
     }
     return current_node;
 }
-static sll_node *sll_linear_search_transpose(sll_list *list, sll_item key)
+static sll_node *sll_linear_search_transpose(SLList *list, SLItem key)
 {
     if (list == NULL) {
         return NULL;
@@ -88,9 +88,9 @@ static sll_node *sll_linear_search_transpose(sll_list *list, sll_item key)
     }
     return current_node;
 }
-sll_list *sll_create(void)
+SLList *sll_create(void)
 {
-    sll_list *list = malloc(sizeof(sll_list));
+    SLList *list = malloc(sizeof(SLList));
     if (list == NULL) {
         return NULL;
     }
@@ -100,7 +100,7 @@ sll_list *sll_create(void)
 
     return list;
 }
-void sll_destroy(sll_list *list)
+void sll_destroy(SLList *list)
 {
     if (list == NULL) {
         return;
@@ -111,7 +111,7 @@ void sll_destroy(sll_list *list)
     }
     free(list);
 }
-void sll_insert(sll_list *list, size_t index, sll_item value)
+void sll_insert(SLList *list, size_t index, SLItem value)
 {
     if (list == NULL || index > list->size) {
         return;
@@ -134,7 +134,7 @@ void sll_insert(sll_list *list, size_t index, sll_item value)
 
     list->size++;
 }
-sll_item sll_delete(sll_list *list, size_t index)
+SLItem sll_delete(SLList *list, size_t index)
 {
     if (list == NULL || index >= list->size) {
         return 0;
@@ -153,12 +153,12 @@ sll_item sll_delete(sll_list *list, size_t index)
         target_node = prev_node->next;
         prev_node->next = target_node->next;
     }
-    sll_item data = target_node->data;
+    SLItem data = target_node->data;
     sll_node_destroy(target_node);
     list->size--;
     return data;
 }
-sll_item sll_get(sll_list *list, size_t index)
+SLItem sll_get(SLList *list, size_t index)
 {
     if (list == NULL || index >= list->size) {
         return 0;
@@ -170,7 +170,7 @@ sll_item sll_get(sll_list *list, size_t index)
     }
     return target_node->data;
 }
-void sll_print(sll_list *list)
+void sll_print(SLList *list)
 {
     if (list == NULL || list->head == NULL) {
         return;
@@ -183,7 +183,7 @@ void sll_print(sll_list *list)
     }
     printf("\n");
 }
-size_t sll_size(sll_list *list)
+size_t sll_size(SLList *list)
 {
     return list ? list->size : 0;
 }

@@ -3,19 +3,19 @@
 #include <stdlib.h>
 
 typedef struct _cll_node {
-    cll_item data;
+    CLItem data;
     struct _cll_node *next;
 } cll_node;
 
-struct circular_linked_list {
+struct CircularLinkedList {
     cll_node *tail;
     size_t size;
 };
 
-static cll_node *cll_node_create(cll_item value);
+static cll_node *cll_node_create(CLItem value);
 static void cll_node_destroy(cll_node *node);
 
-static cll_node *cll_node_create(cll_item value)
+static cll_node *cll_node_create(CLItem value)
 {
     cll_node *new_node = malloc(sizeof(cll_node));
     if (new_node == NULL) {
@@ -31,9 +31,9 @@ static void cll_node_destroy(cll_node *node)
 {
     free(node);
 }
-cll_list *cll_create(void)
+CLList *cll_create(void)
 {
-    cll_list *list = malloc(sizeof(cll_list));
+    CLList *list = malloc(sizeof(CLList));
     if (list == NULL) {
         return NULL;
     }
@@ -43,7 +43,7 @@ cll_list *cll_create(void)
 
     return list;
 }
-void cll_destroy(cll_list *list)
+void cll_destroy(CLList *list)
 {
     if (list == NULL) {
         return;
@@ -54,7 +54,7 @@ void cll_destroy(cll_list *list)
     }
     free(list);
 }
-void cll_insert(cll_list *list, size_t index, cll_item value)
+void cll_insert(CLList *list, size_t index, CLItem value)
 {
     if (list == NULL || index > list->size) {
         return;
@@ -81,7 +81,7 @@ void cll_insert(cll_list *list, size_t index, cll_item value)
     }
     list->size++;
 }
-cll_item cll_delete(cll_list *list, size_t index)
+CLItem cll_delete(CLList *list, size_t index)
 {
     if (list == NULL || index >= list->size) {
         return 0;
@@ -102,12 +102,12 @@ cll_item cll_delete(cll_list *list, size_t index)
             list->tail = prev_node;
         }
     }
-    cll_item data = target_node->data;
+    CLItem data = target_node->data;
     cll_node_destroy(target_node);
     list->size--;
     return data;
 }
-cll_item cll_get(cll_list *list, size_t index)
+CLItem cll_get(CLList *list, size_t index)
 {
     if (list == NULL || index >= list->size) {
         return 0;
@@ -123,7 +123,7 @@ cll_item cll_get(cll_list *list, size_t index)
     }
     return target_node->data;
 }
-void cll_print(cll_list *list)
+void cll_print(CLList *list)
 {
     if (list == NULL || list->tail == NULL) {
         return;
@@ -137,7 +137,7 @@ void cll_print(cll_list *list)
 
     printf("head\n");
 }
-size_t cll_size(cll_list *list)
+size_t cll_size(CLList *list)
 {
     return list ? list->size : 0;
 }

@@ -4,9 +4,9 @@
 
 void abt_test(void)
 {
-    abt_binary_tree *bt = abt_create();
+    ABinaryTree *bt = abt_create();
 
-    abt_item values[] = {10, 20, 30, 40, 50, 60, 70};
+    AItem values[] = {10, 20, 30, 40, 50, 60, 70};
     for (int i = 0; i < 7; i++) {
         abt_insert(bt, values[i]);
     }
@@ -25,14 +25,14 @@ void abt_test(void)
 
 void lbt_test(void)
 {
-    lbt_node *root = lbt_node_create(1);
+    LNode *root = lbt_node_create(1);
 
-    lbt_node *B = lbt_set_left(root, 2);
-    lbt_node *C = lbt_set_left(B, 3);
-    lbt_node *D = lbt_set_right(B, 4);
-    lbt_node *E = lbt_set_right(root, 5);
-    lbt_node *F = lbt_set_left(E, 6);
-    lbt_node *G = lbt_set_right(E, 7);
+    LNode *B = lbt_set_left(root, 2);
+    LNode *C = lbt_set_left(B, 3);
+    LNode *D = lbt_set_right(B, 4);
+    LNode *E = lbt_set_right(root, 5);
+    LNode *F = lbt_set_left(E, 6);
+    LNode *G = lbt_set_right(E, 7);
 
     // 트리 출력
     printf("Preorder ...\n");

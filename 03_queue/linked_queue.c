@@ -3,20 +3,20 @@
 #include <stdlib.h>
 
 typedef struct _lq_node {
-    lq_item data;
+    LItem data;
     struct _lq_node *next;
 } lq_node;
 
-struct linked_queue {
+struct LinkedQueue {
     lq_node *rear;
     lq_node *front;
 };
 
-static lq_node *lq_node_create(lq_item value);
+static lq_node *lq_node_create(LItem value);
 
 static void lq_node_destroy(lq_node *node);
 
-static lq_node *lq_node_create(lq_item value)
+static lq_node *lq_node_create(LItem value)
 {
     lq_node *new_node = malloc(sizeof(lq_node));
     if (new_node == NULL) {
@@ -32,9 +32,9 @@ static void lq_node_destroy(lq_node *node)
 {
     free(node);
 }
-lq_queue *lq_create(void)
+LQueue *lq_create(void)
 {
-    lq_queue *queue = malloc(sizeof(lq_queue));
+    LQueue *queue = malloc(sizeof(LQueue));
     if (queue == NULL) {
         return NULL;
     }
@@ -43,7 +43,7 @@ lq_queue *lq_create(void)
 
     return queue;
 }
-void lq_destroy(lq_queue *queue)
+void lq_destroy(LQueue *queue)
 {
     if (queue == NULL) {
         return;
@@ -53,7 +53,7 @@ void lq_destroy(lq_queue *queue)
     }
     free(queue);
 }
-void lq_enqueue(lq_queue *queue, lq_item value)
+void lq_enqueue(LQueue *queue, LItem value)
 {
     if (queue == NULL) {
         return;
@@ -69,7 +69,7 @@ void lq_enqueue(lq_queue *queue, lq_item value)
     }
     queue->rear = new_rear;
 }
-lq_item lq_dequeue(lq_queue *queue)
+LItem lq_dequeue(LQueue *queue)
 {
     if (lq_is_empty(queue)) {
         return 0;
@@ -80,18 +80,18 @@ lq_item lq_dequeue(lq_queue *queue)
     if (queue->front == NULL) {
         queue->rear = NULL;
     }
-    lq_item data = target_node->data;
+    LItem data = target_node->data;
     lq_node_destroy(target_node);
     return data;
 }
-lq_item lq_peek(lq_queue *queue)
+LItem lq_peek(LQueue *queue)
 {
     if (lq_is_empty(queue)) {
         return 0;
     }
     return queue->front->data;
 }
-size_t lq_size(lq_queue *queue)
+size_t lq_size(LQueue *queue)
 {
     if (queue == NULL) {
         return 0;
@@ -106,7 +106,7 @@ size_t lq_size(lq_queue *queue)
 
     return size;
 }
-bool lq_is_empty(lq_queue *queue)
+bool lq_is_empty(LQueue *queue)
 {
     return queue == NULL || queue->front == NULL;
 }

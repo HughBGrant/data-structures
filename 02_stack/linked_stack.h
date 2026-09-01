@@ -4,16 +4,16 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-typedef int ls_item;
-typedef struct linked_stack ls_stack;
+typedef int LItem;
+typedef struct LinkedStack LStack;
 
-void ls_push(ls_stack *stack, ls_item value);
-ls_item ls_pop(ls_stack *stack);
-ls_item ls_top(ls_stack *stack);
-size_t ls_size(ls_stack *stack);
-bool ls_is_empty(ls_stack *stack);
+void ls_push(LStack *stack, LItem value);
+LItem ls_pop(LStack *stack);
+LItem ls_top(LStack *stack);
+size_t ls_size(LStack *stack);
+bool ls_is_empty(LStack *stack);
 
-ls_stack *ls_create(void);
-void ls_destroy(ls_stack *stack);
+LStack *ls_create(void);
+void ls_destroy(LStack *stack);
 
 #endif

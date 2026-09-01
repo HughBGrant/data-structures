@@ -5,7 +5,7 @@
 
 void as_test(void)
 {
-    as_stack *stack = as_create();
+    AStack *stack = as_create();
 
     as_push(stack, 3);
     as_push(stack, 37);
@@ -28,7 +28,7 @@ void as_test(void)
 
 void ls_test(void)
 {
-    ls_stack *stack = ls_create();
+    LStack *stack = ls_create();
 
     ls_push(stack, 10);
     ls_push(stack, 20);

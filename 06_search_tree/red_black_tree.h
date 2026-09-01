@@ -6,15 +6,15 @@ typedef enum {
     BLACK
 } Color;
 
-typedef int rbt_item;
-typedef struct rbt_node rbt_node;
-typedef struct rbt_tree rbt_ordered_set;
+typedef int RBItem;
+typedef struct RBNode RBNode;
+typedef struct RBTree RBDictionary;
 
-rbt_ordered_set *rbt_create(void);
-void rbt_destroy(rbt_ordered_set *tree);
-void rbt_insert(rbt_ordered_set *tree, rbt_item key);
-rbt_node *rbt_search(rbt_ordered_set *tree, rbt_item key);
-int rbt_delete(rbt_ordered_set *tree, rbt_item key);
-void rbt_print(rbt_ordered_set *tree);
+RBDictionary *rbt_create(void);
+void rbt_destroy(RBDictionary *tree);
+void rbt_insert(RBDictionary *tree, RBItem key);
+RBNode *rbt_search(RBDictionary *tree, RBItem key);
+int rbt_delete(RBDictionary *tree, RBItem key);
+void rbt_print(RBDictionary *tree);
 
 #endif
