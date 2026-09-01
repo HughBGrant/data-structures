@@ -37,9 +37,9 @@ void avlt_test(void)
 }
 void rbt_test(void)
 {
-    RBTNode *Nil;
-    RBTNode *Tree = NULL;
-    RBTNode *Node = NULL;
+    rbt_node *Nil;
+    rbt_node *Tree = NULL;
+    rbt_node *Node = NULL;
 
     Nil = RBT_CreateNode(0);
     Nil->Color = BLACK;
@@ -97,7 +97,7 @@ void rbt_test(void)
                 printf("Not found node:%d\n", param);
             else
                 printf("Found Node: %d(Color:%s)\n",
-                       Node->Data, (Node->Color == RED) ? "RED" : "BLACK");
+                       Node->data, (Node->Color == RED) ? "RED" : "BLACK");
             break;
         }
 
