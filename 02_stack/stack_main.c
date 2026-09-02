@@ -3,50 +3,50 @@
 #include "linked_stack.h"
 #include <stdio.h>
 
-void as_test(void)
+void a_test(void)
 {
-    AStack *stack = as_create();
+    AStack *stack = a_create();
 
-    as_push(stack, 3);
-    as_push(stack, 37);
-    as_push(stack, 11);
-    as_push(stack, 12);
+    a_push(stack, 3);
+    a_push(stack, 37);
+    a_push(stack, 11);
+    a_push(stack, 12);
 
     printf(
         "size: %zu, Top: %d\n",
-        as_size(stack),
-        as_top(stack));
+        a_size(stack),
+        a_top(stack));
 
-    while (as_is_empty(stack) == false) {
-        printf("Popped: %d\n", as_pop(stack));
+    while (a_is_empty(stack) == false) {
+        printf("Popped: %d\n", a_pop(stack));
     }
 
     printf("stack Is Empty.\n");
 
-    as_destroy(stack);
+    a_destroy(stack);
 }
 
-void ls_test(void)
+void l_test(void)
 {
-    LStack *stack = ls_create();
+    LStack *stack = l_create();
 
-    ls_push(stack, 10);
-    ls_push(stack, 20);
-    ls_push(stack, 30);
-    ls_push(stack, 40);
+    l_push(stack, 10);
+    l_push(stack, 20);
+    l_push(stack, 30);
+    l_push(stack, 40);
 
     printf(
         "size: %zu, Top: %d\n\n",
-        ls_size(stack),
-        ls_top(stack));
+        l_size(stack),
+        l_top(stack));
 
-    while (ls_is_empty(stack) == false) {
-        printf("Popped: %d\n", ls_pop(stack));
+    while (l_is_empty(stack) == false) {
+        printf("Popped: %d\n", l_pop(stack));
     }
 
     printf("stack Is Empty.\n");
 
-    ls_destroy(stack);
+    l_destroy(stack);
 }
 
 int main(void)
@@ -55,11 +55,11 @@ int main(void)
 
     switch (stack_number) {
     case 0:
-        as_test();
+        a_test();
         break;
 
     case 1:
-        ls_test();
+        l_test();
         break;
     }
 

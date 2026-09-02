@@ -10,11 +10,11 @@ typedef int RBItem;
 typedef struct RBNode RBNode;
 typedef struct RedBlackTree RBDictionary;
 
-RBDictionary *rbt_create(void);
-void rbt_destroy(RBDictionary *st);
-void rbt_insert(RBDictionary *st, RBItem key);
-RBNode *rbt_search(RBDictionary *st, RBItem key);
-int rbt_delete(RBDictionary *st, RBItem key);
-void rbt_print(RBDictionary *st);
+RBDictionary *rb_create(void);
+void rb_destroy(RBDictionary *st);
+void rb_insert(RBDictionary *st, RBItem key);
+RBNode *rb_search(RBDictionary *st, RBItem key);
+int rb_delete(RBDictionary *st, RBItem key);
+void rb_print(RBDictionary *st);
 
 #endif

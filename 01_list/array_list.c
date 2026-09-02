@@ -9,9 +9,9 @@ struct ArrayList {
     size_t size;
 };
 
-static int al_binary_search(AList *list, AItem key);
+static int a_binary_search(AList *list, AItem key);
 
-static int al_binary_search(AList *list, AItem key)
+static int a_binary_search(AList *list, AItem key)
 {
     if (list == NULL) {
         return -1;
@@ -34,7 +34,7 @@ static int al_binary_search(AList *list, AItem key)
     }
     return -1;
 }
-AList *al_create(void)
+AList *a_create(void)
 {
     AList *list = malloc(sizeof(AList));
     if (list == NULL) {
@@ -52,7 +52,7 @@ AList *al_create(void)
 
     return list;
 }
-void al_destroy(AList *list)
+void a_destroy(AList *list)
 {
     if (list == NULL) {
         return;
@@ -61,7 +61,7 @@ void al_destroy(AList *list)
     free(list);
 }
 
-void al_insert(AList *list, size_t index, AItem data)
+void a_insert(AList *list, size_t index, AItem data)
 {
     if (list == NULL || index > list->size) {
         return;
@@ -84,7 +84,7 @@ void al_insert(AList *list, size_t index, AItem data)
     list->items[index] = data;
     list->size++;
 }
-AItem al_delete(AList *list, size_t index)
+AItem a_delete(AList *list, size_t index)
 {
     if (list == NULL || index >= list->size) {
         return 0;
@@ -96,14 +96,14 @@ AItem al_delete(AList *list, size_t index)
     list->size--;
     return data;
 }
-AItem al_get(AList *list, size_t index)
+AItem a_get(AList *list, size_t index)
 {
     if (list == NULL || index >= list->size) {
         return 0;
     }
     return list->items[index];
 }
-void al_print(AList *list)
+void a_print(AList *list)
 {
     if (list == NULL) {
         return;
@@ -113,7 +113,7 @@ void al_print(AList *list)
         printf("%d | ", list->items[index]);
     }
 }
-size_t al_size(AList *list)
+size_t a_size(AList *list)
 {
     return list ? list->size : 0;
 }

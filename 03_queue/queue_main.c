@@ -2,33 +2,33 @@
 #include "linked_queue.h"
 #include <stdio.h>
 
-void cq_test(void)
+void c_test(void)
 {
-    CQueue *queue = cq_create();
+    CQueue *queue = c_create();
 
     for (int i = 0; i < 16; i++) {
-        cq_enqueue(queue, i);
+        c_enqueue(queue, i);
     }
-    printf("size: %zu, Front: %d\n", cq_size(queue), cq_peek(queue));
+    printf("size: %zu, Front: %d\n", c_size(queue), c_peek(queue));
 
-    while (cq_is_empty(queue) == false) {
-        printf("Dequeue: %d\n", cq_dequeue(queue));
+    while (c_is_empty(queue) == false) {
+        printf("Dequeue: %d\n", c_dequeue(queue));
     }
-    cq_destroy(queue);
+    c_destroy(queue);
 }
-void lq_test(void)
+void l_test(void)
 {
-    LQueue *queue = lq_create();
+    LQueue *queue = l_create();
 
     for (int i = 0; i < 16; i++) {
-        lq_enqueue(queue, i);
+        l_enqueue(queue, i);
     }
-    printf("size: %zu, Front: %d\n", lq_size(queue), lq_peek(queue));
+    printf("size: %zu, Front: %d\n", l_size(queue), l_peek(queue));
 
-    while (lq_is_empty(queue) == false) {
-        printf("Dequeue: %d \n", lq_dequeue(queue));
+    while (l_is_empty(queue) == false) {
+        printf("Dequeue: %d \n", l_dequeue(queue));
     }
-    lq_destroy(queue);
+    l_destroy(queue);
 }
 int main(void)
 {
@@ -36,11 +36,11 @@ int main(void)
 
     switch (queue_number) {
     case 0:
-        cq_test();
+        c_test();
         break;
 
     case 1:
-        lq_test();
+        l_test();
         break;
     }
     return 0;

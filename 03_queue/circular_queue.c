@@ -10,7 +10,7 @@ struct CircularQueue {
     size_t size;
 };
 
-CQueue *cq_create(void)
+CQueue *c_create(void)
 {
     CQueue *queue = malloc(sizeof(CQueue));
     if (queue == NULL) {
@@ -30,7 +30,7 @@ CQueue *cq_create(void)
 
     return queue;
 }
-void cq_destroy(CQueue *queue)
+void c_destroy(CQueue *queue)
 {
     if (queue == NULL) {
         return;
@@ -38,7 +38,7 @@ void cq_destroy(CQueue *queue)
     free(queue->items);
     free(queue);
 }
-void cq_enqueue(CQueue *queue, CItem data)
+void c_enqueue(CQueue *queue, CItem data)
 {
     if (queue == NULL) {
         return;
@@ -62,9 +62,9 @@ void cq_enqueue(CQueue *queue, CItem data)
     queue->items[rear] = data;
     queue->size++;
 }
-CItem cq_dequeue(CQueue *queue)
+CItem c_dequeue(CQueue *queue)
 {
-    if (cq_is_empty(queue)) {
+    if (c_is_empty(queue)) {
         return 0;
     }
     CItem data = queue->items[queue->front];
@@ -72,18 +72,18 @@ CItem cq_dequeue(CQueue *queue)
     queue->size--;
     return data;
 }
-CItem cq_peek(CQueue *queue)
+CItem c_peek(CQueue *queue)
 {
-    if (cq_is_empty(queue)) {
+    if (c_is_empty(queue)) {
         return 0;
     }
     return queue->items[queue->front];
 }
-bool cq_is_empty(CQueue *queue)
+bool c_is_empty(CQueue *queue)
 {
     return queue == NULL || queue->size == 0;
 }
-size_t cq_size(CQueue *queue)
+size_t c_size(CQueue *queue)
 {
     return queue ? queue->size : 0;
 }

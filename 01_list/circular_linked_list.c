@@ -2,22 +2,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct _cll_node {
+typedef struct _cl_node {
     CLItem data;
-    struct _cll_node *next;
-} cll_node;
+    struct _cl_node *next;
+} cl_node;
 
 struct CircularLinkedList {
-    cll_node *tail;
+    cl_node *tail;
     size_t size;
 };
 
-static cll_node *cll_node_create(CLItem data);
-static void cll_node_destroy(cll_node *node);
+static cl_node *cl_node_create(CLItem data);
+static void cl_node_destroy(cl_node *node);
 
-static cll_node *cll_node_create(CLItem data)
+static cl_node *cl_node_create(CLItem data)
 {
-    cll_node *new_node = malloc(sizeof(cll_node));
+    cl_node *new_node = malloc(sizeof(cl_node));
     if (new_node == NULL) {
         return NULL;
     }
@@ -27,11 +27,11 @@ static cll_node *cll_node_create(CLItem data)
 
     return new_node;
 }
-static void cll_node_destroy(cll_node *node)
+static void cl_node_destroy(cl_node *node)
 {
     free(node);
 }
-CLList *cll_create(void)
+CLList *cl_create(void)
 {
     CLList *list = malloc(sizeof(CLList));
     if (list == NULL) {
@@ -43,23 +43,23 @@ CLList *cll_create(void)
 
     return list;
 }
-void cll_destroy(CLList *list)
+void cl_destroy(CLList *list)
 {
     if (list == NULL) {
         return;
     }
 
     while (list->tail) {
-        cll_delete(list, 0);
+        cl_delete(list, 0);
     }
     free(list);
 }
-void cll_insert(CLList *list, size_t index, CLItem data)
+void cl_insert(CLList *list, size_t index, CLItem data)
 {
     if (list == NULL || index > list->size) {
         return;
     }
-    cll_node *new_node = cll_node_create(data);
+    cl_node *new_node = cl_node_create(data);
     if (new_node == NULL) {
         return;
     }
@@ -67,7 +67,7 @@ void cll_insert(CLList *list, size_t index, CLItem data)
         new_node->next = new_node;
         list->tail = new_node;
     } else {
-        cll_node *prev_node = list->tail;
+        cl_node *prev_node = list->tail;
 
         for (size_t i = 0; i < index; i++) {
             prev_node = prev_node->next;
@@ -81,17 +81,17 @@ void cll_insert(CLList *list, size_t index, CLItem data)
     }
     list->size++;
 }
-CLItem cll_delete(CLList *list, size_t index)
+CLItem cl_delete(CLList *list, size_t index)
 {
     if (list == NULL || index >= list->size) {
         return 0;
     }
-    cll_node *prev_node = list->tail;
+    cl_node *prev_node = list->tail;
 
     for (size_t i = 0; i < index; i++) {
         prev_node = prev_node->next;
     }
-    cll_node *target_node = prev_node->next;
+    cl_node *target_node = prev_node->next;
 
     if (prev_node == target_node) {
         list->tail = NULL;
@@ -103,11 +103,11 @@ CLItem cll_delete(CLList *list, size_t index)
         }
     }
     CLItem data = target_node->data;
-    cll_node_destroy(target_node);
+    cl_node_destroy(target_node);
     list->size--;
     return data;
 }
-CLItem cll_get(CLList *list, size_t index)
+CLItem cl_get(CLList *list, size_t index)
 {
     if (list == NULL || index >= list->size) {
         return 0;
@@ -117,18 +117,18 @@ CLItem cll_get(CLList *list, size_t index)
         return list->tail->data;
     }
 
-    cll_node *target_node = list->tail->next;
+    cl_node *target_node = list->tail->next;
     for (size_t i = 0; i < index; i++) {
         target_node = target_node->next;
     }
     return target_node->data;
 }
-void cll_print(CLList *list)
+void cl_print(CLList *list)
 {
     if (list == NULL || list->tail == NULL) {
         return;
     }
-    cll_node *current_node = list->tail->next;
+    cl_node *current_node = list->tail->next;
 
     do {
         printf("%d -> ", current_node->data);
@@ -137,7 +137,7 @@ void cll_print(CLList *list)
 
     printf("head\n");
 }
-size_t cll_size(CLList *list)
+size_t cl_size(CLList *list)
 {
     return list ? list->size : 0;
 }

@@ -12,33 +12,33 @@ struct BinarySearchTree {
     BSNode *root;
 };
 
-static void bst_node_destroy(BSNode *node);
+static void bs_node_destroy(BSNode *node);
 
-static void bst_subtree_destroy(BSNode *subtree);
+static void bs_subtree_destroy(BSNode *subtree);
 
-static BSNode *bst_node_create(BSItem key);
+static BSNode *bs_node_create(BSItem key);
 
-static BSNode *bst_node_insert(BSNode *node, BSItem key);
+static BSNode *bs_node_insert(BSNode *node, BSItem key);
 
-static BSNode *bst_find_min(BSNode *node);
+static BSNode *bs_find_min(BSNode *node);
 
-static BSNode *bst_node_delete(BSNode *node, BSItem key);
+static BSNode *bs_node_delete(BSNode *node, BSItem key);
 
-static void bst_inorder(BSNode *node);
-static void bst_node_destroy(BSNode *node)
+static void bs_inorder(BSNode *node);
+static void bs_node_destroy(BSNode *node)
 {
     free(node);
 }
-static void bst_subtree_destroy(BSNode *subtree)
+static void bs_subtree_destroy(BSNode *subtree)
 {
     if (subtree == NULL) {
         return;
     }
-    bst_subtree_destroy(subtree->left);
-    bst_subtree_destroy(subtree->right);
-    bst_node_destroy(subtree);
+    bs_subtree_destroy(subtree->left);
+    bs_subtree_destroy(subtree->right);
+    bs_node_destroy(subtree);
 }
-static BSNode *bst_node_create(BSItem key)
+static BSNode *bs_node_create(BSItem key)
 {
     BSNode *new_node = malloc(sizeof(BSNode));
     if (new_node == NULL) {
@@ -51,19 +51,19 @@ static BSNode *bst_node_create(BSItem key)
 
     return new_node;
 }
-static BSNode *bst_node_insert(BSNode *node, BSItem key)
+static BSNode *bs_node_insert(BSNode *node, BSItem key)
 {
     if (node == NULL) {
-        return bst_node_create(key);
+        return bs_node_create(key);
     }
     if (key < node->key) {
-        node->left = bst_node_insert(node->left, key);
+        node->left = bs_node_insert(node->left, key);
     } else if (key > node->key) {
-        node->right = bst_node_insert(node->right, key);
+        node->right = bs_node_insert(node->right, key);
     }
     return node;
 }
-static BSNode *bst_find_min(BSNode *node)
+static BSNode *bs_find_min(BSNode *node)
 {
     if (node == NULL) {
         return NULL;
@@ -73,16 +73,16 @@ static BSNode *bst_find_min(BSNode *node)
     }
     return node;
 }
-static BSNode *bst_node_delete(BSNode *node, BSItem key)
+static BSNode *bs_node_delete(BSNode *node, BSItem key)
 {
     if (node == NULL) {
         return NULL;
     }
 
     if (key < node->key) {
-        node->left = bst_node_delete(node->left, key);
+        node->left = bs_node_delete(node->left, key);
     } else if (key > node->key) {
-        node->right = bst_node_delete(node->right, key);
+        node->right = bs_node_delete(node->right, key);
     } else {
         if (node->left == NULL || node->right == NULL) {
             BSNode *child = NULL;
@@ -92,26 +92,26 @@ static BSNode *bst_node_delete(BSNode *node, BSItem key)
             } else {
                 child = node->right;
             }
-            bst_node_destroy(node);
+            bs_node_destroy(node);
             return child;
         }
 
-        BSNode *successor = bst_find_min(node->right);
+        BSNode *successor = bs_find_min(node->right);
         node->key = successor->key;
-        node->right = bst_node_delete(node->right, successor->key);
+        node->right = bs_node_delete(node->right, successor->key);
     }
     return node;
 }
-static void bst_inorder(BSNode *node)
+static void bs_inorder(BSNode *node)
 {
     if (node == NULL) {
         return;
     }
-    bst_inorder(node->left);
+    bs_inorder(node->left);
     printf("%d ", node->key);
-    bst_inorder(node->right);
+    bs_inorder(node->right);
 }
-BSDictionary *bst_create(void)
+BSDictionary *bs_create(void)
 {
     BSDictionary *st = malloc(sizeof(BSDictionary));
     if (st == NULL) {
@@ -122,30 +122,30 @@ BSDictionary *bst_create(void)
 
     return st;
 }
-void bst_destroy(BSDictionary *st)
+void bs_destroy(BSDictionary *st)
 {
     if (st == NULL) {
         return;
     }
 
-    bst_subtree_destroy(st->root);
+    bs_subtree_destroy(st->root);
     free(st);
 }
-void bst_insert(BSDictionary *st, BSItem key)
+void bs_insert(BSDictionary *st, BSItem key)
 {
     if (st == NULL) {
         return;
     }
-    st->root = bst_node_insert(st->root, key);
+    st->root = bs_node_insert(st->root, key);
 }
-void bst_delete(BSDictionary *st, BSItem key)
+void bs_delete(BSDictionary *st, BSItem key)
 {
     if (st == NULL) {
         return;
     }
-    st->root = bst_node_delete(st->root, key);
+    st->root = bs_node_delete(st->root, key);
 }
-BSNode *bst_search(BSDictionary *st, BSItem key)
+BSNode *bs_search(BSDictionary *st, BSItem key)
 {
     if (st == NULL) {
         return NULL;
@@ -162,15 +162,15 @@ BSNode *bst_search(BSDictionary *st, BSItem key)
     }
     return NULL;
 }
-void bst_print(BSDictionary *st)
+void bs_print(BSDictionary *st)
 {
     if (st == NULL || st->root == NULL) {
         return;
     }
-    bst_inorder(st->root);
+    bs_inorder(st->root);
     printf("\n");
 }
-BSItem *bst_get(BSNode *node)
+BSItem *bs_get(BSNode *node)
 {
     if (node == NULL) {
         return NULL;

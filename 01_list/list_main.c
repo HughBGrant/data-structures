@@ -5,106 +5,106 @@
 #include "singly_linked_list.h"
 #include <stdio.h>
 
-void al_test(void)
+void a_test(void)
 {
-    AList *list = al_create();
+    AList *list = a_create();
 
     for (int i = 0; i < 5; i++) {
-        al_insert(list, al_size(list), i);
+        a_insert(list, a_size(list), i);
     }
-    al_insert(list, al_size(list), -1);
-    al_insert(list, al_size(list), -2);
-    al_print(list);
+    a_insert(list, a_size(list), -1);
+    a_insert(list, a_size(list), -2);
+    a_print(list);
 
     printf("\nInserting 3000 At [2]...\n\n");
-    al_insert(list, 2, 3000);
-    al_print(list);
+    a_insert(list, 2, 3000);
+    a_print(list);
 
     printf("\nRemoving Node at [2]...\n\n");
-    al_delete(list, 2);
-    al_print(list);
+    a_delete(list, 2);
+    a_print(list);
 
-    al_destroy(list);
+    a_destroy(list);
 }
-void sll_test(void)
+void sl_test(void)
 {
-    SLList *list = sll_create();
+    SLList *list = sl_create();
 
     for (int i = 5; i > 0; i--) {
-        sll_insert(list, sll_size(list), i);
+        sl_insert(list, sl_size(list), i);
     }
-    sll_insert(list, sll_size(list), -1);
-    sll_insert(list, sll_size(list), -2);
+    sl_insert(list, sl_size(list), -1);
+    sl_insert(list, sl_size(list), -2);
 
-    sll_print(list);
+    sl_print(list);
 
     printf("\nInserting 3000 At [2]...\n\n");
-    sll_insert(list, 2, 3000);
+    sl_insert(list, 2, 3000);
 
-    sll_print(list);
+    sl_print(list);
 
     printf("\nDestroying List...\n");
-    sll_destroy(list);
+    sl_destroy(list);
 }
-void dll_test(void)
+void dl_test(void)
 {
-    DLList *list = dll_create();
+    DLList *list = dl_create();
 
     for (int i = 5; i > 0; i--) {
-        dll_insert(list, dll_size(list), i);
+        dl_insert(list, dl_size(list), i);
     }
-    dll_insert(list, dll_size(list), -1);
-    dll_insert(list, dll_size(list), -2);
+    dl_insert(list, dl_size(list), -1);
+    dl_insert(list, dl_size(list), -2);
 
-    dll_print(list);
+    dl_print(list);
 
     printf("\nInserting 3000 At [2]...\n\n");
-    dll_insert(list, 2, 3000);
+    dl_insert(list, 2, 3000);
 
-    dll_print(list);
+    dl_print(list);
 
     printf("\nDestroying List...\n");
-    dll_destroy(list);
+    dl_destroy(list);
 }
-void cll_test(void)
+void cl_test(void)
 {
-    CLList *list = cll_create();
+    CLList *list = cl_create();
 
     for (int i = 5; i > 0; i--) {
-        cll_insert(list, cll_size(list), i);
+        cl_insert(list, cl_size(list), i);
     }
-    cll_insert(list, cll_size(list), -1);
-    cll_insert(list, cll_size(list), -2);
+    cl_insert(list, cl_size(list), -1);
+    cl_insert(list, cl_size(list), -2);
 
-    cll_print(list);
+    cl_print(list);
 
     printf("\nInserting 3000 At [2]...\n\n");
-    cll_insert(list, 2, 3000);
+    cl_insert(list, 2, 3000);
 
-    cll_print(list);
+    cl_print(list);
 
     printf("\nDestroying List...\n");
-    cll_destroy(list);
+    cl_destroy(list);
 }
-void cdll_test(void)
+void cdl_test(void)
 {
-    CDLList *list = cdll_create();
+    CDLList *list = cdl_create();
 
     for (int i = 5; i > 0; i--) {
-        cdll_insert(list, cdll_size(list), i);
+        cdl_insert(list, cdl_size(list), i);
     }
-    cdll_print(list);
+    cdl_print(list);
 
     printf("\nInserting 3000 At [3]...\n\n");
-    cdll_insert(list, 3, 3000);
+    cdl_insert(list, 3, 3000);
 
     printf("\nRemoving Node at [2]...\n\n");
-    cdll_delete(list, 2);
+    cdl_delete(list, 2);
 
-    cdll_print(list);
+    cdl_print(list);
 
     printf("\nDestroying List...\n");
-    cdll_destroy(list);
+    cdl_destroy(list);
 }
 int main(void)
 {
@@ -112,19 +112,19 @@ int main(void)
 
     switch (list_number) {
     case 0:
-        al_test();
+        a_test();
         break;
     case 1:
-        sll_test();
+        sl_test();
         break;
     case 2:
-        dll_test();
+        dl_test();
         break;
     case 3:
-        cll_test();
+        cl_test();
         break;
     case 4:
-        cdll_test();
+        cdl_test();
         break;
     }
     return 0;

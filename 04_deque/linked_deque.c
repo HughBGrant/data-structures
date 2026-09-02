@@ -2,24 +2,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct _ld_node {
+typedef struct _l_node {
     LItem data;
-    struct _ld_node *next;
-    struct _ld_node *prev;
-} ld_node;
+    struct _l_node *next;
+    struct _l_node *prev;
+} l_node;
 
 struct LinkedDeque {
-    ld_node *rear;
-    ld_node *front;
+    l_node *rear;
+    l_node *front;
 };
 
-static ld_node *ld_node_create(LItem data);
+static l_node *l_node_create(LItem data);
 
-static void ld_node_destroy(ld_node *node);
+static void l_node_destroy(l_node *node);
 
-static ld_node *ld_node_create(LItem data)
+static l_node *l_node_create(LItem data)
 {
-    ld_node *new_node = malloc(sizeof(ld_node));
+    l_node *new_node = malloc(sizeof(l_node));
     if (new_node == NULL) {
         return NULL;
     }
@@ -30,11 +30,11 @@ static ld_node *ld_node_create(LItem data)
 
     return new_node;
 }
-static void ld_node_destroy(ld_node *node)
+static void l_node_destroy(l_node *node)
 {
     free(node);
 }
-LDeque *ld_create(void)
+LDeque *l_create(void)
 {
     LDeque *deque = malloc(sizeof(LDeque));
     if (deque == NULL) {
@@ -46,22 +46,22 @@ LDeque *ld_create(void)
 
     return deque;
 }
-void ld_destroy(LDeque *deque)
+void l_destroy(LDeque *deque)
 {
     if (deque == NULL) {
         return;
     }
     while (deque->front) {
-        ld_pop_front(deque);
+        l_pop_front(deque);
     }
     free(deque);
 }
-void ld_push_front(LDeque *deque, LItem data)
+void l_push_front(LDeque *deque, LItem data)
 {
     if (deque == NULL) {
         return;
     }
-    ld_node *new_front = ld_node_create(data);
+    l_node *new_front = l_node_create(data);
     if (new_front == NULL) {
         return;
     }
@@ -73,12 +73,12 @@ void ld_push_front(LDeque *deque, LItem data)
     }
     deque->front = new_front;
 }
-void ld_push_back(LDeque *deque, LItem data)
+void l_push_back(LDeque *deque, LItem data)
 {
     if (deque == NULL) {
         return;
     }
-    ld_node *new_rear = ld_node_create(data);
+    l_node *new_rear = l_node_create(data);
     if (new_rear == NULL) {
         return;
     }
@@ -91,12 +91,12 @@ void ld_push_back(LDeque *deque, LItem data)
     }
     deque->rear = new_rear;
 }
-LItem ld_pop_front(LDeque *deque)
+LItem l_pop_front(LDeque *deque)
 {
-    if (ld_is_empty(deque)) {
+    if (l_is_empty(deque)) {
         return 0;
     }
-    ld_node *target_node = deque->front;
+    l_node *target_node = deque->front;
     deque->front = target_node->next;
 
     if (deque->front == NULL) {
@@ -105,15 +105,15 @@ LItem ld_pop_front(LDeque *deque)
         deque->front->prev = NULL;
     }
     LItem data = target_node->data;
-    ld_node_destroy(target_node);
+    l_node_destroy(target_node);
     return data;
 }
-LItem ld_pop_back(LDeque *deque)
+LItem l_pop_back(LDeque *deque)
 {
-    if (ld_is_empty(deque)) {
+    if (l_is_empty(deque)) {
         return 0;
     }
-    ld_node *target_node = deque->rear;
+    l_node *target_node = deque->rear;
     deque->rear = target_node->prev;
 
     if (deque->rear == NULL) {
@@ -122,30 +122,30 @@ LItem ld_pop_back(LDeque *deque)
         deque->rear->next = NULL;
     }
     LItem data = target_node->data;
-    ld_node_destroy(target_node);
+    l_node_destroy(target_node);
     return data;
 }
-LItem ld_front(LDeque *deque)
+LItem l_front(LDeque *deque)
 {
-    if (ld_is_empty(deque)) {
+    if (l_is_empty(deque)) {
         return 0;
     }
     return deque->front->data;
 }
-LItem ld_back(LDeque *deque)
+LItem l_back(LDeque *deque)
 {
-    if (ld_is_empty(deque)) {
+    if (l_is_empty(deque)) {
         return 0;
     }
     return deque->rear->data;
 }
-size_t ld_size(LDeque *deque)
+size_t l_size(LDeque *deque)
 {
     if (deque == NULL) {
         return 0;
     }
     size_t size = 0;
-    ld_node *current_node = deque->front;
+    l_node *current_node = deque->front;
 
     while (current_node) {
         size++;
@@ -153,7 +153,7 @@ size_t ld_size(LDeque *deque)
     }
     return size;
 }
-bool ld_is_empty(LDeque *deque)
+bool l_is_empty(LDeque *deque)
 {
     return deque == NULL || deque->front == NULL;
 }

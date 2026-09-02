@@ -7,13 +7,13 @@
 typedef int LItem;
 typedef struct LinkedStack LStack;
 
-void ls_push(LStack *stack, LItem data);
-LItem ls_pop(LStack *stack);
-LItem ls_top(LStack *stack);
-size_t ls_size(LStack *stack);
-bool ls_is_empty(LStack *stack);
+void l_push(LStack *stack, LItem data);
+LItem l_pop(LStack *stack);
+LItem l_top(LStack *stack);
+size_t l_size(LStack *stack);
+bool l_is_empty(LStack *stack);
 
-LStack *ls_create(void);
-void ls_destroy(LStack *stack);
+LStack *l_create(void);
+void l_destroy(LStack *stack);
 
 #endif

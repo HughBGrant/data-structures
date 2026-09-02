@@ -2,26 +2,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct _cdll_node {
+typedef struct _cdl_node {
     CDLItem data;
-    struct _cdll_node *next;
-    struct _cdll_node *prev;
-} cdll_node;
+    struct _cdl_node *next;
+    struct _cdl_node *prev;
+} cdl_node;
 
 struct CircularDoublyLinkedList {
-    cdll_node *sentinel;
+    cdl_node *sentinel;
     size_t size;
 };
 
-static cdll_node *cdll_node_create(CDLItem data);
+static cdl_node *cdl_node_create(CDLItem data);
 
-static void cdll_node_destroy(cdll_node *node);
+static void cdl_node_destroy(cdl_node *node);
 
-static cdll_node *cdll_node_get(CDLList *list, size_t index);
+static cdl_node *cdl_node_get(CDLList *list, size_t index);
 
-static cdll_node *cdll_node_create(CDLItem data)
+static cdl_node *cdl_node_create(CDLItem data)
 {
-    cdll_node *new_node = malloc(sizeof(cdll_node));
+    cdl_node *new_node = malloc(sizeof(cdl_node));
     if (new_node == NULL) {
         return NULL;
     }
@@ -31,11 +31,11 @@ static cdll_node *cdll_node_create(CDLItem data)
 
     return new_node;
 }
-static void cdll_node_destroy(cdll_node *node)
+static void cdl_node_destroy(cdl_node *node)
 {
     free(node);
 }
-static cdll_node *cdll_node_get(CDLList *list, size_t index)
+static cdl_node *cdl_node_get(CDLList *list, size_t index)
 {
     if (list == NULL || index > list->size) {
         return NULL;
@@ -44,7 +44,7 @@ static cdll_node *cdll_node_get(CDLList *list, size_t index)
         return list->sentinel; // 센티널 반환
     }
 
-    cdll_node *target_node = NULL;
+    cdl_node *target_node = NULL;
 
     if (index < list->size / 2) {
         target_node = list->sentinel->next;
@@ -61,13 +61,13 @@ static cdll_node *cdll_node_get(CDLList *list, size_t index)
     }
     return target_node;
 }
-CDLList *cdll_create(void)
+CDLList *cdl_create(void)
 {
     CDLList *list = malloc(sizeof(CDLList));
     if (list == NULL) {
         return NULL;
     }
-    list->sentinel = cdll_node_create(0);
+    list->sentinel = cdl_node_create(0);
     if (list->sentinel == NULL) {
         free(list);
         return NULL;
@@ -79,33 +79,33 @@ CDLList *cdll_create(void)
 
     return list;
 }
-void cdll_destroy(CDLList *list)
+void cdl_destroy(CDLList *list)
 {
     if (list == NULL) {
         return;
     }
     while (list->size > 0) {
-        cdll_delete(list, 0);
+        cdl_delete(list, 0);
     }
-    cdll_node_destroy(list->sentinel);
+    cdl_node_destroy(list->sentinel);
     free(list);
 }
-void cdll_insert(CDLList *list, size_t index, CDLItem data)
+void cdl_insert(CDLList *list, size_t index, CDLItem data)
 {
     if (list == NULL || index > list->size) {
         return;
     }
 
-    cdll_node *new_node = cdll_node_create(data);
+    cdl_node *new_node = cdl_node_create(data);
     if (new_node == NULL) {
         return;
     }
 
-    cdll_node *next_node = cdll_node_get(list, index);
+    cdl_node *next_node = cdl_node_get(list, index);
     if (next_node == NULL) {
         return;
     }
-    cdll_node *prev_node = next_node->prev;
+    cdl_node *prev_node = next_node->prev;
     prev_node->next = new_node;
     new_node->prev = prev_node;
 
@@ -114,39 +114,39 @@ void cdll_insert(CDLList *list, size_t index, CDLItem data)
 
     list->size++;
 }
-CDLItem cdll_delete(CDLList *list, size_t index)
+CDLItem cdl_delete(CDLList *list, size_t index)
 {
     if (list == NULL || index >= list->size) {
         return 0;
     }
-    cdll_node *target_node = cdll_node_get(list, index);
+    cdl_node *target_node = cdl_node_get(list, index);
     if (target_node == NULL) {
         return 0;
     }
-    cdll_node *prev_node = target_node->prev;
-    cdll_node *next_node = target_node->next;
+    cdl_node *prev_node = target_node->prev;
+    cdl_node *next_node = target_node->next;
 
     prev_node->next = next_node;
     next_node->prev = prev_node;
     CDLItem data = target_node->data;
-    cdll_node_destroy(target_node);
+    cdl_node_destroy(target_node);
 
     list->size--;
     return data;
 }
-CDLItem cdll_get(CDLList *list, size_t index)
+CDLItem cdl_get(CDLList *list, size_t index)
 {
     if (list == NULL || index >= list->size) {
         return 0;
     }
-    return cdll_node_get(list, index)->data;
+    return cdl_node_get(list, index)->data;
 }
-void cdll_print(CDLList *list)
+void cdl_print(CDLList *list)
 {
     if (list == NULL || list->sentinel == NULL) {
         return;
     }
-    cdll_node *current_node = list->sentinel->next;
+    cdl_node *current_node = list->sentinel->next;
 
     while (current_node != list->sentinel) {
         printf("<- %d ->", current_node->data);
@@ -155,7 +155,7 @@ void cdll_print(CDLList *list)
 
     printf("<- head\n");
 }
-size_t cdll_size(CDLList *list)
+size_t cdl_size(CDLList *list)
 {
     return list ? list->size : 0;
 }

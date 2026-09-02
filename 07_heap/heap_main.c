@@ -2,24 +2,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void bh_test(void)
+void b_test(void)
 {
-    BPriorityQueue *pq = bh_create();
+    BPriorityQueue *pq = b_create();
 
-    bh_insert(pq, 30);
-    bh_insert(pq, 10);
-    bh_insert(pq, 50);
-    bh_insert(pq, 20);
-    bh_insert(pq, 40);
+    b_insert(pq, 30);
+    b_insert(pq, 10);
+    b_insert(pq, 50);
+    b_insert(pq, 20);
+    b_insert(pq, 40);
 
     printf("deleting:\n");
 
-    while (bh_size(pq) > 0) {
-        BItem item = bh_extract(pq);
+    while (b_size(pq) > 0) {
+        BItem item = b_extract(pq);
         printf("%d\n", item.priority);
     }
 
-    bh_destroy(pq);
+    b_destroy(pq);
 }
 int main(void)
 {
@@ -27,7 +27,7 @@ int main(void)
 
     switch (pq_number) {
     case 0:
-        bh_test();
+        b_test();
         break;
     }
     return 0;

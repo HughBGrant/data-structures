@@ -9,7 +9,7 @@ struct ArrayBinaryTree {
     size_t size;
 };
 
-ABinaryTree *abt_create(void)
+ABinaryTree *a_create(void)
 {
     ABinaryTree *bt = malloc(sizeof(ABinaryTree));
     if (bt == NULL) {
@@ -27,7 +27,7 @@ ABinaryTree *abt_create(void)
 
     return bt;
 }
-void abt_destroy(ABinaryTree *bt)
+void a_destroy(ABinaryTree *bt)
 {
     if (bt == NULL) {
         return;
@@ -35,7 +35,7 @@ void abt_destroy(ABinaryTree *bt)
     free(bt->items);
     free(bt);
 }
-void abt_insert(ABinaryTree *bt, AItem data)
+void a_insert(ABinaryTree *bt, AItem data)
 {
     if (bt == NULL) {
         return;
@@ -48,18 +48,18 @@ void abt_insert(ABinaryTree *bt, AItem data)
     bt->items[bt->size] = data;
     bt->size++;
 }
-AItem *abt_get_parent(ABinaryTree *bt, size_t child_pos)
+AItem *a_get_parent(ABinaryTree *bt, size_t chil_pos)
 {
-    if (abt_is_empty(bt) || child_pos == 0 || child_pos >= bt->size) {
+    if (a_is_empty(bt) || chil_pos == 0 || chil_pos >= bt->size) {
         return NULL;
     }
-    size_t parent_pos = (child_pos - 1) / 2;
+    size_t parent_pos = (chil_pos - 1) / 2;
 
     return &bt->items[parent_pos];
 }
-AItem *abt_get_left(ABinaryTree *bt, size_t parent_pos)
+AItem *a_get_left(ABinaryTree *bt, size_t parent_pos)
 {
-    if (abt_is_empty(bt) || parent_pos >= bt->size) {
+    if (a_is_empty(bt) || parent_pos >= bt->size) {
         return NULL;
     }
     size_t left_pos = 2 * parent_pos + 1;
@@ -68,9 +68,9 @@ AItem *abt_get_left(ABinaryTree *bt, size_t parent_pos)
     }
     return &bt->items[left_pos];
 }
-AItem *abt_get_right(ABinaryTree *bt, size_t parent_pos)
+AItem *a_get_right(ABinaryTree *bt, size_t parent_pos)
 {
-    if (abt_is_empty(bt) || parent_pos >= bt->size) {
+    if (a_is_empty(bt) || parent_pos >= bt->size) {
         return NULL;
     }
 
@@ -80,7 +80,7 @@ AItem *abt_get_right(ABinaryTree *bt, size_t parent_pos)
     }
     return &bt->items[right_pos];
 }
-void abt_print(ABinaryTree *bt)
+void a_print(ABinaryTree *bt)
 {
     if (bt == NULL) {
         return;
@@ -89,11 +89,11 @@ void abt_print(ABinaryTree *bt)
         printf("index %zu : %d\n", i, bt->items[i]);
     }
 }
-bool abt_is_empty(ABinaryTree *bt)
+bool a_is_empty(ABinaryTree *bt)
 {
     return bt == NULL || bt->size == 0;
 }
-size_t abt_size(ABinaryTree *bt)
+size_t a_size(ABinaryTree *bt)
 {
     return bt ? bt->size : 0;
 }

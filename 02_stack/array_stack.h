@@ -7,13 +7,13 @@
 typedef int AItem;
 typedef struct ArrayStack AStack;
 
-void as_push(AStack *stack, AItem data);
-AItem as_pop(AStack *stack);
-AItem as_top(AStack *stack);
-bool as_is_empty(AStack *stack);
-size_t as_size(AStack *stack);
+void a_push(AStack *stack, AItem data);
+AItem a_pop(AStack *stack);
+AItem a_top(AStack *stack);
+bool a_is_empty(AStack *stack);
+size_t a_size(AStack *stack);
 
-AStack *as_create(void);
-void as_destroy(AStack *stack);
+AStack *a_create(void);
+void a_destroy(AStack *stack);
 
 #endif

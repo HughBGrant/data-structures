@@ -7,12 +7,12 @@ typedef int AVLItem;
 typedef struct AVLNode AVLNode;
 typedef struct AVLTree AVLDictionary;
 
-AVLDictionary *avlt_create(void);
-void avlt_destroy(AVLDictionary *os);
-void avlt_insert(AVLDictionary *os, AVLItem key);
-void avlt_delete(AVLDictionary *os, AVLItem key);
-AVLNode *avlt_search(AVLDictionary *os, AVLItem key);
-AVLItem *avlt_get(AVLNode *node);
-void avlt_print(AVLDictionary *os);
+AVLDictionary *avl_create(void);
+void avl_destroy(AVLDictionary *os);
+void avl_insert(AVLDictionary *os, AVLItem key);
+void avl_delete(AVLDictionary *os, AVLItem key);
+AVLNode *avl_search(AVLDictionary *os, AVLItem key);
+AVLItem *avl_get(AVLNode *node);
+void avl_print(AVLDictionary *os);
 
 #endif

@@ -10,7 +10,7 @@ struct CircularDeque {
     size_t size;
 };
 
-CDeque *cd_create(void)
+CDeque *c_create(void)
 {
     CDeque *deque = malloc(sizeof(CDeque));
     if (deque == NULL) {
@@ -30,7 +30,7 @@ CDeque *cd_create(void)
 
     return deque;
 }
-void cd_destroy(CDeque *deque)
+void c_destroy(CDeque *deque)
 {
     if (deque == NULL) {
         return;
@@ -38,13 +38,13 @@ void cd_destroy(CDeque *deque)
     free(deque->items);
     free(deque);
 }
-void cd_push_front(CDeque *deque, CItem data)
+void c_push_front(CDeque *deque, CItem data)
 {
     if (deque == NULL) {
         return;
     }
     if (deque->size == deque->capacity) {
-        cd_resize(deque);
+        c_resize(deque);
         if (deque->size == deque->capacity) {
             return;
         }
@@ -54,13 +54,13 @@ void cd_push_front(CDeque *deque, CItem data)
     deque->items[deque->front] = data;
     deque->size++;
 }
-void cd_push_back(CDeque *deque, CItem data)
+void c_push_back(CDeque *deque, CItem data)
 {
     if (deque == NULL) {
         return;
     }
     if (deque->size == deque->capacity) {
-        cd_resize(deque);
+        c_resize(deque);
         if (deque->size == deque->capacity) {
             return;
         }
@@ -69,7 +69,7 @@ void cd_push_back(CDeque *deque, CItem data)
     deque->items[back] = data;
     deque->size++;
 }
-void cd_resize(CDeque *deque)
+void c_resize(CDeque *deque)
 {
     size_t new_capacity = deque->capacity * 2;
     CItem *new_items = malloc(sizeof(CItem) * new_capacity);
@@ -85,9 +85,9 @@ void cd_resize(CDeque *deque)
     deque->capacity = new_capacity;
     deque->front = 0;
 }
-CItem cd_pop_front(CDeque *deque)
+CItem c_pop_front(CDeque *deque)
 {
-    if (cd_is_empty(deque)) {
+    if (c_is_empty(deque)) {
         return 0;
     }
     CItem data = deque->items[deque->front];
@@ -95,9 +95,9 @@ CItem cd_pop_front(CDeque *deque)
     deque->size--;
     return data;
 }
-CItem cd_pop_back(CDeque *deque)
+CItem c_pop_back(CDeque *deque)
 {
-    if (cd_is_empty(deque)) {
+    if (c_is_empty(deque)) {
         return 0;
     }
     size_t back = (deque->front + deque->size - 1) % deque->capacity;
@@ -105,26 +105,26 @@ CItem cd_pop_back(CDeque *deque)
     deque->size--;
     return data;
 }
-CItem cd_front(CDeque *deque)
+CItem c_front(CDeque *deque)
 {
-    if (cd_is_empty(deque)) {
+    if (c_is_empty(deque)) {
         return 0;
     }
     return deque->items[deque->front];
 }
-CItem cd_back(CDeque *deque)
+CItem c_back(CDeque *deque)
 {
-    if (cd_is_empty(deque)) {
+    if (c_is_empty(deque)) {
         return 0;
     }
     size_t back_index = (deque->front + deque->size - 1) % deque->capacity;
     return deque->items[back_index];
 }
-bool cd_is_empty(CDeque *deque)
+bool c_is_empty(CDeque *deque)
 {
     return deque == NULL || deque->size == 0;
 }
-size_t cd_size(CDeque *deque)
+size_t c_size(CDeque *deque)
 {
     return deque ? deque->size : 0;
 }

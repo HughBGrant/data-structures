@@ -7,13 +7,13 @@
 typedef int CItem;
 typedef struct CircularQueue CQueue;
 
-void cq_enqueue(CQueue *queue, CItem data);
-CItem cq_dequeue(CQueue *queue);
-CItem cq_peek(CQueue *queue);
-bool cq_is_empty(CQueue *queue);
-size_t cq_size(CQueue *queue);
+void c_enqueue(CQueue *queue, CItem data);
+CItem c_dequeue(CQueue *queue);
+CItem c_peek(CQueue *queue);
+bool c_is_empty(CQueue *queue);
+size_t c_size(CQueue *queue);
 
-CQueue *cq_create(void);
-void cq_destroy(CQueue *queue);
+CQueue *c_create(void);
+void c_destroy(CQueue *queue);
 
 #endif

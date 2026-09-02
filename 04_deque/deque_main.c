@@ -2,55 +2,55 @@
 #include "linked_deque.h"
 #include <stdio.h>
 
-void cd_test(void)
+void c_test(void)
 {
-    CDeque *deque = cd_create();
+    CDeque *deque = c_create();
 
     for (int i = 0; i < 8; i++) {
-        cd_push_front(deque, i);
+        c_push_front(deque, i);
     }
     printf("size: %zu, Front: %d\n",
-           cd_size(deque), cd_front(deque));
+           c_size(deque), c_front(deque));
 
     for (int i = 8; i < 16; i++) {
-        cd_push_back(deque, i);
+        c_push_back(deque, i);
     }
     printf("size: %zu, back: %d\n",
-           cd_size(deque), cd_back(deque));
+           c_size(deque), c_back(deque));
     for (size_t i = 0; i < 8; i++) {
-        printf("popped front: %d\n", cd_pop_front(deque));
+        printf("popped front: %d\n", c_pop_front(deque));
     }
     printf("size: %zu, back: %d\n",
-           cd_size(deque), cd_back(deque));
+           c_size(deque), c_back(deque));
     for (size_t i = 0; i < 8; i++) {
-        printf("popped back: %d\n", cd_pop_back(deque));
+        printf("popped back: %d\n", c_pop_back(deque));
     }
-    cd_destroy(deque);
+    c_destroy(deque);
 }
-void ld_test(void)
+void l_test(void)
 {
-    LDeque *deque = ld_create();
+    LDeque *deque = l_create();
 
     for (int i = 0; i < 8; i++) {
-        ld_push_front(deque, i);
+        l_push_front(deque, i);
     }
     printf("size: %zu, Front: %d\n",
-           ld_size(deque), ld_front(deque));
+           l_size(deque), l_front(deque));
 
     for (int i = 8; i < 16; i++) {
-        ld_push_back(deque, i);
+        l_push_back(deque, i);
     }
     printf("size: %zu, back: %d\n",
-           ld_size(deque), ld_back(deque));
+           l_size(deque), l_back(deque));
     for (size_t i = 0; i < 8; i++) {
-        printf("popped front: %d\n", ld_pop_front(deque));
+        printf("popped front: %d\n", l_pop_front(deque));
     }
     printf("size: %zu, back: %d\n",
-           ld_size(deque), ld_back(deque));
+           l_size(deque), l_back(deque));
     for (size_t i = 0; i < 8; i++) {
-        printf("popped back: %d\n", ld_pop_back(deque));
+        printf("popped back: %d\n", l_pop_back(deque));
     }
-    ld_destroy(deque);
+    l_destroy(deque);
 }
 int main(void)
 {
@@ -58,11 +58,11 @@ int main(void)
 
     switch (deque_number) {
     case 0:
-        cd_test();
+        c_test();
         break;
 
     case 1:
-        ld_test();
+        l_test();
         break;
     }
     return 0;

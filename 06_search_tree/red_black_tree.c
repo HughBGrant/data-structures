@@ -13,25 +13,25 @@ struct RedBlackTree {
     RBNode *root;
     RBNode *nil;
 };
-static void rbt_node_destroy(RBNode *node);
-static void rbt_subtree_destroy(RBDictionary *st, RBNode *node);
-static RBNode *rbt_node_search(RBDictionary *st, RBNode *node, RBItem key);
-static void rbt_transplant(RBDictionary *st, RBNode *old_node, RBNode *new_node);
-static void rbt_fix_delete(RBDictionary *st, RBNode *node);
-static void rbt_print_node(RBDictionary *st, RBNode *node, int depth, int black_count);
-static RBNode *rbt_node_search_min(RBDictionary *st, RBNode *node);
-static void rbt_node_insert(RBDictionary *st, RBNode *node);
-static void rbt_rotate_left(RBDictionary *st, RBNode *node);
-static void rbt_rotate_right(RBDictionary *st, RBNode *node);
-static void rbt_fix_insert(RBDictionary *st, RBNode *node);
+static void rb_node_destroy(RBNode *node);
+static void rb_subtree_destroy(RBDictionary *st, RBNode *node);
+static RBNode *rb_node_search(RBDictionary *st, RBNode *node, RBItem key);
+static void rb_transplant(RBDictionary *st, RBNode *ol_node, RBNode *new_node);
+static void rb_fix_delete(RBDictionary *st, RBNode *node);
+static void rb_print_node(RBDictionary *st, RBNode *node, int depth, int black_count);
+static RBNode *rb_node_search_min(RBDictionary *st, RBNode *node);
+static void rb_node_insert(RBDictionary *st, RBNode *node);
+static void rb_rotate_left(RBDictionary *st, RBNode *node);
+static void rb_rotate_right(RBDictionary *st, RBNode *node);
+static void rb_fix_insert(RBDictionary *st, RBNode *node);
 
-RBDictionary *rbt_create(void)
+RBDictionary *rb_create(void)
 {
     RBDictionary *st = malloc(sizeof(RBDictionary));
     if (st == NULL) {
         return NULL;
     }
-    st->nil = rbt_node_create(0);
+    st->nil = rb_node_create(0);
     if (st->nil == NULL) {
         free(st);
         return NULL;
@@ -44,17 +44,17 @@ RBDictionary *rbt_create(void)
 
     return st;
 }
-void rbt_destroy(RBDictionary *st)
+void rb_destroy(RBDictionary *st)
 {
     if (st == NULL) {
         return;
     }
 
-    rbt_subst_destroy(st, st->root);
-    rbt_node_destroy(st->nil);
+    rb_subs_destroy(st, st->root);
+    rb_node_destroy(st->nil);
     free(st);
 }
-static RBNode *rbt_node_create(RBItem key)
+static RBNode *rb_node_create(RBItem key)
 {
     RBNode *node = malloc(sizeof(RBNode));
     if (node == NULL) {
@@ -69,40 +69,85 @@ static RBNode *rbt_node_create(RBItem key)
 
     return node;
 }
-static void rbt_node_destroy(RBNode *node)
+static void rb_node_destroy(RBNode *node)
 {
     free(node);
 }
-static void rbt_subst_destroy(RBDictionary *st, RBNode *node)
+static void rb_subs_destroy(RBDictionary *st, RBNode *node)
 {
     if (node == st->nil) {
         return;
     }
-    rbt_subst_destroy(st, node->left);
-    rbt_subst_destroy(st, node->right);
-    rbt_node_destroy(node);
+    rb_subs_destroy(st, node->left);
+    rb_subs_destroy(st, node->right);
+    rb_node_destroy(node);
 }
-RBNode *rbt_search(RBDictionary *st, RBItem key)
+static void rb_rotate_left(RBDictionary *st, RBNode *node)
+{
+    RBNode *child = node->right;
+
+    node->right = child->left;
+
+    if (child->left != st->nil) {
+        child->left->parent = node;
+    }
+
+    child->parent = node->parent;
+
+    if (node->parent == st->nil) {
+        st->root = child;
+    } else if (node == node->parent->left) {
+        node->parent->left = child;
+    } else {
+        node->parent->right = child;
+    }
+
+    child->left = node;
+    node->parent = child;
+}
+
+static void rb_rotate_right(RBDictionary *st, RBNode *node)
+{
+    RBNode *child = node->left;
+
+    node->left = child->right;
+
+    if (child->right != st->nil) {
+        child->right->parent = node;
+    }
+
+    child->parent = node->parent;
+
+    if (node->parent == st->nil) {
+        st->root = child;
+    } else if (node == node->parent->left) {
+        node->parent->left = child;
+    } else {
+        node->parent->right = child;
+    }
+
+    child->right = node;
+    node->parent = child;
+}
+
+RBNode *rb_search(RBDictionary *st, RBItem key)
 {
     if (st == NULL) {
         return NULL;
     }
-    return rbt_node_search(st, st->root, key);
+    return rb_node_search(st, st->root, key);
 }
-static RBNode *rbt_node_search(
-    RBDictionary *st,
-    RBNode *node,
-    RBItem key)
+static RBNode *rb_node_search(RBDictionary *st, RBNode *node, RBItem key)
 {
     if (node == st->nil || node->key == key) {
         return node == st->nil ? NULL : node;
     }
     if (key < node->key) {
-        return rbt_node_search(st, node->left, key);
+        return rb_node_search(st, node->left, key);
     }
-    return rbt_node_search(st, node->right, key);
+    return rb_node_search(st, node->right, key);
 }
-static RBNode *rbt_node_search_min(RBDictionary *st, RBNode *node)
+static RBNode *rb_node_search_min(RBDictionary *st, RBNode *node)
 {
     if (node == st->nil) {
         return st->nil;
@@ -112,10 +157,9 @@ static RBNode *rbt_node_search_min(RBDictionary *st, RBNode *node)
         return node;
     }
 
-    return rbt_node_search_min(st, node->left);
+    return rb_node_search_min(st, node->left);
 }
-
-static void rbt_node_insert(RBDictionary *st, RBNode *node)
+static void rb_node_insert(RBDictionary *st, RBNode *node)
 {
     RBNode *parent = st->nil;
     RBNode *current = st->root;
@@ -144,56 +188,7 @@ static void rbt_node_insert(RBDictionary *st, RBNode *node)
     node->right = st->nil;
     node->color = RED;
 }
-
-static void rbt_rotate_left(RBDictionary *st, RBNode *node)
-{
-    RBNode *child = node->right;
-
-    node->right = child->left;
-
-    if (child->left != st->nil) {
-        child->left->parent = node;
-    }
-
-    child->parent = node->parent;
-
-    if (node->parent == st->nil) {
-        st->root = child;
-    } else if (node == node->parent->left) {
-        node->parent->left = child;
-    } else {
-        node->parent->right = child;
-    }
-
-    child->left = node;
-    node->parent = child;
-}
-
-static void rbt_rotate_right(RBDictionary *st, RBNode *node)
-{
-    RBNode *child = node->left;
-
-    node->left = child->right;
-
-    if (child->right != st->nil) {
-        child->right->parent = node;
-    }
-
-    child->parent = node->parent;
-
-    if (node->parent == st->nil) {
-        st->root = child;
-    } else if (node == node->parent->left) {
-        node->parent->left = child;
-    } else {
-        node->parent->right = child;
-    }
-
-    child->right = node;
-    node->parent = child;
-}
-
-static void rbt_fix_insert(RBDictionary *st, RBNode *node)
+static void rb_fix_insert(RBDictionary *st, RBNode *node)
 {
     while (node->parent->color == RED) {
         RBNode *parent = node->parent;
@@ -210,14 +205,14 @@ static void rbt_fix_insert(RBDictionary *st, RBNode *node)
             } else {
                 if (node == parent->right) {
                     node = parent;
-                    rbt_rotate_left(st, node);
+                    rb_rotate_left(st, node);
                     parent = node->parent;
                     grand = parent->parent;
                 }
 
                 parent->color = BLACK;
                 grand->color = RED;
-                rbt_rotate_right(st, grand);
+                rb_rotate_right(st, grand);
             }
         } else {
             RBNode *uncle = grand->left;
@@ -230,22 +225,21 @@ static void rbt_fix_insert(RBDictionary *st, RBNode *node)
             } else {
                 if (node == parent->left) {
                     node = parent;
-                    rbt_rotate_right(st, node);
+                    rb_rotate_right(st, node);
                     parent = node->parent;
                     grand = parent->parent;
                 }
 
                 parent->color = BLACK;
                 grand->color = RED;
-                rbt_rotate_left(st, grand);
+                rb_rotate_left(st, grand);
             }
         }
     }
 
     st->root->color = BLACK;
 }
-
-void rbt_insert(RBDictionary *st, RBItem key)
+void rb_insert(RBDictionary *st, RBItem key)
 {
     RBNode *node;
 
@@ -253,30 +247,28 @@ void rbt_insert(RBDictionary *st, RBItem key)
         return;
     }
 
-    node = rbt_node_create(key);
+    node = rb_node_create(key);
 
     if (node == NULL) {
         return;
     }
 
-    rbt_node_insert(st, node);
-    rbt_fix_insert(st, node);
+    rb_node_insert(st, node);
+    rb_fix_insert(st, node);
 }
-
-static void rbt_transplant(RBDictionary *st, RBNode *old_node, RBNode *new_node)
+static void rb_transplant(RBDictionary *st, RBNode *ol_node, RBNode *new_node)
 {
-    if (old_node->parent == st->nil) {
+    if (ol_node->parent == st->nil) {
         st->root = new_node;
-    } else if (old_node == old_node->parent->left) {
-        old_node->parent->left = new_node;
+    } else if (ol_node == ol_node->parent->left) {
+        ol_node->parent->left = new_node;
     } else {
-        old_node->parent->right = new_node;
+        ol_node->parent->right = new_node;
     }
 
-    new_node->parent = old_node->parent;
+    new_node->parent = ol_node->parent;
 }
-
-static void rbt_fix_delete(RBDictionary *st, RBNode *node)
+static void rb_fix_delete(RBDictionary *st, RBNode *node)
 {
     while (node != st->root && node->color == BLACK) {
         if (node == node->parent->left) {
@@ -285,7 +277,7 @@ static void rbt_fix_delete(RBDictionary *st, RBNode *node)
             if (sibling->color == RED) {
                 sibling->color = BLACK;
                 node->parent->color = RED;
-                rbt_rotate_left(st, node->parent);
+                rb_rotate_left(st, node->parent);
                 sibling = node->parent->right;
             }
 
@@ -297,14 +289,14 @@ static void rbt_fix_delete(RBDictionary *st, RBNode *node)
                 if (sibling->right->color == BLACK) {
                     sibling->left->color = BLACK;
                     sibling->color = RED;
-                    rbt_rotate_right(st, sibling);
+                    rb_rotate_right(st, sibling);
                     sibling = node->parent->right;
                 }
 
                 sibling->color = node->parent->color;
                 node->parent->color = BLACK;
                 sibling->right->color = BLACK;
-                rbt_rotate_left(st, node->parent);
+                rb_rotate_left(st, node->parent);
                 node = st->root;
             }
         } else {
@@ -313,7 +305,7 @@ static void rbt_fix_delete(RBDictionary *st, RBNode *node)
             if (sibling->color == RED) {
                 sibling->color = BLACK;
                 node->parent->color = RED;
-                rbt_rotate_right(st, node->parent);
+                rb_rotate_right(st, node->parent);
                 sibling = node->parent->left;
             }
 
@@ -325,21 +317,21 @@ static void rbt_fix_delete(RBDictionary *st, RBNode *node)
                 if (sibling->left->color == BLACK) {
                     sibling->right->color = BLACK;
                     sibling->color = RED;
-                    rbt_rotate_left(st, sibling);
+                    rb_rotate_left(st, sibling);
                     sibling = node->parent->left;
                 }
 
                 sibling->color = node->parent->color;
                 node->parent->color = BLACK;
                 sibling->left->color = BLACK;
-                rbt_rotate_right(st, node->parent);
+                rb_rotate_right(st, node->parent);
                 node = st->root;
             }
         }
     }
     node->color = BLACK;
 }
-int rbt_delete(RBDictionary *st, RBItem key)
+int rb_delete(RBDictionary *st, RBItem key)
 {
     RBNode *target;
     RBNode *removed;
@@ -350,7 +342,7 @@ int rbt_delete(RBDictionary *st, RBItem key)
         return 0;
     }
 
-    target = rbt_search(st, key);
+    target = rb_search(st, key);
 
     if (target == NULL) {
         return 0;
@@ -360,7 +352,7 @@ int rbt_delete(RBDictionary *st, RBItem key)
 
     if (target->left != st->nil &&
         target->right != st->nil) {
-        removed = rbt_node_search_min(st, target->right);
+        removed = rb_node_search_min(st, target->right);
         target->key = removed->key;
     }
 
@@ -372,18 +364,17 @@ int rbt_delete(RBDictionary *st, RBItem key)
         child = removed->right;
     }
 
-    rbt_transplant(st, removed, child);
+    rb_transplant(st, removed, child);
 
     if (removed_color == BLACK) {
-        rbt_fix_delete(st, child);
+        rb_fix_delete(st, child);
     }
 
-    rbt_node_destroy(removed);
+    rb_node_destroy(removed);
 
     return 1;
 }
-
-static void rbt_print_node(RBDictionary *st, RBNode *node, int depth, int black_count)
+static void rb_print_node(RBDictionary *st, RBNode *node, int depth, int black_count)
 {
     int i;
     int parent_key = -1;
@@ -418,16 +409,15 @@ static void rbt_print_node(RBDictionary *st, RBNode *node, int depth, int black_
 
     printf("\n");
 
-    rbt_print_node(st, node->left, depth + 1, black_count);
+    rb_print_node(st, node->left, depth + 1, black_count);
 
-    rbt_print_node(st, node->right, depth + 1, black_count);
+    rb_print_node(st, node->right, depth + 1, black_count);
 }
-
-void rbt_print(RBDictionary *st)
+void rb_print(RBDictionary *st)
 {
     if (st == NULL) {
         return;
     }
 
-    rbt_print_node(st, st->root, 0, 0);
+    rb_print_node(st, st->root, 0, 0);
 }

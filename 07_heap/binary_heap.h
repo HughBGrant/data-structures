@@ -9,12 +9,12 @@ struct BNode {
 typedef struct BNode BItem;
 typedef struct BinaryHeap BPriorityQueue;
 
-BPriorityQueue *bh_create(void);
-void bh_destroy(BPriorityQueue *heap);
-void bh_insert(BPriorityQueue *heap, int priority);
-BItem bh_extract(BPriorityQueue *heap);
-size_t bh_size(BPriorityQueue *heap);
+BPriorityQueue *b_create(void);
+void b_destroy(BPriorityQueue *heap);
+void b_insert(BPriorityQueue *heap, int priority);
+BItem b_extract(BPriorityQueue *heap);
+size_t b_size(BPriorityQueue *heap);
 
-void bh_heapify(BItem *arr, size_t size, size_t root);
+void b_heapify(BItem *arr, size_t size, size_t root);
 
 #endif

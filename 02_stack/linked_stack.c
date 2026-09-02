@@ -2,22 +2,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct _ls_node {
+typedef struct _l_node {
     LItem data;
-    struct _ls_node *next;
-} ls_node;
+    struct _l_node *next;
+} l_node;
 
 struct LinkedStack {
-    ls_node *top;
+    l_node *top;
 };
 
-static ls_node *ls_node_create(LItem data);
+static l_node *l_node_create(LItem data);
 
-static void ls_node_destroy(ls_node *node);
+static void l_node_destroy(l_node *node);
 
-static ls_node *ls_node_create(LItem data)
+static l_node *l_node_create(LItem data)
 {
-    ls_node *new_node = malloc(sizeof(ls_node));
+    l_node *new_node = malloc(sizeof(l_node));
 
     if (new_node == NULL) {
         return NULL;
@@ -28,11 +28,11 @@ static ls_node *ls_node_create(LItem data)
 
     return new_node;
 }
-static void ls_node_destroy(ls_node *node)
+static void l_node_destroy(l_node *node)
 {
     free(node);
 }
-LStack *ls_create(void)
+LStack *l_create(void)
 {
     LStack *stack = malloc(sizeof(LStack));
 
@@ -44,25 +44,25 @@ LStack *ls_create(void)
 
     return stack;
 }
-void ls_destroy(LStack *stack)
+void l_destroy(LStack *stack)
 {
     if (stack == NULL) {
         return;
     }
 
-    while (!ls_is_empty(stack)) {
-        ls_pop(stack);
+    while (!l_is_empty(stack)) {
+        l_pop(stack);
     }
 
     free(stack);
 }
-void ls_push(LStack *stack, LItem data)
+void l_push(LStack *stack, LItem data)
 {
     if (stack == NULL) {
         return;
     }
 
-    ls_node *new_top = ls_node_create(data);
+    l_node *new_top = l_node_create(data);
 
     if (new_top == NULL) {
         return;
@@ -72,36 +72,36 @@ void ls_push(LStack *stack, LItem data)
     stack->top = new_top;
 }
 
-LItem ls_pop(LStack *stack)
+LItem l_pop(LStack *stack)
 {
-    if (ls_is_empty(stack)) {
+    if (l_is_empty(stack)) {
         return 0;
     }
 
-    ls_node *target_node = stack->top;
+    l_node *target_node = stack->top;
     stack->top = target_node->next;
 
     LItem data = target_node->data;
-    ls_node_destroy(target_node);
+    l_node_destroy(target_node);
     return data;
 }
 
-LItem ls_top(LStack *stack)
+LItem l_top(LStack *stack)
 {
-    if (ls_is_empty(stack)) {
+    if (l_is_empty(stack)) {
         return 0;
     }
 
     return stack->top->data;
 }
-size_t ls_size(LStack *stack)
+size_t l_size(LStack *stack)
 {
     if (stack == NULL) {
         return 0;
     }
 
     size_t size = 0;
-    ls_node *current_node = stack->top;
+    l_node *current_node = stack->top;
 
     while (current_node != NULL) {
         size++;
@@ -110,7 +110,7 @@ size_t ls_size(LStack *stack)
 
     return size;
 }
-bool ls_is_empty(LStack *stack)
+bool l_is_empty(LStack *stack)
 {
     return stack == NULL || stack->top == NULL;
 }

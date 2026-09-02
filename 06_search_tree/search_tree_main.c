@@ -3,48 +3,51 @@
 #include "red_black_tree.h"
 #include <stdio.h>
 
-void bst_test(void)
+void bs_test(void)
 {
-    BSDictionary *os = bst_create();
+    BSDictionary *os = bs_create();
     BSItem datas[] = {10, 20, 30, 40, 50, 25};
 
-    for (int i = 0; i < 6; i++)
-        bst_insert(os, datas[i]);
+    for (int i = 0; i < 6; i++) {
+        bs_insert(os, datas[i]);
+    }
 
-    bst_print(os);
+    bs_print(os);
 
-    BSNode *node = bst_search(os, 40);
+    BSNode *node = bs_search(os, 40);
 
-    if (node != NULL)
-        printf("result: %d\n", *bst_get(node));
+    if (node != NULL) {
+        printf("result: %d\n", *bs_get(node));
+    }
 
     printf("after removing 30: ");
-    bst_delete(os, 30);
-    bst_print(os);
+    bs_delete(os, 30);
+    bs_print(os);
 
-    bst_destroy(os);
+    bs_destroy(os);
 }
 
-void avlt_test(void)
+void avl_test(void)
 {
-    AVLDictionary *os = avlt_create();
+    AVLDictionary *os = avl_create();
     AVLItem datas[] = {10, 20, 30, 40, 50, 25};
 
-    for (int i = 0; i < 6; i++)
-        avlt_insert(os, datas[i]);
+    for (int i = 0; i < 6; i++) {
+        avl_insert(os, datas[i]);
+    }
 
-    avlt_print(os);
+    avl_print(os);
 
     printf("after removing 30\n");
-    avlt_delete(os, 30);
-    avlt_print(os);
+    avl_delete(os, 30);
+    avl_print(os);
 
-    avlt_destroy(os);
+    avl_destroy(os);
 }
 
-void rbt_test(void)
+void rb_test(void)
 {
-    RBDictionary *os = rbt_create();
+    RBDictionary *os = rb_create();
 
     if (os == NULL)
         return;
@@ -68,13 +71,14 @@ void rbt_test(void)
         }
 
         if (cmd == 4) {
-            rbt_print(os);
+            rb_print(os);
             printf("\n");
             continue;
         }
 
-        if (cmd == 5)
+        if (cmd == 5) {
             break;
+        }
 
         printf("Enter parameter (1~200) :\n");
 
@@ -88,24 +92,26 @@ void rbt_test(void)
 
         switch (cmd) {
         case 1:
-            rbt_insert(os, param);
+            rb_insert(os, param);
             break;
 
         case 2:
-            if (!rbt_delete(os, param))
+            if (!rb_delete(os, param)) {
                 printf("Not found node to delete:%d\n", param);
+            }
             break;
 
         case 3:
-            if (rbt_search(os, param) == NULL)
+            if (rb_search(os, param) == NULL) {
                 printf("Not found node:%d\n", param);
+            }
             break;
         }
 
         printf("\n");
     }
 
-    rbt_destroy(os);
+    rb_destroy(os);
 }
 
 int main(void)
@@ -114,15 +120,15 @@ int main(void)
 
     switch (os_number) {
     case 0:
-        bst_test();
+        bs_test();
         break;
 
     case 1:
-        avlt_test();
+        avl_test();
         break;
 
     case 2:
-        rbt_test();
+        rb_test();
         break;
     }
 

@@ -11,22 +11,22 @@ struct AVLNode {
 struct AVLTree {
     AVLNode *root;
 };
-static AVLNode *avlt_node_create(AVLItem key);
-static void avlt_node_destroy(AVLNode *node);
-static void avlt_subtree_destroy(AVLNode *subtree);
-static size_t avlt_height(AVLNode *node);
-static size_t avlt_max(size_t a, size_t b);
-static void avlt_update_height(AVLNode *node);
-static AVLNode *avlt_rotate_left(AVLNode *x);
-static AVLNode *avlt_rotate_right(AVLNode *y);
-static int avlt_balancefactor(AVLNode *node);
-static AVLNode *avlt_rebalance(AVLNode *node);
-static AVLNode *avlt_node_insert(AVLNode *node, AVLItem key);
-static AVLNode *avlt_find_min(AVLNode *node);
-static AVLNode *avlt_node_delete(AVLNode *node, AVLItem key);
-static void avlt_inorder(AVLNode *node);
+static AVLNode *avl_node_create(AVLItem key);
+static void avl_node_destroy(AVLNode *node);
+static void avl_subtree_destroy(AVLNode *subtree);
+static size_t avl_height(AVLNode *node);
+static size_t avl_max(size_t a, size_t b);
+static void avl_update_height(AVLNode *node);
+static AVLNode *avl_rotate_left(AVLNode *x);
+static AVLNode *avl_rotate_right(AVLNode *y);
+static int avl_balancefactor(AVLNode *node);
+static AVLNode *avl_rebalance(AVLNode *node);
+static AVLNode *avl_node_insert(AVLNode *node, AVLItem key);
+static AVLNode *avl_find_min(AVLNode *node);
+static AVLNode *avl_node_delete(AVLNode *node, AVLItem key);
+static void avl_inorder(AVLNode *node);
 
-AVLDictionary *avlt_create(void)
+AVLDictionary *avl_create(void)
 {
     AVLDictionary *st = malloc(sizeof(AVLDictionary));
     if (st == NULL) {
@@ -37,16 +37,16 @@ AVLDictionary *avlt_create(void)
 
     return st;
 }
-void avlt_destroy(AVLDictionary *st)
+void avl_destroy(AVLDictionary *st)
 {
     if (st == NULL) {
         return;
     }
 
-    avlt_subtree_destroy(st->root);
+    avl_subtree_destroy(st->root);
     free(st);
 }
-static AVLNode *avlt_node_create(AVLItem key)
+static AVLNode *avl_node_create(AVLItem key)
 {
     AVLNode *new_node = malloc(sizeof(AVLNode));
     if (new_node == NULL) {
@@ -60,37 +60,37 @@ static AVLNode *avlt_node_create(AVLItem key)
 
     return new_node;
 }
-static void avlt_node_destroy(AVLNode *node)
+static void avl_node_destroy(AVLNode *node)
 {
     free(node);
 }
-static void avlt_subtree_destroy(AVLNode *subtree)
+static void avl_subtree_destroy(AVLNode *subtree)
 {
     if (subtree == NULL) {
         return;
     }
-    avlt_subtree_destroy(subtree->left);
-    avlt_subtree_destroy(subtree->right);
-    avlt_node_destroy(subtree);
+    avl_subtree_destroy(subtree->left);
+    avl_subtree_destroy(subtree->right);
+    avl_node_destroy(subtree);
 }
-static size_t avlt_height(AVLNode *node)
+static size_t avl_height(AVLNode *node)
 {
     return node ? node->height : 0;
 }
-static size_t avlt_max(size_t a, size_t b)
+static size_t avl_max(size_t a, size_t b)
 {
     return a > b ? a : b;
 }
-static void avlt_update_height(AVLNode *node)
+static void avl_update_height(AVLNode *node)
 {
     if (node == NULL) {
         return;
     }
-    size_t left_height = avlt_height(node->left);
-    size_t right_height = avlt_height(node->right);
-    node->height = 1 + avlt_max(left_height, right_height);
+    size_t left_height = avl_height(node->left);
+    size_t right_height = avl_height(node->right);
+    node->height = 1 + avl_max(left_height, right_height);
 }
-static AVLNode *avlt_rotate_left(AVLNode *x)
+static AVLNode *avl_rotate_left(AVLNode *x)
 {
     if (x == NULL) {
         return NULL;
@@ -98,11 +98,11 @@ static AVLNode *avlt_rotate_left(AVLNode *x)
     AVLNode *y = x->right;
     x->right = y->left;
     y->left = x;
-    avlt_update_height(x);
-    avlt_update_height(y);
+    avl_update_height(x);
+    avl_update_height(y);
     return y;
 }
-static AVLNode *avlt_rotate_right(AVLNode *y)
+static AVLNode *avl_rotate_right(AVLNode *y)
 {
     if (y == NULL) {
         return NULL;
@@ -110,53 +110,53 @@ static AVLNode *avlt_rotate_right(AVLNode *y)
     AVLNode *x = y->left;
     y->left = x->right;
     x->right = y;
-    avlt_update_height(y);
-    avlt_update_height(x);
+    avl_update_height(y);
+    avl_update_height(x);
     return x;
 }
-static int avlt_balancefactor(AVLNode *node)
+static int avl_balancefactor(AVLNode *node)
 {
-    return (int)avlt_height(node->left) - (int)avlt_height(node->right);
+    return (int)avl_height(node->left) - (int)avl_height(node->right);
 }
-static AVLNode *avlt_rebalance(AVLNode *node)
+static AVLNode *avl_rebalance(AVLNode *node)
 {
     if (node == NULL) {
         return NULL;
     }
-    avlt_update_height(node);
-    int balance = avlt_balancefactor(node);
+    avl_update_height(node);
+    int balance = avl_balancefactor(node);
 
     if (balance > 1) {
-        if (avlt_balancefactor(node->left) < 0) {
-            node->left = avlt_rotate_left(node->left);
+        if (avl_balancefactor(node->left) < 0) {
+            node->left = avl_rotate_left(node->left);
         }
 
-        return avlt_rotate_right(node);
+        return avl_rotate_right(node);
     }
     if (balance < -1) {
 
-        if (avlt_balancefactor(node->right) > 0) {
-            node->right = avlt_rotate_right(node->right);
+        if (avl_balancefactor(node->right) > 0) {
+            node->right = avl_rotate_right(node->right);
         }
-        return avlt_rotate_left(node);
+        return avl_rotate_left(node);
     }
     return node;
 }
-static AVLNode *avlt_node_insert(AVLNode *node, AVLItem key)
+static AVLNode *avl_node_insert(AVLNode *node, AVLItem key)
 {
     if (node == NULL) {
-        return avlt_node_create(key);
+        return avl_node_create(key);
     }
     if (key < node->key) {
-        node->left = avlt_node_insert(node->left, key);
+        node->left = avl_node_insert(node->left, key);
     } else if (key > node->key) {
-        node->right = avlt_node_insert(node->right, key);
+        node->right = avl_node_insert(node->right, key);
     } else {
         return node;
     }
-    return avlt_rebalance(node);
+    return avl_rebalance(node);
 }
-static AVLNode *avlt_find_min(AVLNode *node)
+static AVLNode *avl_find_min(AVLNode *node)
 {
     if (node == NULL) {
         return NULL;
@@ -166,16 +166,16 @@ static AVLNode *avlt_find_min(AVLNode *node)
     }
     return node;
 }
-static AVLNode *avlt_node_delete(AVLNode *node, AVLItem key)
+static AVLNode *avl_node_delete(AVLNode *node, AVLItem key)
 {
     if (node == NULL) {
         return NULL;
     }
 
     if (key < node->key) {
-        node->left = avlt_node_delete(node->left, key);
+        node->left = avl_node_delete(node->left, key);
     } else if (key > node->key) {
-        node->right = avlt_node_delete(node->right, key);
+        node->right = avl_node_delete(node->right, key);
     } else {
         if (node->left == NULL || node->right == NULL) {
             AVLNode *child = NULL;
@@ -184,40 +184,40 @@ static AVLNode *avlt_node_delete(AVLNode *node, AVLItem key)
             } else {
                 child = node->right;
             }
-            avlt_node_destroy(node);
+            avl_node_destroy(node);
             return child;
         }
-        AVLNode *successor = avlt_find_min(node->right);
+        AVLNode *successor = avl_find_min(node->right);
         node->key = successor->key;
-        node->right = avlt_node_delete(node->right, successor->key);
+        node->right = avl_node_delete(node->right, successor->key);
     }
 
-    return avlt_rebalance(node);
+    return avl_rebalance(node);
 }
-static void avlt_inorder(AVLNode *node)
+static void avl_inorder(AVLNode *node)
 {
     if (node == NULL) {
         return;
     }
-    avlt_inorder(node->left);
+    avl_inorder(node->left);
     printf("%d ", node->key);
-    avlt_inorder(node->right);
+    avl_inorder(node->right);
 }
-void avlt_insert(AVLDictionary *st, AVLItem key)
+void avl_insert(AVLDictionary *st, AVLItem key)
 {
     if (st == NULL) {
         return;
     }
-    st->root = avlt_node_insert(st->root, key);
+    st->root = avl_node_insert(st->root, key);
 }
-void avlt_delete(AVLDictionary *st, AVLItem key)
+void avl_delete(AVLDictionary *st, AVLItem key)
 {
     if (st == NULL) {
         return;
     }
-    st->root = avlt_node_delete(st->root, key);
+    st->root = avl_node_delete(st->root, key);
 }
-AVLNode *avlt_search(AVLDictionary *st, AVLItem key)
+AVLNode *avl_search(AVLDictionary *st, AVLItem key)
 {
     if (st == NULL) {
         return NULL;
@@ -235,15 +235,15 @@ AVLNode *avlt_search(AVLDictionary *st, AVLItem key)
     return NULL;
 }
 
-void avlt_print(AVLDictionary *st)
+void avl_print(AVLDictionary *st)
 {
     if (st == NULL || st->root == NULL) {
         return;
     }
-    avlt_inorder(st->root);
+    avl_inorder(st->root);
     printf("\n");
 }
-AVLItem *avlt_get(AVLNode *node)
+AVLItem *avl_get(AVLNode *node)
 {
     if (node == NULL) {
         return NULL;

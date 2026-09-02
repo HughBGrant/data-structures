@@ -7,17 +7,17 @@ typedef int LItem;
 typedef struct LNode LNode;
 typedef struct LinkedBinaryTree LBinaryTree;
 
-LNode *lbt_set_left(LNode *parent, LItem data);
-LNode *lbt_set_right(LNode *parent, LItem data);
-LNode *lbt_left(LNode *node);
-LNode *lbt_right(LNode *node);
-LItem *lbt_get(LNode *node);
-void lbt_preorder(LNode *node);
-void lbt_inorder(LNode *node);
-void lbt_postorder(LNode *node);
+LNode *l_set_left(LNode *parent, LItem data);
+LNode *l_set_right(LNode *parent, LItem data);
+LNode *l_left(LNode *node);
+LNode *l_right(LNode *node);
+LItem *l_get(LNode *node);
+void l_preorder(LNode *node);
+void l_inorder(LNode *node);
+void l_postorder(LNode *node);
 
-void lbt_subtree_destroy(LNode *node);
-LNode *lbt_node_create(LItem data);
-void lbt_node_destroy(LNode *node);
+void l_subtree_destroy(LNode *node);
+LNode *l_node_create(LItem data);
+void l_node_destroy(LNode *node);
 
 #endif

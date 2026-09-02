@@ -9,7 +9,7 @@ struct ArrayStack {
     size_t size;
 };
 
-AStack *as_create(void)
+AStack *a_create(void)
 {
     AStack *stack = malloc(sizeof(AStack));
     if (stack == NULL) {
@@ -27,7 +27,7 @@ AStack *as_create(void)
 
     return stack;
 }
-void as_destroy(AStack *stack)
+void a_destroy(AStack *stack)
 {
     if (stack == NULL) {
         return;
@@ -35,7 +35,7 @@ void as_destroy(AStack *stack)
     free(stack->items);
     free(stack);
 }
-void as_push(AStack *stack, AItem data)
+void a_push(AStack *stack, AItem data)
 {
     if (stack == NULL) {
         return;
@@ -55,26 +55,26 @@ void as_push(AStack *stack, AItem data)
     stack->items[stack->size] = data;
     stack->size++;
 }
-AItem as_pop(AStack *stack)
+AItem a_pop(AStack *stack)
 {
-    if (as_is_empty(stack)) {
+    if (a_is_empty(stack)) {
         return 0;
     }
     stack->size--;
     return stack->items[stack->size];
 }
-AItem as_top(AStack *stack)
+AItem a_top(AStack *stack)
 {
-    if (as_is_empty(stack)) {
+    if (a_is_empty(stack)) {
         return 0;
     }
     return stack->items[stack->size - 1];
 }
-size_t as_size(AStack *stack)
+size_t a_size(AStack *stack)
 {
     return stack ? stack->size : 0;
 }
-bool as_is_empty(AStack *stack)
+bool a_is_empty(AStack *stack)
 {
     return stack == NULL || stack->size == 0;
 }

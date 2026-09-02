@@ -9,7 +9,7 @@ struct BinaryHeap {
     size_t size;
 };
 
-BPriorityQueue *bh_create(void)
+BPriorityQueue *b_create(void)
 {
     BPriorityQueue *heap = malloc(sizeof(BPriorityQueue));
     if (heap == NULL) {
@@ -27,7 +27,7 @@ BPriorityQueue *bh_create(void)
 
     return heap;
 }
-void bh_destroy(BPriorityQueue *heap)
+void b_destroy(BPriorityQueue *heap)
 {
     if (heap == NULL) {
         return;
@@ -35,7 +35,7 @@ void bh_destroy(BPriorityQueue *heap)
     free(heap->items);
     free(heap);
 }
-void bh_insert(BPriorityQueue *heap, int priority)
+void b_insert(BPriorityQueue *heap, int priority)
 {
     if (heap == NULL) {
         return;
@@ -55,7 +55,7 @@ void bh_insert(BPriorityQueue *heap, int priority)
     heap->items[index] = (BItem){priority};
     heap->size++;
 }
-BItem bh_extract(BPriorityQueue *heap)
+BItem b_extract(BPriorityQueue *heap)
 {
     BItem top = (BItem){0};
 
@@ -67,12 +67,12 @@ BItem bh_extract(BPriorityQueue *heap)
 
     if (heap->size > 0) {
         heap->items[0] = heap->items[heap->size];
-        bh_heapify(heap->items, heap->size, 0);
+        b_heapify(heap->items, heap->size, 0);
     }
 
     return top;
 }
-void bh_heapify(BItem *items, size_t size, size_t parent)
+void b_heapify(BItem *items, size_t size, size_t parent)
 {
     size_t left = 2 * parent + 1;
 
@@ -96,9 +96,9 @@ void bh_heapify(BItem *items, size_t size, size_t parent)
     items[parent] = items[child];
     items[child] = temp;
 
-    bh_heapify(items, size, child);
+    b_heapify(items, size, child);
 }
-size_t bh_size(BPriorityQueue *heap)
+size_t b_size(BPriorityQueue *heap)
 {
     return heap ? heap->size : 0;
 }

@@ -6,13 +6,13 @@
 typedef int AItem;
 typedef struct ArrayList AList;
 
-void al_insert(AList *list, size_t index, AItem data);
-AItem al_delete(AList *list, size_t index);
-AItem al_get(AList *list, size_t index);
-size_t al_size(AList *list);
-void al_print(AList *list);
+void a_insert(AList *list, size_t index, AItem data);
+AItem a_delete(AList *list, size_t index);
+AItem a_get(AList *list, size_t index);
+size_t a_size(AList *list);
+void a_print(AList *list);
 
-AList *al_create(void);
-void al_destroy(AList *list);
+AList *a_create(void);
+void a_destroy(AList *list);
 
 #endif

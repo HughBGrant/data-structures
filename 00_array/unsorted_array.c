@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 //
-// static int al_linear_search_transpose(al_list *list, al_item key);
+// static int a_linear_search_transpose(a_list *list, a_item key);
 //
-// static int al_linear_search_move2front(al_list *list, al_item key);
+// static int a_linear_search_move2front(a_list *list, a_item key);
 void swap(int *x, int *y)
 {
     int temp = *x;
@@ -33,7 +33,7 @@ void print(int array[], size_t size)
     }
     printf("\n");
 }
-// static int al_linear_search_transpose(al_list *list, al_item key)
+// static int a_linear_search_transpose(a_list *list, a_item key)
 //{
 //     if (list == NULL) {
 //         return -1;
@@ -47,14 +47,14 @@ void print(int array[], size_t size)
 //         return -1;
 //     }
 //     if (index > 0) {
-//         al_item temp = list->items[index - 1];
+//         a_item temp = list->items[index - 1];
 //         list->items[index - 1] = list->items[index];
 //         list->items[index] = temp;
 //         index--;
 //     }
 //     return index;
 // }
-// static int al_linear_search_move2front(al_list *list, al_item key)
+// static int a_linear_search_move2front(a_list *list, a_item key)
 //{
 //     if (list == NULL) {
 //         return -1;

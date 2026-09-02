@@ -7,15 +7,15 @@
 typedef int AItem;
 typedef struct ArrayBinaryTree ABinaryTree;
 
-void abt_insert(ABinaryTree *bt, AItem data);
-AItem *abt_get_parent(ABinaryTree *bt, size_t child_pos);
-AItem *abt_get_left(ABinaryTree *bt, size_t parent_pos);
-AItem *abt_get_right(ABinaryTree *bt, size_t parent_pos);
-void abt_print(ABinaryTree *bt);
-bool abt_is_empty(ABinaryTree *bt);
-size_t abt_size(ABinaryTree *bt);
+void a_insert(ABinaryTree *bt, AItem data);
+AItem *a_get_parent(ABinaryTree *bt, size_t chil_pos);
+AItem *a_get_left(ABinaryTree *bt, size_t parent_pos);
+AItem *a_get_right(ABinaryTree *bt, size_t parent_pos);
+void a_print(ABinaryTree *bt);
+bool a_is_empty(ABinaryTree *bt);
+size_t a_size(ABinaryTree *bt);
 
-ABinaryTree *abt_create(void);
-void abt_destroy(ABinaryTree *bt);
+ABinaryTree *a_create(void);
+void a_destroy(ABinaryTree *bt);
 
 #endif
