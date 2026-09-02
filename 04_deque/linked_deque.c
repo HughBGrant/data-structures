@@ -96,16 +96,16 @@ LItem l_pop_front(LDeque *deque)
     if (l_is_empty(deque)) {
         return 0;
     }
-    l_node *target_node = deque->front;
-    deque->front = target_node->next;
+    l_node *target = deque->front;
+    deque->front = target->next;
 
     if (deque->front == NULL) {
         deque->rear = NULL;
     } else {
         deque->front->prev = NULL;
     }
-    LItem data = target_node->data;
-    l_node_destroy(target_node);
+    LItem data = target->data;
+    l_node_destroy(target);
     return data;
 }
 LItem l_pop_back(LDeque *deque)
@@ -113,16 +113,16 @@ LItem l_pop_back(LDeque *deque)
     if (l_is_empty(deque)) {
         return 0;
     }
-    l_node *target_node = deque->rear;
-    deque->rear = target_node->prev;
+    l_node *target = deque->rear;
+    deque->rear = target->prev;
 
     if (deque->rear == NULL) {
         deque->front = NULL;
     } else {
         deque->rear->next = NULL;
     }
-    LItem data = target_node->data;
-    l_node_destroy(target_node);
+    LItem data = target->data;
+    l_node_destroy(target);
     return data;
 }
 LItem l_front(LDeque *deque)
@@ -145,11 +145,11 @@ size_t l_size(LDeque *deque)
         return 0;
     }
     size_t size = 0;
-    l_node *current_node = deque->front;
+    l_node *current = deque->front;
 
-    while (current_node) {
+    while (current) {
         size++;
-        current_node = current_node->next;
+        current = current->next;
     }
     return size;
 }

@@ -32,7 +32,6 @@ AVLDictionary *avl_create(void)
     if (st == NULL) {
         return NULL;
     }
-
     st->root = NULL;
 
     return st;
@@ -42,7 +41,6 @@ void avl_destroy(AVLDictionary *st)
     if (st == NULL) {
         return;
     }
-
     avl_subtree_destroy(st->root);
     free(st);
 }
@@ -222,14 +220,14 @@ AVLNode *avl_search(AVLDictionary *st, AVLItem key)
     if (st == NULL) {
         return NULL;
     }
-    AVLNode *current_node = st->root;
-    while (current_node != NULL) {
-        if (key == current_node->key) {
-            return current_node;
-        } else if (key < current_node->key) {
-            current_node = current_node->left;
+    AVLNode *current = st->root;
+    while (current != NULL) {
+        if (key == current->key) {
+            return current;
+        } else if (key < current->key) {
+            current = current->left;
         } else {
-            current_node = current_node->right;
+            current = current->right;
         }
     }
     return NULL;

@@ -67,15 +67,15 @@ void cl_insert(CLList *list, size_t index, CLItem data)
         new_node->next = new_node;
         list->tail = new_node;
     } else {
-        cl_node *prev_node = list->tail;
+        cl_node *prev = list->tail;
 
         for (size_t i = 0; i < index; i++) {
-            prev_node = prev_node->next;
+            prev = prev->next;
         }
-        new_node->next = prev_node->next;
-        prev_node->next = new_node;
+        new_node->next = prev->next;
+        prev->next = new_node;
 
-        if (prev_node == list->tail) {
+        if (prev == list->tail) {
             list->tail = new_node;
         }
     }
@@ -86,24 +86,24 @@ CLItem cl_delete(CLList *list, size_t index)
     if (list == NULL || index >= list->size) {
         return 0;
     }
-    cl_node *prev_node = list->tail;
+    cl_node *prev = list->tail;
 
     for (size_t i = 0; i < index; i++) {
-        prev_node = prev_node->next;
+        prev = prev->next;
     }
-    cl_node *target_node = prev_node->next;
+    cl_node *target = prev->next;
 
-    if (prev_node == target_node) {
+    if (prev == target) {
         list->tail = NULL;
     } else {
-        prev_node->next = target_node->next;
+        prev->next = target->next;
 
-        if (list->tail == target_node) {
-            list->tail = prev_node;
+        if (list->tail == target) {
+            list->tail = prev;
         }
     }
-    CLItem data = target_node->data;
-    cl_node_destroy(target_node);
+    CLItem data = target->data;
+    cl_node_destroy(target);
     list->size--;
     return data;
 }
@@ -117,23 +117,23 @@ CLItem cl_get(CLList *list, size_t index)
         return list->tail->data;
     }
 
-    cl_node *target_node = list->tail->next;
+    cl_node *target = list->tail->next;
     for (size_t i = 0; i < index; i++) {
-        target_node = target_node->next;
+        target = target->next;
     }
-    return target_node->data;
+    return target->data;
 }
 void cl_print(CLList *list)
 {
     if (list == NULL || list->tail == NULL) {
         return;
     }
-    cl_node *current_node = list->tail->next;
+    cl_node *current = list->tail->next;
 
     do {
-        printf("%d -> ", current_node->data);
-        current_node = current_node->next;
-    } while (current_node != list->tail->next);
+        printf("%d -> ", current->data);
+        current = current->next;
+    } while (current != list->tail->next);
 
     printf("head\n");
 }

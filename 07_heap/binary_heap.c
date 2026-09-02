@@ -1,6 +1,7 @@
 #include "binary_heap.h"
 #include <stdio.h>
 #include <stdlib.h>
+
 #define INITIAL_CAPACITY 32
 
 struct BinaryHeap {

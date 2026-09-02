@@ -41,52 +41,52 @@ static sl_node *sl_linear_search_move2front(SLList *list, SLItem key)
     if (list == NULL) {
         return NULL;
     }
-    sl_node *prev_node = NULL;
-    sl_node *current_node = list->head;
+    sl_node *prev = NULL;
+    sl_node *current = list->head;
 
-    while (current_node && current_node->data != key) {
-        prev_node = current_node;
-        current_node = current_node->next;
+    while (current && current->data != key) {
+        prev = current;
+        current = current->next;
     }
 
-    if (current_node == NULL) {
+    if (current == NULL) {
         return NULL;
     }
-    if (prev_node) {
-        prev_node->next = current_node->next;
-        current_node->next = list->head;
-        list->head = current_node;
+    if (prev) {
+        prev->next = current->next;
+        current->next = list->head;
+        list->head = current;
     }
-    return current_node;
+    return current;
 }
 static sl_node *sl_linear_search_transpose(SLList *list, SLItem key)
 {
     if (list == NULL) {
         return NULL;
     }
-    sl_node *prev_prev_node = NULL;
-    sl_node *prev_node = NULL;
-    sl_node *current_node = list->head;
+    sl_node *prev_prev = NULL;
+    sl_node *prev = NULL;
+    sl_node *current = list->head;
 
-    while (current_node && current_node->data != key) {
-        prev_prev_node = prev_node;
-        prev_node = current_node;
-        current_node = current_node->next;
+    while (current && current->data != key) {
+        prev_prev = prev;
+        prev = current;
+        current = current->next;
     }
-    if (current_node == NULL) {
+    if (current == NULL) {
         return NULL;
     }
-    if (prev_node) {
-        prev_node->next = current_node->next;
-        current_node->next = prev_node;
+    if (prev) {
+        prev->next = current->next;
+        current->next = prev;
 
-        if (prev_prev_node) {
-            prev_prev_node->next = current_node;
+        if (prev_prev) {
+            prev_prev->next = current;
         } else {
-            list->head = current_node;
+            list->head = current;
         }
     }
-    return current_node;
+    return current;
 }
 SLList *sl_create(void)
 {
@@ -139,22 +139,22 @@ SLItem sl_delete(SLList *list, size_t index)
     if (list == NULL || index >= list->size) {
         return 0;
     }
-    sl_node *target_node = NULL;
+    sl_node *target = NULL;
 
     if (index == 0) {
-        target_node = list->head;
-        list->head = target_node->next;
+        target = list->head;
+        list->head = target->next;
     } else {
-        sl_node *prev_node = list->head;
+        sl_node *prev = list->head;
 
         for (size_t i = 0; i < index - 1; i++) {
-            prev_node = prev_node->next;
+            prev = prev->next;
         }
-        target_node = prev_node->next;
-        prev_node->next = target_node->next;
+        target = prev->next;
+        prev->next = target->next;
     }
-    SLItem data = target_node->data;
-    sl_node_destroy(target_node);
+    SLItem data = target->data;
+    sl_node_destroy(target);
     list->size--;
     return data;
 }
@@ -163,23 +163,23 @@ SLItem sl_get(SLList *list, size_t index)
     if (list == NULL || index >= list->size) {
         return 0;
     }
-    sl_node *target_node = list->head;
+    sl_node *target = list->head;
 
     for (size_t i = 0; i < index; i++) {
-        target_node = target_node->next;
+        target = target->next;
     }
-    return target_node->data;
+    return target->data;
 }
 void sl_print(SLList *list)
 {
     if (list == NULL || list->head == NULL) {
         return;
     }
-    sl_node *current_node = list->head;
+    sl_node *current = list->head;
 
-    while (current_node != NULL) {
-        printf("%d -> ", current_node->data);
-        current_node = current_node->next;
+    while (current != NULL) {
+        printf("%d -> ", current->data);
+        current = current->next;
     }
     printf("\n");
 }

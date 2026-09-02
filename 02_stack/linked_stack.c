@@ -78,11 +78,11 @@ LItem l_pop(LStack *stack)
         return 0;
     }
 
-    l_node *target_node = stack->top;
-    stack->top = target_node->next;
+    l_node *target = stack->top;
+    stack->top = target->next;
 
-    LItem data = target_node->data;
-    l_node_destroy(target_node);
+    LItem data = target->data;
+    l_node_destroy(target);
     return data;
 }
 
@@ -101,11 +101,11 @@ size_t l_size(LStack *stack)
     }
 
     size_t size = 0;
-    l_node *current_node = stack->top;
+    l_node *current = stack->top;
 
-    while (current_node != NULL) {
+    while (current != NULL) {
         size++;
-        current_node = current_node->next;
+        current = current->next;
     }
 
     return size;

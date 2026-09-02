@@ -43,23 +43,23 @@ static dl_node *dl_node_get(DLList *list, size_t pos)
     if (pos == list->size) {
         return list->tail_sentinel;
     }
-    dl_node *target_node = NULL;
+    dl_node *target = NULL;
 
     if (pos < list->size / 2) {
-        target_node = list->head_sentinel->next;
+        target = list->head_sentinel->next;
 
         for (size_t i = 0; i < pos; i++) {
-            target_node = target_node->next;
+            target = target->next;
         }
     } else {
-        target_node = list->tail_sentinel->prev;
+        target = list->tail_sentinel->prev;
 
         for (size_t i = list->size - 1; i > pos; i--) {
-            target_node = target_node->prev;
+            target = target->prev;
         }
     }
 
-    return target_node;
+    return target;
 }
 DLList *dl_create(void)
 {
@@ -111,13 +111,13 @@ void dl_insert(DLList *list, size_t pos, DLItem data)
         return;
     }
 
-    dl_node *next_node = dl_node_get(list, pos);
+    dl_node *next = dl_node_get(list, pos);
 
-    next_node->prev->next = new_node;
-    new_node->prev = next_node->prev;
+    next->prev->next = new_node;
+    new_node->prev = next->prev;
 
-    new_node->next = next_node;
-    next_node->prev = new_node;
+    new_node->next = next;
+    next->prev = new_node;
 
     list->size++;
 }
@@ -127,16 +127,16 @@ DLItem dl_delete(DLList *list, size_t pos)
         return 0;
     }
 
-    dl_node *target_node = dl_node_get(list, pos);
-    if (target_node == NULL) {
+    dl_node *target = dl_node_get(list, pos);
+    if (target == NULL) {
         return 0;
     }
 
-    target_node->prev->next = target_node->next;
-    target_node->next->prev = target_node->prev;
+    target->prev->next = target->next;
+    target->next->prev = target->prev;
 
-    DLItem data = target_node->data;
-    dl_node_destroy(target_node);
+    DLItem data = target->data;
+    dl_node_destroy(target);
     list->size--;
     return data;
 }
@@ -153,11 +153,11 @@ void dl_print(DLList *list)
     if (list == NULL || list->head_sentinel == NULL) {
         return;
     }
-    dl_node *current_node = list->head_sentinel->next;
+    dl_node *current = list->head_sentinel->next;
 
-    while (current_node != list->tail_sentinel) {
-        printf("<- %d ->", current_node->data);
-        current_node = current_node->next;
+    while (current != list->tail_sentinel) {
+        printf("<- %d ->", current->data);
+        current = current->next;
     }
     printf("\n");
 }

@@ -14,11 +14,39 @@ struct CircularDoublyLinkedList {
 };
 
 static cdl_node *cdl_node_create(CDLItem data);
-
 static void cdl_node_destroy(cdl_node *node);
-
 static cdl_node *cdl_node_get(CDLList *list, size_t index);
 
+CDLList *cdl_create(void)
+{
+    CDLList *list = malloc(sizeof(CDLList));
+    if (list == NULL) {
+        return NULL;
+    }
+
+    list->sentinel = cdl_node_create(0);
+    if (list->sentinel == NULL) {
+        free(list);
+        return NULL;
+    }
+    list->sentinel->next = list->sentinel;
+    list->sentinel->prev = list->sentinel;
+
+    list->size = 0;
+
+    return list;
+}
+void cdl_destroy(CDLList *list)
+{
+    if (list == NULL) {
+        return;
+    }
+    while (list->size > 0) {
+        cdl_delete(list, 0);
+    }
+    cdl_node_destroy(list->sentinel);
+    free(list);
+}
 static cdl_node *cdl_node_create(CDLItem data)
 {
     cdl_node *new_node = malloc(sizeof(cdl_node));
@@ -44,51 +72,22 @@ static cdl_node *cdl_node_get(CDLList *list, size_t index)
         return list->sentinel; // 센티널 반환
     }
 
-    cdl_node *target_node = NULL;
+    cdl_node *target = NULL;
 
     if (index < list->size / 2) {
-        target_node = list->sentinel->next;
+        target = list->sentinel->next;
 
         for (size_t i = 0; i < index; i++) {
-            target_node = target_node->next;
+            target = target->next;
         }
     } else {
-        target_node = list->sentinel->prev;
+        target = list->sentinel->prev;
 
         for (size_t i = list->size - 1; i > index; i--) {
-            target_node = target_node->prev;
+            target = target->prev;
         }
     }
-    return target_node;
-}
-CDLList *cdl_create(void)
-{
-    CDLList *list = malloc(sizeof(CDLList));
-    if (list == NULL) {
-        return NULL;
-    }
-    list->sentinel = cdl_node_create(0);
-    if (list->sentinel == NULL) {
-        free(list);
-        return NULL;
-    }
-
-    list->sentinel->next = list->sentinel;
-    list->sentinel->prev = list->sentinel;
-    list->size = 0;
-
-    return list;
-}
-void cdl_destroy(CDLList *list)
-{
-    if (list == NULL) {
-        return;
-    }
-    while (list->size > 0) {
-        cdl_delete(list, 0);
-    }
-    cdl_node_destroy(list->sentinel);
-    free(list);
+    return target;
 }
 void cdl_insert(CDLList *list, size_t index, CDLItem data)
 {
@@ -101,16 +100,16 @@ void cdl_insert(CDLList *list, size_t index, CDLItem data)
         return;
     }
 
-    cdl_node *next_node = cdl_node_get(list, index);
-    if (next_node == NULL) {
+    cdl_node *next = cdl_node_get(list, index);
+    if (next == NULL) {
         return;
     }
-    cdl_node *prev_node = next_node->prev;
-    prev_node->next = new_node;
-    new_node->prev = prev_node;
+    cdl_node *prev = next->prev;
+    prev->next = new_node;
+    new_node->prev = prev;
 
-    new_node->next = next_node;
-    next_node->prev = new_node;
+    new_node->next = next;
+    next->prev = new_node;
 
     list->size++;
 }
@@ -119,17 +118,17 @@ CDLItem cdl_delete(CDLList *list, size_t index)
     if (list == NULL || index >= list->size) {
         return 0;
     }
-    cdl_node *target_node = cdl_node_get(list, index);
-    if (target_node == NULL) {
+    cdl_node *target = cdl_node_get(list, index);
+    if (target == NULL) {
         return 0;
     }
-    cdl_node *prev_node = target_node->prev;
-    cdl_node *next_node = target_node->next;
+    cdl_node *prev = target->prev;
+    cdl_node *next = target->next;
 
-    prev_node->next = next_node;
-    next_node->prev = prev_node;
-    CDLItem data = target_node->data;
-    cdl_node_destroy(target_node);
+    prev->next = next;
+    next->prev = prev;
+    CDLItem data = target->data;
+    cdl_node_destroy(target);
 
     list->size--;
     return data;
@@ -146,11 +145,11 @@ void cdl_print(CDLList *list)
     if (list == NULL || list->sentinel == NULL) {
         return;
     }
-    cdl_node *current_node = list->sentinel->next;
+    cdl_node *current = list->sentinel->next;
 
-    while (current_node != list->sentinel) {
-        printf("<- %d ->", current_node->data);
-        current_node = current_node->next;
+    while (current != list->sentinel) {
+        printf("<- %d ->", current->data);
+        current = current->next;
     }
 
     printf("<- head\n");

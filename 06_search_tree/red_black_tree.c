@@ -17,13 +17,13 @@ static void rb_node_destroy(RBNode *node);
 static void rb_subtree_destroy(RBDictionary *st, RBNode *node);
 static RBNode *rb_node_search(RBDictionary *st, RBNode *node, RBItem key);
 static void rb_transplant(RBDictionary *st, RBNode *ol_node, RBNode *new_node);
-static void rb_fix_delete(RBDictionary *st, RBNode *node);
-static void rb_print_node(RBDictionary *st, RBNode *node, int depth, int black_count);
+static void rb_delete_fixup(RBDictionary *st, RBNode *node);
+static void rb_node_print(RBDictionary *st, RBNode *node, int depth, int black_count);
 static RBNode *rb_node_search_min(RBDictionary *st, RBNode *node);
 static void rb_node_insert(RBDictionary *st, RBNode *node);
 static void rb_rotate_left(RBDictionary *st, RBNode *node);
 static void rb_rotate_right(RBDictionary *st, RBNode *node);
-static void rb_fix_insert(RBDictionary *st, RBNode *node);
+static void rb_insert_fixup(RBDictionary *st, RBNode *node);
 
 RBDictionary *rb_create(void)
 {
@@ -31,6 +31,7 @@ RBDictionary *rb_create(void)
     if (st == NULL) {
         return NULL;
     }
+
     st->nil = rb_node_create(0);
     if (st->nil == NULL) {
         free(st);
@@ -40,6 +41,7 @@ RBDictionary *rb_create(void)
     st->nil->parent = st->nil;
     st->nil->left = st->nil;
     st->nil->right = st->nil;
+
     st->root = st->nil;
 
     return st;
@@ -49,8 +51,7 @@ void rb_destroy(RBDictionary *st)
     if (st == NULL) {
         return;
     }
-
-    rb_subs_destroy(st, st->root);
+    rb_subtree_destroy(st, st->root);
     rb_node_destroy(st->nil);
     free(st);
 }
@@ -73,63 +74,150 @@ static void rb_node_destroy(RBNode *node)
 {
     free(node);
 }
-static void rb_subs_destroy(RBDictionary *st, RBNode *node)
+static void rb_subtree_destroy(RBDictionary *st, RBNode *node)
 {
     if (node == st->nil) {
         return;
     }
-    rb_subs_destroy(st, node->left);
-    rb_subs_destroy(st, node->right);
+    rb_subtree_destroy(st, node->left);
+    rb_subtree_destroy(st, node->right);
     rb_node_destroy(node);
 }
-static void rb_rotate_left(RBDictionary *st, RBNode *node)
+static void rb_rotate_left(RBDictionary *st, RBNode *x)
 {
-    RBNode *child = node->right;
+    RBNode *y = x->right;
 
-    node->right = child->left;
-
-    if (child->left != st->nil) {
-        child->left->parent = node;
+    x->right = y->left;
+    if (y->left != st->nil) {
+        y->left->parent = x;
     }
 
-    child->parent = node->parent;
-
-    if (node->parent == st->nil) {
-        st->root = child;
-    } else if (node == node->parent->left) {
-        node->parent->left = child;
+    y->parent = x->parent;
+    if (x->parent == st->nil) {
+        st->root = y;
+    } else if (x == x->parent->left) {
+        x->parent->left = y;
     } else {
-        node->parent->right = child;
+        x->parent->right = y;
     }
 
-    child->left = node;
-    node->parent = child;
+    y->left = x;
+    x->parent = y;
 }
-
-static void rb_rotate_right(RBDictionary *st, RBNode *node)
+static void rb_rotate_right(RBDictionary *st, RBNode *y)
 {
-    RBNode *child = node->left;
+    RBNode *x = y->left;
 
-    node->left = child->right;
-
-    if (child->right != st->nil) {
-        child->right->parent = node;
+    y->left = x->right;
+    if (x->right != st->nil) {
+        x->right->parent = y;
     }
 
-    child->parent = node->parent;
-
-    if (node->parent == st->nil) {
-        st->root = child;
-    } else if (node == node->parent->left) {
-        node->parent->left = child;
+    x->parent = y->parent;
+    if (y->parent == st->nil) {
+        st->root = x;
+    } else if (y == y->parent->left) {
+        y->parent->left = x;
     } else {
-        node->parent->right = child;
+        y->parent->right = x;
     }
 
-    child->right = node;
-    node->parent = child;
+    x->right = y;
+    y->parent = x;
 }
+void rb_insert(RBDictionary *st, RBItem key)
+{
+    if (st == NULL) {
+        return;
+    }
+    RBNode *node = rb_node_create(key);
+    if (node == NULL) {
+        return;
+    }
 
+    rb_node_insert(st, node);
+    rb_insert_fixup(st, node);
+}
+static void rb_node_insert(RBDictionary *st, RBNode *z)
+{
+    RBNode *y = st->nil;
+    RBNode *current = st->root;
+
+    while (current != st->nil) {
+        y = current;
+
+        if (z->key < current->key) {
+            current = current->left;
+        } else {
+            current = current->right;
+        }
+    }
+
+    z->parent = y;
+
+    if (y == st->nil) {
+        st->root = z;
+    } else if (z->key < y->key) {
+        y->left = z;
+    } else {
+        y->right = z;
+    }
+
+    z->left = st->nil;
+    z->right = st->nil;
+    z->color = RED;
+}
+static void rb_insert_fixup(RBDictionary *st, RBNode *z)
+{
+    while (z->parent->color == RED) {
+        RBNode *parent = z->parent;
+        RBNode *grand = parent->parent;
+
+        if (parent == grand->left) {
+            RBNode *uncle = grand->right;
+
+            if (uncle->color == RED) {
+                parent->color = BLACK;
+                uncle->color = BLACK;
+                grand->color = RED;
+                z = grand;
+            } else {
+                if (z == parent->right) {
+                    z = parent;
+                    rb_rotate_left(st, z);
+                    parent = z->parent;
+                    grand = parent->parent;
+                }
+
+                parent->color = BLACK;
+                grand->color = RED;
+                rb_rotate_right(st, grand);
+            }
+        } else {
+            RBNode *uncle = grand->left;
+
+            if (uncle->color == RED) {
+                parent->color = BLACK;
+                uncle->color = BLACK;
+                grand->color = RED;
+                z = grand;
+            } else {
+                if (z == parent->left) {
+                    z = parent;
+                    rb_rotate_right(st, z);
+                    parent = z->parent;
+                    grand = parent->parent;
+                }
+
+                parent->color = BLACK;
+                grand->color = RED;
+                rb_rotate_left(st, grand);
+            }
+        }
+    }
+
+    st->root->color = BLACK;
+}
 RBNode *rb_search(RBDictionary *st, RBItem key)
 {
     if (st == NULL) {
@@ -159,103 +247,6 @@ static RBNode *rb_node_search_min(RBDictionary *st, RBNode *node)
 
     return rb_node_search_min(st, node->left);
 }
-static void rb_node_insert(RBDictionary *st, RBNode *node)
-{
-    RBNode *parent = st->nil;
-    RBNode *current = st->root;
-
-    while (current != st->nil) {
-        parent = current;
-
-        if (node->key < current->key) {
-            current = current->left;
-        } else {
-            current = current->right;
-        }
-    }
-
-    node->parent = parent;
-
-    if (parent == st->nil) {
-        st->root = node;
-    } else if (node->key < parent->key) {
-        parent->left = node;
-    } else {
-        parent->right = node;
-    }
-
-    node->left = st->nil;
-    node->right = st->nil;
-    node->color = RED;
-}
-static void rb_fix_insert(RBDictionary *st, RBNode *node)
-{
-    while (node->parent->color == RED) {
-        RBNode *parent = node->parent;
-        RBNode *grand = parent->parent;
-
-        if (parent == grand->left) {
-            RBNode *uncle = grand->right;
-
-            if (uncle->color == RED) {
-                parent->color = BLACK;
-                uncle->color = BLACK;
-                grand->color = RED;
-                node = grand;
-            } else {
-                if (node == parent->right) {
-                    node = parent;
-                    rb_rotate_left(st, node);
-                    parent = node->parent;
-                    grand = parent->parent;
-                }
-
-                parent->color = BLACK;
-                grand->color = RED;
-                rb_rotate_right(st, grand);
-            }
-        } else {
-            RBNode *uncle = grand->left;
-
-            if (uncle->color == RED) {
-                parent->color = BLACK;
-                uncle->color = BLACK;
-                grand->color = RED;
-                node = grand;
-            } else {
-                if (node == parent->left) {
-                    node = parent;
-                    rb_rotate_right(st, node);
-                    parent = node->parent;
-                    grand = parent->parent;
-                }
-
-                parent->color = BLACK;
-                grand->color = RED;
-                rb_rotate_left(st, grand);
-            }
-        }
-    }
-
-    st->root->color = BLACK;
-}
-void rb_insert(RBDictionary *st, RBItem key)
-{
-    RBNode *node;
-
-    if (st == NULL) {
-        return;
-    }
-
-    node = rb_node_create(key);
-
-    if (node == NULL) {
-        return;
-    }
-
-    rb_node_insert(st, node);
-    rb_fix_insert(st, node);
-}
 static void rb_transplant(RBDictionary *st, RBNode *ol_node, RBNode *new_node)
 {
     if (ol_node->parent == st->nil) {
@@ -268,7 +259,50 @@ static void rb_transplant(RBDictionary *st, RBNode *ol_node, RBNode *new_node)
 
     new_node->parent = ol_node->parent;
 }
-static void rb_fix_delete(RBDictionary *st, RBNode *node)
+int rb_delete(RBDictionary *st, RBItem key)
+{
+    RBNode *target;
+    RBNode *removed;
+    RBNode *child;
+    Color removed_color;
+
+    if (st == NULL) {
+        return 0;
+    }
+
+    target = rb_search(st, key);
+
+    if (target == NULL) {
+        return 0;
+    }
+
+    removed = target;
+
+    if (target->left != st->nil &&
+        target->right != st->nil) {
+        removed = rb_node_search_min(st, target->right);
+        target->key = removed->key;
+    }
+
+    removed_color = removed->color;
+
+    if (removed->left != st->nil) {
+        child = removed->left;
+    } else {
+        child = removed->right;
+    }
+
+    rb_transplant(st, removed, child);
+
+    if (removed_color == BLACK) {
+        rb_delete_fixup(st, child);
+    }
+
+    rb_node_destroy(removed);
+
+    return 1;
+}
+static void rb_delete_fixup(RBDictionary *st, RBNode *node)
 {
     while (node != st->root && node->color == BLACK) {
         if (node == node->parent->left) {
@@ -331,50 +365,16 @@ static void rb_fix_delete(RBDictionary *st, RBNode *node)
     }
     node->color = BLACK;
 }
-int rb_delete(RBDictionary *st, RBItem key)
+void rb_print(RBDictionary *st)
 {
-    RBNode *target;
-    RBNode *removed;
-    RBNode *child;
-    Color removed_color;
-
     if (st == NULL) {
-        return 0;
+        return;
     }
 
-    target = rb_search(st, key);
-
-    if (target == NULL) {
-        return 0;
-    }
-
-    removed = target;
-
-    if (target->left != st->nil &&
-        target->right != st->nil) {
-        removed = rb_node_search_min(st, target->right);
-        target->key = removed->key;
-    }
-
-    removed_color = removed->color;
-
-    if (removed->left != st->nil) {
-        child = removed->left;
-    } else {
-        child = removed->right;
-    }
-
-    rb_transplant(st, removed, child);
-
-    if (removed_color == BLACK) {
-        rb_fix_delete(st, child);
-    }
-
-    rb_node_destroy(removed);
-
-    return 1;
+    rb_node_print(st, st->root, 0, 0);
 }
-static void rb_print_node(RBDictionary *st, RBNode *node, int depth, int black_count)
+
+static void rb_node_print(RBDictionary *st, RBNode *node, int depth, int black_count)
 {
     int i;
     int parent_key = -1;
@@ -409,15 +409,7 @@ static void rb_print_node(RBDictionary *st, RBNode *node, int depth, int black_c
 
     printf("\n");
 
-    rb_print_node(st, node->left, depth + 1, black_count);
+    rb_node_print(st, node->left, depth + 1, black_count);
 
-    rb_print_node(st, node->right, depth + 1, black_count);
-}
-void rb_print(RBDictionary *st)
-{
-    if (st == NULL) {
-        return;
-    }
-
-    rb_print_node(st, st->root, 0, 0);
+    rb_node_print(st, node->right, depth + 1, black_count);
 }

@@ -74,14 +74,14 @@ LItem l_dequeue(LQueue *queue)
     if (l_is_empty(queue)) {
         return 0;
     }
-    l_node *target_node = queue->front;
-    queue->front = target_node->next;
+    l_node *target = queue->front;
+    queue->front = target->next;
 
     if (queue->front == NULL) {
         queue->rear = NULL;
     }
-    LItem data = target_node->data;
-    l_node_destroy(target_node);
+    LItem data = target->data;
+    l_node_destroy(target);
     return data;
 }
 LItem l_peek(LQueue *queue)
@@ -97,11 +97,11 @@ size_t l_size(LQueue *queue)
         return 0;
     }
     size_t size = 0;
-    l_node *current_node = queue->front;
+    l_node *current = queue->front;
 
-    while (current_node) {
+    while (current) {
         size++;
-        current_node = current_node->next;
+        current = current->next;
     }
 
     return size;
