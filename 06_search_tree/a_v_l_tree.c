@@ -140,6 +140,13 @@ static AVLNode *avl_rebalance(AVLNode *node)
     }
     return node;
 }
+void avl_insert(AVLOrderedSet *st, AVLItem key)
+{
+    if (st == NULL) {
+        return;
+    }
+    st->root = avl_node_insert(st->root, key);
+}
 static AVLNode *avl_node_insert(AVLNode *node, AVLItem key)
 {
     if (node == NULL) {
@@ -154,15 +161,12 @@ static AVLNode *avl_node_insert(AVLNode *node, AVLItem key)
     }
     return avl_rebalance(node);
 }
-static AVLNode *avl_find_min(AVLNode *node)
+void avl_delete(AVLOrderedSet *st, AVLItem key)
 {
-    if (node == NULL) {
-        return NULL;
+    if (st == NULL) {
+        return;
     }
-    while (node->left != NULL) {
-        node = node->left;
-    }
-    return node;
+    st->root = avl_node_delete(st->root, key);
 }
 static AVLNode *avl_node_delete(AVLNode *node, AVLItem key)
 {
@@ -192,28 +196,15 @@ static AVLNode *avl_node_delete(AVLNode *node, AVLItem key)
 
     return avl_rebalance(node);
 }
-static void avl_inorder(AVLNode *node)
+static AVLNode *avl_find_min(AVLNode *node)
 {
     if (node == NULL) {
-        return;
+        return NULL;
     }
-    avl_inorder(node->left);
-    printf("%d ", node->key);
-    avl_inorder(node->right);
-}
-void avl_insert(AVLOrderedSet *st, AVLItem key)
-{
-    if (st == NULL) {
-        return;
+    while (node->left != NULL) {
+        node = node->left;
     }
-    st->root = avl_node_insert(st->root, key);
-}
-void avl_delete(AVLOrderedSet *st, AVLItem key)
-{
-    if (st == NULL) {
-        return;
-    }
-    st->root = avl_node_delete(st->root, key);
+    return node;
 }
 AVLNode *avl_search(AVLOrderedSet *st, AVLItem key)
 {
@@ -232,7 +223,13 @@ AVLNode *avl_search(AVLOrderedSet *st, AVLItem key)
     }
     return NULL;
 }
-
+AVLItem *avl_get(AVLNode *node)
+{
+    if (node == NULL) {
+        return NULL;
+    }
+    return &node->key;
+}
 void avl_print(AVLOrderedSet *st)
 {
     if (st == NULL || st->root == NULL) {
@@ -241,10 +238,12 @@ void avl_print(AVLOrderedSet *st)
     avl_inorder(st->root);
     printf("\n");
 }
-AVLItem *avl_get(AVLNode *node)
+static void avl_inorder(AVLNode *node)
 {
     if (node == NULL) {
-        return NULL;
+        return;
     }
-    return &node->key;
+    avl_inorder(node->left);
+    printf("%d ", node->key);
+    avl_inorder(node->right);
 }

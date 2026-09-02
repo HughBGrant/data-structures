@@ -166,86 +166,51 @@ static void rb_node_insert(RBOrderedSet *st, RBNode *new_node)
         parent->right = new_node;
     }
     rb_insert_fixup(st, new_node);
-}
+} /////////
 static void rb_insert_fixup(RBOrderedSet *st, RBNode *z)
 {
     while (z->parent->color == RED) {
         RBNode *parent = z->parent;
-        RBNode *grand = parent->parent;
 
-        if (parent == grand->left) {
-            RBNode *uncle = grand->right;
+        if (parent == parent->parent->left) {
+            RBNode *uncle = parent->parent->right;
 
             if (uncle->color == RED) {
                 parent->color = BLACK;
                 uncle->color = BLACK;
-                grand->color = RED;
-                z = grand;
+                parent->parent->color = RED;
+                z = parent->parent;
             } else {
                 if (z == parent->right) {
                     z = parent;
                     rb_rotate_left(st, z);
                     parent = z->parent;
-                    grand = parent->parent;
                 }
-
                 parent->color = BLACK;
-                grand->color = RED;
-                rb_rotate_right(st, grand);
+                parent->parent->color = RED;
+                rb_rotate_right(st, parent->parent);
             }
         } else {
-            RBNode *uncle = grand->left;
+            RBNode *uncle = parent->parent->left;
 
             if (uncle->color == RED) {
                 parent->color = BLACK;
                 uncle->color = BLACK;
-                grand->color = RED;
-                z = grand;
+                parent->parent->color = RED;
+                z = parent->parent;
             } else {
                 if (z == parent->left) {
                     z = parent;
                     rb_rotate_right(st, z);
                     parent = z->parent;
-                    grand = parent->parent;
                 }
-
                 parent->color = BLACK;
-                grand->color = RED;
-                rb_rotate_left(st, grand);
+                parent->parent->color = RED;
+                rb_rotate_left(st, parent->parent);
             }
         }
     }
-
     st->root->color = BLACK;
-}
-RBNode *rb_search(RBOrderedSet *st, RBItem key)
-{
-    if (st == NULL) {
-        return NULL;
-    }
-    return rb_node_search(st, st->root, key);
-}
-static RBNode *rb_node_search(RBOrderedSet *st, RBNode *node, RBItem key)
-{
-    if (node == st->nil || node->key == key) {
-        return node == st->nil ? NULL : node;
-    }
-    if (key < node->key) {
-        return rb_node_search(st, node->left, key);
-    }
-    return rb_node_search(st, node->right, key);
-}
-static RBNode *rb_node_search_min(RBOrderedSet *st, RBNode *node)
-{
-    if (node == st->nil) {
-        return st->nil;
-    }
-
-    if (node->left == st->nil) {
-        return node;
-    }
-
-    return rb_node_search_min(st, node->left);
 }
 static void rb_transplant(RBOrderedSet *st, RBNode *ol_node, RBNode *new_node)
 {
@@ -365,6 +330,35 @@ static void rb_delete_fixup(RBOrderedSet *st, RBNode *node)
     }
     node->color = BLACK;
 }
+RBNode *rb_search(RBOrderedSet *st, RBItem key)
+{
+    if (st == NULL) {
+        return NULL;
+    }
+    return rb_node_search(st, st->root, key);
+}
+static RBNode *rb_node_search(RBOrderedSet *st, RBNode *node, RBItem key)
+{
+    if (node == st->nil || node->key == key) {
+        return node == st->nil ? NULL : node;
+    }
+    if (key < node->key) {
+        return rb_node_search(st, node->left, key);
+    }
+    return rb_node_search(st, node->right, key);
+}
+static RBNode *rb_node_search_min(RBOrderedSet *st, RBNode *node)
+{
+    if (node == st->nil) {
+        return st->nil;
+    }
+
+    if (node->left == st->nil) {
+        return node;
+    }
+
+    return rb_node_search_min(st, node->left);
+}
 void rb_print(RBOrderedSet *st)
 {
     if (st == NULL) {
@@ -373,10 +367,10 @@ void rb_print(RBOrderedSet *st)
 
     rb_node_print(st, st->root, 0, 0);
 }
-
 static void rb_node_print(RBOrderedSet *st, RBNode *node, int depth, int black_count)
 {
-    int i;
+    rb_node_print(st, node->left, depth + 1, black_count);
+
     int parent_key = -1;
     char position = 'X';
 
@@ -391,13 +385,14 @@ static void rb_node_print(RBOrderedSet *st, RBNode *node, int depth, int black_c
     if (node->parent != st->nil) {
         parent_key = node->parent->key;
 
-        if (node == node->parent->left)
+        if (node == node->parent->left) {
             position = 'L';
-        else
+        } else {
             position = 'R';
+        }
     }
 
-    for (i = 0; i < depth; i++) {
+    for (int i = 0; i < depth; i++) {
         printf("  ");
     }
 
@@ -408,8 +403,6 @@ static void rb_node_print(RBOrderedSet *st, RBNode *node, int depth, int black_c
     }
 
     printf("\n");
-
-    rb_node_print(st, node->left, depth + 1, black_count);
 
     rb_node_print(st, node->right, depth + 1, black_count);
 }

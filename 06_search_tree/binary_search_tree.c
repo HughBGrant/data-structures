@@ -131,15 +131,6 @@ static BSNode *bs_node_delete(BSNode *node, BSItem key)
     }
     return node;
 }
-static void bs_inorder(BSNode *node)
-{
-    if (node == NULL) {
-        return;
-    }
-    bs_inorder(node->left);
-    printf("%d ", node->key);
-    bs_inorder(node->right);
-}
 BSNode *bs_search(BSOrderedSet *st, BSItem key)
 {
     if (st == NULL) {
@@ -157,6 +148,13 @@ BSNode *bs_search(BSOrderedSet *st, BSItem key)
     }
     return NULL;
 }
+BSItem *bs_get(BSNode *node)
+{
+    if (node == NULL) {
+        return NULL;
+    }
+    return &node->key;
+}
 void bs_print(BSOrderedSet *st)
 {
     if (st == NULL || st->root == NULL) {
@@ -165,10 +163,12 @@ void bs_print(BSOrderedSet *st)
     bs_inorder(st->root);
     printf("\n");
 }
-BSItem *bs_get(BSNode *node)
+static void bs_inorder(BSNode *node)
 {
     if (node == NULL) {
-        return NULL;
+        return;
     }
-    return &node->key;
+    bs_inorder(node->left);
+    printf("%d ", node->key);
+    bs_inorder(node->right);
 }
