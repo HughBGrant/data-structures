@@ -5,7 +5,7 @@
 
 void bs_test(void)
 {
-    BSDictionary *os = bs_create();
+    BSOrderedSet *os = bs_create();
     BSItem datas[] = {10, 20, 30, 40, 50, 25};
 
     for (int i = 0; i < 6; i++) {
@@ -29,7 +29,7 @@ void bs_test(void)
 
 void avl_test(void)
 {
-    AVLDictionary *os = avl_create();
+    AVLOrderedSet *os = avl_create();
     AVLItem datas[] = {10, 20, 30, 40, 50, 25};
 
     for (int i = 0; i < 6; i++) {
@@ -47,7 +47,7 @@ void avl_test(void)
 
 void rb_test(void)
 {
-    RBDictionary *os = rb_create();
+    RBOrderedSet *os = rb_create();
 
     if (os == NULL)
         return;

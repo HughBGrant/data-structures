@@ -5,14 +5,14 @@
 
 typedef int AVLItem;
 typedef struct AVLNode AVLNode;
-typedef struct AVLTree AVLDictionary;
+typedef struct AVLTree AVLOrderedSet;
 
-AVLDictionary *avl_create(void);
-void avl_destroy(AVLDictionary *os);
-void avl_insert(AVLDictionary *os, AVLItem key);
-void avl_delete(AVLDictionary *os, AVLItem key);
-AVLNode *avl_search(AVLDictionary *os, AVLItem key);
+AVLOrderedSet *avl_create(void);
+void avl_destroy(AVLOrderedSet *os);
+void avl_insert(AVLOrderedSet *os, AVLItem key);
+void avl_delete(AVLOrderedSet *os, AVLItem key);
+AVLNode *avl_search(AVLOrderedSet *os, AVLItem key);
 AVLItem *avl_get(AVLNode *node);
-void avl_print(AVLDictionary *os);
+void avl_print(AVLOrderedSet *os);
 
 #endif

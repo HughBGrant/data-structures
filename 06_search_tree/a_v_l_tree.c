@@ -26,9 +26,9 @@ static AVLNode *avl_find_min(AVLNode *node);
 static AVLNode *avl_node_delete(AVLNode *node, AVLItem key);
 static void avl_inorder(AVLNode *node);
 
-AVLDictionary *avl_create(void)
+AVLOrderedSet *avl_create(void)
 {
-    AVLDictionary *st = malloc(sizeof(AVLDictionary));
+    AVLOrderedSet *st = malloc(sizeof(AVLOrderedSet));
     if (st == NULL) {
         return NULL;
     }
@@ -36,7 +36,7 @@ AVLDictionary *avl_create(void)
 
     return st;
 }
-void avl_destroy(AVLDictionary *st)
+void avl_destroy(AVLOrderedSet *st)
 {
     if (st == NULL) {
         return;
@@ -201,21 +201,21 @@ static void avl_inorder(AVLNode *node)
     printf("%d ", node->key);
     avl_inorder(node->right);
 }
-void avl_insert(AVLDictionary *st, AVLItem key)
+void avl_insert(AVLOrderedSet *st, AVLItem key)
 {
     if (st == NULL) {
         return;
     }
     st->root = avl_node_insert(st->root, key);
 }
-void avl_delete(AVLDictionary *st, AVLItem key)
+void avl_delete(AVLOrderedSet *st, AVLItem key)
 {
     if (st == NULL) {
         return;
     }
     st->root = avl_node_delete(st->root, key);
 }
-AVLNode *avl_search(AVLDictionary *st, AVLItem key)
+AVLNode *avl_search(AVLOrderedSet *st, AVLItem key)
 {
     if (st == NULL) {
         return NULL;
@@ -233,7 +233,7 @@ AVLNode *avl_search(AVLDictionary *st, AVLItem key)
     return NULL;
 }
 
-void avl_print(AVLDictionary *st)
+void avl_print(AVLOrderedSet *st)
 {
     if (st == NULL || st->root == NULL) {
         return;

@@ -8,13 +8,13 @@ typedef enum {
 
 typedef int RBItem;
 typedef struct RBNode RBNode;
-typedef struct RedBlackTree RBDictionary;
+typedef struct RedBlackTree RBOrderedSet;
 
-RBDictionary *rb_create(void);
-void rb_destroy(RBDictionary *st);
-void rb_insert(RBDictionary *st, RBItem key);
-RBNode *rb_search(RBDictionary *st, RBItem key);
-int rb_delete(RBDictionary *st, RBItem key);
-void rb_print(RBDictionary *st);
+RBOrderedSet *rb_create(void);
+void rb_destroy(RBOrderedSet *st);
+void rb_insert(RBOrderedSet *st, RBItem key);
+RBNode *rb_search(RBOrderedSet *st, RBItem key);
+int rb_delete(RBOrderedSet *st, RBItem key);
+void rb_print(RBOrderedSet *st);
 
 #endif

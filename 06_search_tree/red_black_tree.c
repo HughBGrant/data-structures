@@ -14,20 +14,20 @@ struct RedBlackTree {
     RBNode *nil;
 };
 static void rb_node_destroy(RBNode *node);
-static void rb_subtree_destroy(RBDictionary *st, RBNode *node);
-static RBNode *rb_node_search(RBDictionary *st, RBNode *node, RBItem key);
-static void rb_transplant(RBDictionary *st, RBNode *ol_node, RBNode *new_node);
-static void rb_delete_fixup(RBDictionary *st, RBNode *node);
-static void rb_node_print(RBDictionary *st, RBNode *node, int depth, int black_count);
-static RBNode *rb_node_search_min(RBDictionary *st, RBNode *node);
-static void rb_node_insert(RBDictionary *st, RBNode *node);
-static void rb_rotate_left(RBDictionary *st, RBNode *node);
-static void rb_rotate_right(RBDictionary *st, RBNode *node);
-static void rb_insert_fixup(RBDictionary *st, RBNode *node);
+static void rb_subtree_destroy(RBOrderedSet *st, RBNode *node);
+static RBNode *rb_node_search(RBOrderedSet *st, RBNode *node, RBItem key);
+static void rb_transplant(RBOrderedSet *st, RBNode *ol_node, RBNode *new_node);
+static void rb_delete_fixup(RBOrderedSet *st, RBNode *node);
+static void rb_node_print(RBOrderedSet *st, RBNode *node, int depth, int black_count);
+static RBNode *rb_node_search_min(RBOrderedSet *st, RBNode *node);
+static void rb_node_insert(RBOrderedSet *st, RBNode *node);
+static void rb_rotate_left(RBOrderedSet *st, RBNode *node);
+static void rb_rotate_right(RBOrderedSet *st, RBNode *node);
+static void rb_insert_fixup(RBOrderedSet *st, RBNode *node);
 
-RBDictionary *rb_create(void)
+RBOrderedSet *rb_create(void)
 {
-    RBDictionary *st = malloc(sizeof(RBDictionary));
+    RBOrderedSet *st = malloc(sizeof(RBOrderedSet));
     if (st == NULL) {
         return NULL;
     }
@@ -46,7 +46,7 @@ RBDictionary *rb_create(void)
 
     return st;
 }
-void rb_destroy(RBDictionary *st)
+void rb_destroy(RBOrderedSet *st)
 {
     if (st == NULL) {
         return;
@@ -63,7 +63,7 @@ static RBNode *rb_node_create(RBItem key)
     }
 
     node->key = key;
-    node->color = BLACK;
+    node->color = RED;
     node->parent = NULL;
     node->left = NULL;
     node->right = NULL;
@@ -74,7 +74,7 @@ static void rb_node_destroy(RBNode *node)
 {
     free(node);
 }
-static void rb_subtree_destroy(RBDictionary *st, RBNode *node)
+static void rb_subtree_destroy(RBOrderedSet *st, RBNode *node)
 {
     if (node == st->nil) {
         return;
@@ -83,7 +83,7 @@ static void rb_subtree_destroy(RBDictionary *st, RBNode *node)
     rb_subtree_destroy(st, node->right);
     rb_node_destroy(node);
 }
-static void rb_rotate_left(RBDictionary *st, RBNode *x)
+static void rb_rotate_left(RBOrderedSet *st, RBNode *x)
 {
     RBNode *y = x->right;
 
@@ -104,7 +104,7 @@ static void rb_rotate_left(RBDictionary *st, RBNode *x)
     y->left = x;
     x->parent = y;
 }
-static void rb_rotate_right(RBDictionary *st, RBNode *y)
+static void rb_rotate_right(RBOrderedSet *st, RBNode *y)
 {
     RBNode *x = y->left;
 
@@ -125,49 +125,49 @@ static void rb_rotate_right(RBDictionary *st, RBNode *y)
     x->right = y;
     y->parent = x;
 }
-void rb_insert(RBDictionary *st, RBItem key)
+void rb_insert(RBOrderedSet *st, RBItem key)
 {
     if (st == NULL) {
         return;
     }
-    RBNode *node = rb_node_create(key);
-    if (node == NULL) {
+    RBNode *new_node = rb_node_create(key);
+    if (new_node == NULL) {
         return;
     }
+    new_node->left = st->nil;
+    new_node->right = st->nil;
 
-    rb_node_insert(st, node);
-    rb_insert_fixup(st, node);
+    rb_node_insert(st, new_node);
 }
-static void rb_node_insert(RBDictionary *st, RBNode *z)
+static void rb_node_insert(RBOrderedSet *st, RBNode *new_node)
 {
-    RBNode *y = st->nil;
+    RBNode *parent = st->nil;
     RBNode *current = st->root;
 
     while (current != st->nil) {
-        y = current;
+        parent = current;
 
-        if (z->key < current->key) {
+        if (new_node->key < current->key) {
             current = current->left;
-        } else {
+        } else if (new_node->key > current->key) {
             current = current->right;
+        } else {
+            free(new_node);
+            return;
         }
     }
+    new_node->parent = parent;
 
-    z->parent = y;
-
-    if (y == st->nil) {
-        st->root = z;
-    } else if (z->key < y->key) {
-        y->left = z;
+    if (parent == st->nil) {
+        st->root = new_node;
+    } else if (new_node->key < parent->key) {
+        parent->left = new_node;
     } else {
-        y->right = z;
+        parent->right = new_node;
     }
-
-    z->left = st->nil;
-    z->right = st->nil;
-    z->color = RED;
+    rb_insert_fixup(st, new_node);
 }
-static void rb_insert_fixup(RBDictionary *st, RBNode *z)
+static void rb_insert_fixup(RBOrderedSet *st, RBNode *z)
 {
     while (z->parent->color == RED) {
         RBNode *parent = z->parent;
@@ -218,14 +218,14 @@ static void rb_insert_fixup(RBDictionary *st, RBNode *z)
 
     st->root->color = BLACK;
 }
-RBNode *rb_search(RBDictionary *st, RBItem key)
+RBNode *rb_search(RBOrderedSet *st, RBItem key)
 {
     if (st == NULL) {
         return NULL;
     }
     return rb_node_search(st, st->root, key);
 }
-static RBNode *rb_node_search(RBDictionary *st, RBNode *node, RBItem key)
+static RBNode *rb_node_search(RBOrderedSet *st, RBNode *node, RBItem key)
 {
     if (node == st->nil || node->key == key) {
         return node == st->nil ? NULL : node;
@@ -235,7 +235,7 @@ static RBNode *rb_node_search(RBDictionary *st, RBNode *node, RBItem key)
     }
     return rb_node_search(st, node->right, key);
 }
-static RBNode *rb_node_search_min(RBDictionary *st, RBNode *node)
+static RBNode *rb_node_search_min(RBOrderedSet *st, RBNode *node)
 {
     if (node == st->nil) {
         return st->nil;
@@ -247,7 +247,7 @@ static RBNode *rb_node_search_min(RBDictionary *st, RBNode *node)
 
     return rb_node_search_min(st, node->left);
 }
-static void rb_transplant(RBDictionary *st, RBNode *ol_node, RBNode *new_node)
+static void rb_transplant(RBOrderedSet *st, RBNode *ol_node, RBNode *new_node)
 {
     if (ol_node->parent == st->nil) {
         st->root = new_node;
@@ -259,7 +259,7 @@ static void rb_transplant(RBDictionary *st, RBNode *ol_node, RBNode *new_node)
 
     new_node->parent = ol_node->parent;
 }
-int rb_delete(RBDictionary *st, RBItem key)
+int rb_delete(RBOrderedSet *st, RBItem key)
 {
     RBNode *target;
     RBNode *removed;
@@ -302,7 +302,7 @@ int rb_delete(RBDictionary *st, RBItem key)
 
     return 1;
 }
-static void rb_delete_fixup(RBDictionary *st, RBNode *node)
+static void rb_delete_fixup(RBOrderedSet *st, RBNode *node)
 {
     while (node != st->root && node->color == BLACK) {
         if (node == node->parent->left) {
@@ -365,7 +365,7 @@ static void rb_delete_fixup(RBDictionary *st, RBNode *node)
     }
     node->color = BLACK;
 }
-void rb_print(RBDictionary *st)
+void rb_print(RBOrderedSet *st)
 {
     if (st == NULL) {
         return;
@@ -374,7 +374,7 @@ void rb_print(RBDictionary *st)
     rb_node_print(st, st->root, 0, 0);
 }
 
-static void rb_node_print(RBDictionary *st, RBNode *node, int depth, int black_count)
+static void rb_node_print(RBOrderedSet *st, RBNode *node, int depth, int black_count)
 {
     int i;
     int parent_key = -1;
