@@ -9,7 +9,7 @@ struct RBNode {
     struct RBNode *left;
     struct RBNode *right;
 };
-struct RBTree {
+struct RedBlackTree {
     RBNode *root;
     RBNode *nil;
 };

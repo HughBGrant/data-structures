@@ -8,7 +8,7 @@ typedef enum {
 
 typedef int RBItem;
 typedef struct RBNode RBNode;
-typedef struct RBTree RBDictionary;
+typedef struct RedBlackTree RBDictionary;
 
 RBDictionary *rbt_create(void);
 void rbt_destroy(RBDictionary *st);

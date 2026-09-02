@@ -5,7 +5,7 @@
 
 typedef int AVLItem;
 typedef struct AVLNode AVLNode;
-typedef struct AVLree AVLDictionary;
+typedef struct AVLTree AVLDictionary;
 
 AVLDictionary *avlt_create(void);
 void avlt_destroy(AVLDictionary *os);

@@ -8,7 +8,7 @@ struct AVLNode {
     struct AVLNode *left;
     struct AVLNode *right;
 };
-struct AVLree {
+struct AVLTree {
     AVLNode *root;
 };
 static AVLNode *avlt_node_create(AVLItem key);
