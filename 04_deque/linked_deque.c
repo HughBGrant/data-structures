@@ -14,7 +14,6 @@ struct LinkedDeque {
 };
 
 static l_node *l_node_create(LItem data);
-
 static void l_node_destroy(l_node *node);
 
 static l_node *l_node_create(LItem data)

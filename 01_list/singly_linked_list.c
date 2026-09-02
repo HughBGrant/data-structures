@@ -13,11 +13,8 @@ struct SinglyLinkedList {
 };
 
 static sl_node *sl_node_create(SLItem data);
-
 static void sl_node_destroy(sl_node *node);
-
 static sl_node *sl_linear_search_move2front(SLList *list, SLItem key);
-
 static sl_node *sl_linear_search_transpose(SLList *list, SLItem key);
 
 static sl_node *sl_node_create(SLItem data)

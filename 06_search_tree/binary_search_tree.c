@@ -12,12 +12,12 @@ struct BinarySearchTree {
     BSNode *root;
 };
 
+static BSNode *bs_node_create(BSItem key);
 static void bs_node_destroy(BSNode *node);
 static void bs_subtree_destroy(BSNode *subtree);
-static BSNode *bs_node_create(BSItem key);
 static BSNode *bs_node_insert(BSNode *node, BSItem key);
-static BSNode *bs_find_min(BSNode *node);
 static BSNode *bs_node_delete(BSNode *node, BSItem key);
+static BSNode *bs_get_min(BSNode *node);
 static void bs_inorder(BSNode *node);
 
 BSOrderedSet *bs_create(void)
@@ -85,7 +85,7 @@ static BSNode *bs_node_insert(BSNode *node, BSItem key)
     }
     return node;
 }
-static BSNode *bs_find_min(BSNode *node)
+static BSNode *bs_get_min(BSNode *node)
 {
     if (node == NULL) {
         return NULL;
@@ -125,7 +125,7 @@ static BSNode *bs_node_delete(BSNode *node, BSItem key)
             return child;
         }
 
-        BSNode *successor = bs_find_min(node->right);
+        BSNode *successor = bs_get_min(node->right);
         node->key = successor->key;
         node->right = bs_node_delete(node->right, successor->key);
     }

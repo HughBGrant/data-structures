@@ -14,16 +14,16 @@ struct AVLTree {
 static AVLNode *avl_node_create(AVLItem key);
 static void avl_node_destroy(AVLNode *node);
 static void avl_subtree_destroy(AVLNode *subtree);
-static size_t avl_height(AVLNode *node);
-static size_t avl_max(size_t a, size_t b);
+static AVLNode *avl_node_insert(AVLNode *node, AVLItem key);
+static AVLNode *avl_node_delete(AVLNode *node, AVLItem key);
+static size_t avl_get_height(AVLNode *node);
+static size_t avl_get_bigger(size_t a, size_t b);
 static void avl_update_height(AVLNode *node);
 static AVLNode *avl_rotate_left(AVLNode *x);
 static AVLNode *avl_rotate_right(AVLNode *y);
 static int avl_balancefactor(AVLNode *node);
 static AVLNode *avl_rebalance(AVLNode *node);
-static AVLNode *avl_node_insert(AVLNode *node, AVLItem key);
-static AVLNode *avl_find_min(AVLNode *node);
-static AVLNode *avl_node_delete(AVLNode *node, AVLItem key);
+static AVLNode *avl_get_min(AVLNode *node);
 static void avl_inorder(AVLNode *node);
 
 AVLOrderedSet *avl_create(void)
@@ -71,11 +71,11 @@ static void avl_subtree_destroy(AVLNode *subtree)
     avl_subtree_destroy(subtree->right);
     avl_node_destroy(subtree);
 }
-static size_t avl_height(AVLNode *node)
+static size_t avl_get_height(AVLNode *node)
 {
     return node ? node->height : 0;
 }
-static size_t avl_max(size_t a, size_t b)
+static size_t avl_get_bigger(size_t a, size_t b)
 {
     return a > b ? a : b;
 }
@@ -84,9 +84,9 @@ static void avl_update_height(AVLNode *node)
     if (node == NULL) {
         return;
     }
-    size_t left_height = avl_height(node->left);
-    size_t right_height = avl_height(node->right);
-    node->height = 1 + avl_max(left_height, right_height);
+    size_t left_height = avl_get_height(node->left);
+    size_t right_height = avl_get_height(node->right);
+    node->height = 1 + avl_get_bigger(left_height, right_height);
 }
 static AVLNode *avl_rotate_left(AVLNode *x)
 {
@@ -114,7 +114,7 @@ static AVLNode *avl_rotate_right(AVLNode *y)
 }
 static int avl_balancefactor(AVLNode *node)
 {
-    return (int)avl_height(node->left) - (int)avl_height(node->right);
+    return (int)avl_get_height(node->left) - (int)avl_get_height(node->right);
 }
 static AVLNode *avl_rebalance(AVLNode *node)
 {
@@ -189,14 +189,14 @@ static AVLNode *avl_node_delete(AVLNode *node, AVLItem key)
             avl_node_destroy(node);
             return child;
         }
-        AVLNode *successor = avl_find_min(node->right);
+        AVLNode *successor = avl_get_min(node->right);
         node->key = successor->key;
         node->right = avl_node_delete(node->right, successor->key);
     }
 
     return avl_rebalance(node);
 }
-static AVLNode *avl_find_min(AVLNode *node)
+static AVLNode *avl_get_min(AVLNode *node)
 {
     if (node == NULL) {
         return NULL;

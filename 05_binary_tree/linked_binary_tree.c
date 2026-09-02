@@ -10,6 +10,7 @@ struct LNode {
 struct LinkedBinaryTree {
     LNode *root;
 };
+
 void l_subtree_destroy(LNode *node)
 {
     if (node == NULL) {
@@ -73,12 +74,12 @@ LNode *l_set_right(LNode *parent, LItem data)
 
     return new_child;
 }
-LNode *l_left(LNode *node)
+LNode *l_get_left(LNode *node)
 {
     return node == NULL ? NULL : node->left;
 }
 
-LNode *l_right(LNode *node)
+LNode *l_get_right(LNode *node)
 {
     return node == NULL ? NULL : node->right;
 }

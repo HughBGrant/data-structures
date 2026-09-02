@@ -9,8 +9,8 @@ typedef struct LinkedBinaryTree LBinaryTree;
 
 LNode *l_set_left(LNode *parent, LItem data);
 LNode *l_set_right(LNode *parent, LItem data);
-LNode *l_left(LNode *node);
-LNode *l_right(LNode *node);
+LNode *l_get_left(LNode *node);
+LNode *l_get_right(LNode *node);
 LItem *l_get(LNode *node);
 void l_preorder(LNode *node);
 void l_inorder(LNode *node);
