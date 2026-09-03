@@ -206,18 +206,17 @@ static void rb_insert_fixup(RBOrderedSet *st, RBNode *z)
     }
     st->root->color = BLACK;
 }
-static void rb_transplant(RBOrderedSet *st, RBNode *ol_node, RBNode *new_node)
+static void rb_transplant(RBOrderedSet *st, RBNode *u, RBNode *v)
 {
-    if (ol_node->parent == st->nil) {
-        st->root = new_node;
-    } else if (ol_node == ol_node->parent->left) {
-        ol_node->parent->left = new_node;
+    if (u->parent == st->nil) {
+        st->root = v;
+    } else if (u == u->parent->left) {
+        u->parent->left = v;
     } else {
-        ol_node->parent->right = new_node;
+        u->parent->right = v;
     }
-
-    new_node->parent = ol_node->parent;
-}
+    v->parent = u->parent;
+} //////
 int rb_delete(RBOrderedSet *st, RBItem key)
 {
     if (st == NULL) {
