@@ -165,3 +165,39 @@ size_t dl_size(DLList *list)
 {
     return list ? list->size : 0;
 }
+static dl_node *dl_search(DLList *list, DLItem key)
+{
+    if (list == NULL) {
+        return NULL;
+    }
+    dl_node *current = list->head_sentinel->next;
+
+    while (current != list->tail_sentinel) {
+        if (current->data == key) {
+            return current;
+        }
+        current = current->next;
+    }
+    return NULL;
+}
+// static void dl_node_insert(DLList *list, dl_node *prev, dl_node *node)
+//{
+//     if (list == NULL || prev == NULL || node == NULL) {
+//         return;
+//     }
+//     node->next = prev->next;
+//     prev->next->prev = node;
+//     prev->next = node;
+//     node->prev = prev;
+//     list->size++;
+// }
+// static void dl_node_delete(DLList *list, dl_node *node)
+//{
+//    if (list == NULL || node == NULL) {
+//        return;
+//    }
+//    node->prev->next = node->next;
+//    node->next->prev = node->prev;
+//    dl_node_destroy(node);
+//    list->size--;
+//}

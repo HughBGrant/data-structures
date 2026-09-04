@@ -14,77 +14,8 @@ struct SinglyLinkedList {
 
 static sl_node *sl_node_create(SLItem data);
 static void sl_node_destroy(sl_node *node);
-static sl_node *sl_linear_search_move2front(SLList *list, SLItem key);
-static sl_node *sl_linear_search_transpose(SLList *list, SLItem key);
+static sl_node *sl_search(SLList *list, SLItem key);
 
-static sl_node *sl_node_create(SLItem data)
-{
-    sl_node *new_node = malloc(sizeof(sl_node));
-    if (new_node == NULL) {
-        return NULL;
-    }
-
-    new_node->data = data;
-    new_node->next = NULL;
-
-    return new_node;
-}
-static void sl_node_destroy(sl_node *node)
-{
-    free(node);
-}
-static sl_node *sl_linear_search_move2front(SLList *list, SLItem key)
-{
-    if (list == NULL) {
-        return NULL;
-    }
-    sl_node *prev = NULL;
-    sl_node *current = list->head;
-
-    while (current && current->data != key) {
-        prev = current;
-        current = current->next;
-    }
-
-    if (current == NULL) {
-        return NULL;
-    }
-    if (prev) {
-        prev->next = current->next;
-        current->next = list->head;
-        list->head = current;
-    }
-    return current;
-}
-static sl_node *sl_linear_search_transpose(SLList *list, SLItem key)
-{
-    if (list == NULL) {
-        return NULL;
-    }
-    sl_node *prev_prev = NULL;
-    sl_node *prev = NULL;
-    sl_node *current = list->head;
-
-    while (current && current->data != key) {
-        prev_prev = prev;
-        prev = current;
-        current = current->next;
-    }
-    if (current == NULL) {
-        return NULL;
-    }
-    if (prev) {
-        prev->next = current->next;
-        current->next = prev;
-
-        if (prev_prev) {
-            prev_prev->next = current;
-        } else {
-            list->head = current;
-        }
-    }
-    return current;
-}
 SLList *sl_create(void)
 {
     SLList *list = malloc(sizeof(SLList));
@@ -107,6 +38,22 @@ void sl_destroy(SLList *list)
         sl_delete(list, 0);
     }
     free(list);
+}
+static sl_node *sl_node_create(SLItem data)
+{
+    sl_node *new_node = malloc(sizeof(sl_node));
+    if (new_node == NULL) {
+        return NULL;
+    }
+
+    new_node->data = data;
+    new_node->next = NULL;
+
+    return new_node;
+}
+static void sl_node_destroy(sl_node *node)
+{
+    free(node);
 }
 void sl_insert(SLList *list, size_t index, SLItem data)
 {
