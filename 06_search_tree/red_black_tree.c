@@ -139,14 +139,14 @@ void rb_insert(RBOrderedSet *st, RBItem key)
     new_node->right = st->nil;
 
     RBNode *parent = st->nil;
-    RBNode *current = st->root;
+    RBNode *target = st->root;
 
-    while (current != st->nil) {
-        parent = current;
-        if (new_node->key < current->key) {
-            current = current->left;
-        } else if (new_node->key > current->key) {
-            current = current->right;
+    while (target != st->nil) {
+        parent = target;
+        if (new_node->key < target->key) {
+            target = target->left;
+        } else if (new_node->key > target->key) {
+            target = target->right;
         } else {
             free(new_node);
             return;

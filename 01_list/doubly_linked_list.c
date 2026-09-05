@@ -170,13 +170,13 @@ static dl_node *dl_search(DLList *list, int key)
     if (list == NULL) {
         return NULL;
     }
-    dl_node *current = list->head_sentinel->next;
+    dl_node *target = list->head_sentinel->next;
 
-    while (current != list->tail_sentinel) {
-        if (current->data == key) {
-            return current;
+    while (target != list->tail_sentinel) {
+        if (target->data == key) {
+            return target;
         }
-        current = current->next;
+        target = target->next;
     }
     return NULL;
 }

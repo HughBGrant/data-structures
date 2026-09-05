@@ -215,14 +215,14 @@ AVLNode *avl_search(AVLOrderedSet *st, int key)
     if (st == NULL) {
         return NULL;
     }
-    AVLNode *current = st->root;
-    while (current != NULL) {
-        if (key == current->data.key) {
-            return current;
-        } else if (key < current->data.key) {
-            current = current->left;
+    AVLNode *target = st->root;
+    while (target != NULL) {
+        if (key == target->data.key) {
+            return target;
+        } else if (key < target->data.key) {
+            target = target->left;
         } else {
-            current = current->right;
+            target = target->right;
         }
     }
     return NULL;

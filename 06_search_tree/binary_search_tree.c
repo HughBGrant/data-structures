@@ -20,7 +20,8 @@ static BSNode *bs_node_create(int key);
 static void bs_node_destroy(BSNode *node);
 static void bs_subtree_destroy(BSNode *subtree);
 static BSNode *bs_node_insert(BSNode *node, int key);
-static BSNode *bs_node_delete(BSNode *node, int key);
+static void bs_transplant(BSOrderedSet *st, BSNode *parent,
+                          BSNode *old_child, BSNode *new_child);
 static BSNode *bs_get_min(BSNode *node);
 static void bs_inorder(BSNode *node);
 
@@ -94,36 +95,54 @@ void bs_delete(BSOrderedSet *st, int key)
     if (st == NULL) {
         return;
     }
-    st->root = bs_node_delete(st->root, key);
-}
-static BSNode *bs_node_delete(BSNode *node, int key)
-{
-    if (node == NULL) {
-        return NULL;
-    }
-
-    if (key < node->data.key) {
-        node->left = bs_node_delete(node->left, key);
-    } else if (key > node->data.key) {
-        node->right = bs_node_delete(node->right, key);
-    } else {
-        if (node->left == NULL || node->right == NULL) {
-            BSNode *child = NULL;
-
-            if (node->left) {
-                child = node->left;
-            } else {
-                child = node->right;
-            }
-            bs_node_destroy(node);
-            return child;
+    ///////////
+    BSNode *target_parent = NULL;
+    BSNode *target = st->root;
+    while (target && target->data.key != key) {
+        target_parent = target;
+        if (key < target->data.key) {
+            target = target->left;
+        } else {
+            target = target->right;
         }
-
-        BSNode *successor = bs_get_min(node->right);
-        node->data.key = successor->data.key;
-        node->right = bs_node_delete(node->right, successor->data.key);
     }
-    return node;
+    if (target == NULL) {
+        return;
+    }
+    //////////////
+    if (target->left == NULL || target->right == NULL) {
+        BSNode *child = target->left ? target->left : target->right;
+
+        bs_transplant(st, target_parent, target, child);
+        bs_node_destroy(target);
+        return;
+    }
+    ///////////
+    BSNode *succ_parent = target;
+    BSNode *succ = target->right;
+    while (succ->left != NULL) {
+        succ_parent = succ;
+        succ = succ->left;
+    }
+    ///////////
+    if (succ != target->right) {
+        bs_transplant(st, succ_parent, succ, succ->right);
+        succ->right = target->right;
+    }
+    bs_transplant(st, target_parent, target, succ);
+    succ->left = target->left;
+    bs_node_destroy(target);
+}
+static void bs_transplant(BSOrderedSet *st, BSNode *parent,
+                          BSNode *old_child, BSNode *new_child)
+{
+    if (parent == NULL) {
+        st->root = new_child;
+    } else if (old_child == parent->left) {
+        parent->left = new_child;
+    } else {
+        parent->right = new_child;
+    }
 }
 static BSNode *bs_get_min(BSNode *node)
 {
@@ -140,14 +159,14 @@ BSNode *bs_search(BSOrderedSet *st, int key)
     if (st == NULL) {
         return NULL;
     }
-    BSNode *current = st->root;
-    while (current != NULL) {
-        if (key == current->data.key) {
-            return current;
-        } else if (key < current->data.key) {
-            current = current->left;
+    BSNode *target = st->root;
+    while (target != NULL) {
+        if (key == target->data.key) {
+            return target;
+        } else if (key < target->data.key) {
+            target = target->left;
         } else {
-            current = current->right;
+            target = target->right;
         }
     }
     return NULL;
