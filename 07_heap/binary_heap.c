@@ -4,6 +4,10 @@
 
 #define INITIAL_CAPACITY 32
 
+struct BItem {
+    int priority;
+};
+
 struct BinaryHeap {
     BItem *items;
     size_t capacity;
@@ -56,14 +60,14 @@ void b_insert(BPriorityQueue *heap, int priority)
     heap->items[index] = (BItem){priority};
     heap->size++;
 }
-BItem b_extract(BPriorityQueue *heap)
+int b_extract(BPriorityQueue *heap)
 {
-    BItem top = (BItem){0};
+    int top = 0;
 
     if (heap == NULL || heap->size == 0) {
         return top;
     }
-    top = heap->items[0];
+    top = heap->items[0].priority;
     heap->size--;
 
     if (heap->size > 0) {

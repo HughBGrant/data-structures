@@ -2,8 +2,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef struct {
+    int key;
+} BSItem;
+
 struct BSNode {
-    BSItem key;
+    BSItem data;
     struct BSNode *left;
     struct BSNode *right;
 };
@@ -12,11 +16,11 @@ struct BinarySearchTree {
     BSNode *root;
 };
 
-static BSNode *bs_node_create(BSItem key);
+static BSNode *bs_node_create(int key);
 static void bs_node_destroy(BSNode *node);
 static void bs_subtree_destroy(BSNode *subtree);
-static BSNode *bs_node_insert(BSNode *node, BSItem key);
-static BSNode *bs_node_delete(BSNode *node, BSItem key);
+static BSNode *bs_node_insert(BSNode *node, int key);
+static BSNode *bs_node_delete(BSNode *node, int key);
 static BSNode *bs_get_min(BSNode *node);
 static void bs_inorder(BSNode *node);
 
@@ -40,14 +44,14 @@ void bs_destroy(BSOrderedSet *st)
     bs_subtree_destroy(st->root);
     free(st);
 }
-static BSNode *bs_node_create(BSItem key)
+static BSNode *bs_node_create(int key)
 {
     BSNode *new_node = malloc(sizeof(BSNode));
     if (new_node == NULL) {
         return NULL;
     }
 
-    new_node->key = key;
+    new_node->data.key = key;
     new_node->left = NULL;
     new_node->right = NULL;
 
@@ -66,41 +70,41 @@ static void bs_subtree_destroy(BSNode *subtree)
     bs_subtree_destroy(subtree->right);
     bs_node_destroy(subtree);
 }
-void bs_insert(BSOrderedSet *st, BSItem key)
+void bs_insert(BSOrderedSet *st, int key)
 {
     if (st == NULL) {
         return;
     }
     st->root = bs_node_insert(st->root, key);
 }
-static BSNode *bs_node_insert(BSNode *node, BSItem key)
+static BSNode *bs_node_insert(BSNode *node, int key)
 {
     if (node == NULL) {
         return bs_node_create(key);
     }
-    if (key < node->key) {
+    if (key < node->data.key) {
         node->left = bs_node_insert(node->left, key);
-    } else if (key > node->key) {
+    } else if (key > node->data.key) {
         node->right = bs_node_insert(node->right, key);
     }
     return node;
 }
-void bs_delete(BSOrderedSet *st, BSItem key)
+void bs_delete(BSOrderedSet *st, int key)
 {
     if (st == NULL) {
         return;
     }
     st->root = bs_node_delete(st->root, key);
 }
-static BSNode *bs_node_delete(BSNode *node, BSItem key)
+static BSNode *bs_node_delete(BSNode *node, int key)
 {
     if (node == NULL) {
         return NULL;
     }
 
-    if (key < node->key) {
+    if (key < node->data.key) {
         node->left = bs_node_delete(node->left, key);
-    } else if (key > node->key) {
+    } else if (key > node->data.key) {
         node->right = bs_node_delete(node->right, key);
     } else {
         if (node->left == NULL || node->right == NULL) {
@@ -116,8 +120,8 @@ static BSNode *bs_node_delete(BSNode *node, BSItem key)
         }
 
         BSNode *successor = bs_get_min(node->right);
-        node->key = successor->key;
-        node->right = bs_node_delete(node->right, successor->key);
+        node->data.key = successor->data.key;
+        node->right = bs_node_delete(node->right, successor->data.key);
     }
     return node;
 }
@@ -131,16 +135,16 @@ static BSNode *bs_get_min(BSNode *node)
     }
     return node;
 }
-BSNode *bs_search(BSOrderedSet *st, BSItem key)
+BSNode *bs_search(BSOrderedSet *st, int key)
 {
     if (st == NULL) {
         return NULL;
     }
     BSNode *current = st->root;
     while (current != NULL) {
-        if (key == current->key) {
+        if (key == current->data.key) {
             return current;
-        } else if (key < current->key) {
+        } else if (key < current->data.key) {
             current = current->left;
         } else {
             current = current->right;
@@ -148,12 +152,12 @@ BSNode *bs_search(BSOrderedSet *st, BSItem key)
     }
     return NULL;
 }
-BSItem *bs_get(BSNode *node)
+int bs_get(BSNode *node)
 {
     if (node == NULL) {
-        return NULL;
+        return 0;
     }
-    return &node->key;
+    return node->data.key;
 }
 void bs_print(BSOrderedSet *st)
 {
@@ -169,6 +173,6 @@ static void bs_inorder(BSNode *node)
         return;
     }
     bs_inorder(node->left);
-    printf("%d ", node->key);
+    printf("%d ", node->data.key);
     bs_inorder(node->right);
 }

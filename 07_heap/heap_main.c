@@ -15,8 +15,7 @@ void b_test(void)
     printf("deleting:\n");
 
     while (b_size(pq) > 0) {
-        BItem item = b_extract(pq);
-        printf("%d\n", item.priority);
+        printf("%d\n", b_extract(pq));
     }
 
     b_destroy(pq);

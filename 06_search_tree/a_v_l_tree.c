@@ -2,8 +2,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef struct {
+    int key;
+} AVLItem;
+
 struct AVLNode {
-    AVLItem key;
+    AVLItem data;
     size_t height;
     struct AVLNode *left;
     struct AVLNode *right;
@@ -11,11 +15,11 @@ struct AVLNode {
 struct AVLTree {
     AVLNode *root;
 };
-static AVLNode *avl_node_create(AVLItem key);
+static AVLNode *avl_node_create(int key);
 static void avl_node_destroy(AVLNode *node);
 static void avl_subtree_destroy(AVLNode *subtree);
-static AVLNode *avl_node_insert(AVLNode *node, AVLItem key);
-static AVLNode *avl_node_delete(AVLNode *node, AVLItem key);
+static AVLNode *avl_node_insert(AVLNode *node, int key);
+static AVLNode *avl_node_delete(AVLNode *node, int key);
 static size_t avl_get_height(AVLNode *node);
 static size_t avl_get_bigger(size_t a, size_t b);
 static void avl_update_height(AVLNode *node);
@@ -44,14 +48,14 @@ void avl_destroy(AVLOrderedSet *st)
     avl_subtree_destroy(st->root);
     free(st);
 }
-static AVLNode *avl_node_create(AVLItem key)
+static AVLNode *avl_node_create(int key)
 {
     AVLNode *new_node = malloc(sizeof(AVLNode));
     if (new_node == NULL) {
         return NULL;
     }
 
-    new_node->key = key;
+    new_node->data.key = key;
     new_node->height = 1;
     new_node->left = NULL;
     new_node->right = NULL;
@@ -140,43 +144,43 @@ static AVLNode *avl_rebalance(AVLNode *node)
     }
     return node;
 }
-void avl_insert(AVLOrderedSet *st, AVLItem key)
+void avl_insert(AVLOrderedSet *st, int key)
 {
     if (st == NULL) {
         return;
     }
     st->root = avl_node_insert(st->root, key);
 }
-static AVLNode *avl_node_insert(AVLNode *node, AVLItem key)
+static AVLNode *avl_node_insert(AVLNode *node, int key)
 {
     if (node == NULL) {
         return avl_node_create(key);
     }
-    if (key < node->key) {
+    if (key < node->data.key) {
         node->left = avl_node_insert(node->left, key);
-    } else if (key > node->key) {
+    } else if (key > node->data.key) {
         node->right = avl_node_insert(node->right, key);
     } else {
         return node;
     }
     return avl_rebalance(node);
 }
-void avl_delete(AVLOrderedSet *st, AVLItem key)
+void avl_delete(AVLOrderedSet *st, int key)
 {
     if (st == NULL) {
         return;
     }
     st->root = avl_node_delete(st->root, key);
 }
-static AVLNode *avl_node_delete(AVLNode *node, AVLItem key)
+static AVLNode *avl_node_delete(AVLNode *node, int key)
 {
     if (node == NULL) {
         return NULL;
     }
 
-    if (key < node->key) {
+    if (key < node->data.key) {
         node->left = avl_node_delete(node->left, key);
-    } else if (key > node->key) {
+    } else if (key > node->data.key) {
         node->right = avl_node_delete(node->right, key);
     } else {
         if (node->left == NULL || node->right == NULL) {
@@ -190,8 +194,8 @@ static AVLNode *avl_node_delete(AVLNode *node, AVLItem key)
             return child;
         }
         AVLNode *successor = avl_get_min(node->right);
-        node->key = successor->key;
-        node->right = avl_node_delete(node->right, successor->key);
+        node->data.key = successor->data.key;
+        node->right = avl_node_delete(node->right, successor->data.key);
     }
 
     return avl_rebalance(node);
@@ -206,16 +210,16 @@ static AVLNode *avl_get_min(AVLNode *node)
     }
     return node;
 }
-AVLNode *avl_search(AVLOrderedSet *st, AVLItem key)
+AVLNode *avl_search(AVLOrderedSet *st, int key)
 {
     if (st == NULL) {
         return NULL;
     }
     AVLNode *current = st->root;
     while (current != NULL) {
-        if (key == current->key) {
+        if (key == current->data.key) {
             return current;
-        } else if (key < current->key) {
+        } else if (key < current->data.key) {
             current = current->left;
         } else {
             current = current->right;
@@ -223,12 +227,12 @@ AVLNode *avl_search(AVLOrderedSet *st, AVLItem key)
     }
     return NULL;
 }
-AVLItem *avl_get(AVLNode *node)
+int avl_get(AVLNode *node)
 {
     if (node == NULL) {
-        return NULL;
+        return 0;
     }
-    return &node->key;
+    return node->data.key;
 }
 void avl_print(AVLOrderedSet *st)
 {
@@ -244,6 +248,6 @@ static void avl_inorder(AVLNode *node)
         return;
     }
     avl_inorder(node->left);
-    printf("%d ", node->key);
+    printf("%d ", node->data.key);
     avl_inorder(node->right);
 }

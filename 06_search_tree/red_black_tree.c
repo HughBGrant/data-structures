@@ -13,6 +13,8 @@ struct RedBlackTree {
     RBNode *root;
     RBNode *nil;
 };
+
+static RBNode *rb_node_create(RBItem key);
 static void rb_node_destroy(RBNode *node);
 static void rb_subtree_destroy(RBOrderedSet *st, RBNode *node);
 static void rb_rotate_left(RBOrderedSet *st, RBNode *node);
@@ -45,15 +47,6 @@ RBOrderedSet *rb_create(void)
 
     return st;
 }
-void rb_destroy(RBOrderedSet *st)
-{
-    if (st == NULL) {
-        return;
-    }
-    rb_subtree_destroy(st, st->root);
-    rb_node_destroy(st->nil);
-    free(st);
-}
 static RBNode *rb_node_create(RBItem key)
 {
     RBNode *node = malloc(sizeof(RBNode));
@@ -68,6 +61,15 @@ static RBNode *rb_node_create(RBItem key)
     node->right = NULL;
 
     return node;
+}
+void rb_destroy(RBOrderedSet *st)
+{
+    if (st == NULL) {
+        return;
+    }
+    rb_subtree_destroy(st, st->root);
+    rb_node_destroy(st->nil);
+    free(st);
 }
 static void rb_node_destroy(RBNode *node)
 {
