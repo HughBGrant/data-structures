@@ -2,6 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef struct {
+    int value;
+} LItem;
 struct LNode {
     LItem data;
     struct LNode *left;
@@ -20,13 +23,13 @@ void l_subtree_destroy(LNode *node)
     l_subtree_destroy(node->right);
     l_node_destroy(node);
 }
-LNode *l_node_create(LItem data)
+LNode *l_node_create(int value)
 {
     LNode *new_node = malloc(sizeof(LNode));
     if (new_node == NULL) {
         return NULL;
     }
-    new_node->data = data;
+    new_node->data.value = value;
     new_node->left = NULL;
     new_node->right = NULL;
 
@@ -36,13 +39,13 @@ void l_node_destroy(LNode *node)
 {
     free(node);
 }
-LNode *l_set_left(LNode *parent, LItem data)
+LNode *l_set_left(LNode *parent, int value)
 {
     if (parent == NULL) {
         return NULL;
     }
 
-    LNode *new_child = l_node_create(data);
+    LNode *new_child = l_node_create(value);
     if (new_child == NULL) {
         return NULL;
     }
@@ -55,13 +58,13 @@ LNode *l_set_left(LNode *parent, LItem data)
 
     return new_child;
 }
-LNode *l_set_right(LNode *parent, LItem data)
+LNode *l_set_right(LNode *parent, int value)
 {
     if (parent == NULL) {
         return NULL;
     }
 
-    LNode *new_child = l_node_create(data);
+    LNode *new_child = l_node_create(value);
     if (new_child == NULL) {
         return NULL;
     }
@@ -84,16 +87,16 @@ LNode *l_get_right(LNode *node)
     return node == NULL ? NULL : node->right;
 }
 
-LItem *l_get(LNode *node)
+int l_get(LNode *node)
 {
-    return node == NULL ? NULL : &node->data;
+    return node == NULL ? 0 : node->data.value;
 }
 void l_preorder(LNode *node)
 {
     if (node == NULL) {
         return;
     }
-    printf("%d ", node->data);
+    printf("%d ", node->data.value);
     l_preorder(node->left);
     l_preorder(node->right);
 }
@@ -103,7 +106,7 @@ void l_inorder(LNode *node)
         return;
     }
     l_inorder(node->left);
-    printf("%d ", node->data);
+    printf("%d ", node->data.value);
     l_inorder(node->right);
 }
 void l_postorder(LNode *node)
@@ -113,5 +116,5 @@ void l_postorder(LNode *node)
     }
     l_postorder(node->left);
     l_postorder(node->right);
-    printf("%d ", node->data);
+    printf("%d ", node->data.value);
 }

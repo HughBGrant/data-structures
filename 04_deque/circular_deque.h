@@ -5,16 +5,15 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-typedef int CItem;
 typedef struct CircularDeque CDeque;
 
-void c_push_front(CDeque *deque, CItem data);
-void c_push_back(CDeque *deque, CItem data);
+void c_push_front(CDeque *deque, int data);
+void c_push_back(CDeque *deque, int data);
 void c_resize(CDeque *deque);
-CItem c_pop_front(CDeque *deque);
-CItem c_pop_back(CDeque *deque);
-CItem c_front(CDeque *deque);
-CItem c_back(CDeque *deque);
+int c_pop_front(CDeque *deque);
+int c_pop_back(CDeque *deque);
+int c_front(CDeque *deque);
+int c_back(CDeque *deque);
 bool c_is_empty(CDeque *deque);
 size_t c_size(CDeque *deque);
 

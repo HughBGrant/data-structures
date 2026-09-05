@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 typedef struct _l_node {
-    LItem data;
+    int data;
     struct _l_node *next;
 } l_node;
 
@@ -12,10 +12,10 @@ struct LinkedQueue {
     l_node *front;
 };
 
-static l_node *l_node_create(LItem data);
+static l_node *l_node_create(int data);
 static void l_node_destroy(l_node *node);
 
-static l_node *l_node_create(LItem data)
+static l_node *l_node_create(int data)
 {
     l_node *new_node = malloc(sizeof(l_node));
     if (new_node == NULL) {
@@ -52,7 +52,7 @@ void l_destroy(LQueue *queue)
     }
     free(queue);
 }
-void l_enqueue(LQueue *queue, LItem data)
+void l_enqueue(LQueue *queue, int data)
 {
     if (queue == NULL) {
         return;
@@ -68,7 +68,7 @@ void l_enqueue(LQueue *queue, LItem data)
     }
     queue->rear = new_rear;
 }
-LItem l_dequeue(LQueue *queue)
+int l_dequeue(LQueue *queue)
 {
     if (l_is_empty(queue)) {
         return 0;
@@ -79,11 +79,11 @@ LItem l_dequeue(LQueue *queue)
     if (queue->front == NULL) {
         queue->rear = NULL;
     }
-    LItem data = target->data;
+    int data = target->data;
     l_node_destroy(target);
     return data;
 }
-LItem l_peek(LQueue *queue)
+int l_peek(LQueue *queue)
 {
     if (l_is_empty(queue)) {
         return 0;

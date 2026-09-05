@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 typedef struct _l_node {
-    LItem data;
+    int data;
     struct _l_node *next;
     struct _l_node *prev;
 } l_node;
@@ -13,10 +13,10 @@ struct LinkedDeque {
     l_node *front;
 };
 
-static l_node *l_node_create(LItem data);
+static l_node *l_node_create(int data);
 static void l_node_destroy(l_node *node);
 
-static l_node *l_node_create(LItem data)
+static l_node *l_node_create(int data)
 {
     l_node *new_node = malloc(sizeof(l_node));
     if (new_node == NULL) {
@@ -55,7 +55,7 @@ void l_destroy(LDeque *deque)
     }
     free(deque);
 }
-void l_push_front(LDeque *deque, LItem data)
+void l_push_front(LDeque *deque, int data)
 {
     if (deque == NULL) {
         return;
@@ -72,7 +72,7 @@ void l_push_front(LDeque *deque, LItem data)
     }
     deque->front = new_front;
 }
-void l_push_back(LDeque *deque, LItem data)
+void l_push_back(LDeque *deque, int data)
 {
     if (deque == NULL) {
         return;
@@ -90,7 +90,7 @@ void l_push_back(LDeque *deque, LItem data)
     }
     deque->rear = new_rear;
 }
-LItem l_pop_front(LDeque *deque)
+int l_pop_front(LDeque *deque)
 {
     if (l_is_empty(deque)) {
         return 0;
@@ -103,11 +103,11 @@ LItem l_pop_front(LDeque *deque)
     } else {
         deque->front->prev = NULL;
     }
-    LItem data = target->data;
+    int data = target->data;
     l_node_destroy(target);
     return data;
 }
-LItem l_pop_back(LDeque *deque)
+int l_pop_back(LDeque *deque)
 {
     if (l_is_empty(deque)) {
         return 0;
@@ -120,18 +120,18 @@ LItem l_pop_back(LDeque *deque)
     } else {
         deque->rear->next = NULL;
     }
-    LItem data = target->data;
+    int data = target->data;
     l_node_destroy(target);
     return data;
 }
-LItem l_front(LDeque *deque)
+int l_front(LDeque *deque)
 {
     if (l_is_empty(deque)) {
         return 0;
     }
     return deque->front->data;
 }
-LItem l_back(LDeque *deque)
+int l_back(LDeque *deque)
 {
     if (l_is_empty(deque)) {
         return 0;

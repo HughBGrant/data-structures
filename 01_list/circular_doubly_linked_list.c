@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 typedef struct _cdl_node {
-    CDLItem data;
+    int data;
     struct _cdl_node *next;
     struct _cdl_node *prev;
 } cdl_node;
@@ -13,7 +13,7 @@ struct CircularDoublyLinkedList {
     size_t size;
 };
 
-static cdl_node *cdl_node_create(CDLItem data);
+static cdl_node *cdl_node_create(int data);
 static void cdl_node_destroy(cdl_node *node);
 static cdl_node *cdl_node_get(CDLList *list, size_t index);
 
@@ -47,7 +47,7 @@ void cdl_destroy(CDLList *list)
     cdl_node_destroy(list->sentinel);
     free(list);
 }
-static cdl_node *cdl_node_create(CDLItem data)
+static cdl_node *cdl_node_create(int data)
 {
     cdl_node *new_node = malloc(sizeof(cdl_node));
     if (new_node == NULL) {
@@ -89,7 +89,7 @@ static cdl_node *cdl_node_get(CDLList *list, size_t index)
     }
     return target;
 }
-void cdl_insert(CDLList *list, size_t index, CDLItem data)
+void cdl_insert(CDLList *list, size_t index, int data)
 {
     if (list == NULL || index > list->size) {
         return;
@@ -113,7 +113,7 @@ void cdl_insert(CDLList *list, size_t index, CDLItem data)
 
     list->size++;
 }
-CDLItem cdl_delete(CDLList *list, size_t index)
+int cdl_delete(CDLList *list, size_t index)
 {
     if (list == NULL || index >= list->size) {
         return 0;
@@ -127,13 +127,13 @@ CDLItem cdl_delete(CDLList *list, size_t index)
 
     prev->next = next;
     next->prev = prev;
-    CDLItem data = target->data;
+    int data = target->data;
     cdl_node_destroy(target);
 
     list->size--;
     return data;
 }
-CDLItem cdl_get(CDLList *list, size_t index)
+int cdl_get(CDLList *list, size_t index)
 {
     if (list == NULL || index >= list->size) {
         return 0;

@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 typedef struct _l_node {
-    LItem data;
+    int data;
     struct _l_node *next;
 } l_node;
 
@@ -11,10 +11,10 @@ struct LinkedStack {
     l_node *top;
 };
 
-static l_node *l_node_create(LItem data);
+static l_node *l_node_create(int data);
 static void l_node_destroy(l_node *node);
 
-static l_node *l_node_create(LItem data)
+static l_node *l_node_create(int data)
 {
     l_node *new_node = malloc(sizeof(l_node));
 
@@ -55,7 +55,7 @@ void l_destroy(LStack *stack)
 
     free(stack);
 }
-void l_push(LStack *stack, LItem data)
+void l_push(LStack *stack, int data)
 {
     if (stack == NULL) {
         return;
@@ -71,7 +71,7 @@ void l_push(LStack *stack, LItem data)
     stack->top = new_top;
 }
 
-LItem l_pop(LStack *stack)
+int l_pop(LStack *stack)
 {
     if (l_is_empty(stack)) {
         return 0;
@@ -80,12 +80,12 @@ LItem l_pop(LStack *stack)
     l_node *target = stack->top;
     stack->top = target->next;
 
-    LItem data = target->data;
+    int data = target->data;
     l_node_destroy(target);
     return data;
 }
 
-LItem l_top(LStack *stack)
+int l_top(LStack *stack)
 {
     if (l_is_empty(stack)) {
         return 0;

@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 typedef struct _cl_node {
-    CLItem data;
+    int data;
     struct _cl_node *next;
 } cl_node;
 
@@ -12,10 +12,10 @@ struct CircularLinkedList {
     size_t size;
 };
 
-static cl_node *cl_node_create(CLItem data);
+static cl_node *cl_node_create(int data);
 static void cl_node_destroy(cl_node *node);
 
-static cl_node *cl_node_create(CLItem data)
+static cl_node *cl_node_create(int data)
 {
     cl_node *new_node = malloc(sizeof(cl_node));
     if (new_node == NULL) {
@@ -54,7 +54,7 @@ void cl_destroy(CLList *list)
     }
     free(list);
 }
-void cl_insert(CLList *list, size_t index, CLItem data)
+void cl_insert(CLList *list, size_t index, int data)
 {
     if (list == NULL || index > list->size) {
         return;
@@ -81,7 +81,7 @@ void cl_insert(CLList *list, size_t index, CLItem data)
     }
     list->size++;
 }
-CLItem cl_delete(CLList *list, size_t index)
+int cl_delete(CLList *list, size_t index)
 {
     if (list == NULL || index >= list->size) {
         return 0;
@@ -102,12 +102,12 @@ CLItem cl_delete(CLList *list, size_t index)
             list->tail = prev;
         }
     }
-    CLItem data = target->data;
+    int data = target->data;
     cl_node_destroy(target);
     list->size--;
     return data;
 }
-CLItem cl_get(CLList *list, size_t index)
+int cl_get(CLList *list, size_t index)
 {
     if (list == NULL || index >= list->size) {
         return 0;

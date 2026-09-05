@@ -4,7 +4,7 @@
 #define INITIAL_CAPACITY 8
 
 struct CircularQueue {
-    CItem *items;
+    int *items;
     size_t capacity;
     size_t front;
     size_t size;
@@ -18,7 +18,7 @@ CQueue *c_create(void)
     }
 
     size_t capacity = INITIAL_CAPACITY;
-    queue->items = malloc(sizeof(CItem) * capacity);
+    queue->items = malloc(sizeof(int) * capacity);
     if (queue->items == NULL) {
         free(queue);
         return NULL;
@@ -38,14 +38,14 @@ void c_destroy(CQueue *queue)
     free(queue->items);
     free(queue);
 }
-void c_enqueue(CQueue *queue, CItem data)
+void c_enqueue(CQueue *queue, int data)
 {
     if (queue == NULL) {
         return;
     }
     if (queue->size == queue->capacity) {
         size_t new_capacity = queue->capacity * 2;
-        CItem *new_items = malloc(sizeof(CItem) * new_capacity);
+        int *new_items = malloc(sizeof(int) * new_capacity);
         if (new_items == NULL) {
             return;
         }
@@ -62,17 +62,17 @@ void c_enqueue(CQueue *queue, CItem data)
     queue->items[rear] = data;
     queue->size++;
 }
-CItem c_dequeue(CQueue *queue)
+int c_dequeue(CQueue *queue)
 {
     if (c_is_empty(queue)) {
         return 0;
     }
-    CItem data = queue->items[queue->front];
+    int data = queue->items[queue->front];
     queue->front = (queue->front + 1) % queue->capacity;
     queue->size--;
     return data;
 }
-CItem c_peek(CQueue *queue)
+int c_peek(CQueue *queue)
 {
     if (c_is_empty(queue)) {
         return 0;

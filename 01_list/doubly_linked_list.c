@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 typedef struct _dl_node {
-    DLItem data;
+    int data;
     struct _dl_node *next;
     struct _dl_node *prev;
 } dl_node;
@@ -14,11 +14,11 @@ struct DoublyLinkedList {
     size_t size;
 };
 
-static dl_node *dl_node_create(DLItem data);
+static dl_node *dl_node_create(int data);
 static void dl_node_destroy(dl_node *node);
 static dl_node *dl_node_get(DLList *list, size_t pos);
 
-static dl_node *dl_node_create(DLItem data)
+static dl_node *dl_node_create(int data)
 {
     dl_node *new_node = malloc(sizeof(dl_node));
     if (new_node == NULL) {
@@ -100,7 +100,7 @@ void dl_destroy(DLList *list)
     dl_node_destroy(list->tail_sentinel);
     free(list);
 }
-void dl_insert(DLList *list, size_t pos, DLItem data)
+void dl_insert(DLList *list, size_t pos, int data)
 {
     if (list == NULL || pos > list->size) {
         return;
@@ -121,7 +121,7 @@ void dl_insert(DLList *list, size_t pos, DLItem data)
 
     list->size++;
 }
-DLItem dl_delete(DLList *list, size_t pos)
+int dl_delete(DLList *list, size_t pos)
 {
     if (list == NULL || pos >= list->size) {
         return 0;
@@ -135,12 +135,12 @@ DLItem dl_delete(DLList *list, size_t pos)
     target->prev->next = target->next;
     target->next->prev = target->prev;
 
-    DLItem data = target->data;
+    int data = target->data;
     dl_node_destroy(target);
     list->size--;
     return data;
 }
-DLItem dl_get(DLList *list, size_t pos)
+int dl_get(DLList *list, size_t pos)
 {
     if (list == NULL || pos >= list->size) {
         return 0;
@@ -165,7 +165,7 @@ size_t dl_size(DLList *list)
 {
     return list ? list->size : 0;
 }
-static dl_node *dl_search(DLList *list, DLItem key)
+static dl_node *dl_search(DLList *list, int key)
 {
     if (list == NULL) {
         return NULL;

@@ -4,7 +4,7 @@
 #define INITIAL_CAPACITY 8
 
 struct ArrayStack {
-    AItem *items;
+    int *items;
     size_t capacity;
     size_t size;
 };
@@ -17,7 +17,7 @@ AStack *a_create(void)
     }
 
     size_t capacity = INITIAL_CAPACITY;
-    stack->items = malloc(sizeof(AItem) * capacity);
+    stack->items = malloc(sizeof(int) * capacity);
     if (stack->items == NULL) {
         free(stack);
         return NULL;
@@ -35,7 +35,7 @@ void a_destroy(AStack *stack)
     free(stack->items);
     free(stack);
 }
-void a_push(AStack *stack, AItem data)
+void a_push(AStack *stack, int data)
 {
     if (stack == NULL) {
         return;
@@ -44,7 +44,7 @@ void a_push(AStack *stack, AItem data)
     if (stack->size == stack->capacity) {
         size_t new_capacity = stack->capacity * 2;
 
-        AItem *new_items = realloc(stack->items, sizeof(AItem) * new_capacity);
+        int *new_items = realloc(stack->items, sizeof(int) * new_capacity);
         if (new_items == NULL) {
             return; // 메모리 부족
         }
@@ -55,7 +55,7 @@ void a_push(AStack *stack, AItem data)
     stack->items[stack->size] = data;
     stack->size++;
 }
-AItem a_pop(AStack *stack)
+int a_pop(AStack *stack)
 {
     if (a_is_empty(stack)) {
         return 0;
@@ -63,7 +63,7 @@ AItem a_pop(AStack *stack)
     stack->size--;
     return stack->items[stack->size];
 }
-AItem a_top(AStack *stack)
+int a_top(AStack *stack)
 {
     if (a_is_empty(stack)) {
         return 0;

@@ -4,14 +4,14 @@
 #define INITIAL_CAPACITY 8
 
 struct ArrayList {
-    AItem *items;
+    int *items;
     size_t capacity;
     size_t size;
 };
 
-static int a_binary_search(AList *list, AItem key);
+static int a_binary_search(AList *list, int key);
 
-static int a_binary_search(AList *list, AItem key)
+static int a_binary_search(AList *list, int key)
 {
     if (list == NULL) {
         return -1;
@@ -42,7 +42,7 @@ AList *a_create(void)
     }
 
     size_t capacity = INITIAL_CAPACITY;
-    list->items = malloc(sizeof(AItem) * capacity);
+    list->items = malloc(sizeof(int) * capacity);
     if (list->items == NULL) {
         free(list);
         return NULL;
@@ -61,7 +61,7 @@ void a_destroy(AList *list)
     free(list);
 }
 
-void a_insert(AList *list, size_t index, AItem data)
+void a_insert(AList *list, size_t index, int data)
 {
     if (list == NULL || index > list->size) {
         return;
@@ -69,7 +69,7 @@ void a_insert(AList *list, size_t index, AItem data)
     if (list->size == list->capacity) {
         size_t new_capacity = list->capacity * 2;
 
-        AItem *new_items = realloc(list->items, sizeof(AItem) * new_capacity);
+        int *new_items = realloc(list->items, sizeof(int) * new_capacity);
         if (new_items == NULL) {
             return; // 메모리 부족
         }
@@ -84,19 +84,19 @@ void a_insert(AList *list, size_t index, AItem data)
     list->items[index] = data;
     list->size++;
 }
-AItem a_delete(AList *list, size_t index)
+int a_delete(AList *list, size_t index)
 {
     if (list == NULL || index >= list->size) {
         return 0;
     }
-    AItem data = list->items[index];
+    int data = list->items[index];
     for (size_t i = index; i < list->size - 1; i++) {
         list->items[i] = list->items[i + 1];
     }
     list->size--;
     return data;
 }
-AItem a_get(AList *list, size_t index)
+int a_get(AList *list, size_t index)
 {
     if (list == NULL || index >= list->size) {
         return 0;

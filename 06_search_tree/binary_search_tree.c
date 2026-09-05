@@ -85,16 +85,6 @@ static BSNode *bs_node_insert(BSNode *node, BSItem key)
     }
     return node;
 }
-static BSNode *bs_get_min(BSNode *node)
-{
-    if (node == NULL) {
-        return NULL;
-    }
-    while (node->left != NULL) {
-        node = node->left;
-    }
-    return node;
-}
 void bs_delete(BSOrderedSet *st, BSItem key)
 {
     if (st == NULL) {
@@ -128,6 +118,16 @@ static BSNode *bs_node_delete(BSNode *node, BSItem key)
         BSNode *successor = bs_get_min(node->right);
         node->key = successor->key;
         node->right = bs_node_delete(node->right, successor->key);
+    }
+    return node;
+}
+static BSNode *bs_get_min(BSNode *node)
+{
+    if (node == NULL) {
+        return NULL;
+    }
+    while (node->left != NULL) {
+        node = node->left;
     }
     return node;
 }

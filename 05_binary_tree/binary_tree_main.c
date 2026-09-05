@@ -6,7 +6,7 @@ void a_test(void)
 {
     ABinaryTree *bt = a_create();
 
-    AItem datas[] = {10, 20, 30, 40, 50, 60, 70};
+    int datas[] = {10, 20, 30, 40, 50, 60, 70};
     for (int i = 0; i < 7; i++) {
         a_insert(bt, datas[i]);
     }
@@ -14,11 +14,11 @@ void a_test(void)
     a_print(bt);
 
     printf("\n");
-    printf("left of 20: %d\n", *a_get_left(bt, 1));
+    printf("left of 20: %d\n", a_get_left(bt, 1));
 
-    printf("right of 20: %d\n", *a_get_right(bt, 1));
+    printf("right of 20: %d\n", a_get_right(bt, 1));
 
-    printf("parent of 50: %d\n", *a_get_parent(bt, 4));
+    printf("parent of 50: %d\n", a_get_parent(bt, 4));
 
     a_destroy(bt);
 }
@@ -49,7 +49,7 @@ void l_test(void)
 }
 int main(void)
 {
-    int bt_number = 1;
+    int bt_number = 0;
 
     switch (bt_number) {
     case 0:

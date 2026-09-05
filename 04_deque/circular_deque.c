@@ -4,7 +4,7 @@
 #define INITIAL_CAPACITY 8
 
 struct CircularDeque {
-    CItem *items;
+    int *items;
     size_t capacity;
     size_t front;
     size_t size;
@@ -18,7 +18,7 @@ CDeque *c_create(void)
     }
 
     size_t capacity = INITIAL_CAPACITY;
-    deque->items = malloc(sizeof(CItem) * capacity);
+    deque->items = malloc(sizeof(int) * capacity);
     if (deque->items == NULL) {
         free(deque);
         return NULL;
@@ -38,7 +38,7 @@ void c_destroy(CDeque *deque)
     free(deque->items);
     free(deque);
 }
-void c_push_front(CDeque *deque, CItem data)
+void c_push_front(CDeque *deque, int data)
 {
     if (deque == NULL) {
         return;
@@ -54,7 +54,7 @@ void c_push_front(CDeque *deque, CItem data)
     deque->items[deque->front] = data;
     deque->size++;
 }
-void c_push_back(CDeque *deque, CItem data)
+void c_push_back(CDeque *deque, int data)
 {
     if (deque == NULL) {
         return;
@@ -72,7 +72,7 @@ void c_push_back(CDeque *deque, CItem data)
 void c_resize(CDeque *deque)
 {
     size_t new_capacity = deque->capacity * 2;
-    CItem *new_items = malloc(sizeof(CItem) * new_capacity);
+    int *new_items = malloc(sizeof(int) * new_capacity);
     if (new_items == NULL) {
         return;
     }
@@ -85,34 +85,34 @@ void c_resize(CDeque *deque)
     deque->capacity = new_capacity;
     deque->front = 0;
 }
-CItem c_pop_front(CDeque *deque)
+int c_pop_front(CDeque *deque)
 {
     if (c_is_empty(deque)) {
         return 0;
     }
-    CItem data = deque->items[deque->front];
+    int data = deque->items[deque->front];
     deque->front = (deque->front + 1) % deque->capacity;
     deque->size--;
     return data;
 }
-CItem c_pop_back(CDeque *deque)
+int c_pop_back(CDeque *deque)
 {
     if (c_is_empty(deque)) {
         return 0;
     }
     size_t back = (deque->front + deque->size - 1) % deque->capacity;
-    CItem data = deque->items[back];
+    int data = deque->items[back];
     deque->size--;
     return data;
 }
-CItem c_front(CDeque *deque)
+int c_front(CDeque *deque)
 {
     if (c_is_empty(deque)) {
         return 0;
     }
     return deque->items[deque->front];
 }
-CItem c_back(CDeque *deque)
+int c_back(CDeque *deque)
 {
     if (c_is_empty(deque)) {
         return 0;

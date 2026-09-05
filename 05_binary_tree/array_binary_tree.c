@@ -3,6 +3,10 @@
 #include <stdlib.h>
 #define INITIAL_CAPACITY 32
 
+typedef struct {
+    int value;
+} AItem;
+
 struct ArrayBinaryTree {
     AItem *items;
     size_t capacity;
@@ -35,7 +39,7 @@ void a_destroy(ABinaryTree *bt)
     free(bt->items);
     free(bt);
 }
-void a_insert(ABinaryTree *bt, AItem data)
+void a_insert(ABinaryTree *bt, int value)
 {
     if (bt == NULL) {
         return;
@@ -45,40 +49,40 @@ void a_insert(ABinaryTree *bt, AItem data)
         return;
     }
 
-    bt->items[bt->size] = data;
+    bt->items[bt->size].value = value;
     bt->size++;
 }
-AItem *a_get_parent(ABinaryTree *bt, size_t chil_pos)
+int a_get_parent(ABinaryTree *bt, size_t child_pos)
 {
-    if (a_is_empty(bt) || chil_pos == 0 || chil_pos >= bt->size) {
-        return NULL;
+    if (a_is_empty(bt) || child_pos == 0 || child_pos >= bt->size) {
+        return 0;
     }
-    size_t parent_pos = (chil_pos - 1) / 2;
+    size_t parent_pos = (child_pos - 1) / 2;
 
-    return &bt->items[parent_pos];
+    return bt->items[parent_pos].value;
 }
-AItem *a_get_left(ABinaryTree *bt, size_t parent_pos)
+int a_get_left(ABinaryTree *bt, size_t parent_pos)
 {
     if (a_is_empty(bt) || parent_pos >= bt->size) {
-        return NULL;
+        return 0;
     }
     size_t left_pos = 2 * parent_pos + 1;
     if (left_pos >= bt->size) {
-        return NULL;
+        return 0;
     }
-    return &bt->items[left_pos];
+    return bt->items[left_pos].value;
 }
-AItem *a_get_right(ABinaryTree *bt, size_t parent_pos)
+int a_get_right(ABinaryTree *bt, size_t parent_pos)
 {
     if (a_is_empty(bt) || parent_pos >= bt->size) {
-        return NULL;
+        return 0;
     }
 
     size_t right_pos = 2 * parent_pos + 2;
     if (right_pos >= bt->size) {
-        return NULL;
+        return 0;
     }
-    return &bt->items[right_pos];
+    return bt->items[right_pos].value;
 }
 void a_print(ABinaryTree *bt)
 {
@@ -86,7 +90,7 @@ void a_print(ABinaryTree *bt)
         return;
     }
     for (size_t i = 0; i < bt->size; i++) {
-        printf("index %zu : %d\n", i, bt->items[i]);
+        printf("index %zu : %d\n", i, bt->items[i].value);
     }
 }
 bool a_is_empty(ABinaryTree *bt)
